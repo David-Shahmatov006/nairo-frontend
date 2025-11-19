@@ -17,7 +17,7 @@ export const Sidebar = () => {
   const [selected, setSelected] = useState<string>("Home");
 
   return (
-    <aside className="flex flex-col max-w-[195px] bg-[#F3F4F6] h-screen border-r border-[#E5E7EB] pt-[150px] pl-4 pr-4 gap-3">
+    <aside className="fixed top-0 left-0 flex flex-col w-[195px] bg-[#F3F4F6] h-screen border-r border-[#E5E7EB] pt-[150px] pl-4 pr-4 gap-3">
       {tabs.map(({ icon: Icon, label }) => (
         <button
           key={label}

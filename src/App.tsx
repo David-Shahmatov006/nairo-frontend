@@ -1,14 +1,18 @@
-import './App.css'
-import { Header } from './components/Header'
-import { Sidebar } from './components/Sidebar'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import { MainLayout } from "./layouts/MainLayout";
+import { Home } from "./screens/Home";
 
 function App() {
   return (
-    <>
-    <Header />
-    <Sidebar />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />}/>
+        </Route>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
