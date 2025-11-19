@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { MainLayout } from "./layouts/MainLayout";
-import { Home } from "./screens/Home";
+import { Main } from "./screens/Main";
+import './i18n'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />}/>
-        </Route>
+          <Route path="/" element={<Main />}/>
       </Routes>
     </Router>
   );

@@ -1,0 +1,32 @@
+{
+    "sidebar": {
+        "home": "Home",
+        "search": "Search Members",
+        "saved": "Saved",
+        "profile": "Profile",
+        "settings": "Settings"
+    },
+    "home": {
+        "welcome_to_nairo": "Welcome to Nairo!",
+        "banner_description": "Build your space, create posts, share your moments with friends, chat anytime, and boost your favorite creators with Nairo coins.",
+        "banner_your_journey": "Your journey starts right now — make it unforgettable!",
+        "quick_actions": "Quick Actions",
+        "get_premium": "Get Nairo Premium",
+        "buy_nairo_coins": "Buy Nairo Coins",
+        "invite_friends": "Invite Friends",
+        "random_connect": "Random Connect",
+        "random_connect_desc": "Discover someone who shares your passions – connect instantly 🚀",
+        "discover_button": "Discover"
+    },
+    "search": {
+        "title": "Search Members",
+        "placeholder": "Search by name or username",
+        "find_desc": "Someone new is waiting to connect",
+        "connect": "Connect"
+    },
+    "saved": {
+        "title": "Saved Posts",
+        "subtitle": "Here are the posts you saved to check later",
+        "no_posts": "You haven't saved any posts yet"
+    }
+}

@@ -1,10 +1,12 @@
 import { useState } from "react";
-import nairoCoins from "../../../../assets/images/nairoCoins.webp";
-import { GetStartedEllipse } from "../../../../assets/svgComponents/GetStartedEllipse";
+import nairoCoins from "../../../../../../../assets/images/nairoCoins.webp";
+import { GetStartedEllipse } from "../../../../../../../assets/svgComponents/GetStartedEllipse";
 import { TfiClose } from "react-icons/tfi";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export const GetStartedLabel = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
@@ -22,19 +24,18 @@ export const GetStartedLabel = () => {
         >
           <img
             src={nairoCoins}
-            className="rotate-[-20deg] z-[1] w-[250px] absolute right-[0%] -bottom-[15%] opacity-95"
+            className="rotate-[-20deg] z-[1] w-[320px] absolute -right-[1%] -bottom-[25%] opacity-95"
           />
           <GetStartedEllipse className="absolute inset-0 h-full" />
           <div className="z-[2]">
             <h1 className="text-[20px] font-manrope font-[700] mb-5">
-              Welcome to Nairo!
+              {t("home.welcome_to_nairo")}
             </h1>
-            <h2 className="relative z-[2] max-w-[75%] font-manrope font-[600] mb-7">
-              Build your space, create posts, share your moments with friends,
-              chat anytime, and boost your favorite creators with Nairo coins.
+            <h2 className="relative z-[2] max-w-[68%] font-manrope font-[600] mb-7">
+               {t("home.banner_description")}
             </h2>
             <p className="text-[20px] font-manrope font-[700]">
-              Your journey starts right now — make it unforgettable!
+               {t("home.banner_your_journey")}
             </p>
           </div>
           <button

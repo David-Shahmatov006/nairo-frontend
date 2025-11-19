@@ -1,0 +1,32 @@
+{
+  "sidebar": {
+    "home": "Inicio",
+    "search": "Buscar miembros",
+    "saved": "Guardado",
+    "profile": "Perfil",
+    "settings": "Configuración"
+  },
+  "home": {
+    "welcome_to_nairo": "¡Bienvenido a Nairo!",
+    "banner_description": "Construye tu espacio, crea publicaciones, comparte tus momentos con amigos, chatea en cualquier momento y apoya a tus creadores favoritos con Nairo coins.",
+    "banner_your_journey": "Tu viaje comienza ahora mismo — ¡hazlo inolvidable!",
+    "quick_actions": "Acciones rápidas",
+    "get_premium": "Obtener Nairo Premium",
+    "buy_nairo_coins": "Comprar Nairo Coins",
+    "invite_friends": "Invitar amigos",
+    "random_connect": "Conexión aleatoria",
+    "random_connect_desc": "Descubre a alguien que comparta tus pasiones – conéctate al instante 🚀",
+    "discover_button": "Descubrir"
+  },
+  "search": {
+    "title": "Buscar usuarios",
+    "placeholder": "Buscar por nombre o usuario",
+    "find_desc": "Alguien nuevo quiere conectar contigo",
+    "connect": "Сonectar"
+  },
+  "saved": {
+    "title": "Publicaciones guardadas",
+    "subtitle": "Aquí están las publicaciones que guardaste para ver más tarde",
+    "no_posts": "Aún no has guardado ninguna publicación"
+  }
+}

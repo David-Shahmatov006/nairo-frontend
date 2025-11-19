@@ -1,0 +1,32 @@
+{
+  "sidebar": {
+    "home": "Accueil",
+    "search": "Rechercher des membres",
+    "saved": "Enregistré",
+    "profile": "Profil",
+    "settings": "Paramètres"
+  },
+  "home": {
+    "welcome_to_nairo": "Bienvenue sur Nairo !",
+    "banner_description": "Construisez votre espace, créez des publications, partagez vos moments avec vos amis, discutez à tout moment et soutenez vos créateurs préférés avec les Nairo coins.",
+    "banner_your_journey": "Votre voyage commence dès maintenant — rendez-le inoubliable !",
+    "quick_actions": "Actions rapides",
+    "get_premium": "Obtenir Nairo Premium",
+    "buy_nairo_coins": "Acheter des Nairo Coins",
+    "invite_friends": "Inviter des amis",
+    "random_connect": "Connexion aléatoire",
+    "random_connect_desc": "Découvrez quelqu'un qui partage vos passions – connectez-vous instantanément 🚀",
+    "discover_button": "Découvrir"
+  },
+  "search": {
+    "title": "Rechercher des membres",
+    "placeholder": "Rechercher par nom ou pseudo",
+    "find_desc": "Quelqu’un de nouveau souhaite se connecter",
+    "connect": "Сonnecter"
+  },
+  "saved": {
+    "title": "Articles sauvegardés",
+    "subtitle": "Voici les articles que vous avez enregistrés pour les consulter plus tard",
+    "no_posts": "Vous n'avez encore enregistré aucun article"
+  }
+}
