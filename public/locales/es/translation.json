@@ -28,5 +28,23 @@
     "title": "Publicaciones guardadas",
     "subtitle": "Aquí están las publicaciones que guardaste para ver más tarde",
     "no_posts": "Aún no has guardado ninguna publicación"
+  },
+  "profile": {
+    "followers": "Seguidores",
+    "following": "Siguiendo",
+    "follow": "Seguir",
+    "posts": "Publicaciones",
+    "nairo_balance": "Saldo Nairo",
+    "edit_profile": "Editar perfil"
+  },
+  "settings": {
+    "change_email": "Cambiar correo",
+    "change_password": "Cambia tu contraseña",
+    "current_mail_label": "Tu correo actual",
+    "old_password_label": "Contraseña antigua",
+    "new_password_label": "Contraseña nueva",
+    "save": "Guardar",
+    "logout": "Cerrar sesión",
+    "password_warning": "Usa una contraseña segura con al menos 8 caracteres, que incluya mayúsculas, minúsculas, números y símbolos."
   }
 }

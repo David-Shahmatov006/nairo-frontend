@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { LANGS } from "../../constants/langs";
 import { Search } from "./tabs/Search";
 import { Saved } from "./tabs/Saved";
+import { Profile } from "./tabs/Profile";
 
 export const Main = () => {
   const savedTab = localStorage.getItem("activeTab");
@@ -29,7 +30,9 @@ export const Main = () => {
       case 1:
         return <Search setActiveTab={setActiveTab} />;
       case 2:
-        return <Saved/>;
+        return <Saved />;
+      case 3:
+        return <Profile />;
       case 4:
         return <Settings />;
       default:

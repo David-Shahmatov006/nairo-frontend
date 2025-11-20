@@ -1,8 +1,8 @@
-import { RxAvatar } from "react-icons/rx";
 import { postsMock } from "../../../../constants/posts";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PostItem } from "../Home/components/components/Posts/components/PostItem";
+import surprisedMuskot from '../../../../assets/images/surprisedMuskot.webp'
 
 const dummyPosts = [
   { id: 1, title: "My First Post", author: "John Doe" },
@@ -27,9 +27,9 @@ export const Saved = () => {
       <p className="text-gray-500 text-sm mb-4">{t("saved.subtitle")}</p>
 
       <div className="flex flex-col gap-4">
-        {dummyPosts.length === 0 ? (
+        {dummyPosts.length !== 0 ? (
           <div className="mt-10 flex flex-col items-center gap-3">
-            <RxAvatar className="w-16 h-16 text-gray-300" />
+            <img src={surprisedMuskot} className="w-[120px]" />
             <span className="text-[17px] text-gray-500 text-center">
               {t("saved.no_posts")}
             </span>

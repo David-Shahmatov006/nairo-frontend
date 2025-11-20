@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AnimatePresence, motion } from "framer-motion";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoMdCheckmark } from "react-icons/io";
 import clsx from "clsx";
 import { useAppStore } from "../../../../../../stores/app";
 import { LANGS } from "../../../../../../constants/langs";
 
 export const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
-  const {selectedLanguage, setSelectedLanguage} = useAppStore()
+  const { selectedLanguage, setSelectedLanguage } = useAppStore();
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   const { i18n } = useTranslation();
@@ -24,11 +24,17 @@ export const LanguageSelector = () => {
   };
 
   return (
-    <div ref={rootRef} className="relative flex justify-end text-left">
+    <div
+      ref={rootRef}
+      className="h-[max-content] relative flex justify-end text-left"
+    >
       <button
         type="button"
         onClick={() => setOpen((s) => !s)}
-        className="w-[150px] flex items-center justify-between px-3 py-1.5 bg-white border border-gray-200 rounded-md shadow-sm hover:ring-2 hover:ring-main/40 duration-300 cursor-pointer"
+        className={clsx(
+          "w-[150px] flex items-center justify-between px-3 py-1.5 bg-white border border-gray-200 rounded-md shadow-sm cursor-pointer duration-300",
+          !open && "hover:ring-2 hover:ring-main/40 "
+        )}
       >
         <div className="flex items-center gap-2">
           <span className="text-lg">{selectedLanguage?.flag}</span>
@@ -50,7 +56,7 @@ export const LanguageSelector = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 mt-[4%] w-[150px] bg-white border border-gray-200 rounded-md shadow-lg z-20 overflow-hidden"
+            className="absolute right-0 mt-[30%] w-[150px] bg-white border border-gray-200 rounded-md shadow-lg z-20 overflow-hidden"
           >
             <div className="py-1">
               {LANGS.map((lang, idx) => {
@@ -68,7 +74,11 @@ export const LanguageSelector = () => {
                   >
                     <span className="text-lg">{lang.flag}</span>
                     <span className="flex-1">{lang.label}</span>
-                    {active && <span className="text-xs text-gray-500">✓</span>}
+                    {active && (
+                      <div>
+                        <IoMdCheckmark />
+                      </div>
+                    )}
                   </div>
                 );
               })}

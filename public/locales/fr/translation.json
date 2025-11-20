@@ -28,5 +28,23 @@
     "title": "Articles sauvegardés",
     "subtitle": "Voici les articles que vous avez enregistrés pour les consulter plus tard",
     "no_posts": "Vous n'avez encore enregistré aucun article"
+  },
+  "profile": {
+    "followers": "Abonnés",
+    "following": "Abonnements",
+    "follow": "Suivre",
+    "posts": "Publications",
+    "nairo_balance": "Solde Nairo",
+    "edit_profile": "Modifier le profil"
+  },
+  "settings": {
+    "change_email": "Changer l’email",
+    "change_password": "Changez votre mot de passe",
+    "current_mail_label": "Votre email actuel",
+    "old_password_label": "Ancien mot de passe",
+    "new_password_label": "Nouveau mot de passe",
+    "save": "Enregistrer",
+    "logout": "Se déconnecter",
+    "password_warning": "Utilisez un mot de passe fort d'au moins 8 caractères, incluant des lettres majuscules et minuscules, des chiffres et des symboles."
   }
 }

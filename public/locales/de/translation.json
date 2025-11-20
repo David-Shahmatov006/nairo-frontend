@@ -1,0 +1,50 @@
+{
+  "sidebar": {
+    "home": "Startseite",
+    "search": "Mitglieder suchen",
+    "saved": "Gespeichert",
+    "profile": "Profil",
+    "settings": "Einstellungen"
+  },
+  "home": {
+    "welcome_to_nairo": "Willkommen bei Nairo!",
+    "banner_description": "Baue deinen eigenen Space, erstelle Posts, teile deine Momente mit Freunden, chatte jederzeit und unterstütze deine Lieblings-Creator mit Nairo-Münzen.",
+    "banner_your_journey": "Deine Reise beginnt jetzt – mach sie unvergesslich!",
+    "quick_actions": "Schnellaktionen",
+    "get_premium": "Nairo Premium erhalten",
+    "buy_nairo_coins": "Nairo-Münzen kaufen",
+    "invite_friends": "Freunde einladen",
+    "random_connect": "Zufällige Verbindung",
+    "random_connect_desc": "Entdecke jemanden, der deine Interessen teilt – verbinde dich sofort 🚀",
+    "discover_button": "Entdecken"
+  },
+  "search": {
+    "title": "Mitglieder suchen",
+    "placeholder": "Nach Name oder Benutzername suchen",
+    "find_desc": "Jemand Neues wartet darauf, sich zu verbinden",
+    "connect": "Verbinden"
+  },
+  "saved": {
+    "title": "Gespeicherte Beiträge",
+    "subtitle": "Hier findest du die Beiträge, die du gespeichert hast",
+    "no_posts": "Du hast noch keine Beiträge gespeichert"
+  },
+  "profile": {
+    "followers": "Follower",
+    "following": "Folgt",
+    "follow": "Folgen",
+    "posts": "Beiträge",
+    "nairo_balance": "Nairo-Guthaben",
+    "edit_profile": "Profil bearbeiten"
+  },
+  "settings": {
+    "change_email": "E-Mail ändern",
+    "change_password": "Ändern Sie Ihr Passwort",
+    "current_mail_label": "Ihre aktuelle E-Mail",
+    "old_password_label": "Altes Passwort",
+    "new_password_label": "Neues Passwort",
+    "save": "Speichern",
+    "logout": "Abmelden",
+    "password_warning": "Verwenden Sie ein starkes Passwort mit mindestens 8 Zeichen, einschließlich Groß- und Kleinbuchstaben, Zahlen und Symbolen."
+  }
+}

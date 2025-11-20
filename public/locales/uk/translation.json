@@ -28,5 +28,23 @@
     "title": "Збережені пости",
     "subtitle": "Тут пости, які ви зберегли для перегляду пізніше",
     "no_posts": "Ви ще не зберегли жодного посту"
+  },
+  "profile": {
+    "followers": "Підписники",
+    "following": "Підписки",
+    "follow": "Підписатися",
+    "posts": "Пости",
+    "nairo_balance": "Баланс Nairo",
+    "edit_profile": "Редагувати профіль"
+  },
+  "settings": {
+    "change_email": "Змінити email",
+    "change_password": "Змініти пароль",
+    "current_mail_label": "Ваш поточний email",
+    "old_password_label": "Старий пароль",
+    "new_password_label": "Новий пароль",
+    "save": "Зберегти",
+    "logout": "Вийти",
+    "password_warning": "Використовуйте надійний пароль щонайменше з 8 символів, включаючи великі та малі літери, цифри та спеціальні символи."
   }
 }
