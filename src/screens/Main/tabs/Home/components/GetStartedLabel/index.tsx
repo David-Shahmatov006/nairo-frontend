@@ -1,6 +1,6 @@
 import { useState } from "react";
-import nairoCoins from "../../../../../../../assets/images/nairoCoins.webp";
-import { GetStartedEllipse } from "../../../../../../../assets/svgComponents/GetStartedEllipse";
+import nairoCoins from "../../../../../../assets/images/nairoCoins.webp";
+import { GetStartedEllipse } from "../../../../../../assets/svgComponents/GetStartedEllipse";
 import { TfiClose } from "react-icons/tfi";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";

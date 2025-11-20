@@ -1,5 +1,5 @@
 import { PiImageBroken } from "react-icons/pi";
-import type { Post } from "../../../../../../../../../types/post";
+import type { Post } from "../../../../../../../../types/post";
 import {
   FaBookmark,
   FaHeart,

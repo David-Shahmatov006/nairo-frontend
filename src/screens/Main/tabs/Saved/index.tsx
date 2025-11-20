@@ -1,7 +1,7 @@
 import { postsMock } from "../../../../constants/posts";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PostItem } from "../Home/components/components/Posts/components/PostItem";
+import { PostItem } from "../Home/components/Posts/components/PostItem";
 import surprisedMuskot from '../../../../assets/images/surprisedMuskot.webp'
 
 const dummyPosts = [

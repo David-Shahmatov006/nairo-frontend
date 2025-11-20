@@ -43,7 +43,7 @@ export const ChangePassword = () => {
             <input
               type="email"
               className="w-full pl-10 pr-10 py-2 border border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
-              placeholder="your.email@example.com"
+              placeholder="Password"
             />
 
             <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#374151]">

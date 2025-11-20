@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 import { NairoBalance } from "./components/NairoBalance";
-import { Posts } from "../Home/components/components/Posts";
+import { Posts } from "../Home/components/Posts";
 import clsx from "clsx";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { useTranslation } from "react-i18next";

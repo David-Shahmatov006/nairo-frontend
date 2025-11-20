@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PiImageBroken } from "react-icons/pi";
 import { motion } from "framer-motion";
-import { postsMock } from "../../../../../../../constants/posts";
+import { postsMock } from "../../../../../../constants/posts";
 import { PostItem } from "./components/PostItem";
 
 export const PostImage = ({ src, title }: { src: string; title: string }) => {

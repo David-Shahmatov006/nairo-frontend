@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import muskots from "../../../../../../../assets/images/happyMuskots.webp";
+import muskots from "../../../../../../assets/images/happyMuskots.webp";
 import { motion } from "framer-motion";
 
 export const RandomConnect = () => {

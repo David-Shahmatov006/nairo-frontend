@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import nairoCoin from "../../../../../../../assets/images/nairoCoin2.webp";
-import nairoPremium from "../../../../../../../assets/images/nairoPremium.webp";
+import nairoCoin from "../../../../../../assets/images/nairoCoin2.webp";
+import nairoPremium from "../../../../../../assets/images/nairoPremium.webp";
 import { motion } from "framer-motion";
 
 export const QuickActions = () => {

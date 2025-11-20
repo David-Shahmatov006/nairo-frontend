@@ -1,7 +1,7 @@
-import { GetStartedLabel } from "./components/components/GetStartedLabel";
-import { Posts } from "./components/components/Posts";
-import { QuickActions } from "./components/components/QuickActions";
-import { RandomConnect } from "./components/components/RandomConnect";
+import { GetStartedLabel } from "./components/GetStartedLabel";
+import { Posts } from "./components/Posts";
+import { QuickActions } from "./components/QuickActions";
+import { RandomConnect } from "./components/RandomConnect";
 
 export const Home = () => {
   return (
