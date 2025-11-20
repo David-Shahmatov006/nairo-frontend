@@ -40,7 +40,7 @@ export const GetStartedLabel = () => {
           </div>
           <button
             onClick={() => setIsVisible(false)}
-            className="z-[2] absolute w-[40px] bg-[#FFFFFF] shadow-shadow-xs border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-[32px] right-[32px] cursor-pointer hover:ring-2 hover:ring-gray-300/50 duration-300"
+            className="z-[2] absolute w-[40px] bg-[#FFFFFF] shadow-shadow-xs border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-[32px] right-[32px] cursor-pointer hover:ring-2 hover:ring-main/40  duration-300"
           >
             <TfiClose />
           </button>
