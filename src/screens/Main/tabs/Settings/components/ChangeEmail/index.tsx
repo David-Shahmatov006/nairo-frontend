@@ -28,7 +28,7 @@ export const ChangeEmail = () => {
           </button>
         </div>
       </div>
-      <button className="mt-5 min-w-[90px] px-4 h-10 rounded-lg bg-main/90 text-white hover:ring-2 hover:ring-main/40 duration-300 cursor-pointer">
+      <button className="mt-5 min-w-[90px] px-4 h-10 rounded-lg font-[500] bg-gray-800 text-white hover:ring-2 hover:ring-main/70 duration-300 cursor-pointer">
         {t("settings.save")}
       </button>
     </div>

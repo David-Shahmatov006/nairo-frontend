@@ -1,4 +1,7 @@
 {
+  "back_button": "Back",
+  "password": "Password",
+  "comments": "Comments",
   "sidebar": {
     "home": "Home",
     "search": "Search Members",
@@ -46,5 +49,25 @@
     "save": "Save",
     "logout": "Log out",
     "password_warning": "Use a strong password with at least 8 characters, including a mix of uppercase and lowercase letters, numbers, and symbols."
+  },
+  "create_post": {
+    "title": "Create a Post",
+    "upload_img": "Upload an image",
+    "post_title": "Post title",
+    "post_desc": "Add a description...",
+    "publish": "Publish"
+  },
+  "edit_profile": {
+    "title": "Edit your personal info",
+    "upload_img": "Upload JPG, PNG (max 5MB)",
+    "first_name_label": "First Name",
+    "last_name_label": "Last Name",
+    "username_label": "Username",
+    "bio_label": "Bio",
+    "first_name_placeholder": "Enter your first name",
+    "last_name_placeholder": "Enter your last name",
+    "username_placeholder": "Enter your username",
+    "bio_placeholder": "Tell something about yourself...",
+    "save_changes": "Save Changes"
   }
 }

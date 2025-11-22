@@ -3,12 +3,13 @@ import { FiImage, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../../../../../../../stores/app";
 import { TfiClose } from "react-icons/tfi";
+import { useTranslation } from "react-i18next";
 
 export const CreatePostModal = () => {
   const { isOpenPostModal, setIsOpenPostModal } = useAppStore();
+  const { t } = useTranslation();
   const [image, setImage] = useState<string | null>(null);
 
-  // Block scroll when modal open
   useEffect(() => {
     if (isOpenPostModal) {
       document.body.style.overflow = "hidden";
@@ -52,16 +53,14 @@ export const CreatePostModal = () => {
               <TfiClose />
             </button>
             <h2 className="text-[22px] font-[600] text-gray-900 mb-6 text-center">
-              Create a Post
+              {t("create_post.title")}
             </h2>
 
             <div className="mb-6">
               {!image ? (
                 <label className="flex flex-col items-center justify-center w-full h-40 border border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
                   <FiImage className="text-3xl text-gray-400 mb-2" />
-                  <span className="text-gray-500 text-sm">
-                    Upload an image
-                  </span>
+                  <span className="text-gray-500 text-sm">{t("create_post.upload_img")}</span>
                   <input
                     type="file"
                     className="hidden"
@@ -87,14 +86,14 @@ export const CreatePostModal = () => {
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Post title"
+                placeholder={t("create_post.post_title")}
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
               />
             </div>
 
             <div className="mb-6">
               <textarea
-                placeholder="Write something..."
+                placeholder={t("create_post.post_desc")}
                 rows={4}
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
               />
@@ -102,9 +101,9 @@ export const CreatePostModal = () => {
 
             <button
               onClick={() => setIsOpenPostModal(false)}
-              className="w-full bg-main text-white py-3 rounded-xl font-[600] hover:ring-2 ring-main/40 duration-300 cursor-pointer"
+              className="w-full bg-gray-800 text-white py-3 rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer"
             >
-              Publish
+              {t("create_post.publish")}
             </button>
           </motion.div>
         </motion.div>

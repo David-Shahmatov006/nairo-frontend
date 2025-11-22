@@ -5,13 +5,11 @@ import searchMuskot from "../../../../assets/images/search_muskot.webp";
 import { TfiClose } from "react-icons/tfi";
 import { useTranslation } from "react-i18next";
 import { GoPlus } from "react-icons/go";
+import { useAppStore } from "../../../../stores/app";
 
-type TSearchProps = {
-  setActiveTab: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export const Search = ({ setActiveTab }: TSearchProps) => {
+export const Search = () => {
   const { t } = useTranslation();
+  const {setActiveTab} = useAppStore()
   const dummyUsers = [
     { id: 1, name: "John Doe" },
     { id: 2, name: "Jane Smith" },

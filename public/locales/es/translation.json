@@ -1,4 +1,7 @@
 {
+  "back_button": "Volver",
+  "password": "Contraseña",
+  "comments": "Comentarios",
   "sidebar": {
     "home": "Inicio",
     "search": "Buscar miembros",
@@ -46,5 +49,25 @@
     "save": "Guardar",
     "logout": "Cerrar sesión",
     "password_warning": "Usa una contraseña segura con al menos 8 caracteres, que incluya mayúsculas, minúsculas, números y símbolos."
+  },
+  "create_post": {
+    "title": "Crear una publicación",
+    "upload_img": "Subir imagen",
+    "post_title": "Título de la publicación",
+    "post_desc": "Agrega una descripción...",
+    "publish": "Publicar"
+  },
+  "edit_profile": {
+    "title": "Editar tu información personal",
+    "upload_img": "Sube JPG, PNG (máx. 5 MB)",
+    "first_name_label": "Nombre",
+    "last_name_label": "Apellido",
+    "username_label": "Nombre de usuario",
+    "bio_label": "Biografía",
+    "first_name_placeholder": "Ingresa tu nombre",
+    "last_name_placeholder": "Ingresa tu apellido",
+    "username_placeholder": "Ingresa tu nombre de usuario",
+    "bio_placeholder": "Cuenta algo sobre ti...",
+    "save_changes": "Guardar cambios"
   }
 }

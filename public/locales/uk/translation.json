@@ -1,4 +1,7 @@
 {
+  "back_button": "Назад",
+  "password": "Пароль",
+  "comments": "Коментарі",
   "sidebar": {
     "home": "Головна",
     "search": "Пошук учасників",
@@ -46,5 +49,25 @@
     "save": "Зберегти",
     "logout": "Вийти",
     "password_warning": "Використовуйте надійний пароль щонайменше з 8 символів, включаючи великі та малі літери, цифри та спеціальні символи."
+  },
+  "create_post": {
+    "title": "Створити публікацію",
+    "upload_img": "Завантажити зображення",
+    "post_title": "Заголовок публікації",
+    "post_desc": "Додайте опис...",
+    "publish": "Опублікувати"
+  },
+  "edit_profile": {
+    "title": "Редагувати особисту інформацію",
+    "upload_img": "Завантажте JPG, PNG (до 5MB)",
+    "first_name_label": "Ім’я",
+    "last_name_label": "Прізвище",
+    "username_label": "Ім’я користувача",
+    "bio_label": "Біографія",
+    "first_name_placeholder": "Введіть ваше ім’я",
+    "last_name_placeholder": "Введіть ваше прізвище",
+    "username_placeholder": "Введіть ім’я користувача",
+    "bio_placeholder": "Розкажіть щось про себе...",
+    "save_changes": "Зберегти зміни"
   }
 }

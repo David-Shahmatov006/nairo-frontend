@@ -5,6 +5,7 @@ import { Posts } from "../Home/components/Posts";
 import clsx from "clsx";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
+import { EditProfile } from "./components/EditProfile";
 
 type Post = {
   id: number;
@@ -55,10 +56,14 @@ export const Profile = () => {
   const isOwnProfile = user.id === currentUserId;
 
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleFollowToggle = () => {
     setIsFollowing((prev) => !prev);
   };
+  if (isEditing) {
+    return <EditProfile onClose={() => setIsEditing(false)} />;
+  }
 
   return (
     <div className="font-manrope p-6">
@@ -72,7 +77,7 @@ export const Profile = () => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <RxAvatar className="w-14 h-14 text-gray-400" />
+              <RxAvatar className="w-14 h-14 text-main/40" />
             )}
           </div>
 
@@ -97,7 +102,7 @@ export const Profile = () => {
                       : "bg-white border border-gray-300 text-gray-800"
                   )}
                 >
-                  {isFollowing ? t('profile.following') : t('profile.follow')}
+                  {isFollowing ? t("profile.following") : t("profile.follow")}
                 </button>
 
                 <button className="px-4 h-10 rounded-lg bg-main/90 text-white hover:ring-2 hover:ring-main/40 duration-300 cursor-pointer">
@@ -105,7 +110,10 @@ export const Profile = () => {
                 </button>
               </div>
             ) : (
-              <button className="mt-3 px-5 py-2 rounded-lg bg-main text-white font-medium hover:bg-main/90 duration-300 w-fit cursor-pointer">
+              <button
+                onClick={() => setIsEditing(true)}
+                className="mt-5 flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 bg-gray-900 text-white hover:bg-gray-700 active:bg-gray-700 focus:ring-2 focus:ring-main/40 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]"
+              >
                 {t("profile.edit_profile")}
               </button>
             )}
@@ -115,15 +123,21 @@ export const Profile = () => {
         <div className="w-[40%] flex gap-4 items-center">
           <div className="w-full bg-white p-4 rounded-xl shadow flex justify-between">
             <div className="flex flex-col items-center px-3">
-              <span className="text-sm text-gray-500">{t('profile.followers')}</span>
+              <span className="text-sm text-gray-500">
+                {t("profile.followers")}
+              </span>
               <span className="font-semibold">{user.followers}</span>
             </div>
             <div className="flex flex-col items-center px-3">
-              <span className="text-sm text-gray-500">{t('profile.following')}</span>
+              <span className="text-sm text-gray-500">
+                {t("profile.following")}
+              </span>
               <span className="font-semibold">{user.following}</span>
             </div>
             <div className="flex flex-col items-center px-3">
-              <span className="text-sm text-gray-500">{t('profile.posts')}</span>
+              <span className="text-sm text-gray-500">
+                {t("profile.posts")}
+              </span>
               <span className="font-semibold">{user.postsCount}</span>
             </div>
           </div>
@@ -131,7 +145,7 @@ export const Profile = () => {
       </div>
 
       <div className="flex justify-between gap-5">
-        <Posts />
+        <Posts isOwnProfile={isOwnProfile} />
         {isOwnProfile && <NairoBalance user={user} />}
       </div>
     </div>

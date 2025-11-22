@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { MainLayout } from "../../layouts/MainLayout";
+import { useEffect } from "react";
 import { Settings } from "./tabs/Settings";
 import { Home } from "./tabs/Home";
 import { useAppStore } from "../../stores/app";
@@ -10,10 +9,7 @@ import { Saved } from "./tabs/Saved";
 import { Profile } from "./tabs/Profile";
 
 export const Main = () => {
-  const savedTab = localStorage.getItem("activeTab");
-  const initialTab = savedTab ? parseInt(savedTab, 10) : 0;
-  const [activeTab, setActiveTab] = useState(initialTab);
-  const { setSelectedLanguage } = useAppStore();
+  const { activeTab, setSelectedLanguage } = useAppStore();
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -28,7 +24,7 @@ export const Main = () => {
       case 0:
         return <Home />;
       case 1:
-        return <Search setActiveTab={setActiveTab} />;
+        return <Search />;
       case 2:
         return <Saved />;
       case 3:
@@ -39,9 +35,5 @@ export const Main = () => {
         return null;
     }
   };
-  return (
-    <MainLayout activeTab={activeTab} setActiveTab={setActiveTab}>
-      {renderTabContent()}
-    </MainLayout>
-  );
+  return <>{renderTabContent()}</>;
 };

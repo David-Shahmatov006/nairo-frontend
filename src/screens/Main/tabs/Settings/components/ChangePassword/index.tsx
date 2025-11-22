@@ -21,7 +21,7 @@ export const ChangePassword = () => {
             <input
               type="email"
               className="w-full pl-10 pr-10 py-2 border border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
-              placeholder="your.email@example.com"
+              placeholder={t('password')}
             />
 
             <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#374151]">
@@ -43,7 +43,7 @@ export const ChangePassword = () => {
             <input
               type="email"
               className="w-full pl-10 pr-10 py-2 border border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
-              placeholder="Password"
+              placeholder={t('password')}
             />
 
             <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#374151]">
@@ -54,7 +54,7 @@ export const ChangePassword = () => {
         <p className="text-[12px] text-[#9CA3AF] mt-2">
           {t("settings.password_warning")}
         </p>
-        <button className="mt-5 min-w-[90px] px-4 h-10 rounded-lg bg-main/90 text-white hover:ring-2 hover:ring-main/40 duration-300 cursor-pointer">
+        <button className="mt-5 min-w-[90px] font-[500] px-4 h-10 rounded-lg bg-gray-800 text-white hover:ring-2 hover:ring-main/70 duration-300 cursor-pointer">
           {t("settings.save")}
         </button>
       </div>

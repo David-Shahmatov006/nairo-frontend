@@ -4,9 +4,7 @@ import { RxAvatar } from "react-icons/rx";
 import { useAppStore } from "../../stores/app";
 
 export const Header = () => {
-  const { setIsOpenPostModal, isOpenPostModal } = useAppStore();
-  console.log(isOpenPostModal, '333');
-  
+  const { setIsOpenPostModal } = useAppStore();
 
   return (
     <header className="z-[3] fixed top-0 left-0 w-full flex items-center justify-between bg-white px-8 py-4 border-b border-[#E5E7EB]">

@@ -1,4 +1,7 @@
 {
+  "back_button": "Zurück",
+  "password": "Passwort",
+  "comments": "Kommentare",
   "sidebar": {
     "home": "Startseite",
     "search": "Mitglieder suchen",
@@ -46,5 +49,25 @@
     "save": "Speichern",
     "logout": "Abmelden",
     "password_warning": "Verwenden Sie ein starkes Passwort mit mindestens 8 Zeichen, einschließlich Groß- und Kleinbuchstaben, Zahlen und Symbolen."
+  },
+  "create_post": {
+    "title": "Beitrag erstellen",
+    "upload_img": "Bild hochladen",
+    "post_title": "Beitragstitel",
+    "post_desc": "Fügen Sie eine Beschreibung hinzu...",
+    "publish": "Veröffentlichen"
+  },
+  "edit_profile": {
+    "title": "Persönliche Informationen bearbeiten",
+    "upload_img": "JPG, PNG hochladen (max. 5 MB)",
+    "first_name_label": "Vorname",
+    "last_name_label": "Nachname",
+    "username_label": "Benutzername",
+    "bio_label": "Bio",
+    "first_name_placeholder": "Gib deinen Vornamen ein",
+    "last_name_placeholder": "Gib deinen Nachnamen ein",
+    "username_placeholder": "Gib deinen Benutzernamen ein",
+    "bio_placeholder": "Erzähl etwas über dich...",
+    "save_changes": "Änderungen speichern"
   }
 }
