@@ -1,11 +1,6 @@
 import { PiImageBroken, PiShareFat } from "react-icons/pi";
 import type { Post } from "../../../../../../../../types/post";
-import {
-  FaBookmark,
-  FaHeart,
-  FaRegBookmark,
-  FaRegHeart
-} from "react-icons/fa";
+import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
 import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -57,17 +52,31 @@ export const PostItem = ({
 
         <div className="p-4 flex flex-col flex-1 gap-2">
           <div className="flex items-center justify-between text-gray-500 text-sm">
-            <span>{post.author}</span>
+            <span
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              className="hover:text-main/80 duration-300 cursor-pointer"
+            >
+              {post.author}
+            </span>
             <span>{post.date}</span>
           </div>
 
           <h3 className="text-lg font-semibold text-gray-900">{post.title}</h3>
-          <p className="text-gray-700 text-sm">{post.description}</p>
+          <p className="text-gray-700 text-sm line-clamp-2">
+            {post.description}
+          </p>
 
           <div className="flex items-center justify-between mt-auto text-gray-600">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => toggleLike && toggleLike(post.id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleLike && toggleLike(post.id);
+                }}
                 className={clsx(
                   "flex items-center gap-1 hover:text-main duration-300 cursor-pointer",
                   post.liked && "text-main"
@@ -77,7 +86,11 @@ export const PostItem = ({
                 <span>{post.likes}</span>
               </button>
               <button
-                onClick={() => toggleSave(post.id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleSave(post.id);
+                }}
                 className={clsx(
                   "hover:text-main duration-300 cursor-pointer flex items-center gap-1",
                   post.saved && "text-main"
@@ -86,7 +99,13 @@ export const PostItem = ({
                 {post.saved ? <FaBookmark /> : <FaRegBookmark />}
               </button>
 
-              <button className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer"
+              >
                 <PiShareFat className="text-[20px]" />
               </button>
             </div>

@@ -38,7 +38,8 @@
     "follow": "Підписатися",
     "posts": "Пости",
     "nairo_balance": "Баланс Nairo",
-    "edit_profile": "Редагувати профіль"
+    "edit_profile": "Редагувати профіль",
+    "refill": "Поповнити"
   },
   "settings": {
     "change_email": "Змінити email",
@@ -69,5 +70,10 @@
     "username_placeholder": "Введіть ім’я користувача",
     "bio_placeholder": "Розкажіть щось про себе...",
     "save_changes": "Зберегти зміни"
+  },
+  "shop": {
+    "title": "Купити Nairo Coins",
+    "your_balance": "Ваш баланс",
+    "buy_now": "Купити зараз"
   }
 }

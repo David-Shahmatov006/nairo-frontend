@@ -38,7 +38,8 @@
     "follow": "Follow",
     "posts": "Posts",
     "nairo_balance": "Nairo Balance",
-    "edit_profile": "Edit Profile"
+    "edit_profile": "Edit Profile",
+    "refill": "Refill"
   },
   "settings": {
     "change_email": "Change email",
@@ -69,5 +70,10 @@
     "username_placeholder": "Enter your username",
     "bio_placeholder": "Tell something about yourself...",
     "save_changes": "Save Changes"
+  },
+  "shop": {
+    "title": "Buy Nairo Coins",
+    "your_balance": "Your balance",
+    "buy_now": "Buy now"
   }
 }

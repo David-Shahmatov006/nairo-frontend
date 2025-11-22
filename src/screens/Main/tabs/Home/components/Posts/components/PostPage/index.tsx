@@ -8,30 +8,32 @@ import { PostImage } from "../PostItem";
 import { AvatarImage } from "../../../../../../../../components/AvatarImage";
 import { PiShareFat } from "react-icons/pi";
 import { Comments } from "./components/Comments";
-import { useAppStore } from "../../../../../../../../stores/app";
+import { IoIosArrowDown } from "react-icons/io";
 
 export const PostPage = () => {
   const { id } = useParams();
   const post = postsMock.find((p) => p.id === Number(id));
   if (!post) return <div>Not found</div>;
-  
+
   const navigate = useNavigate();
-  const { activeTab } = useAppStore();
-  const previousTabRef = useRef(activeTab);
   const [liked, setLiked] = useState(post.liked);
   const [likes, setLikes] = useState(post.likes);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const descriptionRef = useRef<HTMLParagraphElement | null>(null);
+  const [maxHeight, setMaxHeight] = useState("100px");
+
+  useEffect(() => {
+    if (descriptionRef.current) {
+      setMaxHeight(
+        isExpanded ? `${descriptionRef.current.scrollHeight}px` : "100px"
+      );
+    }
+  }, [isExpanded]);
 
   const handleLike = () => {
     setLiked((prev) => !prev);
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
-  };
-
-  useEffect(() => {
-    if (previousTabRef.current !== activeTab) {
-      navigate(-1);
-    }
-    previousTabRef.current = activeTab;
-  }, [activeTab, navigate]);
+  }
 
   return (
     <div className="font-manrope min-h-screen w-full max-w-[80%] ml-[10%] px-5 pt-8">
@@ -57,9 +59,43 @@ export const PostPage = () => {
         <PostImage src={post.image} title="Post image" />
       </div>
 
-      <p className="text-[17px] font-[500] text-gray-800 leading-relaxed mb-7">
-        {post.description}
-      </p>
+      <div className="relative mb-7">
+        <p
+          ref={descriptionRef}
+          className="text-[17px] font-[500] text-gray-800 leading-relaxed overflow-hidden transition-all duration-500"
+          style={{
+            maxHeight,
+            WebkitMaskImage:
+              !isExpanded && post.description.length > 180
+                ? "linear-gradient(to bottom, black 40%, transparent 100%)"
+                : "none",
+            maskImage:
+              !isExpanded && post.description.length > 180
+                ? "linear-gradient(to bottom, black 40%, transparent 100%)"
+                : "none",
+          }}
+        >
+          {post.description}
+        </p>
+
+        {!isExpanded && post.description.length > 180 && (
+          <button
+            onClick={() => setIsExpanded(true)}
+            className="flex items-center justify-center absolute -bottom-[15%] right-1/2 bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/40 duration-300 cursor-pointer"
+          >
+            <IoIosArrowDown />
+          </button>
+        )}
+
+        {isExpanded && (
+          <button
+            onClick={() => setIsExpanded(false)}
+            className="flex items-center justify-center absolute -bottom-[3%] right-1/2 bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/40 duration-300 cursor-pointer"
+          >
+            <IoIosArrowDown className="rotate-[180deg] duration-300" />
+          </button>
+        )}
+      </div>
 
       <div className="flex items-center gap-8 text-gray-700 text-[20px] font-medium pb-5">
         <button

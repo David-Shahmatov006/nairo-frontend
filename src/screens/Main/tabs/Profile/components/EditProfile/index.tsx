@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GoArrowLeft } from "react-icons/go";
 import { IoCameraReverseOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { BackButton } from "../../../../../../components/BackButton";

@@ -38,7 +38,8 @@
     "follow": "Folgen",
     "posts": "Beiträge",
     "nairo_balance": "Nairo-Guthaben",
-    "edit_profile": "Profil bearbeiten"
+    "edit_profile": "Profil bearbeiten",
+    "refill": "Aufladen"
   },
   "settings": {
     "change_email": "E-Mail ändern",
@@ -69,5 +70,10 @@
     "username_placeholder": "Gib deinen Benutzernamen ein",
     "bio_placeholder": "Erzähl etwas über dich...",
     "save_changes": "Änderungen speichern"
+  },
+  "shop": {
+    "title": "Nairo Coins kaufen",
+    "your_balance": "Ihr Guthaben",
+    "buy_now": "Jetzt kaufen"
   }
 }
