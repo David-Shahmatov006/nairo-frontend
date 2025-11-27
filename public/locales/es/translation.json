@@ -2,6 +2,7 @@
   "back_button": "Volver",
   "password": "Contraseña",
   "comments": "Comentarios",
+  "online": "En línea ahora",
   "sidebar": {
     "home": "Inicio",
     "search": "Buscar miembros",
@@ -103,5 +104,24 @@
     "search_users_placeholder": "Buscar usuarios...",
     "no_users_found": "No se encontraron usuarios",
     "share_button": "Compartir"
+  },
+  "chat": {
+    "delete_chat": "¿Eliminar chat ?",
+    "delete_chat_desc": "Esta conversación se eliminará permanentemente",
+    "block_user": "¿Bloquear usuario ?",
+    "block_user_desc": "Este usuario ya no podrá enviarte mensajes",
+    "delete_chat_confirm": "Eliminar",
+    "block_user_confirm": "Bloquear",
+    "confirm_modal_cancel": "Cancelar",
+    "type_message": "Escribe un mensaje..."
+  },
+  "emoji_modal": {
+    "default_emojis": "Emojis",
+    "custom_emojis": "Emojis personalizados"
+  },
+  "random_connect_modal": {
+    "searching_text": "Buscando una coincidencia...",
+    "common_interests": "Tienen intereses en común",
+    "connect": "Conectar"
   }
 }

@@ -2,6 +2,7 @@
   "back_button": "Zurück",
   "password": "Passwort",
   "comments": "Kommentare",
+  "online": "Jetzt online",
   "sidebar": {
     "home": "Startseite",
     "search": "Mitglieder suchen",
@@ -103,5 +104,24 @@
     "search_users_placeholder": "Benutzer suchen...",
     "no_users_found": "Keine Benutzer gefunden",
     "share_button": "Teilen"
+  },
+  "chat": {
+    "delete_chat": "Chat löschen ?",
+    "delete_chat_desc": "Dieser Chat wird dauerhaft gelöscht",
+    "block_user": "Benutzer blockieren ?",
+    "block_user_desc": "Dieser Benutzer kann dir keine Nachrichten mehr senden",
+    "delete_chat_confirm": "Löschen",
+    "block_user_confirm": "Blockieren",
+    "confirm_modal_cancel": "Abbrechen",
+    "type_message": "Nachricht eingeben..."
+  },
+  "emoji_modal": {
+    "default_emojis": "Emojis",
+    "custom_emojis": "Benutzerdefinierte Emojis"
+  },
+  "random_connect_modal": {
+    "searching_text": "Suche nach einem Match...",
+    "common_interests": "Ihr habt gemeinsame Interessen",
+    "connect": "Verbinden"
   }
 }

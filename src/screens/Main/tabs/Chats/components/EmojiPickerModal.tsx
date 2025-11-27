@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { IoIosClose } from "react-icons/io";
 import { customEmojis, defaultEmojis } from "../../../../../constants/emojis";
+import { useTranslation } from "react-i18next";
 
 export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
+  const { t } = useTranslation();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -22,7 +24,7 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
           >
             <div className="flex justify-between items-center mb-5">
               <h2 className="font-semibold text-gray-900 text-[20px]">
-                Emojis
+                {t("emoji_modal.default_emojis")}
               </h2>
               <button
                 className="size-7 flex items-center justify-center rounded-full bg-gray-200 cursor-pointer hover:ring-2 ring-main/40 duration-300"
@@ -48,7 +50,7 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
             </div>
 
             <h3 className="font-semibold text-gray-800 mb-2 text-[20px]">
-              Custom Emojis
+              {t("emoji_modal.custom_emojis")}
             </h3>
 
             <div className="grid grid-cols-6 gap-4 max-h-[20vh] overflow-x-hidden overflow-y-auto custom-scrollbar">

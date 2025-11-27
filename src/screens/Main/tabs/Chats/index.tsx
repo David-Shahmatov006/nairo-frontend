@@ -6,6 +6,7 @@ import { MdBlockFlipped } from "react-icons/md";
 import { EmojiPickerModal } from "./components/EmojiPickerModal";
 import { BsEmojiSunglasses } from "react-icons/bs";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
+import { useTranslation } from "react-i18next";
 
 const mockChats = [
   {
@@ -32,6 +33,7 @@ const mockChats = [
 ];
 
 export const Chats = () => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [activeChat, setActiveChat] = useState(mockChats[0]);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
@@ -44,7 +46,7 @@ export const Chats = () => {
   const getPlainTextLength = (html: string) => {
     const tmp = document.createElement("div");
     tmp.innerHTML = html;
-    return tmp.innerText.length; // считает только текст
+    return tmp.innerText.length;
   };
 
   const MAX_LEN = 700;
@@ -54,7 +56,6 @@ export const Chats = () => {
     const len = getPlainTextLength(html);
 
     if (len > MAX_LEN) {
-      // Обрезаем лишнее
       e.currentTarget.innerText = e.currentTarget.innerText.slice(0, MAX_LEN);
     }
 
@@ -150,8 +151,8 @@ export const Chats = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       if (!e.shiftKey) {
-        e.preventDefault(); // запретить перенос строки
-        handleSubmit(); // отправить сообщение
+        e.preventDefault();
+        handleSubmit();
       }
     }
   };
@@ -165,7 +166,7 @@ export const Chats = () => {
           <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
           <input
             type="text"
-            placeholder="Search…"
+            placeholder={t("search.title")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full h-10 border border-gray-300 rounded-lg pl-10 pr-3 outline-none"
@@ -219,7 +220,7 @@ export const Chats = () => {
             </div>
             <div>
               <h2 className="font-bold text-gray-900">{activeChat.name}</h2>
-              <p className="text-sm text-gray-500">Online now</p>
+              <p className="text-sm text-gray-500">{t("online")}</p>
             </div>
           </div>
           <button onClick={() => setIsBlockModal(true)}>
@@ -268,7 +269,7 @@ export const Chats = () => {
 
               {message.length === 0 && (
                 <span className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                  Type a message…
+                  {t("chat.type_message")}
                 </span>
               )}
             </div>
@@ -289,7 +290,6 @@ export const Chats = () => {
         onSelect={handleEmojiSelect}
       />
 
-      {/* DELETE CHAT MODAL */}
       <ConfirmModal
         isOpen={isDeleteModal}
         onClose={() => setIsDeleteModal(false)}
@@ -297,10 +297,10 @@ export const Chats = () => {
           console.log("Chat deleted:", activeChat.id);
           setIsDeleteModal(false);
         }}
-        title="Delete chat?"
-        subtitle="This conversation will be permanently deleted."
-        confirmText="Delete"
-        cancelText="Cancel"
+        title={t('chat.delete_chat')}
+        subtitle={t('chat.delete_chat_desc')}
+        confirmText={t('chat.delete_chat_confirm')}
+        cancelText={t('chat.confirm_modal_cancel')}
       />
 
       <ConfirmModal
@@ -310,10 +310,10 @@ export const Chats = () => {
           console.log("User blocked:", activeChat.id);
           setIsBlockModal(false);
         }}
-        title="Block user?"
-        subtitle="This user will not be able to message you anymore."
-        confirmText="Block"
-        cancelText="Cancel"
+        title={t('chat.block_user')}
+        subtitle={t('chat.block_user_desc')}
+        confirmText={t('chat.block_user_confirm')}
+        cancelText={t('chat.confirm_modal_cancel')}
       />
     </div>
   );

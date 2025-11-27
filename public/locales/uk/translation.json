@@ -2,6 +2,7 @@
   "back_button": "Назад",
   "password": "Пароль",
   "comments": "Коментарі",
+  "online": "Зараз онлайн",
   "sidebar": {
     "home": "Головна",
     "search": "Пошук учасників",
@@ -103,5 +104,24 @@
     "search_users_placeholder": "Пошук користувачів...",
     "no_users_found": "Користувачів не знайдено",
     "share_button": "Поділитися"
+  },
+  "chat": {
+    "delete_chat": "Видалити чат ?",
+    "delete_chat_desc": "Цю розмову буде видалено назавжди",
+    "block_user": "Заблокувати користувача ?",
+    "block_user_desc": "Цей користувач більше не зможе писати вам",
+    "delete_chat_confirm": "Видалити",
+    "block_user_confirm": "Заблокувати",
+    "confirm_modal_cancel": "Скасувати",
+    "type_message": "Напишіть повідомлення..."
+  },
+  "emoji_modal": {
+    "default_emojis": "Емодзі",
+    "custom_emojis": "Кастомні емодзі"
+  },
+  "random_connect_modal": {
+    "searching_text": "Пошук співрозмовника...",
+    "common_interests": "Ваші спільні інтереси",
+    "connect": "Підключитися"
   }
 }

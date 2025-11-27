@@ -2,6 +2,7 @@
   "back_button": "Back",
   "password": "Password",
   "comments": "Comments",
+  "online": "Online now",
   "sidebar": {
     "home": "Home",
     "search": "Search Members",
@@ -103,5 +104,24 @@
     "search_users_placeholder": "Search users...",
     "no_users_found": "No users found",
     "share_button": "Share"
+  },
+  "chat": {
+    "delete_chat": "Delete chat ?",
+    "delete_chat_desc": "This conversation will be permanently deleted",
+    "block_user": "Block user ?",
+    "block_user_desc": "This user will not be able to message you anymore",
+    "delete_chat_confirm": "Delete",
+    "block_user_confirm": "Block",
+    "confirm_modal_cancel": "Cancel",
+    "type_message": "Type a message..."
+  },
+  "emoji_modal": {
+    "default_emojis": "Emojis",
+    "custom_emojis": "Custom Emojis"
+  },
+  "random_connect_modal": {
+    "searching_text": "Searching for a match...",
+    "common_interests": "You have common interests",
+    "connect": "Connect"
   }
 }
