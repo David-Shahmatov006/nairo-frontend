@@ -20,7 +20,7 @@ export const RandomConnect = () => {
       <div className="font-manrope">
         <p className="text-[14px]">{t("home.random_connect_desc")}</p>
         <div className="flex flex-col items-center justify-between">
-          <button className="w-full mt-5 bg-main text-white px-4 py-2 rounded-md hover:ring-2 hover:ring-main/40 duration-300 cursor-pointer">
+          <button className="w-full mt-5 bg-gray-900 text-white px-4 py-2 rounded-md hover:ring-2 ring-main/70 duration-300 cursor-pointer">
             {t("home.discover_button")}
           </button>
           <img

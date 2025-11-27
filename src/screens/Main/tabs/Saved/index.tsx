@@ -2,7 +2,8 @@ import { postsMock } from "../../../../constants/posts";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PostItem } from "../Home/components/Posts/components/PostItem";
-import surprisedMuskot from '../../../../assets/images/surprisedMuskot.webp'
+import surprisedMuskot from "../../../../assets/images/surprisedMuskot.webp";
+import { motion } from "framer-motion";
 
 const dummyPosts = [
   { id: 1, title: "My First Post", author: "John Doe" },
@@ -22,7 +23,13 @@ export const Saved = () => {
     );
   };
   return (
-    <div className="font-manrope p-6 flex flex-col gap-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="font-manrope p-6 flex flex-col gap-4"
+    >
       <h1 className="text-[20px] font-[600]">{t("saved.title")}</h1>
       <p className="text-gray-500 text-sm mb-4">{t("saved.subtitle")}</p>
 
@@ -35,14 +42,9 @@ export const Saved = () => {
             </span>
           </div>
         ) : (
-          posts.map((post) => (
-            <PostItem
-              post={post}
-              toggleSave={toggleSave}
-            />
-          ))
+          posts.map((post) => <PostItem post={post} toggleSave={toggleSave} />)
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

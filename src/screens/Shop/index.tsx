@@ -1,24 +1,31 @@
 import { IoIosArrowForward } from "react-icons/io";
 import nairoBag from "../../assets/images/nairoBag.webp";
 import nairoCoins3 from "../../assets/images/nairoCoins3.webp";
+import nairoCoins4 from "../../assets/images/nairoCoins4.webp";
+import nairoCoins5 from "../../assets/images/nairoCoins5.webp";
 import { BackButton } from "../../components/BackButton";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import clsx from "clsx";
 
 export const Shop = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const packs = [
-    { amount: 10, price: 1 },
-    { amount: 50, price: 5 },
-    { amount: 100, price: 10 },
-    { amount: 250, price: 25 },
-    { amount: 500, price: 50 },
-    { amount: 1000, price: 100 },
+    { amount: 100, price: 10, icon: nairoCoins5 },
+    { amount: 500, price: 50, icon: nairoCoins3 },
+    { amount: 1000, price: 100, icon: nairoCoins4 },
   ];
 
   return (
-    <div className="font-manrope w-full max-w-3xl mx-auto py-10 px-4">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="font-manrope w-full max-w-3xl mx-auto py-10 px-4"
+    >
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-[500] text-[30px] font-[500] text-gray-900">
           {t("shop.title")}
@@ -34,14 +41,14 @@ export const Shop = () => {
         <img src={nairoBag} className="w-[100px]" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {packs.map((pack) => (
+        {packs.map((pack, idx) => (
           <div
             key={pack.amount}
             className="bg-white rounded-2xl shadow-md p-6 border border-transparent 
              hover: hover:shadow-xl hover:shadow-main/40 duration-300 cursor-pointer 
              flex flex-col items-center text-center"
           >
-            <img src={nairoCoins3} className="w-[60px] mb-4" />
+            <img src={pack.icon} className={clsx("h-[60px] mb-4", idx === 1 && 'w-[80px]')} />
 
             <h3 className="text-3xl font-extrabold text-gray-900">
               {pack.amount} NC
@@ -52,7 +59,7 @@ export const Shop = () => {
             </p>
 
             <button className="w-full bg-gray-900 text-white h-12 rounded-xl hover:ring-2 ring-main/70 cursor-pointer duration-300 active:scale-[0.98] duration-300 flex items-center justify-center gap-2 font-semibold">
-              {t('shop.buy_now')} <IoIosArrowForward className="text-xl" />
+              {t("shop.buy_now")} <IoIosArrowForward className="text-xl" />
             </button>
           </div>
         ))}
@@ -61,6 +68,6 @@ export const Shop = () => {
       <p className="text-center text-gray-500 text-sm mt-8">
         1 Nairo Coin = $0.10
       </p>
-    </div>
+    </motion.div>
   );
 };

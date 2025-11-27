@@ -7,7 +7,8 @@
     "search": "Mitglieder suchen",
     "saved": "Gespeichert",
     "profile": "Profil",
-    "settings": "Einstellungen"
+    "settings": "Einstellungen",
+    "chats": "Chats"
   },
   "home": {
     "welcome_to_nairo": "Willkommen bei Nairo!",
@@ -75,5 +76,32 @@
     "title": "Nairo Coins kaufen",
     "your_balance": "Ihr Guthaben",
     "buy_now": "Jetzt kaufen"
+  },
+  "premium": {
+    "subtitle": "Exklusive Funktionen, individuelle Abzeichen und tiefere Profilanpassung ✨",
+    "premium_features": "Premium-Funktionen",
+    "animated_avatars_title": "Animierte Avatare",
+    "animated_avatars_subtitle": "Weiche, endlose Animationen",
+    "uniq_reactions_title": "Exklusive Reaktionen",
+    "uniq_reactions_subtitle": "Drücke deine Emotionen mit seltenen und animierten Emojis aus",
+    "dark_mode_title": "Dunkelmodus",
+    "dark_mode_subtitle": "Exklusives elegantes Design",
+    "premium_badges_title": "Premium-Abzeichen",
+    "premium_badges_subtitle": "Hebe dich stilvoll hervor",
+    "pay_per_month": "Monat",
+    "cancel_anytime": "Jederzeit kündbar",
+    "activate_premium": "Premium aktivieren"
+  },
+  "invite_friends": {
+    "title": "Lade deine Freunde ein",
+    "subtitle": "Verdiene <span class='font-semibold text-main'>10 NC</span> für jeden Freund, der beitritt.",
+    "joined": "Beigetreten",
+    "earned": "Verdient"
+  },
+  "share_post": {
+    "title": "Beitrag teilen",
+    "search_users_placeholder": "Benutzer suchen...",
+    "no_users_found": "Keine Benutzer gefunden",
+    "share_button": "Teilen"
   }
 }

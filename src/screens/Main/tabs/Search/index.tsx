@@ -9,22 +9,28 @@ import { useAppStore } from "../../../../stores/app";
 
 export const Search = () => {
   const { t } = useTranslation();
-  const {setActiveTab} = useAppStore()
+  const { setActiveTab } = useAppStore();
   const dummyUsers = [
     { id: 1, name: "John Doe" },
     { id: 2, name: "Jane Smith" },
     { id: 3, name: "Alex Johnson" },
   ];
+  const handleClose = () => {
+    localStorage.setItem("activeTab", "0");
+    setActiveTab(0);
+  };
 
   return (
     <AnimatePresence>
       <motion.div
+        onClick={handleClose}
         className="fixed inset-0 bg-black/40 backdrop-blur-[7px] flex items-center justify-center z-50 p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <motion.div
+          onClick={(e) => e.stopPropagation()}
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
@@ -34,10 +40,7 @@ export const Search = () => {
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-[20px] font-[500]">{t("search.title")}</h1>
             <button
-              onClick={() => {
-                localStorage.setItem("activeTab", "0");
-                setActiveTab(0);
-              }}
+              onClick={handleClose}
               className="w-[40px] bg-[#FFFFFF] border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-[32px] right-[32px] cursor-pointer hover:ring-2 hover:ring-main/40 duration-300"
             >
               <TfiClose />
@@ -65,15 +68,14 @@ export const Search = () => {
               dummyUsers.map((user) => (
                 <div
                   key={user.id}
-                  className="flex items-center justify-between p-4 bg-white rounded-lg shadow hover:bg-gray-50 cursor-pointer duration-300"
+                  className="flex items-center justify-between p-4 bg-white rounded-[20px] shadow hover:bg-gray-50 cursor-pointer duration-300"
                 >
                   <div className="flex items-center gap-4">
                     <RxAvatar className="w-10 h-10 text-gray-400" />
                     <h2 className="font-medium">{user.name}</h2>
                   </div>
 
-                  <button className="flex items-center gap-1 px-4 py-1 bg-main text-white rounded-md hover:bg-main/90 cursor-pointer duration-300">
-                    {t("search.connect")}
+                  <button className="flex items-center gap-1 px-4 py-2 bg-gray-900 text-white rounded-md hover:ring-2 ring-main/70 cursor-pointer duration-300">
                     <GoPlus className="text-[20px]" />
                   </button>
                 </div>

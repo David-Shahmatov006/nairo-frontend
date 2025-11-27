@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../../../../../routes";
 import { useState } from "react";
 import { InviteFriendsModal } from "../InviteFriendsModal";
+import { PremiumModal } from "../PremiumModal";
 
 export const QuickActions = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [isPremiumOpen, setIsPremiumOpen] = useState(false);
 
   return (
     <>
@@ -25,7 +27,10 @@ export const QuickActions = () => {
           {t("home.quick_actions")}
         </h2>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 border border-[#E5E7EB] bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer">
+          <button
+            onClick={() => setIsPremiumOpen(true)}
+            className="flex items-center gap-2 border border-[#E5E7EB] bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
+          >
             <img src={nairoPremium} className="w-[20px]" />
             {t("home.get_premium")}
           </button>
@@ -50,6 +55,11 @@ export const QuickActions = () => {
         referralCode="USER123"
         invitedFriends={5}
         earnedRewards={250}
+      />
+      <PremiumModal
+        isOpen={isPremiumOpen}
+        onClose={() => setIsPremiumOpen(false)}
+        onBuy={() => console.log("Buying premium...")}
       />
     </>
   );

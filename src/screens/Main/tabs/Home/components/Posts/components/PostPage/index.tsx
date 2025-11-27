@@ -9,9 +9,12 @@ import { AvatarImage } from "../../../../../../../../components/AvatarImage";
 import { PiShareFat } from "react-icons/pi";
 import { Comments } from "./components/Comments";
 import { IoIosArrowDown } from "react-icons/io";
+import { useAppStore } from "../../../../../../../../stores/app";
+import { motion } from "framer-motion";
 
 export const PostPage = () => {
   const { id } = useParams();
+  const { setShareOpen } = useAppStore();
   const post = postsMock.find((p) => p.id === Number(id));
   if (!post) return <div>Not found</div>;
 
@@ -33,10 +36,16 @@ export const PostPage = () => {
   const handleLike = () => {
     setLiked((prev) => !prev);
     setLikes((prev) => (liked ? prev - 1 : prev + 1));
-  }
+  };
 
   return (
-    <div className="font-manrope min-h-screen w-full max-w-[80%] ml-[10%] px-5 pt-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="font-manrope min-h-screen w-full max-w-[80%] ml-[10%] px-5 pt-8"
+    >
       <BackButton handleBack={() => navigate(-1)} />
 
       <h1 className="text-[34px] font-extrabold text-gray-900 mt-8 mb-3">
@@ -86,15 +95,6 @@ export const PostPage = () => {
             <IoIosArrowDown />
           </button>
         )}
-
-        {isExpanded && (
-          <button
-            onClick={() => setIsExpanded(false)}
-            className="flex items-center justify-center absolute -bottom-[3%] right-1/2 bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/40 duration-300 cursor-pointer"
-          >
-            <IoIosArrowDown className="rotate-[180deg] duration-300" />
-          </button>
-        )}
       </div>
 
       <div className="flex items-center gap-8 text-gray-700 text-[20px] font-medium pb-5">
@@ -117,7 +117,10 @@ export const PostPage = () => {
           {post.saved ? <FaBookmark /> : <FaRegBookmark />}
         </button>
 
-        <button className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer">
+        <button
+          onClick={() => setShareOpen(true)}
+          className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer"
+        >
           <PiShareFat className="text-[25px]" />
         </button>
       </div>
@@ -125,6 +128,6 @@ export const PostPage = () => {
       <div className="w-full h-[1px] bg-gray-200 mb-5" />
 
       <Comments />
-    </div>
+    </motion.div>
   );
 };

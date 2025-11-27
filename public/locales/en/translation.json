@@ -7,7 +7,8 @@
     "search": "Search Members",
     "saved": "Saved",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "chats": "Chats"
   },
   "home": {
     "welcome_to_nairo": "Welcome to Nairo!",
@@ -75,5 +76,32 @@
     "title": "Buy Nairo Coins",
     "your_balance": "Your balance",
     "buy_now": "Buy now"
+  },
+  "premium": {
+    "subtitle": "Exclusive features, custom badges and deeper profile personalization ✨",
+    "premium_features": "Premium Features",
+    "animated_avatars_title": "Animated Avatars",
+    "animated_avatars_subtitle": "Smooth looped animations",
+    "uniq_reactions_title": "Exclusive Reactions",
+    "uniq_reactions_subtitle": "Express your emotions with rare and animated emojis.",
+    "dark_mode_title": "Dark Mode",
+    "dark_mode_subtitle": "Exclusive elegant theme",
+    "premium_badges_title": "Premium Badges",
+    "premium_badges_subtitle": "Stand out with flair",
+    "pay_per_month": "month",
+    "cancel_anytime": "Cancel anytime",
+    "activate_premium": "Activate Premium"
+  },
+  "invite_friends": {
+    "title": "Invite your friends",
+    "subtitle": "Earn <span class='font-semibold text-main'>10 NC</span> for every friend who joins.",
+    "joined": "Joined",
+    "earned": "Earned"
+  },
+  "share_post": {
+    "title": "Share post",
+    "search_users_placeholder": "Search users...",
+    "no_users_found": "No users found",
+    "share_button": "Share"
   }
 }

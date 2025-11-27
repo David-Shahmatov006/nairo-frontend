@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { BiMessageSquareDots } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 import { EditProfile } from "./components/EditProfile";
+import { motion } from "framer-motion";
 
 type Post = {
   id: number;
@@ -66,7 +67,13 @@ export const Profile = () => {
   }
 
   return (
-    <div className="font-manrope p-6">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="font-manrope p-6"
+    >
       <div className="flex flex-col md:flex-row items-start gap-6 mb-6">
         <div className="w-[70%] flex items-center gap-6">
           <div className="w-28 h-28 md:w-32 md:h-32 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow">
@@ -91,7 +98,7 @@ export const Profile = () => {
 
             <p className="text-sm text-gray-600 mt-2 max-w-xl">{user.bio}</p>
 
-            {!isOwnProfile ? (
+            {isOwnProfile ? (
               <div className="mt-3 flex items-center gap-3">
                 <button
                   onClick={handleFollowToggle}
@@ -112,7 +119,7 @@ export const Profile = () => {
             ) : (
               <button
                 onClick={() => setIsEditing(true)}
-                className="mt-5 flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 bg-gray-900 text-white hover:bg-gray-700 active:bg-gray-700 focus:ring-2 focus:ring-main/40 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]"
+                className="mt-5 flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]"
               >
                 {t("profile.edit_profile")}
               </button>
@@ -148,6 +155,6 @@ export const Profile = () => {
         <Posts isOwnProfile={isOwnProfile} />
         {isOwnProfile && <NairoBalance user={user} />}
       </div>
-    </div>
+    </motion.div>
   );
 };

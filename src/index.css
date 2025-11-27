@@ -34,3 +34,45 @@ body {
   background-color: #8c53ff45;
   border-radius: 4px;
 }
+
+.snowflake {
+  position: absolute;
+  top: -10%;
+  color: white;
+  user-select: none;
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+@keyframes neon-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px cyan) drop-shadow(0 0 8px purple);
+  }
+  50% {
+    filter: drop-shadow(0 0 10px cyan) drop-shadow(0 0 15px purple);
+  }
+}
+
+.animate-neon-glow {
+  animation: neon-glow 2.5s ease-in-out infinite;
+}
+

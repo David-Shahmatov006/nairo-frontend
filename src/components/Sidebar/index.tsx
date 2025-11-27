@@ -6,6 +6,7 @@ import { IoBookmarkOutline, IoSettingsOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
 import { useTranslation } from "react-i18next";
 import { useAppStore } from "../../stores/app";
+import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 
 export const Sidebar = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export const Sidebar = () => {
     { icon: IoBookmarkOutline, label: t("sidebar.saved"), key: "saved" },
     { icon: RxAvatar, label: t("sidebar.profile"), key: "profile" },
     { icon: IoSettingsOutline, label: t("sidebar.settings"), key: "settings" },
+    { icon: HiOutlineChatBubbleOvalLeft , label: t("sidebar.chats"), key: "chats" },
   ];
 
   const handleTabClick = (idx: number) => {

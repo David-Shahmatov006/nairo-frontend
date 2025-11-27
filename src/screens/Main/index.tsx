@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Settings } from "./tabs/Settings";
-import { Home } from "./tabs/Home";
 import { useAppStore } from "../../stores/app";
 import { useTranslation } from "react-i18next";
 import { LANGS } from "../../constants/langs";
 import { Search } from "./tabs/Search";
 import { Saved } from "./tabs/Saved";
 import { Profile } from "./tabs/Profile";
+import { Home } from "./tabs/Home";
+import { Chats } from "./tabs/Chats";
 
 export const Main = () => {
   const { activeTab, setSelectedLanguage } = useAppStore();
@@ -31,6 +32,8 @@ export const Main = () => {
         return <Profile />;
       case 4:
         return <Settings />;
+      case 5:
+        return <Chats />;
       default:
         return null;
     }

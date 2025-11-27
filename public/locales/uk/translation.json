@@ -7,7 +7,8 @@
     "search": "Пошук учасників",
     "saved": "Збережене",
     "profile": "Профіль",
-    "settings": "Налаштування"
+    "settings": "Налаштування",
+    "chats": "Чати"
   },
   "home": {
     "welcome_to_nairo": "Ласкаво просимо до Nairo!",
@@ -75,5 +76,32 @@
     "title": "Купити Nairo Coins",
     "your_balance": "Ваш баланс",
     "buy_now": "Купити зараз"
+  },
+  "premium": {
+    "subtitle": "Ексклюзивні функції, власні бейджі та глибша персоналізація профілю ✨",
+    "premium_features": "Преміум-функції",
+    "animated_avatars_title": "Анімовані аватари",
+    "animated_avatars_subtitle": "Плавні та зациклені анімації",
+    "uniq_reactions_title": "Ексклюзивні реакції",
+    "uniq_reactions_subtitle": "Висловлюй емоції за допомогою ексклюзивних та анімованих емодзі",
+    "dark_mode_title": "Темний режим",
+    "dark_mode_subtitle": "Ексклюзивна елегантна тема",
+    "premium_badges_title": "Преміум-бейджі",
+    "premium_badges_subtitle": "Виділяйтесь з-поміж інших",
+    "pay_per_month": "місяць",
+    "cancel_anytime": "Скасувати можна будь-коли",
+    "activate_premium": "Активувати Premium"
+  },
+  "invite_friends": {
+    "title": "Запросіть друзів",
+    "subtitle": "Отримуйте <span class='font-semibold text-main'>10 NC</span> за кожного друга, який приєднається.",
+    "joined": "Приєдналось",
+    "earned": "Нараховано"
+  },
+  "share_post": {
+    "title": "Поділитися постом",
+    "search_users_placeholder": "Пошук користувачів...",
+    "no_users_found": "Користувачів не знайдено",
+    "share_button": "Поділитися"
   }
 }

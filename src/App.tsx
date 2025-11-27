@@ -11,9 +11,11 @@ import { Login } from "./screens/Login";
 import { PostPage } from "./screens/Main/tabs/Home/components/Posts/components/PostPage";
 import { MainLayoutWrapper } from "./layouts/MainLayoutWrapper";
 import { Shop } from "./screens/Shop";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppStore } from "./stores/app";
 import { ROUTES } from "./routes";
+import { Snowfall } from "./components/Snowfall";
+import { SharePostModal } from "./screens/Main/tabs/Home/components/SharePostModal";
 
 const NavigationWatcher = () => {
   const navigate = useNavigate();
@@ -31,9 +33,17 @@ const NavigationWatcher = () => {
 };
 
 function App() {
+  const { shareOpen, setShareOpen } = useAppStore();
+  const [users] = useState([
+    { id: 1, name: "Alice Johnson", username: "alice_j" },
+    { id: 2, name: "Mark Smith", username: "mark_s" },
+    { id: 3, name: "Julia Adams", username: "julia_ad" },
+  ]);
+  
   return (
     <Router>
       <NavigationWatcher />
+      <Snowfall />
 
       <Routes>
         <Route path={ROUTES.LOGIN} element={<Login />} />
@@ -44,6 +54,14 @@ function App() {
           <Route path="/post/:id" element={<PostPage />} />
         </Route>
       </Routes>
+      <SharePostModal
+        isOpen={shareOpen}
+        onClose={() => setShareOpen(false)}
+        onSend={() => {
+          setShareOpen(false);
+        }}
+        users={users}
+      />
     </Router>
   );
 }

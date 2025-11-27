@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { useAppStore } from "../../../../../../../../stores/app";
 
 interface IPostProps {
   post: Post;
@@ -40,11 +41,12 @@ export const PostItem = ({
   toggleLike,
   toggleSave,
 }: IPostProps) => {
+  const { setShareOpen } = useAppStore();
   return (
     <Link to={`/post/${post.id}`}>
       <div
         key={post.id}
-        className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex"
+        className="bg-white rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex"
       >
         <div className="flex-shrink-0 w-48 h-48 bg-gray-200">
           <PostImage src={post.image} title={post.title} />
@@ -103,6 +105,7 @@ export const PostItem = ({
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
+                  setShareOpen(true)
                 }}
                 className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer"
               >

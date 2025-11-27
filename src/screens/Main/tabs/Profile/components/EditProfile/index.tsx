@@ -46,7 +46,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
 
           <label
             htmlFor="avatarUpload"
-            className="flex items-center justify-center absolute bottom-1 right-1 bg-gray-800 text-white size-7 rounded-full cursor-pointer shadow hover:ring-2 ring-main/40 duration-300"
+            className="flex items-center justify-center absolute bottom-1 right-1 bg-gray-800 text-white size-7 rounded-full cursor-pointer shadow hover:ring-2 ring-main/70 duration-300"
           >
             <IoCameraReverseOutline className="text-[17px]" />
           </label>
@@ -112,7 +112,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
         </div>
       </div>
 
-      <button className="w-full flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 bg-gray-900 text-white hover:bg-gray-700 active:bg-gray-700 focus:ring-2 focus:ring-main/40 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]">
+      <button className="w-full flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]">
         {t("edit_profile.save_changes")}
       </button>
     </div>
