@@ -7,6 +7,7 @@ import { EmojiPickerModal } from "./components/EmojiPickerModal";
 import { BsEmojiSunglasses } from "react-icons/bs";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const mockChats = [
   {
@@ -160,7 +161,13 @@ export const Chats = () => {
   const filtered = [activeChat];
 
   return (
-    <div className="mt-[80px] font-manrope h-full w-full flex">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="mt-[80px] font-manrope h-full w-full flex"
+    >
       <div className="w-[30%] flex flex-col pr-4 border-r border-gray-200 pt-5">
         <div className="relative mb-4">
           <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
@@ -204,7 +211,7 @@ export const Chats = () => {
 
               <button
                 onClick={() => setIsDeleteModal(true)}
-                className="text-gray-400 hover:text-red-500 p-1 rounded-lg cursor-pointer"
+                className="text-gray-400 hover:text-red-500 p-1 rounded-lg cursor-pointer duration-300"
               >
                 ✕
               </button>
@@ -297,10 +304,10 @@ export const Chats = () => {
           console.log("Chat deleted:", activeChat.id);
           setIsDeleteModal(false);
         }}
-        title={t('chat.delete_chat')}
-        subtitle={t('chat.delete_chat_desc')}
-        confirmText={t('chat.delete_chat_confirm')}
-        cancelText={t('chat.confirm_modal_cancel')}
+        title={t("chat.delete_chat")}
+        subtitle={t("chat.delete_chat_desc")}
+        confirmText={t("chat.delete_chat_confirm")}
+        cancelText={t("chat.confirm_modal_cancel")}
       />
 
       <ConfirmModal
@@ -310,11 +317,11 @@ export const Chats = () => {
           console.log("User blocked:", activeChat.id);
           setIsBlockModal(false);
         }}
-        title={t('chat.block_user')}
-        subtitle={t('chat.block_user_desc')}
-        confirmText={t('chat.block_user_confirm')}
-        cancelText={t('chat.confirm_modal_cancel')}
+        title={t("chat.block_user")}
+        subtitle={t("chat.block_user_desc")}
+        confirmText={t("chat.block_user_confirm")}
+        cancelText={t("chat.confirm_modal_cancel")}
       />
-    </div>
+    </motion.div>
   );
 };

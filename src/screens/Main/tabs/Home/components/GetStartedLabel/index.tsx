@@ -20,7 +20,7 @@ export const GetStartedLabel = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: "-10%" }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-lg shadow-sm bg-white overflow-hidden w-full flex items-center justify-between p-8"
+          className="relative rounded-lg shadow-sm dark:bg-black dark:text-[#f9f5e8] bg-white overflow-hidden w-full flex items-center justify-between p-8"
         >
           <img
             src={nairoCoins}
@@ -40,7 +40,7 @@ export const GetStartedLabel = () => {
           </div>
           <button
             onClick={() => setIsVisible(false)}
-            className="z-[2] absolute w-[40px] bg-[#FFFFFF] shadow-shadow-xs border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-[32px] right-[32px] cursor-pointer hover:ring-2 hover:ring-main/40  duration-300"
+            className="z-[2] absolute w-[40px] dark:bg-[#191a1a] bg-[#FFFFFF] border flex items-center justify-center dark:border-white/20 border-[#E5E7EB] rounded-[12px] h-[40px] top-[32px] right-[32px] cursor-pointer hover:ring-2 hover:ring-main/50  duration-300"
           >
             <TfiClose />
           </button>

@@ -12,6 +12,11 @@ body {
   background: #f8fafc;
 }
 
+html.dark,
+body.dark {
+  background: #0f0f0f !important; /* тёмный фон */
+}
+
 .scrollbar-hidden {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;

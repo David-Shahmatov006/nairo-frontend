@@ -27,13 +27,13 @@ export const Main = () => {
       case 1:
         return <Search />;
       case 2:
-        return <Saved />;
-      case 3:
-        return <Profile />;
-      case 4:
-        return <Settings />;
-      case 5:
         return <Chats />;
+      case 3:
+        return <Saved />;
+      case 4:
+        return <Profile />;
+      case 5:
+        return <Settings />;
       default:
         return null;
     }

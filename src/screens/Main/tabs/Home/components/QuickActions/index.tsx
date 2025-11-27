@@ -20,7 +20,7 @@ export const QuickActions = () => {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.5 }}
-        className="font-manrope"
+        className="font-manrope dark:text-[#f9f5e8]"
       >
         <h2 className="text-[20px] font-[600] mb-5">
           {" "}
@@ -29,20 +29,20 @@ export const QuickActions = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsPremiumOpen(true)}
-            className="flex items-center gap-2 border border-[#E5E7EB] bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
+            className="flex items-center gap-2 border border-[#E5E7EB] dark:bg-white/5 dark:border-white/20 bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
           >
             <img src={nairoPremium} className="w-[20px]" />
             {t("home.get_premium")}
           </button>
           <Link to={ROUTES.SHOP}>
-            <button className="flex items-center gap-2 border border-[#E5E7EB] bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer">
+            <button className="flex items-center gap-2 border border-[#E5E7EB] dark:bg-white/5 dark:border-white/20 bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer">
               <img src={nairoCoin} className="w-[20px]" />
               {t("home.buy_nairo_coins")}
             </button>
           </Link>
           <button
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 border border-[#E5E7EB] bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
+            className="flex items-center gap-2 border border-[#E5E7EB] dark:bg-white/5 dark:border-white/20 bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
           >
             👥 <span> {t("home.invite_friends")}</span>
           </button>

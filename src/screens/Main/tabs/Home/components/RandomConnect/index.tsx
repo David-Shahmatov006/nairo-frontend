@@ -14,18 +14,18 @@ export const RandomConnect = () => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: "20%" }}
       transition={{ duration: 0.5 }}
-      className="relative bg-white p-4 pb-0 rounded-xl shadow h-[max-content] flex flex-col gap-3 w-[30%] max-w-[400px]"
+      className="relative dark:text-[#f9f5e8] dark:bg-white/5 bg-white p-4 pb-0 rounded-xl shadow h-[max-content] flex flex-col gap-3 w-[30%] max-w-[400px]"
     >
       <h2 className="text-[20px] font-manrope font-semibold">
         {" "}
         {t("home.random_connect")}
       </h2>
       <div className="font-manrope">
-        <p className="text-[14px]">{t("home.random_connect_desc")}</p>
+        <p className="dark:text-[#f9f5e8]/45 text-[14px]">{t("home.random_connect_desc")}</p>
         <div className="flex flex-col items-center justify-between">
           <button
             onClick={() => setIsRandomModal(true)}
-            className="w-full mt-5 bg-gray-900 text-white px-4 py-2 rounded-md hover:ring-2 ring-main/70 duration-300 cursor-pointer"
+            className="w-full mt-5 dark:bg-black bg-gray-900 text-white px-4 py-2 rounded-md hover:ring-2 ring-main/70 duration-300 cursor-pointer"
           >
             {t("home.discover_button")}
           </button>

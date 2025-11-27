@@ -17,10 +17,10 @@ export const Logo = ({
     <div className={clsx("w-fit flex items-center gap-2", className)}>
       <img
         src={isPremium ? premiumLogo : logo}
-        className={clsx("w-[40px]", iconClassName)}
+        className={clsx(isPremium ? 'w-[38px] mt-1' : 'w-10', iconClassName)}
       />
       <span
-        className={clsx("font-manrope font-[700] text-[30px]", textClassName)}
+        className={clsx("dark:text-[#f9f5e8] font-manrope font-[700] text-[30px]", textClassName)}
       >
         Nairo
       </span>

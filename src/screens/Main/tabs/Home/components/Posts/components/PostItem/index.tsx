@@ -19,7 +19,7 @@ export const PostImage = ({ src, title }: { src: string; title: string }) => {
 
   if (!src || hasError) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-l-xl">
+      <div className="w-full h-full flex items-center justify-center dark:bg-white/5 bg-gray-200 rounded-l-xl">
         <PiImageBroken size={40} className="text-gray-400" />
       </div>
     );
@@ -46,14 +46,14 @@ export const PostItem = ({
     <Link to={`/post/${post.id}`}>
       <div
         key={post.id}
-        className="bg-white rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex"
+        className="dark:bg-white/5 bg-white rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex"
       >
-        <div className="flex-shrink-0 w-48 h-48 bg-gray-200">
+        <div className="flex-shrink-0 w-48 h-48 dark:bg-white/10 bg-gray-200">
           <PostImage src={post.image} title={post.title} />
         </div>
 
         <div className="p-4 flex flex-col flex-1 gap-2">
-          <div className="flex items-center justify-between text-gray-500 text-sm">
+          <div className="flex items-center justify-between dark:text-white/40 text-gray-500 text-sm">
             <span
               onClick={(e) => {
                 e.preventDefault();
@@ -66,12 +66,12 @@ export const PostItem = ({
             <span>{post.date}</span>
           </div>
 
-          <h3 className="text-lg font-semibold text-gray-900">{post.title}</h3>
-          <p className="text-gray-700 text-sm line-clamp-2">
+          <h3 className="text-lg font-semibold dark:text-[#f9f5e8] text-gray-900">{post.title}</h3>
+          <p className="dark:text-white/40 text-gray-700 text-sm line-clamp-2">
             {post.description}
           </p>
 
-          <div className="flex items-center justify-between mt-auto text-gray-600">
+          <div className="flex items-center justify-between mt-auto dark:text-white/40 text-gray-600">
             <div className="flex items-center gap-4">
               <button
                 onClick={(e) => {

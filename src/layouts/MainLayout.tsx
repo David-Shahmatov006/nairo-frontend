@@ -11,14 +11,14 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
   const { activeTab } = useAppStore();
   return (
     <>
-      <div className="flex flex-col h-screen">
+      <div className="dark:bg-[#0f0f0f] flex flex-col h-screen">
         <Header />
         <div className="flex flex-1">
           <Sidebar />
           <main
             className={clsx(
               "flex-1 h-full flex flex-col  scrollbar-hidden lg:pl-[315px] overflow-auto min-h-screen",
-              activeTab !== 5 && "px-[16px] pt-[16px] sm:pt-[116px] pb-[100px] xl:pr-[100px]"
+              activeTab !== 2 && "px-[16px] pt-[16px] sm:pt-[116px] pb-[100px] xl:pr-[100px]"
             )}
           >
             {children}
