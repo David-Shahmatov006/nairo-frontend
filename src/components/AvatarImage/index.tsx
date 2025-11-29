@@ -18,12 +18,12 @@ export const AvatarImage = ({
   return (
     <div
       className={clsx(
-        "!size-full bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center overflow-hidden",
+        "!size-full dark:bg-white/10 bg-gray-100 border dark:border-white/20 border-gray-200 rounded-full flex items-center justify-center overflow-hidden",
         className
       )}
     >
       {showFallback ? (
-        <RxAvatar className={clsx("w-14 h-14 text-main/40", iconClassName)} />
+        <RxAvatar className={clsx("w-14 h-14 text-main/70", iconClassName)} />
       ) : (
         <img
           src={src}

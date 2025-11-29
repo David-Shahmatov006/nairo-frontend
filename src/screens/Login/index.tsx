@@ -13,10 +13,10 @@ export const Login = () => {
       <LoginBackground className="absolute pointer-events-none" />
       <div className="flex w-[50%] mb-[10%] flex-col justify-center z-[2]">
         <Logo iconClassName="w-[50px]" textClassName="text-[55px]" />
-        <h2 className="text-[20px] font-[700] leading-[120%] text-[#111827] mb-[16px]">
+        <h2 className="text-[20px] font-[700] leading-[120%] text-white/70 text-[#111827] mb-[16px]">
           Build connections, explore, and have fun.
         </h2>
-        <p className=" text-[#3B4657] text-[16px] font-[500] leading-[150%]">
+        <p className=" text-white/50 text-[#3B4657] text-[16px] font-[500] leading-[150%]">
           Build your world on Nairo, share your stories, and connect with
           friends. Explore new connections, discover inspiring content, and
           reward your favorite creators with Nairo coins.

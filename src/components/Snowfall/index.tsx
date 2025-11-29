@@ -1,11 +1,28 @@
 import { useEffect, useState } from "react";
 import snowflake from "../../assets/images/snowFlake.webp";
+import whiteSnowflake from "../../assets/images/white_snowflake.webp";
 
 export const Snowfall = () => {
   const [flakes, setFlakes] = useState<number[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState(
+    document.documentElement.classList.contains("dark")
+  );
 
   useEffect(() => {
     setFlakes(Array.from({ length: 50 }, (_, i) => i));
+  }, []);
+
+  // 🔥 Отслеживаем изменение темы (добавление/удаление класса `dark`)
+  useEffect(() => {
+    const html = document.documentElement;
+
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(html.classList.contains("dark"));
+    });
+
+    observer.observe(html, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -22,7 +39,10 @@ export const Snowfall = () => {
             opacity: 0.5 + Math.random() * 0.5,
           }}
         >
-          <img src={snowflake} className="size-[20px]" />
+          <img
+            src={isDarkMode ? whiteSnowflake : snowflake}
+            className="size-[20px]"
+          />
         </div>
       ))}
     </div>

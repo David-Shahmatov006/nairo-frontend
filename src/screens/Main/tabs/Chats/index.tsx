@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { RxAvatar } from "react-icons/rx";
 import { IoSearch, IoSend } from "react-icons/io5";
 import clsx from "clsx";
 import { MdBlockFlipped } from "react-icons/md";
@@ -8,6 +7,7 @@ import { BsEmojiSunglasses } from "react-icons/bs";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { AvatarImage } from "../../../../components/AvatarImage";
 
 const mockChats = [
   {
@@ -168,7 +168,7 @@ export const Chats = () => {
       transition={{ duration: 0.4 }}
       className="mt-[80px] font-manrope h-full w-full flex"
     >
-      <div className="w-[30%] flex flex-col pr-4 border-r border-gray-200 pt-5">
+      <div className="w-[30%] flex flex-col pr-4 border-r dark:border-white/10 border-gray-200 pt-5">
         <div className="relative mb-4">
           <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
           <input
@@ -176,7 +176,7 @@ export const Chats = () => {
             placeholder={t("search.title")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full h-10 border border-gray-300 rounded-lg pl-10 pr-3 outline-none"
+            className="dark:text-white/80 w-full h-10 border dark:border-white/20 border-gray-300 rounded-lg pl-10 pr-3 outline-none"
           />
         </div>
 
@@ -186,25 +186,20 @@ export const Chats = () => {
               key={chat.id}
               className={clsx(
                 "flex items-center justify-between p-2 rounded-lg duration-300 cursor-pointer",
-                activeChat.id === chat.id ? "bg-main/10" : "hover:bg-gray-100"
+                activeChat.id === chat.id
+                  ? "dark:bg-white/10 bg-main/10"
+                  : "dark:bg-white/5 hover:bg-gray-100"
               )}
             >
               <button
                 onClick={() => setActiveChat(chat)}
                 className="flex items-center gap-3 flex-1 text-left cursor-pointer"
               >
-                <div className="w-[42px] h-[42px] rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                  {chat.avatar ? (
-                    <img
-                      src={chat.avatar}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <RxAvatar className="text-main/40 w-6 h-6" />
-                  )}
+                <div className="w-[42px] h-[42px] rounded-full dark:bg-black bg-gray-200 flex items-center justify-center overflow-hidden">
+                  <AvatarImage src={chat.avatar || ""} />
                 </div>
 
-                <h3 className="font-semibold text-gray-900 text-[15px]">
+                <h3 className="font-semibold dark:text-white/80 text-gray-900 text-[15px]">
                   {chat.name}
                 </h3>
               </button>
@@ -220,13 +215,13 @@ export const Chats = () => {
         </div>
       </div>
       <div className="flex-1 flex flex-col">
-        <div className="h-[70px] flex items-center justify-between px-4 border-b border-gray-200">
+        <div className="h-[70px] flex items-center justify-between px-4 border-b dark:border-white/10 border-gray-200">
           <div className="flex items-center gap-3">
-            <div className="w-[46px] h-[46px] rounded-full bg-gray-200 flex items-center justify-center">
-              <RxAvatar className="text-main/40 w-6 h-6" />
+            <div className="w-[46px] h-[46px] rounded-full dark:bg-black bg-gray-200 flex items-center justify-center">
+              <AvatarImage src="" />
             </div>
             <div>
-              <h2 className="font-bold text-gray-900">{activeChat.name}</h2>
+              <h2 className="font-bold dark:text-white/80 text-gray-900">{activeChat.name}</h2>
               <p className="text-sm text-gray-500">{t("online")}</p>
             </div>
           </div>
@@ -242,12 +237,12 @@ export const Chats = () => {
               className={clsx(
                 "max-w-[70%] px-5 py-3 rounded-full border",
                 msg.fromMe
-                  ? "ml-auto bg-main/10 border-main/10"
-                  : "bg-white border-gray-200"
+                  ? "ml-auto dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
+                  : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200"
               )}
             >
               <div
-                className="whitespace-pre-wrap"
+                className="dark:text-white/80 whitespace-pre-wrap"
                 dangerouslySetInnerHTML={{ __html: msg.text }}
               />
               <div className="text-[11px] text-gray-500 mt-1">{msg.time}</div>
@@ -256,7 +251,7 @@ export const Chats = () => {
         </div>
 
         <div className="px-4 py-3 pb-10">
-          <div className="flex items-center gap-3 border border-gray-300 rounded-xl px-3">
+          <div className="flex items-center gap-3 border dark:border-white/10 border-gray-300 rounded-xl px-3">
             <button
               onClick={() => setIsEmojiOpen(true)}
               className="text-gray-500 hover:text-main cursor-pointer duration-300"
@@ -271,7 +266,7 @@ export const Chats = () => {
                 onInput={handleInput}
                 onPaste={handlePaste}
                 onKeyDown={handleKeyDown}
-                className="flex-1 outline-none text-[15px] py-2"
+                className="dark:text-white/80 flex-1 outline-none text-[15px] py-2"
               ></div>
 
               {message.length === 0 && (
@@ -283,7 +278,7 @@ export const Chats = () => {
 
             <button
               onClick={handleSubmit}
-              className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:ring-2 ring-main/70 cursor-pointer duration-300"
+              className="dark:bg-white/10 bg-gray-900 text-white px-4 py-2 rounded-lg hover:ring-2 ring-main/70 cursor-pointer duration-300"
             >
               <IoSend size={18} />
             </button>

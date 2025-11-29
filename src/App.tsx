@@ -33,13 +33,17 @@ const NavigationWatcher = () => {
 };
 
 function App() {
-  const { shareOpen, setShareOpen } = useAppStore();
+  const { shareOpen, setShareOpen, theme } = useAppStore();
   const [users] = useState([
     { id: 1, name: "Alice Johnson", username: "alice_j" },
     { id: 2, name: "Mark Smith", username: "mark_s" },
     { id: 3, name: "Julia Adams", username: "julia_ad" },
   ]);
-  
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
   return (
     <Router>
       <NavigationWatcher />

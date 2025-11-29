@@ -5,13 +5,13 @@ interface LoginTabsProps {
 
 export const LoginTabs = ({ activeTab, setActiveTab }: LoginTabsProps) => {
   return (
-    <div className="flex items-center bg-[#F3F4F6] p-[4px] border border-[#E5E7EB] rounded-[12px] h-[41px] mb-[48px]">
+    <div className="flex items-center dark:bg-white/10 bg-[#F3F4F6] p-[4px] border dark:border-white/20 border-[#E5E7EB] rounded-[12px] h-[41px] mb-[48px]">
       <button
         onClick={() => setActiveTab("signup")}
-        className={`h-[33px] px-4 rounded-[12px] text-[14px] font-[400] transition-colors cursor-pointer ${
+        className={`dark:text-white/80 text-black h-[33px] px-4 rounded-[12px] text-[14px] font-[400] transition-colors cursor-pointer ${
           activeTab === "signup"
-            ? "bg-white shadow-sm text-black"
-            : "text-black hover:text-gray-700"
+            ? "dark:bg-white/20 bg-white shadow-sm"
+            : "dark:hover:text-white/50 hover:text-gray-700"
         }`}
       >
         Sign up
@@ -19,10 +19,10 @@ export const LoginTabs = ({ activeTab, setActiveTab }: LoginTabsProps) => {
 
       <button
         onClick={() => setActiveTab("login")}
-        className={`h-[33px] px-4 rounded-[12px] text-[14px] font-[400] transition-colors cursor-pointer ${
+        className={`dark:text-white/80 text-black h-[33px] px-4 rounded-[12px] text-[14px] font-[400] transition-colors cursor-pointer ${
           activeTab === "login"
-            ? "bg-white shadow-sm text-black"
-            : "text-black hover:text-gray-700"
+            ? "dark:bg-white/20 bg-white shadow-sm"
+            : "dark:hover:text-white/50 hover:text-gray-700 hover:text-gray-700"
         }`}
       >
         Log in

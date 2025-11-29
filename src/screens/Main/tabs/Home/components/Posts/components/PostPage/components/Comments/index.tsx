@@ -31,7 +31,7 @@ export const Comments = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="text-2xl font-[600] text-gray-900">{t("comments")}</h2>
+      <h2 className="text-2xl font-[600] dark:text-white/70 text-gray-900">{t("comments")}</h2>
       <div className="custom-scrollbar max-h-[40vh] overflow-y-auto flex flex-col gap-3 mb-5">
         {comments.map((comment) => (
           <Comment
@@ -48,9 +48,9 @@ export const Comments = () => {
         <input
           type="text"
           placeholder="Write a comment..."
-          className="flex-1 bg-gray-100 px-4 h-12 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300"
+          className="flex-1 dark:bg-white/5 dark:text-white/80 bg-gray-100 px-4 h-12 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300"
         />
-        <button className="group bg-gray-800 h-12 font-medium text-white px-4 py-2 rounded-xl hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50 disabled:pointer-events-none">
+        <button className="group dark:bg-white/5 bg-gray-800 h-12 font-medium text-white px-4 py-2 rounded-xl hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50 disabled:pointer-events-none">
           <LuSend className="group-hover:translate-x-[10%] group-hover:-translate-y-[10%] text-[20px] duration-300" />
         </button>
       </div>

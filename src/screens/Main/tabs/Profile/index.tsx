@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { RxAvatar } from "react-icons/rx";
 import { NairoBalance } from "./components/NairoBalance";
 import { Posts } from "../Home/components/Posts";
 import clsx from "clsx";
@@ -7,6 +6,7 @@ import { BiMessageSquareDots } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
 import { EditProfile } from "./components/EditProfile";
 import { motion } from "framer-motion";
+import { AvatarImage } from "../../../../components/AvatarImage";
 
 type Post = {
   id: number;
@@ -76,37 +76,31 @@ export const Profile = () => {
     >
       <div className="flex flex-col md:flex-row items-start gap-6 mb-6">
         <div className="w-[70%] flex items-center gap-6">
-          <div className="w-28 h-28 md:w-32 md:h-32 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow">
-            {user.avatar ? (
-              <img
-                src={user.avatar}
-                alt={`${user.firstName} avatar`}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <RxAvatar className="w-14 h-14 text-main/40" />
-            )}
+          <div className="w-28 h-28 md:w-32 md:h-32 dark:bg-black/50 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow">
+            <AvatarImage src={user.avatar} />
           </div>
 
           <div className="flex flex-col">
             <div className="flex items-center gap-3">
-              <h1 className="text-xl md:text-2xl font-semibold text-gray-900">
+              <h1 className="text-xl md:text-2xl font-semibold dark:text-white/80 text-gray-900">
                 {user.firstName} {user.lastName}
               </h1>
               <span className="text-sm text-gray-500">@{user.username}</span>
             </div>
 
-            <p className="text-sm text-gray-600 mt-2 max-w-xl">{user.bio}</p>
+            <p className="text-sm dark:text-white/40 text-gray-600 mt-2 max-w-xl">
+              {user.bio}
+            </p>
 
-            {isOwnProfile ? (
+            {!isOwnProfile ? (
               <div className="mt-3 flex items-center gap-3">
                 <button
                   onClick={handleFollowToggle}
                   className={clsx(
-                    "min-w-[120px] px-4 h-10 rounded-lg font-medium duration-300 cursor-pointer hover:ring-2 hover:ring-main/40",
+                    "dark:bg-white/10 bg-white border min-w-[120px] px-4 h-10 rounded-lg font-medium duration-300 cursor-pointer hover:ring-2 hover:ring-main/70",
                     isFollowing
-                      ? "bg-white border border-main text-main"
-                      : "bg-white border border-gray-300 text-gray-800"
+                      ? "border-main text-main"
+                      : "dark:border-white/10 border-gray-300 dark:text-white/80 text-gray-800"
                   )}
                 >
                   {isFollowing ? t("profile.following") : t("profile.follow")}
@@ -119,7 +113,7 @@ export const Profile = () => {
             ) : (
               <button
                 onClick={() => setIsEditing(true)}
-                className="mt-5 flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]"
+                className="mt-5 flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 dark:bg-black dark:border border-white/10 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70 py-3 px-6 text-base flex items-center h-[48px] gap-[12px]"
               >
                 {t("profile.edit_profile")}
               </button>
@@ -128,21 +122,21 @@ export const Profile = () => {
         </div>
 
         <div className="w-[40%] flex gap-4 items-center">
-          <div className="w-full bg-white p-4 rounded-xl shadow flex justify-between">
+          <div className="w-full dark:bg-white/5 dark:text-white/80 bg-white p-4 rounded-xl shadow flex justify-between">
             <div className="flex flex-col items-center px-3">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm dark:text-white/30 text-gray-500">
                 {t("profile.followers")}
               </span>
               <span className="font-semibold">{user.followers}</span>
             </div>
             <div className="flex flex-col items-center px-3">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm dark:text-white/30 text-gray-500">
                 {t("profile.following")}
               </span>
               <span className="font-semibold">{user.following}</span>
             </div>
             <div className="flex flex-col items-center px-3">
-              <span className="text-sm text-gray-500">
+              <span className="text-sm dark:text-white/30 text-gray-500">
                 {t("profile.posts")}
               </span>
               <span className="font-semibold">{user.postsCount}</span>

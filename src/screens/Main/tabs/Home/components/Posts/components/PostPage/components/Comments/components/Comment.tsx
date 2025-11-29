@@ -37,7 +37,7 @@ export const Comment = ({
   return (
     <div className="font-manrope ml-[1%] w-fit min-w-[30%]">
       <div className="flex gap-3">
-        <div className="border border-gray-200 bg-[#80808006] p-3 rounded-[25px] w-full">
+        <div className="border dark:border-white/10 border-gray-200 dark:bg-black/10 bg-[#80808006] p-3 rounded-[25px] w-full">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex justify-center items-center !w-10 !h-10">
@@ -46,7 +46,7 @@ export const Comment = ({
                   iconClassName="!w-[30px] !h-[30px]"
                 />
               </div>
-              <span className="font-medium text-gray-800">
+              <span className="font-medium dark:text-white/70 text-gray-800">
                 {comment.author}
               </span>
             </div>
@@ -82,7 +82,7 @@ export const Comment = ({
             )}
           </div>
 
-          <p className="text-gray-700 mt-1">
+          <p className="dark:text-white/60 text-gray-700 mt-1">
             {isEditing ? (
               <input
                 type="text"

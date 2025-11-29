@@ -30,29 +30,22 @@ export const PremiumModal = ({ isOpen, onClose, onBuy }: PremiumModalProps) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 40, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="
-            relative bg-white/90 backdrop-blur-2xl border border-gray-200 
-            shadow-[0_8px_35px_rgba(0,0,0,0.08)]
-            rounded-3xl max-w-lg w-full p-8 text-gray-900
-          "
+            className="relative bg-white/90 backdrop-blur-2xl border border-gray-200 shadow-[0_8px_35px_rgba(0,0,0,0.08)] rounded-3xl max-w-lg w-full p-8 text-gray-900"
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 bg-gray-300 hover:ring-2 ring-main/40 cursor-pointer duration-300 rounded-full p-1"
+              className="absolute top-4 right-4 bg-gray-300 hover:ring-2 ring-main/70 cursor-pointer duration-300 rounded-full p-1"
             >
               <IoIosClose size={24} className="text-gray-700" />
             </button>
 
             <div className="flex flex-col items-center mb-8">
-              <img
-                src={nairoPremium}
-                className="w-16"
-              />
+              <img src={nairoPremium} className="w-16" />
 
               <h2 className="text-[28px] font-[700] mt-4 text-gray-900">
                 Nairo Premium
               </h2>
-              <p className="text-gray-600 text-center mt-2 text-[15px]">
+              <p className="font-[500] text-gray-600 text-center mt-2 text-[15px]">
                 {t("premium.subtitle")}
               </p>
             </div>

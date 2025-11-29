@@ -40,7 +40,7 @@ export const RandomConnectModal = ({ isOpen, onClose }: any) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white w-[360px] rounded-2xl p-6 shadow-xl relative"
+            className="dark:bg-black/50 bg-white w-[360px] rounded-2xl p-6 shadow-xl relative"
           >
             {stage === "search" && (
               <div className="flex flex-col items-center py-10">
@@ -89,7 +89,7 @@ export const RandomConnectModal = ({ isOpen, onClose }: any) => {
                 </div>
 
                 <motion.p
-                  className="text-gray-700 text-[17px] font-semibold"
+                  className="dark:text-white/70 text-gray-700 text-[17px] font-semibold"
                   animate={{ opacity: [0.3, 1, 0.3] }}
                   transition={{ repeat: Infinity, duration: 1.5 }}
                 >
@@ -105,7 +105,7 @@ export const RandomConnectModal = ({ isOpen, onClose }: any) => {
                 transition={{ duration: 0.4 }}
                 className="text-center"
               >
-                <div className="w-[90px] h-[90px] mx-auto rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mb-3">
+                <div className="w-[90px] h-[90px] mx-auto rounded-full dark:bg-white/10 bg-gray-200 flex items-center justify-center overflow-hidden mb-3">
                   {mockUser.avatar ? (
                     <img
                       src={mockUser.avatar}
@@ -116,7 +116,7 @@ export const RandomConnectModal = ({ isOpen, onClose }: any) => {
                   )}
                 </div>
 
-                <p className="text-[18px] font-semibold text-gray-900">
+                <p className="text-[18px] font-semibold dark:text-white/70 text-gray-900">
                   {mockUser.name}
                 </p>
 
@@ -139,7 +139,7 @@ export const RandomConnectModal = ({ isOpen, onClose }: any) => {
                   onClick={() =>
                     console.log("Start chat with: ", mockUser.name)
                   }
-                  className="w-full bg-gray-900 text-white py-2 rounded-xl font-semibold hover:ring-2 ring-main/70 cursor-pointer duration-300"
+                  className="w-full dark:bg-white/5 bg-gray-900 text-white py-2 rounded-xl font-semibold hover:ring-2 ring-main/70 cursor-pointer duration-300"
                 >
                   {t('random_connect_modal.connect')}
                 </button>

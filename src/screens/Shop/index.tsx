@@ -27,7 +27,7 @@ export const Shop = () => {
       className="font-manrope w-full max-w-3xl mx-auto py-10 px-4"
     >
       <div className="flex items-center justify-between mb-6">
-        <h1 className="font-[500] text-[30px] font-[500] text-gray-900">
+        <h1 className="font-[500] text-[30px] font-[500] dark:text-white/80 text-gray-900">
           {t("shop.title")}
         </h1>
         <BackButton handleBack={() => navigate(-1)} />
@@ -36,7 +36,7 @@ export const Shop = () => {
       <div className="bg-white-900 text-white rounded-2xl p-6 mb-10 shadow-lg shadow-main/20 flex items-center justify-between">
         <div>
           <p className="text-gray-500 text-sm mb-1">{t("shop.your_balance")}</p>
-          <p className="text-[30px] text-black/70 font-bold">1 240 NC</p>
+          <p className="text-[30px] dark:text-white/70 text-black/70 font-bold">1 240 NC</p>
         </div>
         <img src={nairoBag} className="w-[100px]" />
       </div>
@@ -44,13 +44,13 @@ export const Shop = () => {
         {packs.map((pack, idx) => (
           <div
             key={pack.amount}
-            className="bg-white rounded-2xl shadow-md p-6 border border-transparent 
+            className="dark:bg-white/3 bg-white rounded-2xl shadow-md p-6 border border-transparent 
              hover: hover:shadow-xl hover:shadow-main/40 duration-300 cursor-pointer 
              flex flex-col items-center text-center"
           >
             <img src={pack.icon} className={clsx("h-[60px] mb-4", idx === 1 && 'w-[80px]')} />
 
-            <h3 className="text-3xl font-extrabold text-gray-900">
+            <h3 className="text-3xl font-extrabold dark:text-white/80 text-gray-900">
               {pack.amount} NC
             </h3>
 
@@ -58,7 +58,7 @@ export const Shop = () => {
               ${pack.price.toFixed(2)}
             </p>
 
-            <button className="w-full bg-gray-900 text-white h-12 rounded-xl hover:ring-2 ring-main/70 cursor-pointer duration-300 active:scale-[0.98] duration-300 flex items-center justify-center gap-2 font-semibold">
+            <button className="w-full dark:bg-black/50 bg-gray-900 text-white h-12 rounded-xl hover:ring-2 ring-main/70 cursor-pointer duration-300 active:scale-[0.98] duration-300 flex items-center justify-center gap-2 font-semibold">
               {t("shop.buy_now")} <IoIosArrowForward className="text-xl" />
             </button>
           </div>

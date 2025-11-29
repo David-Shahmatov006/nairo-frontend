@@ -48,7 +48,7 @@ export const PostPage = () => {
     >
       <BackButton handleBack={() => navigate(-1)} />
 
-      <h1 className="text-[34px] font-extrabold text-gray-900 mt-8 mb-3">
+      <h1 className="text-[34px] font-extrabold dark:text-white/90 text-gray-900 mt-8 mb-3">
         {post.title}
       </h1>
 
@@ -57,21 +57,21 @@ export const PostPage = () => {
           <AvatarImage src={post.image} iconClassName="!size-10" />
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold text-gray-800 text-lg">
+          <span className="font-semibold dark:text-white/70 text-gray-800 text-lg">
             {post.author}
           </span>
           <span className="text-sm text-gray-500">{post.date}</span>
         </div>
       </div>
 
-      <div className="w-full h-[60vh] rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center mb-5">
+      <div className="w-full h-[60vh] rounded-xl overflow-hidden dark:bg-white/10 bg-gray-100 flex items-center justify-center mb-5">
         <PostImage src={post.image} title="Post image" />
       </div>
 
       <div className="relative mb-7">
         <p
           ref={descriptionRef}
-          className="text-[17px] font-[500] text-gray-800 leading-relaxed overflow-hidden transition-all duration-500"
+          className="text-[17px] font-[500] dark:text-white/60 text-gray-800 leading-relaxed overflow-hidden transition-all duration-500"
           style={{
             maxHeight,
             WebkitMaskImage:
@@ -90,14 +90,14 @@ export const PostPage = () => {
         {!isExpanded && post.description.length > 180 && (
           <button
             onClick={() => setIsExpanded(true)}
-            className="flex items-center justify-center absolute -bottom-[15%] right-1/2 bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/40 duration-300 cursor-pointer"
+            className="flex items-center justify-center absolute -bottom-[15%] right-1/2 dark:bg-[#191a1a] bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/70 duration-300 cursor-pointer"
           >
-            <IoIosArrowDown />
+            <IoIosArrowDown className="dark:text-white/50" />
           </button>
         )}
       </div>
 
-      <div className="flex items-center gap-8 text-gray-700 text-[20px] font-medium pb-5">
+      <div className="flex items-center gap-8 dark:text-white/80 text-gray-700 text-[20px] font-medium pb-5">
         <button
           onClick={handleLike}
           className={clsx(
@@ -125,7 +125,7 @@ export const PostPage = () => {
         </button>
       </div>
 
-      <div className="w-full h-[1px] bg-gray-200 mb-5" />
+      <div className="w-full h-[1px] dark:bg-white/10 bg-gray-200 mb-5" />
 
       <Comments />
     </motion.div>

@@ -20,17 +20,17 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white w-[320px] rounded-2xl p-4 shadow-xl"
+            className="dark:bg-black/50 bg-white w-[320px] rounded-2xl p-4 shadow-xl"
           >
             <div className="flex justify-between items-center mb-5">
-              <h2 className="font-semibold text-gray-900 text-[20px]">
+              <h2 className="font-semibold dark:text-white/80 text-gray-900 text-[20px]">
                 {t("emoji_modal.default_emojis")}
               </h2>
               <button
-                className="size-7 flex items-center justify-center rounded-full bg-gray-200 cursor-pointer hover:ring-2 ring-main/40 duration-300"
+                className="size-7 flex items-center justify-center rounded-full dark:bg-white/10 bg-gray-200 cursor-pointer hover:ring-2 ring-main/70 duration-300"
                 onClick={onClose}
               >
-                <IoIosClose size={26} />
+                <IoIosClose className="dark:text-white/30" size={26} />
               </button>
             </div>
 
@@ -49,7 +49,7 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
               ))}
             </div>
 
-            <h3 className="font-semibold text-gray-800 mb-2 text-[20px]">
+            <h3 className="font-semibold dark:text-white/80 text-gray-800 mb-2 text-[20px]">
               {t("emoji_modal.custom_emojis")}
             </h3>
 

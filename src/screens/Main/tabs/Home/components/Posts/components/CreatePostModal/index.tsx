@@ -44,21 +44,21 @@ export const CreatePostModal = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="w-full max-w-lg bg-white rounded-2xl p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.25)] font-manrope relative"
+            className="w-full max-w-lg dark:bg-black/50 bg-white rounded-2xl p-6 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.25)] font-manrope relative"
           >
             <button
               onClick={() => setIsOpenPostModal(false)}
-              className="z-[2] absolute w-[40px] bg-[#FFFFFF] border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-4 right-4 cursor-pointer hover:ring-2 hover:ring-main/40 duration-300"
+              className="z-[2] absolute w-[40px] dark:bg-white/10 dark:border-white/10 bg-[#FFFFFF] border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-4 right-4 cursor-pointer hover:ring-2 hover:ring-main/40 duration-300"
             >
-              <TfiClose />
+              <TfiClose className="dark:text-white/50" />
             </button>
-            <h2 className="text-[22px] font-[600] text-gray-900 mb-6 text-center">
+            <h2 className="text-[22px] font-[600] dark:text-white/80 text-gray-900 mb-6 text-center">
               {t("create_post.title")}
             </h2>
 
             <div className="mb-6">
               {!image ? (
-                <label className="flex flex-col items-center justify-center w-full h-40 border border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                <label className="flex flex-col items-center justify-center w-full h-40 border border-dashed dark:border-white/20 border-gray-300 rounded-xl cursor-pointer dark:bg-white/10 bg-gray-50 hover:bg-gray-100 transition">
                   <FiImage className="text-3xl text-gray-400 mb-2" />
                   <span className="text-gray-500 text-sm">{t("create_post.upload_img")}</span>
                   <input
@@ -87,7 +87,7 @@ export const CreatePostModal = () => {
               <input
                 type="text"
                 placeholder={t("create_post.post_title")}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                className="w-full px-4 py-3 dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
               />
             </div>
 
@@ -95,13 +95,13 @@ export const CreatePostModal = () => {
               <textarea
                 placeholder={t("create_post.post_desc")}
                 rows={4}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                className="w-full px-4 py-3 dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
               />
             </div>
 
             <button
               onClick={() => setIsOpenPostModal(false)}
-              className="w-full bg-gray-800 text-white py-3 rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer"
+              className="w-full dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white py-3 rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer"
             >
               {t("create_post.publish")}
             </button>

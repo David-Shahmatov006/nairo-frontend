@@ -54,9 +54,9 @@ export const HobbiesSelector = ({ handleBack }: IProps) => {
 
   return (
     <div className="bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] z-[2] relative p-6 font-manrope max-w-3xl mx-auto">
-      <div className="bg-white p-[32px] sm:p-[48px] rounded-[16px]">
-        <h2 className="text-2xl font-bold mb-4">Select Your Interests</h2>
-        <p className="text-gray-600 mb-6">
+      <div className="dark:bg-[#191a1a] bg-white p-[32px] sm:p-[48px] rounded-[16px]">
+        <h2 className="dark:text-white/80 text-2xl font-bold mb-4">Select Your Interests</h2>
+        <p className="dark:text-white/40 text-gray-600 mb-6">
           Choose hobbies and topics that you like. This helps us recommend
           relevant content and friends.
         </p>
@@ -67,10 +67,10 @@ export const HobbiesSelector = ({ handleBack }: IProps) => {
               key={interest}
               onClick={() => toggleInterest(interest)}
               className={clsx(
-                "px-4 py-2 rounded-full border border-gray-300 transition-colors duration-200 text-sm font-medium duration-300 cursor-pointer",
+                "px-4 py-2 rounded-full border dark:border-white/10 border-gray-300 transition-colors duration-200 dark:text-white/80 text-sm font-medium duration-300 cursor-pointer",
                 selected.includes(interest)
                   ? "bg-main text-white border-main"
-                  : "bg-white text-gray-700 hover:bg-main/70"
+                  : "dark:bg-white/10 bg-white text-gray-700 hover:bg-main/70"
               )}
             >
               {interest}
@@ -78,13 +78,13 @@ export const HobbiesSelector = ({ handleBack }: IProps) => {
           ))}
         </div>
 
-        <button className="mt-7 group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] bg-gray-900 text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300">
+        <button className="mt-7 group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] dark:bg-black/80 bg-gray-900 text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300">
           Create account
           <FiArrowRight className="group-hover:translate-x-[15%] duration-300" />
         </button>
         <button
           onClick={handleBack}
-          className="mt-2 group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] border border-gray-500 text-gray-700 w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
+          className="mt-2 group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] border dark:border-white/10 border-gray-500 dark:text-white/50 text-gray-700 w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
         >
           Back
         </button>

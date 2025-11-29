@@ -36,16 +36,16 @@ export const ConfirmModal = ({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.85, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="bg-white w-full max-w-[360px] rounded-2xl p-6 shadow-xl"
+            className="dark:bg-[#191a1a] bg-white w-full max-w-[360px] rounded-2xl p-6 shadow-xl"
           >
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-[20px] font-[700] text-gray-900 mb-2">
+              <h2 className="text-[20px] font-[700] dark:text-white/80 text-gray-900 mb-2">
                 {title}
               </h2>
               <button onClick={onClose}>
                 <IoIosClose
                   size={28}
-                  className="size-7 rounded-full bg-gray-200 flex items-center justify-center hover:ring-2 ring-main/40 cursor-pointer duration-300"
+                  className="size-7 rounded-full dark:bg-white/10 dark:text-white/80 bg-gray-200 flex items-center justify-center hover:ring-2 ring-main/70 cursor-pointer duration-300"
                 />
               </button>
             </div>
@@ -59,14 +59,14 @@ export const ConfirmModal = ({
             <div className="flex items-center gap-3">
               <button
                 onClick={onClose}
-                className="cursor-pointer flex-1 h-11 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 duration-300 font-[500]"
+                className="dark:text-white/80 cursor-pointer flex-1 h-11 rounded-xl border dark:border-white/10 border-gray-300 text-gray-700 dark:hover:bg-white/5 hover:bg-gray-100 duration-300 font-[500]"
               >
                 {cancelText}
               </button>
 
               <button
                 onClick={onConfirm}
-                className="cursor-pointer flex-1 h-11 rounded-xl bg-gray-900 text-white hover:ring-2 ring-main/70 duration-300 font-[500]"
+                className="cursor-pointer flex-1 h-11 rounded-xl dark:bg-black/50 bg-gray-900 text-white hover:ring-2 ring-main/70 duration-300 font-[500]"
               >
                 {confirmText}
               </button>

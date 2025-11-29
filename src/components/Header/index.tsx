@@ -1,29 +1,11 @@
 import { IoAddOutline } from "react-icons/io5";
 import { Logo } from "../Logo";
 import { UserDropdown } from "./components/UserDropdown";
-import { useEffect, useState } from "react";
 import { LuSun, LuMoon } from "react-icons/lu";
 import { useAppStore } from "../../stores/app";
 
 export const Header = () => {
-  const { setIsOpenPostModal } = useAppStore();
-
-  const [theme, setTheme] = useState<"light" | "dark">(
-    (localStorage.getItem("theme") as "light" | "dark") || "light"
-  );
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
-  };
+  const { setIsOpenPostModal, theme, toggleTheme } = useAppStore();
 
   return (
     <header className="dark:bg-[#191a1a] z-[3] fixed top-0 left-0 w-full flex items-center justify-between bg-white dark: px-8 py-4 dark:border-white/10 border-b border-[#E5E7EB]">
@@ -41,9 +23,9 @@ export const Header = () => {
           "
         >
           {theme === "light" ? (
-            <LuMoon className="text-[22px] text-gray-800" />
+            <LuMoon className="text-[22px] text-main" />
           ) : (
-            <LuSun className="text-[22px] text-yellow-300" />
+            <LuSun className="text-[22px] text-main" />
           )}
         </button>
 

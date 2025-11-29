@@ -74,7 +74,7 @@ export const UserDropdown = () => {
             <button
               onClick={() => {
                 setOpen(false);
-                setActiveTab(4);
+                setActiveTab(5);
               }}
               className="w-full cursor-pointer text-left py-2 px-3 text-sm dark:text-[#f9f5e8]/50 text-gray-700 dark:hover:bg-white/10 hover:bg-gray-100 rounded-md duration-300"
             >

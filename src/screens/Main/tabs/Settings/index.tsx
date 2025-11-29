@@ -18,7 +18,7 @@ export const Settings = () => {
       <div className="w-[60%]">
         <ChangeEmail />
         <ChangePassword />
-        <button className="mt-10 bg-white text-[#111827] w-full px-4 h-[50px] font-[500] rounded-[15px] border border-gray-300 hover:ring-2 hover:ring-[red]/40 duration-300 cursor-pointer">
+        <button className="mt-10 dark:bg-black bg-white dark:text-white/80 text-[#111827] w-full px-4 h-[50px] font-[500] rounded-[15px] border dark:border-white/10 border-gray-300 hover:ring-2 hover:ring-[red]/40 duration-300 cursor-pointer">
           {t("settings.logout")}
         </button>
       </div>
