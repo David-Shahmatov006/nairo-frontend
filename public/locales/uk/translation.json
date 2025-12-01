@@ -41,7 +41,8 @@
     "posts": "Пости",
     "nairo_balance": "Баланс Nairo",
     "edit_profile": "Редагувати профіль",
-    "refill": "Поповнити"
+    "refill": "Поповнити",
+    "no_bio": "Біографію ще не додано"
   },
   "settings": {
     "change_email": "Змінити email",
@@ -71,7 +72,10 @@
     "last_name_placeholder": "Введіть ваше прізвище",
     "username_placeholder": "Введіть ім’я користувача",
     "bio_placeholder": "Розкажіть щось про себе...",
-    "save_changes": "Зберегти зміни"
+    "save_changes": "Зберегти зміни",
+    "invalid_username": "Імʼя користувача має містити щонайменше 3 символи і складатися лише з літер, цифр або символу підкреслення",
+    "invalid_first_name": "Імʼя повинно містити літери A–Z і бути довжиною не менше ніж 2 символи",
+    "invalid_last_name": "Прізвище повинно містити літери A–Z і бути довжиною не менше ніж 2 символи"
   },
   "shop": {
     "title": "Купити Nairo Coins",
@@ -123,5 +127,16 @@
     "searching_text": "Пошук співрозмовника...",
     "common_interests": "Ваші спільні інтереси",
     "connect": "Підключитися"
+  },
+  "send_nairo_modal": {
+    "title": "Надіслати Nairo Coins",
+    "recipient": "Отримувач",
+    "your_balance": "Ваш баланс",
+    "enter_amount_placeholder": "Введіть суму",
+    "send_button": "Надіслати",
+    "cancel_button": "Скасувати",
+    "sending_text": "Відправлення Nairo coins...",
+    "success_text": "Успішно надіслано!",
+    "close_button": "Закрити"
   }
 }

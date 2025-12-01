@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import "./App.css";
 import { Main } from "./screens/Main";
@@ -16,18 +17,25 @@ import { useAppStore } from "./stores/app";
 import { ROUTES } from "./routes";
 import { Snowfall } from "./components/Snowfall";
 import { SharePostModal } from "./screens/Main/tabs/Home/components/SharePostModal";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const NavigationWatcher = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { activeTab } = useAppStore();
   const previousTabRef = useRef(activeTab);
 
   useEffect(() => {
-    if (previousTabRef.current !== activeTab) {
+    const isNestedPage =
+      location.pathname.startsWith("/post/") ||
+      location.pathname.startsWith("/shop");
+
+    if (previousTabRef.current !== activeTab && isNestedPage) {
       navigate(-1);
     }
+
     previousTabRef.current = activeTab;
-  }, [activeTab, navigate]);
+  }, [activeTab, navigate, location.pathname]);
 
   return null;
 };
@@ -52,7 +60,13 @@ function App() {
       <Routes>
         <Route path={ROUTES.LOGIN} element={<Login />} />
 
-        <Route element={<MainLayoutWrapper />}>
+        <Route
+          element={
+            <ProtectedRoute>
+              <MainLayoutWrapper />
+            </ProtectedRoute>
+          }
+        >
           <Route path={ROUTES.HOME} element={<Main />} />
           <Route path={ROUTES.SHOP} element={<Shop />} />
           <Route path="/post/:id" element={<PostPage />} />

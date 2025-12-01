@@ -68,7 +68,7 @@ export const LanguageSelector = () => {
                       handleChange(lang.code);
                     }}
                     className={clsx(
-                      "cursor-pointer w-full text-left flex items-center gap-3 px-3 py-2 text-sm hover:bg-gray-50 transition",
+                      "cursor-pointer w-full text-left flex items-center gap-3 px-3 py-2 text-sm dark:hover:bg-white/10 hover:bg-gray-50 transition",
                       active && "dark:bg-white/20 bg-gray-100 font-semibold"
                     )}
                   >

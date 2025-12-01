@@ -113,7 +113,7 @@ export const PostItem = ({
               </button>
             </div>
             {isOwnProfile && (
-              <button className="flex items-center justify-center size-6 rounded cursor-pointer hover:bg-red-200 duration-300">
+              <button className="flex items-center justify-center size-6 rounded cursor-pointer dark:hover:bg-white/10 hover:bg-red-200 duration-300">
                 <RiDeleteBin6Line className="text-red-400" />
               </button>
             )}

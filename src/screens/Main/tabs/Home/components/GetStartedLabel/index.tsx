@@ -9,8 +9,6 @@ export const GetStartedLabel = () => {
   const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(true);
 
-  if (!isVisible) return null;
-
   return (
     <AnimatePresence>
       {isVisible && (
@@ -18,7 +16,7 @@ export const GetStartedLabel = () => {
           key="welcomeBanner"
           initial={{ opacity: 0, y: "-10%" }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: "-10%" }}
+          exit={{ opacity: 0, y: "-100%" }}
           transition={{ duration: 0.5 }}
           className="relative rounded-lg shadow-sm dark:bg-black dark:text-[#f9f5e8] bg-white overflow-hidden w-full flex items-center justify-between p-8"
         >

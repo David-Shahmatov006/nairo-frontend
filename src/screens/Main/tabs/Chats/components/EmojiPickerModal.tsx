@@ -42,7 +42,7 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
                     onSelect({ type: "default", value: emoji });
                     onClose();
                   }}
-                  className="w-10 h-10 flex items-center justify-center text-[20px] hover:bg-gray-100 rounded-xl cursor-pointer duration-300"
+                  className="w-10 h-10 flex items-center justify-center text-[20px] dark:hover:bg-white/10 hover:bg-gray-100 rounded-xl cursor-pointer duration-300"
                 >
                   {emoji}
                 </button>
@@ -61,7 +61,7 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
                     onSelect({ type: "custom", value: emoji });
                     onClose();
                   }}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-100 overflow-hidden cursor-pointer duration-300"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center dark:hover:bg-white/10 hover:bg-gray-100 overflow-hidden cursor-pointer duration-300"
                 >
                   <img src={emoji.src} className="size-5 object-contain" />
                 </button>

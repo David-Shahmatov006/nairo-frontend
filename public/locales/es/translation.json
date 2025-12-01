@@ -41,7 +41,8 @@
     "posts": "Publicaciones",
     "nairo_balance": "Saldo Nairo",
     "edit_profile": "Editar perfil",
-    "refill": "Recargar"
+    "refill": "Recargar",
+    "no_bio": "Aún no hay biografía"
   },
   "settings": {
     "change_email": "Cambiar correo",
@@ -71,7 +72,10 @@
     "last_name_placeholder": "Ingresa tu apellido",
     "username_placeholder": "Ingresa tu nombre de usuario",
     "bio_placeholder": "Cuenta algo sobre ti...",
-    "save_changes": "Guardar cambios"
+    "save_changes": "Guardar cambios",
+    "invalid_username": "El nombre de usuario debe tener al menos 3 caracteres y contener solo letras, números o guiones bajos",
+    "invalid_first_name": "El nombre debe usar letras A–Z y tener al menos 2 caracteres",
+    "invalid_last_name": "El apellido debe usar letras A–Z y tener al menos 2 caracteres"
   },
   "shop": {
     "title": "Comprar Nairo Coins",
@@ -123,5 +127,16 @@
     "searching_text": "Buscando una coincidencia...",
     "common_interests": "Tienen intereses en común",
     "connect": "Conectar"
+  },
+  "send_nairo_modal": {
+    "title": "Enviar Nairo Coins",
+    "recipient": "Destinatario",
+    "your_balance": "Tu saldo",
+    "enter_amount_placeholder": "Ingresa la cantidad",
+    "send_button": "Enviar",
+    "cancel_button": "Cancelar",
+    "sending_text": "Enviando Nairo coins...",
+    "success_text": "¡Enviado con éxito!",
+    "close_button": "Cerrar"
   }
 }

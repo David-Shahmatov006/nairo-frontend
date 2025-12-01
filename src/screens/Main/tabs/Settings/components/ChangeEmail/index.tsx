@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { FaRegEdit } from "react-icons/fa";
 import { HiOutlineEnvelope } from "react-icons/hi2";
+import { useAuthStore } from "../../../../../../stores/auth";
 
 export const ChangeEmail = () => {
   const { t } = useTranslation();
-  
+  const { user } = useAuthStore();
+
   return (
     <div className="mb-10">
       <p className="text-[20px] font-[700] leading-[120%] dark:text-white/80 text-[#111827] mb-[32px]">
@@ -20,8 +22,9 @@ export const ChangeEmail = () => {
           </div>
           <input
             type="email"
+            placeholder={"your.email@example.com"}
+            defaultValue={user?.email}
             className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
-            placeholder="your.email@example.com"
           />
 
           <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#374151]">

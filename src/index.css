@@ -3,8 +3,24 @@
 
 html {
   -ms-overflow-style: none !important;
-  background: #f8fafc;
+}
 
+html::-webkit-scrollbar {
+  width: 4px;
+}
+
+html::-webkit-scrollbar {
+  width: 4px;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #8c53ffbe;
+  border-radius: 4px;
 }
 
 body {
@@ -12,9 +28,9 @@ body {
   background: #f8fafc;
 }
 
-html.dark >
-body {
-  background: #0f0f0f !important; /* тёмный фон */
+html.dark>body,
+body.dark {
+  background: #0f0f0f !important;
 }
 
 .scrollbar-hidden {
@@ -54,14 +70,20 @@ body {
   0% {
     transform: translateY(-10vh) rotate(0deg);
   }
+
   100% {
     transform: translateY(110vh) rotate(360deg);
   }
 }
 
 @keyframes spin-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -69,9 +91,12 @@ body {
 }
 
 @keyframes neon-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     filter: drop-shadow(0 0 4px cyan) drop-shadow(0 0 8px purple);
   }
+
   50% {
     filter: drop-shadow(0 0 10px cyan) drop-shadow(0 0 15px purple);
   }
@@ -80,4 +105,3 @@ body {
 .animate-neon-glow {
   animation: neon-glow 2.5s ease-in-out infinite;
 }
-

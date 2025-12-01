@@ -1,21 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { RxAvatar } from "react-icons/rx";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../../stores/app";
 import { useTranslation } from "react-i18next";
+import { useAuthStore } from "../../../stores/auth";
+import { AvatarImage } from "../../AvatarImage";
 
 export const UserDropdown = () => {
   const { setActiveTab } = useAppStore();
+  const { logout, user } = useAuthStore();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const user = {
-    firstName: "David",
-    lastName: "Shahmatov",
-    username: "david_sh",
-    avatar: "",
-  };
+  console.log(user, "user");
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -33,16 +30,14 @@ export const UserDropdown = () => {
         onClick={() => setOpen((prev) => !prev)}
         className="min-w-[150px] h-[48px] border dark:border-[gray]/50 dark:hover:bg-black/20 border-gray-300 px-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-50 duration-200"
       >
-        <div className="size-7 bg-main/10 rounded-full flex items-center justify-center overflow-hidden">
-          {user.avatar ? (
-            <img src={user.avatar} alt="avatar" className="w-full h-full" />
-          ) : (
-            <RxAvatar className="size-[28px] text-[#8b53ff]" />
-          )}
+        <div className="size-9 bg-main/10 rounded-full flex items-center justify-center overflow-hidden">
+          <AvatarImage
+            src={user?.avatar || ""}
+          />
         </div>
 
         <span className="dark:text-[#f9f5e8] font-manrope whitespace-nowrap">
-          {user.firstName} {user.lastName}
+          {user?.firstName} {user?.lastName}
         </span>
       </div>
 
@@ -56,19 +51,17 @@ export const UserDropdown = () => {
             className="absolute right-0 mt-2 w-[230px] dark:bg-[#191a1a] bg-white shadow-lg rounded-xl border dark:border-white/20 border-gray-200 p-4 z-50"
           >
             <div className="flex items-center gap-[10px] pb-3 mb-3 border-b dark:border-white/20 border-gray-200">
-              <div className="rounded-full bg-main/10 flex items-center justify-center overflow-hidden">
-                {user.avatar ? (
-                  <img src={user.avatar} alt="avatar" />
-                ) : (
-                  <RxAvatar className="size-8 text-[#8b53ff]" />
-                )}
+              <div className="size-10 rounded-full bg-main/10 flex items-center justify-center overflow-hidden">
+                <AvatarImage
+                  src={user?.avatar || ""}
+                />
               </div>
 
               <div className="flex flex-col">
                 <span className="text-sm font-medium dark:text-[#f9f5e8] text-gray-800">
-                  {user.firstName} {user.lastName}
+                  {user?.firstName} {user?.lastName}
                 </span>
-                <span className="text-gray-500 text-sm">@{user.username}</span>
+                <span className="text-gray-500 text-sm">@{user?.username}</span>
               </div>
             </div>
             <button
@@ -81,7 +74,13 @@ export const UserDropdown = () => {
               <span>{t("sidebar.settings")}</span>
             </button>
 
-            <button className="w-full text-left py-2 cursor-pointer px-3 text-sm text-red-600 dark:hover:bg-white/10 hover:bg-red-50 rounded-md duration-300">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                logout();
+              }}
+              className="w-full text-left py-2 cursor-pointer px-3 text-sm text-red-600 dark:hover:bg-white/10 hover:bg-red-50 rounded-md duration-300"
+            >
               <span>{t("settings.logout")}</span>
             </button>
           </motion.div>
