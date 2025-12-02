@@ -18,12 +18,10 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       token: null,
 
-      // установить юзера (после логина/регистрации)
       setUser: (user) => {
         set({ user });
       },
 
-      // обновить часть данных пользователя (для Edit Profile)
       updateUser: (partial) => {
         const current = get().user;
         if (!current) return;
@@ -32,12 +30,10 @@ export const useAuthStore = create<AuthState>()(
         set({ user: updated });
       },
 
-      // установить токен
       setToken: (token) => {
         set({ token });
       },
 
-      // разлогин
       logout: () => {
         set({ user: null, token: null });
         localStorage.removeItem("token");

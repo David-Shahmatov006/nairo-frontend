@@ -1,9 +1,7 @@
-import { postsMock } from "../../../../constants/posts";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PostItem } from "../Home/components/Posts/components/PostItem";
 import surprisedMuskot from "../../../../assets/images/surprisedMuskot.webp";
 import { motion } from "framer-motion";
+import { Posts } from "../Home/components/Posts";
 
 const dummyPosts = [
   { id: 1, title: "My First Post", author: "John Doe" },
@@ -12,16 +10,8 @@ const dummyPosts = [
 ];
 
 export const Saved = () => {
-  const [posts, setPosts] = useState(postsMock);
   const { t } = useTranslation();
 
-  const toggleSave = (id: number) => {
-    setPosts((prev) =>
-      prev.map((post) =>
-        post.id === id ? { ...post, saved: !post.saved } : post
-      )
-    );
-  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -42,7 +32,7 @@ export const Saved = () => {
             </span>
           </div>
         ) : (
-          posts.map((post) => <PostItem post={post} toggleSave={toggleSave} />)
+         <Posts mode="saved" />
         )}
       </div>
     </motion.div>

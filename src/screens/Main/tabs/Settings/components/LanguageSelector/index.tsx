@@ -4,23 +4,41 @@ import { AnimatePresence, motion } from "framer-motion";
 import { IoIosArrowDown, IoMdCheckmark } from "react-icons/io";
 import clsx from "clsx";
 import { useAppStore } from "../../../../../../stores/app";
+import { useAuthStore } from "../../../../../../stores/auth";
 import { LANGS } from "../../../../../../constants/langs";
+import { userService } from "../../../../../../services/user.service";
 
 export const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
   const { selectedLanguage, setSelectedLanguage } = useAppStore();
+  const { user, updateUser } = useAuthStore();
   const rootRef = useRef<HTMLDivElement | null>(null);
-
   const { i18n } = useTranslation();
 
-  const handleChange = (code: string) => {
+  const handleChange = async (code: string) => {
     const lang = LANGS.find((l) => l.code === code);
     if (!lang) return;
 
-    setSelectedLanguage(lang);
-    setOpen(false);
-    i18n.changeLanguage(lang?.code);
-    localStorage.setItem("language", lang.code);
+    try {
+      // 1. отправляем на backend
+      await userService.changeLanguage(code);
+
+      // 2. обновляем локально
+      setSelectedLanguage(lang);
+      i18n.changeLanguage(code);
+      localStorage.setItem("language", code);
+
+      // 3. обновляем юзера в сторе (если нужно)
+      updateUser({
+        ...user,
+        preferredLanguage: code,
+      });
+
+      // 4. закрываем меню
+      setOpen(false);
+    } catch (err) {
+      console.error("Language update error", err);
+    }
   };
 
   return (
@@ -42,7 +60,6 @@ export const LanguageSelector = () => {
             {selectedLanguage?.label}
           </span>
         </div>
-
         <IoIosArrowDown
           className={clsx("dark:text-white/80 duration-300", open && "rotate-[180deg]")}
         />
@@ -61,12 +78,11 @@ export const LanguageSelector = () => {
             <div className="py-1">
               {LANGS.map((lang, idx) => {
                 const active = lang.code === selectedLanguage?.code;
+
                 return (
                   <div
                     key={idx}
-                    onClick={() => {
-                      handleChange(lang.code);
-                    }}
+                    onClick={() => handleChange(lang.code)}
                     className={clsx(
                       "cursor-pointer w-full text-left flex items-center gap-3 px-3 py-2 text-sm dark:hover:bg-white/10 hover:bg-gray-50 transition",
                       active && "dark:bg-white/20 bg-gray-100 font-semibold"
@@ -74,10 +90,9 @@ export const LanguageSelector = () => {
                   >
                     <span className="text-lg">{lang.flag}</span>
                     <span className="flex-1 dark:text-white/80">{lang.label}</span>
+
                     {active && (
-                      <div>
-                        <IoMdCheckmark className="dark:text-white/80" />
-                      </div>
+                      <IoMdCheckmark className="dark:text-white/80" />
                     )}
                   </div>
                 );

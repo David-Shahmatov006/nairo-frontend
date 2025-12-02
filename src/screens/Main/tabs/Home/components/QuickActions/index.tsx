@@ -7,9 +7,11 @@ import { ROUTES } from "../../../../../../routes";
 import { useState } from "react";
 import { InviteFriendsModal } from "../InviteFriendsModal";
 import { PremiumModal } from "../PremiumModal";
+import { useAuthStore } from "../../../../../../stores/auth";
 
 export const QuickActions = () => {
   const { t } = useTranslation();
+  const { user } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isPremiumOpen, setIsPremiumOpen] = useState(false);
 
@@ -27,13 +29,15 @@ export const QuickActions = () => {
           {t("home.quick_actions")}
         </h2>
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => setIsPremiumOpen(true)}
-            className="flex items-center gap-2 border border-[#E5E7EB] dark:bg-white/5 dark:border-white/20 bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
-          >
-            <img src={nairoPremium} className="w-[20px]" />
-            {t("home.get_premium")}
-          </button>
+          {!user?.isPremium && (
+            <button
+              onClick={() => setIsPremiumOpen(true)}
+              className="flex items-center gap-2 border border-[#E5E7EB] dark:bg-white/5 dark:border-white/20 bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer"
+            >
+              <img src={nairoPremium} className="w-[20px]" />
+              {t("home.get_premium")}
+            </button>
+          )}
           <Link to={ROUTES.SHOP}>
             <button className="flex items-center gap-2 border border-[#E5E7EB] dark:bg-white/5 dark:border-white/20 bg-white px-4 py-2 rounded-lg hover:ring-2 hover:ring-main/50 duration-300 cursor-pointer">
               <img src={nairoCoin} className="w-[20px]" />

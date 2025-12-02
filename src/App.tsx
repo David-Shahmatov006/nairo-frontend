@@ -18,6 +18,7 @@ import { ROUTES } from "./routes";
 import { Snowfall } from "./components/Snowfall";
 import { SharePostModal } from "./screens/Main/tabs/Home/components/SharePostModal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Profile } from "./screens/Main/tabs/Profile";
 
 const NavigationWatcher = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const NavigationWatcher = () => {
   useEffect(() => {
     const isNestedPage =
       location.pathname.startsWith("/post/") ||
+      location.pathname.startsWith("/user") ||
       location.pathname.startsWith("/shop");
 
     if (previousTabRef.current !== activeTab && isNestedPage) {
@@ -69,6 +71,7 @@ function App() {
         >
           <Route path={ROUTES.HOME} element={<Main />} />
           <Route path={ROUTES.SHOP} element={<Shop />} />
+          <Route path="/user/:id" element={<Profile />} />
           <Route path="/post/:id" element={<PostPage />} />
         </Route>
       </Routes>

@@ -2,20 +2,24 @@ import { PiImageBroken, PiShareFat } from "react-icons/pi";
 import type { Post } from "../../../../../../../../types/post";
 import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useAppStore } from "../../../../../../../../stores/app";
+import { formatDate } from "../../../../../../../../utils/formatDate";
+import { postService } from "../../../../../../../../services/post.service";
+import { mutate } from "swr";
 
 interface IPostProps {
   post: Post;
   isOwnProfile?: boolean;
-  toggleLike?: (id: number) => void;
-  toggleSave: (id: number) => void;
 }
 
 export const PostImage = ({ src, title }: { src: string; title: string }) => {
   const [hasError, setHasError] = useState(false);
+
+  const API = import.meta.env.VITE_API_URL;
+  const fullSrc = src.startsWith("/uploads") ? `${API}${src}` : src;
 
   if (!src || hasError) {
     return (
@@ -27,7 +31,7 @@ export const PostImage = ({ src, title }: { src: string; title: string }) => {
 
   return (
     <img
-      src={src}
+      src={fullSrc}
       alt={title}
       className="w-full h-full object-cover rounded-l-xl"
       onError={() => setHasError(true)}
@@ -35,13 +39,25 @@ export const PostImage = ({ src, title }: { src: string; title: string }) => {
   );
 };
 
-export const PostItem = ({
-  post,
-  isOwnProfile,
-  toggleLike,
-  toggleSave,
-}: IPostProps) => {
+export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
   const { setShareOpen } = useAppStore();
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (post) setSaved(post.isSaved!);
+  }, [post]);
+
+  const handleToggleSave = async () => {
+    try {
+      const res = await postService.toggleSave(post.id);
+      setSaved(res.saved);
+      mutate(["posts-user", post.user.id]);
+      mutate(["posts-saved"]);
+      mutate(["posts-all"]);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <Link to={`/post/${post.id}`}>
       <div
@@ -54,26 +70,29 @@ export const PostItem = ({
 
         <div className="p-4 flex flex-col flex-1 gap-2">
           <div className="flex items-center justify-between dark:text-white/40 text-gray-500 text-sm">
-            <span
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-              className="hover:text-main/80 duration-300 cursor-pointer"
-            >
-              {post.author}
-            </span>
-            <span>{post.date}</span>
+            <Link to={`/user/${post.user.id}`}>
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                className="hover:text-main/80 duration-300 cursor-pointer font-[500]"
+              >
+                {post.user.firstName} {post.user.lastName}
+              </span>
+            </Link>
+            <span>{formatDate(post.createdAt)}</span>
           </div>
 
-          <h3 className="text-lg font-semibold dark:text-[#f9f5e8] text-gray-900">{post.title}</h3>
+          <h3 className="text-lg font-semibold dark:text-[#f9f5e8] text-gray-900">
+            {post.title}
+          </h3>
           <p className="dark:text-white/40 text-gray-700 text-sm line-clamp-2">
             {post.description}
           </p>
 
           <div className="flex items-center justify-between mt-auto dark:text-white/40 text-gray-600">
             <div className="flex items-center gap-4">
-              <button
+              {/* <button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -86,26 +105,26 @@ export const PostItem = ({
               >
                 {post.liked ? <FaHeart /> : <FaRegHeart />}
                 <span>{post.likes}</span>
-              </button>
+              </button> */}
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  toggleSave(post.id);
+                  handleToggleSave();
                 }}
                 className={clsx(
                   "hover:text-main duration-300 cursor-pointer flex items-center gap-1",
-                  post.saved && "text-main"
+                  saved && "text-main"
                 )}
               >
-                {post.saved ? <FaBookmark /> : <FaRegBookmark />}
+                {saved ? <FaBookmark /> : <FaRegBookmark />}
               </button>
 
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  setShareOpen(true)
+                  setShareOpen(true);
                 }}
                 className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer"
               >

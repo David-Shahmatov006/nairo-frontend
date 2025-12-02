@@ -2,24 +2,15 @@ import clsx from "clsx";
 import { useState } from "react";
 import { RxAvatar } from "react-icons/rx";
 
-export const AvatarImage = ({
-  src,
-  className,
-  iconClassName,
-}: {
-  src: string;
-  className?: string;
-  iconClassName?: string;
-}) => {
+export const AvatarImage = ({ src, className, iconClassName }: any) => {
   const [error, setError] = useState(false);
 
-  const isBlob = src?.startsWith("blob:");
-  const isHttp = src?.startsWith("http://") || src?.startsWith("https://");
+  const showFallback = !src || error;
 
   const finalSrc =
-    isBlob || isHttp ? src : src ? `${import.meta.env.VITE_API_URL}${src}` : "";
-
-  const showFallback = !src || error;
+    src && !src.startsWith("blob:")
+      ? `${import.meta.env.VITE_API_URL}${src}?v=${Date.now()}`
+      : src;
 
   return (
     <div

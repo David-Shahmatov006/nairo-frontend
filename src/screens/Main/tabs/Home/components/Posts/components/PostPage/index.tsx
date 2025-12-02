@@ -1,7 +1,6 @@
 import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
-import { useNavigate, useParams } from "react-router-dom";
-import { postsMock } from "../../../../../../../../constants/posts";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { BackButton } from "../../../../../../../../components/BackButton";
 import { PostImage } from "../PostItem";
@@ -11,19 +10,45 @@ import { Comments } from "./components/Comments";
 import { IoIosArrowDown } from "react-icons/io";
 import { useAppStore } from "../../../../../../../../stores/app";
 import { motion } from "framer-motion";
+import useSWR, { mutate } from "swr";
+import { postService } from "../../../../../../../../services/post.service";
+import { formatDate } from "../../../../../../../../utils/formatDate";
+import thinkingMuskot from "../../../../../../../../assets/images/thinkingMuskot.webp";
+import { useTranslation } from "react-i18next";
+import { Loader } from "../../../../../../../../components/Loader";
 
 export const PostPage = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { setShareOpen } = useAppStore();
-  const post = postsMock.find((p) => p.id === Number(id));
-  if (!post) return <div>Not found</div>;
+  const {
+    data: post,
+    isLoading,
+  } = useSWR(id ? ["post", id] : null, () => postService.getPostInfo(id!));
 
   const navigate = useNavigate();
-  const [liked, setLiked] = useState(post.liked);
-  const [likes, setLikes] = useState(post.likes);
+  // const [liked, setLiked] = useState(post.liked);
+  // const [likes, setLikes] = useState(post.likes);
+  const [saved, setSaved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const descriptionRef = useRef<HTMLParagraphElement | null>(null);
   const [maxHeight, setMaxHeight] = useState("100px");
+
+  const handleToggleSave = async () => {
+    try {
+      const res = await postService.toggleSave(post.id);
+      setSaved(res.saved);
+      mutate(["posts-user", post.user.id]);
+      mutate(["posts-saved"]);
+      mutate(["posts-all"]);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    if (post) setSaved(post.isSaved);
+  }, [post]);
 
   useEffect(() => {
     if (descriptionRef.current) {
@@ -33,10 +58,22 @@ export const PostPage = () => {
     }
   }, [isExpanded]);
 
-  const handleLike = () => {
-    setLiked((prev) => !prev);
-    setLikes((prev) => (liked ? prev - 1 : prev + 1));
-  };
+  if (isLoading) return <Loader />;
+  if (!post)
+    return (
+      <div className="h-full flex flex-col items-center justify-center gap-3">
+        <img src={thinkingMuskot} className="w-[100px]" />
+        <span className="text-[17px] text-gray-500 text-center">
+          {t("post_page.not_found")}
+        </span>
+      </div>
+    );
+  console.log(post, "post");
+
+  // const handleLike = () => {
+  //   setLiked((prev: any) => !prev);
+  //   setLikes((prev: any) => (liked ? prev - 1 : prev + 1));
+  // };
 
   return (
     <motion.div
@@ -53,14 +90,21 @@ export const PostPage = () => {
       </h1>
 
       <div className="flex items-center gap-4 mb-10">
-        <div className="size-[50px]">
-          <AvatarImage src={post.image} iconClassName="!size-10" />
-        </div>
+        <Link to={`/user/${post.user.id}`}>
+          <div className="size-[50px]">
+            <AvatarImage src={post.user.avatar} iconClassName="!size-10" />
+          </div>
+        </Link>
         <div className="flex flex-col">
-          <span className="font-semibold dark:text-white/70 text-gray-800 text-lg">
-            {post.author}
+          <Link to={`/user/${post.user.id}`}>
+            <span className="font-semibold dark:text-white/70 text-gray-800 text-lg hover:text-main dark:hover:text-main duration-300">
+              {post.user.firstName} {post.user.lastName}
+            </span>
+          </Link>
+
+          <span className="text-sm text-gray-500">
+            {formatDate(post.createdAt)}
           </span>
-          <span className="text-sm text-gray-500">{post.date}</span>
         </div>
       </div>
 
@@ -98,7 +142,7 @@ export const PostPage = () => {
       </div>
 
       <div className="flex items-center gap-8 dark:text-white/80 text-gray-700 text-[20px] font-medium pb-5">
-        <button
+        {/* <button
           onClick={handleLike}
           className={clsx(
             "flex items-center gap-2 hover:text-main duration-300 cursor-pointer",
@@ -107,14 +151,15 @@ export const PostPage = () => {
         >
           {liked ? <FaHeart /> : <FaRegHeart />}
           <span>{likes}</span>
-        </button>
+        </button> */}
         <button
+          onClick={handleToggleSave}
           className={clsx(
             "hover:text-main duration-300 cursor-pointer flex items-center gap-1",
-            post.saved && "text-main"
+            saved && "text-main"
           )}
         >
-          {post.saved ? <FaBookmark /> : <FaRegBookmark />}
+          {saved ? <FaBookmark /> : <FaRegBookmark />}
         </button>
 
         <button

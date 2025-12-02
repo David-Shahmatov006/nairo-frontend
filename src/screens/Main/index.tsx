@@ -8,14 +8,21 @@ import { Saved } from "./tabs/Saved";
 import { Profile } from "./tabs/Profile";
 import { Home } from "./tabs/Home";
 import { Chats } from "./tabs/Chats";
+import { useAuthStore } from "../../stores/auth";
 
 export const Main = () => {
   const { activeTab, setSelectedLanguage } = useAppStore();
+  const { user } = useAuthStore();
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("language") || "en";
+    const savedLanguage =
+      user?.preferredLanguage ||
+      localStorage.getItem("language") ||
+      "en";
+
     i18n.changeLanguage(savedLanguage);
+
     const found = LANGS.find((l) => l.code === savedLanguage);
     if (found) setSelectedLanguage(found);
   }, []);

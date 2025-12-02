@@ -3,6 +3,7 @@
   "password": "Mot de passe",
   "comments": "Commentaires",
   "online": "En ligne maintenant",
+  "no_posts": "Pas encore de publications",
   "sidebar": {
     "home": "Accueil",
     "search": "Rechercher des membres",
@@ -42,7 +43,8 @@
     "nairo_balance": "Solde Nairo",
     "edit_profile": "Modifier le profil",
     "refill": "Recharger",
-    "no_bio": "Aucune biographie pour l’instant"
+    "no_bio": "Aucune biographie pour l’instant",
+    "not_found_user": "Désolé, mais nous n’avons pas pu trouver cet utilisateur"
   },
   "settings": {
     "change_email": "Changer l’email",
@@ -52,7 +54,12 @@
     "new_password_label": "Nouveau mot de passe",
     "save": "Enregistrer",
     "logout": "Se déconnecter",
-    "password_warning": "Utilisez un mot de passe fort d'au moins 8 caractères, incluant des lettres majuscules et minuscules, des chiffres et des symboles."
+    "password_warning": "Utilisez un mot de passe fort d'au moins 8 caractères, incluant des lettres majuscules et minuscules, des chiffres et des symboles.",
+    "invalid_email": "Veuillez entrer une adresse email valide",
+    "same_email": "Cet email est déjà votre adresse actuelle",
+    "password_required": "Veuillez remplir tous les champs",
+    "password_invalid": "Le mot de passe doit contenir des lettres, des chiffres et avoir au moins 6 caractères",
+    "password_changed": "Mot de passe mis à jour !"
   },
   "create_post": {
     "title": "Créer une publication",
@@ -138,5 +145,8 @@
     "sending_text": "Envoi des Nairo coins...",
     "success_text": "Envoyé avec succès !",
     "close_button": "Fermer"
+  },
+  "post_page": {
+    "not_found": "C'est étrange, mais pour une raison quelconque, nous n'avons pas pu trouver cette publication"
   }
 }

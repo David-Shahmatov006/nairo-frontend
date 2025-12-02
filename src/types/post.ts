@@ -1,5 +1,7 @@
+import type { User } from "./user";
+
 export type Post = {
-  id: number;
+  id: string;
   author: string;
   date: string;
   title: string;
@@ -8,5 +10,7 @@ export type Post = {
   likes: number;
   comments: number;
   liked?: boolean;
-  saved?: boolean;
+  isSaved?: boolean;
+  user: User,
+  createdAt: string
 };

@@ -3,6 +3,7 @@
   "password": "Passwort",
   "comments": "Kommentare",
   "online": "Jetzt online",
+  "no_posts": "Noch keine Beiträge",
   "sidebar": {
     "home": "Startseite",
     "search": "Mitglieder suchen",
@@ -42,7 +43,8 @@
     "nairo_balance": "Nairo-Guthaben",
     "edit_profile": "Profil bearbeiten",
     "refill": "Aufladen",
-    "no_bio": "Noch keine Biografie vorhanden"
+    "no_bio": "Noch keine Biografie vorhanden",
+    "not_found_user": "Entschuldigung, aber wir konnten diesen Nutzer nicht finden"
   },
   "settings": {
     "change_email": "E-Mail ändern",
@@ -52,7 +54,12 @@
     "new_password_label": "Neues Passwort",
     "save": "Speichern",
     "logout": "Abmelden",
-    "password_warning": "Verwenden Sie ein starkes Passwort mit mindestens 8 Zeichen, einschließlich Groß- und Kleinbuchstaben, Zahlen und Symbolen."
+    "password_warning": "Verwenden Sie ein starkes Passwort mit mindestens 8 Zeichen, einschließlich Groß- und Kleinbuchstaben, Zahlen und Symbolen.",
+    "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "same_email": "Diese E-Mail-Adresse ist bereits Ihre aktuelle",
+    "password_required": "Bitte füllen Sie alle Felder aus",
+    "password_invalid": "Das Passwort muss Buchstaben, Zahlen enthalten und mindestens 6 Zeichen lang sein",
+    "password_changed": "Passwort erfolgreich aktualisiert!"
   },
   "create_post": {
     "title": "Beitrag erstellen",
@@ -138,5 +145,8 @@
     "sending_text": "Nairo Coins werden gesendet...",
     "success_text": "Erfolgreich gesendet!",
     "close_button": "Schließen"
+  },
+  "post_page": {
+    "not_found": "Es ist seltsam, aber aus irgendeinem Grund konnten wir diesen Beitrag nicht finden."
   }
 }

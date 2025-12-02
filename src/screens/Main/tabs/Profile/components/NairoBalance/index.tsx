@@ -4,6 +4,7 @@ import reachMuskot from "../../../../../../assets/images/reach_muskot.webp";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../../../../routes";
 import { useAuthStore } from "../../../../../../stores/auth";
+import { formatNumber } from "../../../../../../utils/formatNumber";
 
 export const NairoBalance = () => {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ export const NairoBalance = () => {
             className="pointer-events-none w-[26px] drop-shadow-sm"
           />
           <span className="text-[28px] font-[600] dark:text-white/80 text-gray-900">
-           0
+           {formatNumber(user?.nairoBalance || 0)}
           </span>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CiLock } from "react-icons/ci";
 import { FiArrowRight } from "react-icons/fi";
 import { HiOutlineEnvelope } from "react-icons/hi2";
-import { LuEye } from "react-icons/lu";
+import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { authService } from "../../../../services/auth.service";
 import { useAuthStore } from "../../../../stores/auth";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ export const LoginModal = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
@@ -60,14 +61,21 @@ export const LoginModal = () => {
                 <CiLock className="text-[20px] dark:text-white/50 text-black/40" />
               </div>
               <input
-                type="text"
+                type={passwordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
                 placeholder="Password"
               />
 
-              <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] hover:text-[#374151]">
-                <LuEye className="text-[20px] dark:text-white/40 text-black/40" />
+              <button
+                onClick={() => setPasswordVisible((prev) => !prev)}
+                className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
+              >
+                {passwordVisible ? (
+                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+                ) : (
+                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+                )}
               </button>
             </div>
           </div>

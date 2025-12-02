@@ -8,6 +8,7 @@ import { userService } from "../../../../../../services/user.service";
 import type { User } from "../../../../../../types/user";
 import clsx from "clsx";
 import { BiLoaderAlt } from "react-icons/bi";
+import { mutate } from "swr";
 
 export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   const { t } = useTranslation();
@@ -17,13 +18,13 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   const [lastName, setLastName] = useState(user?.lastName || "");
   const [username, setUsername] = useState(user?.username || "");
   const [bio, setBio] = useState(user?.bio || "");
+  const [error, setError] = useState("");
 
   const [avatarUrl, setAvatarUrl] = useState<string>(user?.avatar || "");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
 
-  // ---------- VALIDATION ----------
   const nameRegex = /^[A-Za-z]+$/;
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
 
@@ -41,7 +42,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
     : "";
 
   const usernameError = !isValidUsername(username)
-    ? t("edit_profile.invalid_username") // добавь в i18n
+    ? t("edit_profile.invalid_username")
     : "";
 
   const isSaveDisabled =
@@ -50,7 +51,6 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
     !isValidName(lastName) ||
     !isValidUsername(username);
 
-  // ---------- AVATAR UPLOAD ----------
   const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -61,7 +61,6 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
     setAvatarUrl(preview);
   };
 
-  // ---------- SAVE PROFILE ----------
   const saveChanges = async () => {
     try {
       setLoading(true);
@@ -85,10 +84,11 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
 
       updateUser(updatedUser);
 
+      await mutate(["user", user?.id]);
+
       onClose();
     } catch (err: any) {
-      console.error(err);
-      alert(err?.response?.data?.message || "Error saving profile");
+      setError(err?.response?.data?.message || "Error saving profile");
     } finally {
       setLoading(false);
     }
@@ -103,7 +103,6 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
         <BackButton handleBack={onClose} />
       </div>
 
-      {/* AVATAR */}
       <div className="flex items-center gap-5">
         <div className="relative w-28 h-28">
           <AvatarImage src={avatarUrl} />
@@ -129,10 +128,8 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
         </div>
       </div>
 
-      {/* FORM */}
       <div className="flex flex-col gap-4">
         <div className="w-full flex items-center gap-4">
-          {/* First name */}
           <div className="w-full flex flex-col gap-1">
             <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
               {t("edit_profile.first_name_label")}
@@ -151,7 +148,6 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             )}
           </div>
 
-          {/* Last name */}
           <div className="w-full flex flex-col gap-1">
             <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
               {t("edit_profile.last_name_label")}
@@ -171,7 +167,6 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
           </div>
         </div>
 
-        {/* Username */}
         <div className="flex flex-col gap-1">
           <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
             {t("edit_profile.username_label")}
@@ -189,8 +184,6 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             <span className="text-red-500 text-xs">{usernameError}</span>
           )}
         </div>
-
-        {/* Bio */}
         <div className="flex flex-col gap-1">
           <label className="text-[14px] font-[500] text-gray-700 dark:text-white/50">
             {t("edit_profile.bio_label")}
@@ -201,6 +194,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             rows={3}
             className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300 resize-none"
           ></textarea>
+          <p className="text-red-500 font-[500]">{error}</p>
         </div>
       </div>
 

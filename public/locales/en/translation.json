@@ -3,6 +3,7 @@
   "password": "Password",
   "comments": "Comments",
   "online": "Online now",
+  "no_posts": "No posts yet",
   "sidebar": {
     "home": "Home",
     "search": "Search Members",
@@ -42,7 +43,8 @@
     "nairo_balance": "Nairo Balance",
     "edit_profile": "Edit Profile",
     "refill": "Refill",
-    "no_bio": "No bio yet"
+    "no_bio": "No bio yet",
+    "not_found_user": "Sorry, but we couldn't find such user"
   },
   "settings": {
     "change_email": "Change email",
@@ -52,7 +54,12 @@
     "new_password_label": "New password",
     "save": "Save",
     "logout": "Log out",
-    "password_warning": "Use a strong password with at least 8 characters, including a mix of uppercase and lowercase letters, numbers, and symbols."
+    "password_warning": "Use a strong password with at least 8 characters, including a mix of uppercase and lowercase letters, numbers, and symbols.",
+    "invalid_email": "Please, enter valid email",
+    "same_email": "This email is already your current one",
+    "password_required": "Fill in all fields",
+    "password_invalid": "Password must contain letters, numbers and be at least 6 characters long",
+    "password_changed": "Password updated!"
   },
   "create_post": {
     "title": "Create a Post",
@@ -138,5 +145,8 @@
     "sending_text": "Sending Nairo coins...",
     "success_text": "Successfully sent!",
     "close_button": "Close"
+  },
+  "post_page": {
+    "not_found": "It's strange, but for some reason we couldn't find this post."
   }
 }

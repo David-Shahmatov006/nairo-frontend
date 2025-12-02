@@ -6,5 +6,8 @@ export interface User {
   lastName: string;
   avatar?: string;
   bio?: string;
+  nairoBalance: number;
+  isPremium: boolean;
+  preferredLanguage: string
   interests: string[];
 }
