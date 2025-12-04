@@ -4,6 +4,9 @@
   "comments": "Comentarios",
   "online": "En línea ahora",
   "no_posts": "Todavía no hay publicaciones",
+  "edit_comment": "Editar comentario",
+  "cancel": "Cancelar",
+  "save": "Guardar",
   "sidebar": {
     "home": "Inicio",
     "search": "Buscar miembros",
@@ -147,6 +150,8 @@
     "close_button": "Cerrar"
   },
   "post_page": {
-    "not_found": "Es extraño, pero por alguna razón no pudimos encontrar esta publicación."
+    "not_found": "Es extraño, pero por alguna razón no pudimos encontrar esta publicación.",
+    "left_first_comment": "Alguien tiene que empezar… ¿por qué no tú? 😉"
+
   }
 }

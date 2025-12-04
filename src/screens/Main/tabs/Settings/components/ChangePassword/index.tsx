@@ -69,6 +69,8 @@ export const ChangePassword = () => {
           <CiLock className="absolute left-2 top-1/2 -translate-y-1/2 text-[20px] dark:text-white/50 text-black/40" />
 
           <input
+            autoComplete="old-password"
+
             type={oldPasswordVisible ? "text" : "password"}
             value={oldPassword}
             onChange={(e) => {
@@ -84,9 +86,9 @@ export const ChangePassword = () => {
             className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#6B7280] group"
           >
             {oldPasswordVisible ? (
-              <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+              <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
             ) : (
-              <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+              <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
             )}
           </button>
         </div>
@@ -101,6 +103,7 @@ export const ChangePassword = () => {
           <CiLock className="absolute left-2 top-1/2 -translate-y-1/2 text-[20px] dark:text-white/50 text-black/40" />
 
           <input
+            autoComplete="new-password"
             type={newPasswordVisible ? "text" : "password"}
             value={newPassword}
             onChange={(e) => {
@@ -116,9 +119,9 @@ export const ChangePassword = () => {
             className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#6B7280] group"
           >
             {newPasswordVisible ? (
-              <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+              <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
             ) : (
-              <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+              <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
             )}
           </button>
         </div>

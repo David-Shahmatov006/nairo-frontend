@@ -4,26 +4,22 @@ import searchMuskot from "../../../../assets/images/search_muskot.webp";
 import { TfiClose } from "react-icons/tfi";
 import { useTranslation } from "react-i18next";
 import { GoPlus } from "react-icons/go";
-import { useAppStore } from "../../../../stores/app";
 import { AvatarImage } from "../../../../components/AvatarImage";
+import { useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const { t } = useTranslation();
-  const { setActiveTab } = useAppStore();
+  const navigate = useNavigate()
   const dummyUsers = [
     { id: 1, name: "John Doe" },
     { id: 2, name: "Jane Smith" },
     { id: 3, name: "Alex Johnson" },
   ];
-  const handleClose = () => {
-    localStorage.setItem("activeTab", "0");
-    setActiveTab(0);
-  };
 
   return (
     <AnimatePresence>
       <motion.div
-        onClick={handleClose}
+        onClick={() => navigate(-1)}
         className="fixed inset-0 bg-black/40 backdrop-blur-[7px] flex items-center justify-center z-50 p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -42,7 +38,7 @@ export const Search = () => {
               {t("search.title")}
             </h1>
             <button
-              onClick={handleClose}
+              onClick={() => navigate(-1)}
               className="w-[40px] dark:bg-white/10 dark:border-white/10 bg-white border flex items-center justify-center border-[#E5E7EB] rounded-[12px] h-[40px] top-[32px] right-[32px] cursor-pointer hover:ring-2 hover:ring-main/70 duration-300"
             >
               <TfiClose className="dark:text-white/80" />
@@ -62,7 +58,7 @@ export const Search = () => {
             {true ? (
               <div className="mt-[5%] flex flex-col items-center gap-3">
                 <img src={searchMuskot} className="w-[100px]" />
-                <span className="dark:text-white/40 text-[17px] text-center">
+                <span className="dark:text-[#6f6f6f] text-[17px] text-center">
                   {t("search.find_desc")}
                 </span>
               </div>

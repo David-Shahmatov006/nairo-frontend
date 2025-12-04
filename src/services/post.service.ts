@@ -14,6 +14,12 @@ export class PostService {
     return data;
   }
 
+  async deletePost(postId: string) {
+    const { data } = await $api.delete(`/posts/${postId}`);
+
+    return data;
+  }
+
   async getRandomPosts() {
     const { data } = await $api.get("/posts/random");
     return data;
@@ -37,6 +43,11 @@ export class PostService {
 
   async toggleSave(postId: string) {
     const { data } = await $api.post(`/posts/${postId}/toggle-save`);
+    return data;
+  }
+
+  async toggleLike(postId: string) {
+    const { data } = await $api.post(`/posts/${postId}/like`);
     return data;
   }
 }

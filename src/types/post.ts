@@ -9,7 +9,7 @@ export type Post = {
   image: string;
   likes: number;
   comments: number;
-  liked?: boolean;
+  isLiked?: boolean;
   isSaved?: boolean;
   user: User,
   createdAt: string

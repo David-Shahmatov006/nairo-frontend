@@ -6,7 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import "./App.css";
-import { Main } from "./screens/Main";
+// import { Main } from "./screens/Main";
 import "./i18n";
 import { Login } from "./screens/Login";
 import { PostPage } from "./screens/Main/tabs/Home/components/Posts/components/PostPage";
@@ -19,6 +19,14 @@ import { Snowfall } from "./components/Snowfall";
 import { SharePostModal } from "./screens/Main/tabs/Home/components/SharePostModal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Profile } from "./screens/Main/tabs/Profile";
+import { Home } from "./screens/Main/tabs/Home";
+import { Search } from "./screens/Main/tabs/Search";
+import { Chats } from "./screens/Main/tabs/Chats";
+import { Saved } from "./screens/Main/tabs/Saved";
+import { Settings } from "./screens/Main/tabs/Settings";
+import { useAuthStore } from "./stores/auth";
+import { useTranslation } from "react-i18next";
+import { LANGS } from "./constants/langs";
 
 const NavigationWatcher = () => {
   const navigate = useNavigate();
@@ -44,11 +52,21 @@ const NavigationWatcher = () => {
 
 function App() {
   const { shareOpen, setShareOpen, theme } = useAppStore();
-  const [users] = useState([
-    { id: 1, name: "Alice Johnson", username: "alice_j" },
-    { id: 2, name: "Mark Smith", username: "mark_s" },
-    { id: 3, name: "Julia Adams", username: "julia_ad" },
-  ]);
+  const { user } = useAuthStore();
+  const { setSelectedLanguage } = useAppStore();
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const savedLang =
+      user?.preferredLanguage || localStorage.getItem("language") || "en";
+
+    const langObj = LANGS.find((l) => l.code === savedLang);
+
+    if (langObj) {
+      setSelectedLanguage(langObj);
+      i18n.changeLanguage(savedLang);
+    }
+  }, [user]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -56,12 +74,13 @@ function App() {
 
   return (
     <Router>
-      <NavigationWatcher />
       <Snowfall />
 
       <Routes>
+        {/* публичный */}
         <Route path={ROUTES.LOGIN} element={<Login />} />
 
+        {/* защищённый layout */}
         <Route
           element={
             <ProtectedRoute>
@@ -69,20 +88,20 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path={ROUTES.HOME} element={<Main />} />
-          <Route path={ROUTES.SHOP} element={<Shop />} />
+          {/* главные страницы */}
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/chats" element={<Chats />} />
+          <Route path="/saved" element={<Saved />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile" element={<Profile />} />
+
+          {/* вложенные */}
           <Route path="/user/:id" element={<Profile />} />
           <Route path="/post/:id" element={<PostPage />} />
+          <Route path="/shop" element={<Shop />} />
         </Route>
       </Routes>
-      <SharePostModal
-        isOpen={shareOpen}
-        onClose={() => setShareOpen(false)}
-        onSend={() => {
-          setShareOpen(false);
-        }}
-        users={users}
-      />
     </Router>
   );
 }

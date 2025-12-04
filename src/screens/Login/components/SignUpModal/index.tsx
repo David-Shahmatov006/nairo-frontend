@@ -184,9 +184,9 @@ export const SignUpModal = ({
                 className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
               >
                 {passwordVisible ? (
-                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 ) : (
-                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 )}
               </button>
             </div>
@@ -212,9 +212,9 @@ export const SignUpModal = ({
                 className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
               >
                 {repeatPasswordVisible ? (
-                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 ) : (
-                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-white/40 text-black/40" />
+                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 )}
               </button>
             </div>

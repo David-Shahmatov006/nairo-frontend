@@ -4,6 +4,9 @@
   "comments": "Kommentare",
   "online": "Jetzt online",
   "no_posts": "Noch keine Beiträge",
+  "edit_comment": "Kommentar bearbeiten",
+  "cancel": "Abbrechen",
+  "save": "Speichern",
   "sidebar": {
     "home": "Startseite",
     "search": "Mitglieder suchen",
@@ -147,6 +150,7 @@
     "close_button": "Schließen"
   },
   "post_page": {
-    "not_found": "Es ist seltsam, aber aus irgendeinem Grund konnten wir diesen Beitrag nicht finden."
+    "not_found": "Es ist seltsam, aber aus irgendeinem Grund konnten wir diesen Beitrag nicht finden.",
+    "left_first_comment": "Jemand muss anfangen… warum nicht du? 😉"
   }
 }

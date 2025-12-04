@@ -32,7 +32,7 @@ export const HobbiesSelector = ({
           Select Your Interests
         </h2>
 
-        <p className="dark:text-white/40 text-gray-600 mb-6">
+        <p className="dark:text-[#6f6f6f] text-gray-600 mb-6">
           Choose hobbies and topics that you like. This helps us recommend
           relevant content and friends.
         </p>

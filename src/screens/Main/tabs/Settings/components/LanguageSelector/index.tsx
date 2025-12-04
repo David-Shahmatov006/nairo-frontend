@@ -20,21 +20,17 @@ export const LanguageSelector = () => {
     if (!lang) return;
 
     try {
-      // 1. отправляем на backend
       await userService.changeLanguage(code);
 
-      // 2. обновляем локально
       setSelectedLanguage(lang);
       i18n.changeLanguage(code);
       localStorage.setItem("language", code);
 
-      // 3. обновляем юзера в сторе (если нужно)
       updateUser({
         ...user,
         preferredLanguage: code,
       });
 
-      // 4. закрываем меню
       setOpen(false);
     } catch (err) {
       console.error("Language update error", err);
@@ -61,7 +57,10 @@ export const LanguageSelector = () => {
           </span>
         </div>
         <IoIosArrowDown
-          className={clsx("dark:text-white/80 duration-300", open && "rotate-[180deg]")}
+          className={clsx(
+            "dark:text-white/80 duration-300",
+            open && "rotate-[180deg]"
+          )}
         />
       </button>
 
@@ -89,10 +88,14 @@ export const LanguageSelector = () => {
                     )}
                   >
                     <span className="text-lg">{lang.flag}</span>
-                    <span className="flex-1 dark:text-white/80">{lang.label}</span>
+                    <span className="flex-1 dark:text-white/80">
+                      {lang.label}
+                    </span>
 
                     {active && (
-                      <IoMdCheckmark className="dark:text-white/80" />
+                      <div>
+                        <IoMdCheckmark className="dark:text-white/80" />
+                      </div>
                     )}
                   </div>
                 );

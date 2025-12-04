@@ -25,15 +25,16 @@ export const Profile = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
   const { id: userIdFromUrl } = useParams();
+  const trueUserId = userIdFromUrl ?? user?.id;
 
+  const isOwnProfile = user?.id === trueUserId;
   const [isOpenSendModal, setIsOpenSendModal] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const isOwnProfile = user?.id === userIdFromUrl;
 
   const { data: profile, isLoading } = useSWR(["user", userIdFromUrl], () =>
-    fetchUser(userIdFromUrl as string)
+    fetchUser(trueUserId as string)
   );
 
   if (isLoading) {
@@ -148,7 +149,11 @@ export const Profile = () => {
         </div>
 
         <div className="flex justify-between gap-5">
-          <Posts userId={userIdFromUrl} mode="user" isOwnProfile={isOwnProfile} />
+          <Posts
+            userId={trueUserId}
+            mode="user"
+            isOwnProfile={isOwnProfile}
+          />
           {isOwnProfile && <NairoBalance />}
         </div>
       </motion.div>

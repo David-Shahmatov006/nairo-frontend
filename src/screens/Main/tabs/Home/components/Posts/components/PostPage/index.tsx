@@ -21,15 +21,13 @@ export const PostPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { setShareOpen } = useAppStore();
-  const {
-    data: post,
-    isLoading,
-  } = useSWR(id ? ["post", id] : null, () => postService.getPostInfo(id!));
+  const { data: post, isLoading } = useSWR(id ? ["post", id] : null, () =>
+    postService.getPostInfo(id!)
+  );
 
   const navigate = useNavigate();
-  // const [liked, setLiked] = useState(post.liked);
-  // const [likes, setLikes] = useState(post.likes);
   const [saved, setSaved] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const descriptionRef = useRef<HTMLParagraphElement | null>(null);
   const [maxHeight, setMaxHeight] = useState("100px");
@@ -38,16 +36,30 @@ export const PostPage = () => {
     try {
       const res = await postService.toggleSave(post.id);
       setSaved(res.saved);
-      mutate(["posts-user", post.user.id]);
+      mutate(["posts-user"]);
       mutate(["posts-saved"]);
-      mutate(["posts-all"]);
+      mutate(["post", post.id]);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleToggleLike = async () => {
+    try {
+      const res = await postService.toggleLike(post.id);
+      setLiked(res.isLiked);
+      mutate(["post", post.id]);
+
     } catch (e) {
       console.error(e);
     }
   };
 
   useEffect(() => {
-    if (post) setSaved(post.isSaved);
+    if (post) {
+      setSaved(post.isSaved);
+      setLiked(post.isLiked);
+    }
   }, [post]);
 
   useEffect(() => {
@@ -69,11 +81,6 @@ export const PostPage = () => {
       </div>
     );
   console.log(post, "post");
-
-  // const handleLike = () => {
-  //   setLiked((prev: any) => !prev);
-  //   setLikes((prev: any) => (liked ? prev - 1 : prev + 1));
-  // };
 
   return (
     <motion.div
@@ -142,20 +149,20 @@ export const PostPage = () => {
       </div>
 
       <div className="flex items-center gap-8 dark:text-white/80 text-gray-700 text-[20px] font-medium pb-5">
-        {/* <button
-          onClick={handleLike}
+        <button
+          onClick={handleToggleLike}
           className={clsx(
             "flex items-center gap-2 hover:text-main duration-300 cursor-pointer",
             liked && "text-main"
           )}
         >
           {liked ? <FaHeart /> : <FaRegHeart />}
-          <span>{likes}</span>
-        </button> */}
+          <span>{post.likes}</span>
+        </button>
         <button
           onClick={handleToggleSave}
           className={clsx(
-            "hover:text-main duration-300 cursor-pointer flex items-center gap-1",
+            "flex items-center gap-2 hover:text-main duration-300 cursor-pointer flex items-center gap-1",
             saved && "text-main"
           )}
         >
@@ -172,7 +179,7 @@ export const PostPage = () => {
 
       <div className="w-full h-[1px] dark:bg-white/10 bg-gray-200 mb-5" />
 
-      <Comments />
+      <Comments postId={id as string} />
     </motion.div>
   );
 };

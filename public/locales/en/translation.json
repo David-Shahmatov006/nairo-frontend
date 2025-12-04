@@ -4,6 +4,9 @@
   "comments": "Comments",
   "online": "Online now",
   "no_posts": "No posts yet",
+  "edit_comment": "Edit comment",
+  "cancel": "Cancel",
+  "save": "Save",
   "sidebar": {
     "home": "Home",
     "search": "Search Members",
@@ -147,6 +150,7 @@
     "close_button": "Close"
   },
   "post_page": {
-    "not_found": "It's strange, but for some reason we couldn't find this post."
+    "not_found": "It's strange, but for some reason we couldn't find this post.",
+    "left_first_comment": "Someone has to start… why not you? 😉"
   }
 }
