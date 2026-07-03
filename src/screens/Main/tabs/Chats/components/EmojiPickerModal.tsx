@@ -1,10 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { IoIosClose } from "react-icons/io";
-import { customEmojis, defaultEmojis } from "../../../../../constants/emojis";
+import { defaultEmojis } from "../../../../../constants/emojis";
 import { useTranslation } from "react-i18next";
 
 export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
   const { t } = useTranslation();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -45,25 +46,6 @@ export const EmojiPickerModal = ({ isOpen, onClose, onSelect }: any) => {
                   className="w-10 h-10 flex items-center justify-center text-[20px] dark:hover:bg-white/10 hover:bg-gray-100 rounded-xl cursor-pointer duration-300"
                 >
                   {emoji}
-                </button>
-              ))}
-            </div>
-
-            <h3 className="font-semibold dark:text-white/80 text-gray-800 mb-2 text-[20px]">
-              {t("emoji_modal.custom_emojis")}
-            </h3>
-
-            <div className="grid grid-cols-6 gap-4 max-h-[20vh] overflow-x-hidden overflow-y-auto custom-scrollbar">
-              {customEmojis.map((emoji, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    onSelect({ type: "custom", value: emoji });
-                    onClose();
-                  }}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center dark:hover:bg-white/10 hover:bg-gray-100 overflow-hidden cursor-pointer duration-300"
-                >
-                  <img src={emoji.src} className="size-5 object-contain" />
                 </button>
               ))}
             </div>

@@ -17,7 +17,7 @@
   },
   "home": {
     "welcome_to_nairo": "Willkommen bei Nairo!",
-    "banner_description": "Baue deinen eigenen Space, erstelle Posts, teile deine Momente mit Freunden, chatte jederzeit und unterstütze deine Lieblings-Creator mit Nairo-Münzen.",
+    "banner_description": "Gestalte deinen eigenen Bereich, veröffentliche Beiträge, knüpfe neue Kontakte und bleibe jederzeit in Verbindung.",
     "banner_your_journey": "Deine Reise beginnt jetzt – mach sie unvergesslich!",
     "quick_actions": "Schnellaktionen",
     "get_premium": "Nairo Premium erhalten",
@@ -31,7 +31,8 @@
     "title": "Mitglieder suchen",
     "placeholder": "Nach Name oder Benutzername suchen",
     "find_desc": "Jemand Neues wartet darauf, sich zu verbinden",
-    "connect": "Verbinden"
+    "connect": "Verbinden",
+    "no_results": "Seltsam, aber wir konnten diesen Benutzer nicht finden"
   },
   "saved": {
     "title": "Gespeicherte Beiträge",
@@ -127,7 +128,11 @@
     "delete_chat_confirm": "Löschen",
     "block_user_confirm": "Blockieren",
     "confirm_modal_cancel": "Abbrechen",
-    "type_message": "Nachricht eingeben..."
+    "type_message": "Nachricht eingeben...",
+    "no_messages": "Noch keine Nachrichten",
+    "no_chats": "Sie haben noch keine Chats",
+    "no_results": "Leider konnten wir keinen solchen Chat finden",
+    "select_chat": "Bitte wählen Sie einen Chat aus"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

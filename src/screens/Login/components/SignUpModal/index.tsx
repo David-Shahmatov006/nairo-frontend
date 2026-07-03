@@ -1,36 +1,28 @@
 import { useState } from "react";
 import { CiLock } from "react-icons/ci";
-import { FiArrowRight, FiUser } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { motion } from "framer-motion";
+import { userService } from "../../../../services/user.service";
+import { authService } from "../../../../services/auth.service";
+import { useAuthStore } from "../../../../stores/auth";
+import { useNavigate } from "react-router-dom";
+import { BiLoaderAlt } from "react-icons/bi";
 
-interface IProps {
-  onNext: () => void;
-  setEmail: (value: string) => void;
-  setPassword: (value: string) => void;
-  setUsername: (value: string) => void;
-  setFirstName: (value: string) => void;
-  setLastName: (value: string) => void;
-}
-
-export const SignUpModal = ({
-  onNext,
-  setEmail,
-  setPassword,
-  setUsername,
-  setFirstName,
-  setLastName,
-}: IProps) => {
-  const [emailValue, setEmailValue] = useState("");
-  const [firstNameValue, setFirstNameValue] = useState("");
-  const [lastNameValue, setLastNameValue] = useState("");
-  const [usernameValue, setUsernameValue] = useState("");
-  const [localPassword, setLocalPassword] = useState("");
+export const SignUpModal = () => {
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [repeatPasswordVisible, setRepeatPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const { setUser, setToken } = useAuthStore();
+  const navigate = useNavigate();
 
   const validateEmail = (email: string) =>
     email.includes("@") && email.includes(".") && email.length > 5;
@@ -52,61 +44,98 @@ export const SignUpModal = ({
     return name.length >= 2 && onlyLetters;
   };
 
-  const handleNextClick = () => {
-    if (!validateName(firstNameValue)) {
+  const handleRegister = async () => {
+    setError("");
+    if (!validateName(firstName)) {
       setError(
-        "First name must be at least 2 letters and contain only letters."
+        "First name must be at least 2 letters and contain only letters.",
       );
       return;
     }
 
-    if (!validateName(lastNameValue)) {
+    if (!validateName(lastName)) {
       setError(
-        "Last name must be at least 2 letters and contain only letters."
+        "Last name must be at least 2 letters and contain only letters.",
       );
       return;
     }
 
-    if (!validateEmail(emailValue)) {
+    if (!validateEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
 
-    if (!validateUsername(usernameValue)) {
+    if (!validateUsername(username)) {
       setError(
-        "Username must contain at least 3 characters and include only letters, numbers, or underscores."
+        "Username must contain at least 3 characters and include only letters, numbers, or underscores.",
       );
       return;
     }
 
-    if (!validatePassword(localPassword)) {
+    if (!validatePassword(password)) {
       setError(
-        "Password must be at least 8 characters long, include 1 uppercase letter and 1 number."
+        "Password must be at least 8 characters long, include 1 uppercase letter and 1 number.",
       );
       return;
     }
 
-    if (localPassword !== repeatPassword) {
+    if (password !== repeatPassword) {
       setError("Passwords do not match.");
       return;
     }
+    try {
+      setIsLoading(true);
 
-    setEmail(emailValue);
-    setPassword(localPassword);
-    setUsername(usernameValue);
-    setFirstName(firstNameValue);
-    setLastName(lastNameValue);
+      const response = await userService.checkUserFields(email, username);
 
-    onNext();
+      if (response.emailExists) {
+        setError("This email is already taken");
+        return;
+      }
+
+      if (response.usernameExists) {
+        setError("This username is already taken");
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+      setError("Server error, try again later.");
+      return;
+    }
+
+    setEmail(email);
+    setFirstName(firstName);
+    setLastName(lastName);
+    setPassword(password);
+    setUsername(username);
+
+    const payload = {
+      email,
+      firstName,
+      lastName,
+      password,
+      username,
+    };
+    try {
+      const response = await authService.register(payload);
+      setUser(response.user);
+      setToken(response.token);
+      localStorage.setItem("token", response.token);
+
+      navigate("/");
+    } finally {
+      setIsLoading(false);
+      localStorage.removeItem("referralCode");
+    }
   };
 
   return (
     <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
-      <div className="dark:bg-[#191a1a] bg-white p-[32px] sm:p-[48px] rounded-[16px]">
+      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 p-[32px] sm:p-[48px] rounded-[16px]">
         <h1 className="dark:text-white/80 text-[26px] text-center font-[600] text-gray-900 mb-8">
           Sign Up
         </h1>
-        <div className="flex flex-col gap-7 mb-8">
+        <div className="flex flex-col max-1200px:gap-3 gap-7 max-1200px:mb-4 mb-8">
           <div className="flex items-center gap-2 w-full">
             <div className="relative w-full">
               <div className="absolute left-2 top-1/2 -translate-y-1/2">
@@ -115,10 +144,10 @@ export const SignUpModal = ({
               <input
                 type="email"
                 onChange={(e) => {
-                  setEmailValue(e.target.value);
+                  setEmail(e.target.value);
                   setError("");
                 }}
-                className="w-full pl-10 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder="your.email@example.com"
               />
             </div>
@@ -129,10 +158,10 @@ export const SignUpModal = ({
                 <input
                   type="text"
                   onChange={(e) => {
-                    setFirstNameValue(e.target.value);
+                    setFirstName(e.target.value);
                     setError("");
                   }}
-                  className="w-full pl-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                  className="w-full pl-2 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                   placeholder="First name"
                 />
               </div>
@@ -142,10 +171,10 @@ export const SignUpModal = ({
                 <input
                   type="text"
                   onChange={(e) => {
-                    setLastNameValue(e.target.value);
+                    setLastName(e.target.value);
                     setError("");
                   }}
-                  className="w-full pl-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                  className="w-full pl-2 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                   placeholder="Last name"
                 />
               </div>
@@ -159,10 +188,10 @@ export const SignUpModal = ({
               <input
                 type="text"
                 onChange={(e) => {
-                  setUsernameValue(e.target.value);
+                  setUsername(e.target.value);
                   setError("");
                 }}
-                className="w-full pl-10 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                className="w-full pl-10 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder="Username"
               />
             </div>
@@ -174,8 +203,8 @@ export const SignUpModal = ({
               </div>
               <input
                 type={passwordVisible ? "text" : "password"}
-                onChange={(e) => setLocalPassword(e.target.value)}
-                className="w-full pl-10 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-10 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder="Password"
               />
 
@@ -190,7 +219,7 @@ export const SignUpModal = ({
                 )}
               </button>
             </div>
-            <p className="text-[12px] dark:text-white/50 text-[#9CA3AF] mt-2">
+            <p className="text-[12px] dark:text-white/50 text-[#9CA3AF] max-1200px:mt-0 mt-2">
               Use a strong password with at least 8 characters, including a mix
               of uppercase and lowercase letters and numbers.
             </p>
@@ -203,8 +232,8 @@ export const SignUpModal = ({
               <input
                 type={repeatPasswordVisible ? "text" : "password"}
                 onChange={(e) => setRepeatPassword(e.target.value)}
-                className="w-full pl-10 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
-                placeholder="Password"
+                className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                placeholder="Repeat Password"
               />
 
               <button
@@ -225,7 +254,7 @@ export const SignUpModal = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="text-red-500 text-sm mt-[-10px]"
+              className="text-red-500 max-1200px:text-[12px] font-[500] text-sm mt-[-10px]"
             >
               {error}
             </motion.p>
@@ -233,11 +262,14 @@ export const SignUpModal = ({
         </div>
         <button
           type="button"
-          onClick={handleNextClick}
+          onClick={handleRegister}
           className="outline-none group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] dark:bg-black/80 bg-gray-900 text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
         >
-          Next step
-          <FiArrowRight className="group-hover:translate-x-[15%] duration-300" />
+          {isLoading ? (
+            <BiLoaderAlt className="animate-spin text-[20px]" />
+          ) : (
+            "Join Community"
+          )}
         </button>
       </div>
     </div>

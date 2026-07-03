@@ -5,6 +5,8 @@ import { PostItem } from "./components/PostItem";
 import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
 import { useTranslation } from "react-i18next";
 import { Loader } from "../../../../../../components/Loader";
+import { useLocation } from "react-router-dom";
+import clsx from "clsx";
 interface PostsProps {
   mode: "all" | "saved" | "user";
   userId?: string;
@@ -13,6 +15,7 @@ interface PostsProps {
 
 export const Posts = ({ mode, userId, isOwnProfile }: PostsProps) => {
   const { t } = useTranslation();
+  const location = useLocation();
   const { data: posts, isLoading } = useSWR(
     mode === "user"
       ? ["posts-user"]
@@ -27,8 +30,6 @@ export const Posts = ({ mode, userId, isOwnProfile }: PostsProps) => {
         ? postService.getSavedPosts()
         : postService.getRandomPosts()
   );
-
-  console.log(mode, userId, "333");
 
   if (isLoading) return <Loader />;
 
@@ -45,7 +46,12 @@ export const Posts = ({ mode, userId, isOwnProfile }: PostsProps) => {
       initial={{ opacity: 0, x: "-20%" }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
-      className="flex-1 flex flex-col gap-6"
+      className={clsx(
+        "rounded-xl grid max-768px:grid-cols-1 grid-cols-2 gap-6",
+        (location.pathname.includes("profile") ||
+          location.pathname.includes("user")) &&
+          "custom-scrollbar max-h-[63.5vh] overflow-y-auto"
+      )}
     >
       {posts.map((post: any) => (
         <PostItem key={post.id} post={post} isOwnProfile={isOwnProfile} />

@@ -77,7 +77,7 @@ export const ChangePassword = () => {
               setOldPassword(e.target.value);
               setError("");
             }}
-            className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+            className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
             placeholder="Password"
           />
 
@@ -110,7 +110,7 @@ export const ChangePassword = () => {
               setNewPassword(e.target.value);
               setError("");
             }}
-            className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+            className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
             placeholder="Password"
           />
 

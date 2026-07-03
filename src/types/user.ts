@@ -8,6 +8,10 @@ export interface User {
   bio?: string;
   nairoBalance: number;
   isPremium: boolean;
-  preferredLanguage: string
+  preferredLanguage: string;
   interests: string[];
+  followers: User[];
+  followings: User[];
+  referralCode: string;
+  inviteRewards: number
 }

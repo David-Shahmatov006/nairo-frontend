@@ -20,7 +20,7 @@ export const GetStartedEllipse: React.FC<React.SVGProps<SVGSVGElement>> = ({
         rx="150.243"
         ry="96.3096"
         fill="#CAA4F0"
-        fill-opacity="0.44"
+        fillOpacity="0.44"
       />
     </g>
     <defs>
@@ -31,9 +31,9 @@ export const GetStartedEllipse: React.FC<React.SVGProps<SVGSVGElement>> = ({
         width="608.677"
         height="500.81"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feBlend
           mode="normal"
           in="SourceGraphic"

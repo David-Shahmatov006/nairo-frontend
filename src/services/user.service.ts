@@ -48,6 +48,34 @@ export class UserService {
     });
     return data;
   }
+
+  async toggleFollow(targetUserId: string) {
+    const { data } = await $api.post(`/user/${targetUserId}/follow`);
+
+    return data;
+  }
+
+  async searchUsers(query: string) {
+    const { data } = await $api.get(`/user/search/${query}`);
+    return data;
+  }
+
+  async checkUserFields(email: string, username: string) {
+    const { data } = await $api.post("/user/check", {
+      email,
+      username,
+    });
+
+    return data;
+  }
+
+  async sendNairoCoins(receiverId: string, nairoCount: number) {
+    const { data } = await $api.post(`/user/${receiverId}/send-nairo-coins`, {
+      nairoCount,
+    });
+
+    return data;
+  }
 }
 
 export const userService = new UserService();

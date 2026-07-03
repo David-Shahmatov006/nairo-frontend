@@ -5,10 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { BackButton } from "../../../../../../../../components/BackButton";
 import { PostImage } from "../PostItem";
 import { AvatarImage } from "../../../../../../../../components/AvatarImage";
-import { PiShareFat } from "react-icons/pi";
 import { Comments } from "./components/Comments";
 import { IoIosArrowDown } from "react-icons/io";
-import { useAppStore } from "../../../../../../../../stores/app";
 import { motion } from "framer-motion";
 import useSWR, { mutate } from "swr";
 import { postService } from "../../../../../../../../services/post.service";
@@ -20,7 +18,6 @@ import { Loader } from "../../../../../../../../components/Loader";
 export const PostPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
-  const { setShareOpen } = useAppStore();
   const { data: post, isLoading } = useSWR(id ? ["post", id] : null, () =>
     postService.getPostInfo(id!)
   );
@@ -80,7 +77,6 @@ export const PostPage = () => {
         </span>
       </div>
     );
-  console.log(post, "post");
 
   return (
     <motion.div
@@ -88,23 +84,23 @@ export const PostPage = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
-      className="font-manrope min-h-screen w-full max-w-[80%] ml-[10%] px-5 pt-8"
+      className="font-manrope min-h-screen w-full max-768px:max-w-full max-w-[80%] max-768px:ml-0 ml-[10%] max-768px:p-0 px-5 pt-8"
     >
       <BackButton handleBack={() => navigate(-1)} />
 
-      <h1 className="text-[34px] font-extrabold dark:text-white/90 text-gray-900 mt-8 mb-3">
+      <h1 className="max-768px:text-[24px] text-[34px] font-extrabold dark:text-white/90 text-gray-900 mt-8 mb-3">
         {post.title}
       </h1>
 
-      <div className="flex items-center gap-4 mb-10">
+      <div className="flex items-center max-768px:gap-3 gap-4 max-768px:mb-7 mb-10">
         <Link to={`/user/${post.user.id}`}>
-          <div className="size-[50px]">
+          <div className="max-768px:size-11 size-[50px]">
             <AvatarImage src={post.user.avatar} iconClassName="!size-10" />
           </div>
         </Link>
         <div className="flex flex-col">
           <Link to={`/user/${post.user.id}`}>
-            <span className="font-semibold dark:text-white/70 text-gray-800 text-lg hover:text-main dark:hover:text-main duration-300">
+            <span className="font-semibold dark:text-white/70 text-gray-800 max-768px:text-[16px] text-lg hover:text-main dark:hover:text-main duration-300">
               {post.user.firstName} {post.user.lastName}
             </span>
           </Link>
@@ -115,14 +111,14 @@ export const PostPage = () => {
         </div>
       </div>
 
-      <div className="w-full h-[60vh] rounded-xl overflow-hidden dark:bg-white/10 bg-gray-100 flex items-center justify-center mb-5">
+      <div className="w-full max-768px:h-[30%] h-[60vh] rounded-xl overflow-hidden dark:bg-white/10 bg-gray-100 flex items-center justify-center mb-5">
         <PostImage src={post.image} title="Post image" />
       </div>
 
-      <div className="relative mb-7">
+      <div className="relative max-768px:mb-5 mb-7">
         <p
           ref={descriptionRef}
-          className="text-[17px] font-[500] dark:text-white/60 text-gray-800 leading-relaxed overflow-hidden transition-all duration-500"
+          className="max-768px:text-[14px] text-[17px] font-[500] dark:text-[#9f9f9f] text-gray-800 leading-relaxed overflow-hidden transition-all duration-500"
           style={{
             maxHeight,
             WebkitMaskImage:
@@ -141,14 +137,14 @@ export const PostPage = () => {
         {!isExpanded && post.description.length > 180 && (
           <button
             onClick={() => setIsExpanded(true)}
-            className="flex items-center justify-center absolute -bottom-[15%] right-1/2 dark:bg-[#191a1a] bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/70 duration-300 cursor-pointer"
+            className="flex items-center justify-center absolute -bottom-[15%] max-768px:right-[45%] right-1/2 dark:bg-[#191a1a] bg-gray-200 w-[50px] text-[30px] text-gray-600 rounded-[10px] hover:ring-2 ring-main/70 duration-300 cursor-pointer"
           >
-            <IoIosArrowDown className="dark:text-white/50" />
+            <IoIosArrowDown className="max-768px:text-[25px] dark:text-white/50" />
           </button>
         )}
       </div>
 
-      <div className="flex items-center gap-8 dark:text-white/80 text-gray-700 text-[20px] font-medium pb-5">
+      <div className="flex items-center max-768px:gap-4 gap-8 dark:text-white/80 text-gray-700 max-768px:text-[18px] text-[20px] font-medium max-768px:pb-3 pb-5">
         <button
           onClick={handleToggleLike}
           className={clsx(
@@ -167,13 +163,6 @@ export const PostPage = () => {
           )}
         >
           {saved ? <FaBookmark /> : <FaRegBookmark />}
-        </button>
-
-        <button
-          onClick={() => setShareOpen(true)}
-          className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer"
-        >
-          <PiShareFat className="text-[25px]" />
         </button>
       </div>
 

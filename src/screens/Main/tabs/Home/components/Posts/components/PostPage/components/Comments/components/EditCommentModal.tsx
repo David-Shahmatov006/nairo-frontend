@@ -66,7 +66,7 @@ export const EditCommentModal = ({
               <h2 className="text-xl font-semibold">{t("edit_comment")}</h2>
               <button
                 onClick={onClose}
-                className="cursor-pointer size-7 bg-gray-200 flex items-center justify-center rounded-full text-gray-500 hover:ring-2 ring-main/70 duration-300"
+                className="cursor-pointer size-7 dark:bg-white/10 bg-gray-200 flex items-center justify-center rounded-full text-gray-500 hover:ring-2 ring-main/70 duration-300"
               >
                 <IoIosClose className="text-[32px]" />
               </button>
@@ -77,10 +77,10 @@ export const EditCommentModal = ({
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-white/10 outline-none focus:ring-2 ring-main/40 duration-300"
+              className="w-full px-4 py-3 rounded-xl bg-gray-100 dark:bg-white/10 outline-none focus:ring-2 ring-main/70 duration-300"
             />
 
-            <div className="flex justify-end gap-3 mt-6">
+            <div className="flex max-768px:justify-center justify-end gap-3 mt-6">
               <button
                 onClick={onClose}
                 className="font-medium cursor-pointer px-4 py-2 rounded-xl bg-gray-200 dark:text-white/70 dark:bg-white/5 text-gray-700 hover:ring-2 ring-main/70 duration-300"
@@ -89,9 +89,9 @@ export const EditCommentModal = ({
               </button>
 
               <button
-                disabled={isUpdating}
+                disabled={isUpdating || !text.length}
                 onClick={handleUpdateComment}
-                className="min-w-[110px] flex items-center justify-center font-medium cursor-pointer px-4 py-2 rounded-xl bg-gray-900 dark:bg-white/10 text-white hover:ring-2 ring-main/70 duration-300"
+                className="disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:ring-0 min-w-[110px] flex items-center justify-center font-medium cursor-pointer px-4 py-2 rounded-xl bg-gray-900 dark:bg-white/10 text-white hover:ring-2 ring-main/70 duration-300"
               >
                 {isUpdating ? (
                   <BiLoaderAlt className="animate-spin text-[20px]" />

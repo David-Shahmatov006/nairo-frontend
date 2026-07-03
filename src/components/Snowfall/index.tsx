@@ -3,16 +3,15 @@ import snowflake from "../../assets/images/snowFlake.webp";
 import whiteSnowflake from "../../assets/images/white_snowflake.webp";
 
 export const Snowfall = () => {
+  const getInitialDarkMode = () => localStorage.getItem("theme") === "dark";
+
   const [flakes, setFlakes] = useState<number[]>([]);
-  const [isDarkMode, setIsDarkMode] = useState(
-    document.documentElement.classList.contains("dark")
-  );
+  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
 
   useEffect(() => {
     setFlakes(Array.from({ length: 50 }, (_, i) => i));
-  }, []);
+  }, [isDarkMode]);
 
-  // 🔥 Отслеживаем изменение темы (добавление/удаление класса `dark`)
   useEffect(() => {
     const html = document.documentElement;
 

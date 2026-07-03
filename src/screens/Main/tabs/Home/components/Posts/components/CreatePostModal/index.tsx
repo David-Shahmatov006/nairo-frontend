@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiImage, FiX } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../../../../../../../stores/app";
@@ -7,9 +7,11 @@ import { useTranslation } from "react-i18next";
 import { postService } from "../../../../../../../../services/post.service";
 import { BiLoaderAlt } from "react-icons/bi";
 import { mutate } from "swr";
+import { useAuthStore } from "../../../../../../../../stores/auth";
 
 export const CreatePostModal = () => {
   const { isOpenPostModal, setIsOpenPostModal } = useAppStore();
+  const { user } = useAuthStore();
   const { t } = useTranslation();
 
   const [image, setImage] = useState<string | null>(null);
@@ -20,6 +22,15 @@ export const CreatePostModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const handleBlurModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current?.contains(e.target as Node)) {
+      return;
+    }
+
+    setIsOpenPostModal(false);
+  };
 
   useEffect(() => {
     document.body.style.overflow = isOpenPostModal ? "hidden" : "";
@@ -30,10 +41,14 @@ export const CreatePostModal = () => {
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      setImage(URL.createObjectURL(file));
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      return;
     }
+
+    setImageFile(file);
+    setImage(URL.createObjectURL(file));
   };
 
   const handlePublish = async () => {
@@ -54,6 +69,7 @@ export const CreatePostModal = () => {
       setImageFile(null);
 
       setIsOpenPostModal(false);
+      mutate(["user", user?.id]);
       mutate(["posts-user"]);
       mutate(["posts-saved"]);
       mutate(["posts-all"]);
@@ -73,28 +89,28 @@ export const CreatePostModal = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={handleBlurModal}
         >
           <motion.div
+            ref={modalRef}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="w-full max-w-lg dark:bg-black/50 bg-white rounded-2xl p-6 shadow-xl font-manrope relative"
+            className="w-full max-w-[37%] max-550px:max-w-full [@media(min-width:551px)_and_(max-width:1024px)]:max-w-full dark:bg-black/50 bg-white rounded-2xl p-6 shadow-xl font-manrope relative"
           >
             <button
               onClick={() => setIsOpenPostModal(false)}
-              className="absolute w-[40px] h-[40px] top-4 right-4 flex items-center justify-center
-                         rounded-[12px] border dark:border-white/10 border-gray-300 
-                         dark:bg-white/10 bg-white hover:ring-2 hover:ring-main/40 duration-300"
+              className="absolute w-[40px] h-[40px] max-768px:size-9 max-768px:top-4 max-768px:right-4 top-4 right-4 flex items-center justify-center rounded-[12px] border dark:border-white/10 border-gray-300 dark:bg-white/10 bg-white hover:ring-2 hover:ring-main/70 duration-300"
             >
               <TfiClose className="dark:text-white/50" />
             </button>
 
-            <h2 className="text-[22px] font-[600] dark:text-white/80 text-gray-900 mb-6 text-center">
+            <h2 className="max-768px:text-[18px] text-[22px] font-[600] dark:text-white/80 text-gray-900 max-768px:mb-3 mb-6 text-center">
               {t("create_post.title")}
             </h2>
 
-            <div className="mb-6">
+            <div className="max-768px:mb-3 mb-6">
               {!image ? (
                 <label
                   className="flex flex-col items-center justify-center w-full h-40 
@@ -107,6 +123,7 @@ export const CreatePostModal = () => {
                   </span>
                   <input
                     type="file"
+                    accept="image/jpeg, image/png, image/webp"
                     className="hidden"
                     onChange={handleImageChange}
                   />
@@ -131,38 +148,32 @@ export const CreatePostModal = () => {
               )}
             </div>
 
-            <div className="mb-4">
+            <div className="max-768px:mb-3 mb-4">
               <input
                 type="text"
                 placeholder={t("create_post.post_title")}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-3 dark:bg-white/10 dark:border-white/20 
-                           dark:text-white/80 bg-gray-50 border border-gray-200 
-                           rounded-xl focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                className="w-full px-4 max-768px:py-2 py-3 dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] rounded-xl focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
               />
             </div>
 
-            <div className="mb-6">
+            <div className="max-768px:mb-3 mb-6">
               <textarea
                 placeholder={t("create_post.post_desc")}
                 rows={4}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full px-4 py-3 dark:bg-white/10 dark:border-white/20 
-                           dark:text-white/80 bg-gray-50 border border-gray-200 
-                           rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/40 duration-300"
+                className="w-full px-4 max-768px:py-2 py-3 dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
               />
             </div>
 
-            {error && <p className="text-red-500 text-center mb-3">{error}</p>}
+            {error && <p className="text-red-500 font-[500] text-center mb-3">{error}</p>}
 
             <button
               onClick={handlePublish}
               disabled={isLoading}
-              className="w-full flex items-center justify-center dark:bg-white/10 dark:border-white/20 
-                         dark:text-white/80 bg-gray-800 text-white py-3 rounded-xl font-[600]
-                         hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
+              className="w-full flex items-center justify-center dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white py-3 rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
             >
               {isLoading ? (
                 <BiLoaderAlt className="animate-spin text-[22px]" />

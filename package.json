@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.17",
+    "@types/react-scroll-to-bottom": "^4.2.5",
     "axios": "^1.13.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
@@ -22,7 +23,10 @@
     "react-i18next": "^16.3.4",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.6",
+    "react-scroll-to-bottom": "^4.2.0",
+    "socket.io-client": "^4.8.1",
     "swr": "^2.3.7",
+    "usehooks-ts": "^3.1.1",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
@@ -41,5 +45,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2"
-  }
+  },
+  "packageManager": "yarn@1.22.19+sha512.ff4579ab459bb25aa7c0ff75b62acebe576f6084b36aa842971cf250a5d8c6cd3bc9420b22ce63c7f93a0857bc6ef29291db39c3e7a23aab5adfd5a4dd6c5d71"
 }

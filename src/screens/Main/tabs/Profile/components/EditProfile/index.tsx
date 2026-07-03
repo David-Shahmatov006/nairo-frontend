@@ -95,16 +95,16 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="font-manrope w-full ml-[10%] max-w-[70%] p-6 flex flex-col gap-6">
+    <div className="font-manrope w-full max-1024px:ml-0 ml-[10%] [@media(min-width:1024px)_and_(max-width:1440px)]:max-w-[80%] max-1024px:max-w-full max-w-[70%] max-1440px:p-0 p-6 flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-[25px] font-semibold dark:text-white/80 text-gray-800">
+        <h2 className="max-768px:text-[20px] text-[25px] font-semibold dark:text-white/80 text-gray-800">
           {t("edit_profile.title")}
         </h2>
         <BackButton handleBack={onClose} />
       </div>
 
       <div className="flex items-center gap-5">
-        <div className="relative w-28 h-28">
+        <div className="relative max-768px:size-24 size-28">
           <AvatarImage src={avatarUrl} />
 
           <label
@@ -129,7 +129,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="w-full flex items-center gap-4">
+        <div className="w-full max-768px:flex-col flex items-center gap-4">
           <div className="w-full flex flex-col gap-1">
             <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
               {t("edit_profile.first_name_label")}
@@ -139,7 +139,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               className={clsx(
-                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300",
+                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 max-768px:py-2 max-768px:text-[14px] py-2 rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
                 !isValidName(firstName) && "border border-red-500"
               )}
             />
@@ -157,7 +157,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               className={clsx(
-                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300",
+                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 max-768px:text-[14px] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
                 !isValidName(lastName) && "border border-red-500"
               )}
             />
@@ -176,7 +176,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={clsx(
-              "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300",
+              "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 max-768px:text-[14px] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
               !isValidUsername(username) && "border border-red-500"
             )}
           />
@@ -192,7 +192,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
-            className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 rounded-xl outline-none focus:ring-2 ring-main/40 duration-300 resize-none"
+            className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 max-768px:text-[14px] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none"
           ></textarea>
           <p className="text-red-500 font-[500]">{error}</p>
         </div>

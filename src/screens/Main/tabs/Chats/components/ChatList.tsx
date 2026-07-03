@@ -1,0 +1,107 @@
+import clsx from "clsx";
+import { IoSearch } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
+import { AvatarImage } from "../../../../../components/AvatarImage";
+import type { Chat } from "../../../../../types/chats";
+import { useNavigate, useParams } from "react-router-dom";
+import thinkingMuskot from "../../../../../assets/images/thinkingMuskot2.webp";
+import { useState } from "react";
+
+interface ChatListProps {
+  chats: Chat[];
+  setActiveChat: (chat: Chat) => void;
+  onDeleteChat: (chatId: string) => void;
+}
+
+export const ChatList = ({
+  chats,
+  setActiveChat,
+  onDeleteChat,
+}: ChatListProps) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { chatId } = useParams();
+  const [query, setQuery] = useState("");
+
+  const handleSelectChat = (chat: Chat) => {
+    setActiveChat(chat);
+    navigate(`/chats/${chat.id}`, { replace: true });
+  };
+
+  const filteredChats =
+    query.trim().length === 0
+      ? chats
+      : chats.filter((c) => {
+          const q = query.toLowerCase();
+
+          const nameMatch = c.name?.toLowerCase().includes(q);
+          const usernameMatch = c.username?.toLowerCase().includes(q);
+
+          return nameMatch || usernameMatch;
+        });
+
+  return (
+    <div className="max-768px:w-full w-[30%] flex flex-col pr-4 max-768px:border-none max-768px:px-3 border-r dark:border-white/10 border-gray-200 pt-5">
+      {chats.length > 1 && (
+        <div className="relative mb-4">
+          <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <input
+            type="text"
+            placeholder={t("search.title")}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="dark:text-white/80 w-full h-10 border dark:border-white/20 border-gray-300 rounded-lg pl-10 pr-3 outline-none"
+          />
+        </div>
+      )}
+
+      <div className="overflow-y-auto flex-1 space-y-2">
+        {chats.length === 0 && (
+          <p className="flex items-center justify-center h-[90%] text-gray-500 text-center mt-4">
+            {t("chat.no_chats")}
+          </p>
+        )}
+
+        {chats.length !== 0 && filteredChats.length === 0 && (
+          <div className="h-full flex flex-col items-center justify-center gap-3">
+            <img src={thinkingMuskot} className="w-[70px]" />
+            <span className="text-[17px] text-gray-500 text-center">
+              {t("chat.no_results")}
+            </span>
+          </div>
+        )}
+
+        {filteredChats.length > 0 &&
+          filteredChats.map((chat) => (
+            <div
+              key={chat.id}
+              className={clsx(
+                "flex items-center justify-between p-2 rounded-lg duration-300 cursor-pointer dark:hover:bg-white/3 hover:bg-gray-100",
+                chatId === chat.id && "dark:bg-white/10 bg-main/10"
+              )}
+            >
+              <button
+                onClick={() => handleSelectChat(chat)}
+                className="flex items-center gap-3 flex-1 text-left cursor-pointer"
+              >
+                <div className="w-[42px] h-[42px] rounded-full dark:bg-black bg-gray-200 flex items-center justify-center overflow-hidden">
+                  <AvatarImage src={chat.avatar || ""} />
+                </div>
+
+                <h3 className="font-semibold dark:text-white/80 text-gray-900 text-[15px]">
+                  {chat.name}
+                </h3>
+              </button>
+
+              <button
+                onClick={() => onDeleteChat(chat.id)}
+                className="text-gray-400 hover:text-red-500 p-1 rounded-lg cursor-pointer duration-300"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+};

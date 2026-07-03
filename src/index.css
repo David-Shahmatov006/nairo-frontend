@@ -5,22 +5,16 @@ html {
   -ms-overflow-style: none !important;
 }
 
-html::-webkit-scrollbar {
-  width: 4px;
+html,
+body {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-html::-webkit-scrollbar {
-  width: 4px;
-}
-
-html::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
-}
-
-html::-webkit-scrollbar-thumb {
-  background-color: #8c53ffbe;
-  border-radius: 4px;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -66,6 +60,24 @@ body.dark {
   animation-iteration-count: infinite;
 }
 
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-neon-glow {
+  animation: neon-glow 2.5s ease-in-out infinite;
+}
+
+.chat-scroll>button {
+  display: none !important;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+}
+
 @keyframes snowfall {
   0% {
     transform: translateY(-10vh) rotate(0deg);
@@ -86,10 +98,6 @@ body.dark {
   }
 }
 
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
-}
-
 @keyframes neon-glow {
 
   0%,
@@ -100,8 +108,4 @@ body.dark {
   50% {
     filter: drop-shadow(0 0 10px cyan) drop-shadow(0 0 15px purple);
   }
-}
-
-.animate-neon-glow {
-  animation: neon-glow 2.5s ease-in-out infinite;
 }

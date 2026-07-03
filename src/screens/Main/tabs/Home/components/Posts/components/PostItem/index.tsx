@@ -1,15 +1,15 @@
-import { PiImageBroken, PiShareFat } from "react-icons/pi";
+import { PiImageBroken } from "react-icons/pi";
 import type { Post } from "../../../../../../../../types/post";
 import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useAppStore } from "../../../../../../../../stores/app";
 import { formatDate } from "../../../../../../../../utils/formatDate";
 import { postService } from "../../../../../../../../services/post.service";
 import { mutate } from "swr";
 import { BiLoaderAlt } from "react-icons/bi";
+import { motion } from "framer-motion";
 
 interface IPostProps {
   post: Post;
@@ -24,7 +24,7 @@ export const PostImage = ({ src, title }: { src: string; title: string }) => {
 
   if (!src || hasError) {
     return (
-      <div className="w-full h-full flex items-center justify-center dark:bg-white/5 bg-gray-200 rounded-l-xl">
+      <div className="w-full h-full flex items-center justify-center dark:bg-white/5 bg-gray-200 max-768px:rounded-l-none rounded-l-xl">
         <PiImageBroken size={40} className="text-gray-400" />
       </div>
     );
@@ -34,14 +34,13 @@ export const PostImage = ({ src, title }: { src: string; title: string }) => {
     <img
       src={fullSrc}
       alt={title}
-      className="w-full h-full object-cover rounded-l-xl"
+      className="w-full h-full object-cover max-768px:rounded-none rounded-l-xl"
       onError={() => setHasError(true)}
     />
   );
 };
 
 export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
-  const { setShareOpen } = useAppStore();
   const [saved, setSaved] = useState(false);
   const [liked, setLiked] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -70,10 +69,10 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
           return prev.map((p: any) =>
             p.id === post.id
               ? { ...p, isLiked: res.isLiked, likes: res.likes }
-              : p
+              : p,
           );
         },
-        false
+        false,
       );
 
       mutate(
@@ -83,10 +82,10 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
           return prev.map((p: any) =>
             p.id === post.id
               ? { ...p, isLiked: res.isLiked, likes: res.likes }
-              : p
+              : p,
           );
         },
-        false
+        false,
       );
 
       mutate(
@@ -96,10 +95,10 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
           return prev.map((p: any) =>
             p.id === post.id
               ? { ...p, isLiked: res.isLiked, likes: res.likes }
-              : p
+              : p,
           );
         },
-        false
+        false,
       );
 
       mutate(["post", post.id]);
@@ -112,6 +111,7 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
     setIsDeleting(true);
     try {
       await postService.deletePost(postId);
+      mutate(["user", post.user.id]);
       mutate(["posts-user"]);
     } catch (error) {
       console.error(error);
@@ -131,9 +131,9 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
     <Link to={`/post/${post?.id}`}>
       <div
         key={post.id}
-        className="dark:bg-white/5 bg-white rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex"
+        className="dark:bg-white/5 bg-white rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex max-1440px:flex-col"
       >
-        <div className="flex-shrink-0 w-48 h-48 dark:bg-white/10 bg-gray-200">
+        <div className="flex-shrink-0 max-1440px:w-full w-48 h-48 dark:bg-white/10 bg-gray-200">
           <PostImage src={post.image} title={post.title} />
         </div>
 
@@ -152,54 +152,51 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
             <span>{formatDate(post.createdAt)}</span>
           </div>
 
-          <h3 className="text-lg font-semibold dark:text-[#f9f5e8] text-gray-900">
+          <h3 className="text-lg font-semibold dark:text-[#f9f5e8] text-gray-900 line-clamp-1">
             {post.title}
           </h3>
-          <p className="dark:text-[#6f6f6f]  text-gray-700 text-sm line-clamp-2">
+          <p className="dark:text-[#6f6f6f] text-gray-700 text-sm line-clamp-2">
             {post.description}
           </p>
 
           <div className="flex items-center justify-between mt-auto dark:text-[#6f6f6f] text-gray-600">
             <div className="flex items-center gap-4">
-              <button
+              <motion.button
                 onClick={(e) => {
                   e.preventDefault();
-
                   e.stopPropagation();
                   handleToggleLike();
                 }}
+                whileTap={{ scale: 0.7 }}
+                initial={{ scale: 1 }}
+                animate={liked ? { scale: [1, 1.9, 1] } : {}}
+                transition={{ duration: 0.25 }}
                 className={clsx(
                   "flex items-center gap-1 hover:text-main duration-300 cursor-pointer",
-                  liked && "text-main"
+                  liked && "text-main",
                 )}
               >
                 {liked ? <FaHeart /> : <FaRegHeart />}
                 <span>{post.likes}</span>
-              </button>
-              <button
+              </motion.button>
+
+              <motion.button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   handleToggleSave();
                 }}
+                whileTap={{ scale: 0.7 }}
+                initial={{ scale: 1 }}
+                animate={saved ? { scale: [1, 1.9, 1] } : {}}
+                transition={{ duration: 0.25 }}
                 className={clsx(
                   "flex items-center gap-2 hover:text-main duration-300 cursor-pointer flex items-center gap-1",
-                  saved && "text-main"
+                  saved && "text-main",
                 )}
               >
                 {saved ? <FaBookmark /> : <FaRegBookmark />}
-              </button>
-
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setShareOpen(true);
-                }}
-                className="flex items-center gap-1 hover:text-main duration-300 cursor-pointer"
-              >
-                <PiShareFat className="text-[20px]" />
-              </button>
+              </motion.button>
             </div>
             {isOwnProfile && (
               <button

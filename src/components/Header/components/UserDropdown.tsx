@@ -1,18 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAppStore } from "../../../stores/app";
 import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../../../stores/auth";
 import { AvatarImage } from "../../AvatarImage";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../routes";
 
 export const UserDropdown = () => {
-  const { setActiveTab } = useAppStore();
   const { logout, user } = useAuthStore();
   const { t } = useTranslation();
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  console.log(user, "user");
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -67,7 +66,7 @@ export const UserDropdown = () => {
             <button
               onClick={() => {
                 setOpen(false);
-                setActiveTab(5);
+                navigate(ROUTES.SETTINGS)
               }}
               className="w-full cursor-pointer text-left py-2 px-3 text-sm dark:text-[#f9f5e8]/50 text-gray-700 dark:hover:bg-white/10 hover:bg-gray-100 rounded-md duration-300"
             >

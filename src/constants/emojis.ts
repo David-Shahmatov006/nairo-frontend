@@ -1,5 +1,3 @@
-import nairoCoin from '../assets/images/nairoCoin.webp'
-
 export const defaultEmojis = [
   "😀","😁","😂","🤣","😃","😄","😅","😆","🥹","😊","😇","🙂","🙃","😉","😌",
   "😍","🥰","😘","😗","😙","😚","😋","😛","😜","🤪","😝",
@@ -22,8 +20,4 @@ export const defaultEmojis = [
   "🍕","🍔","🍟","🍿","🍦","🍩","🍪",
   "🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨",
   "⚽","🏀","🏈","🎯"
-];
-
-export const customEmojis = [
-  { id: 1, src: nairoCoin, alt: "nairo-coin" },
 ];

@@ -1,7 +1,5 @@
 import { GetStartedLabel } from "./components/GetStartedLabel";
 import { Posts } from "./components/Posts";
-import { QuickActions } from "./components/QuickActions";
-import { RandomConnect } from "./components/RandomConnect";
 import { motion } from "framer-motion";
 
 export const Home = () => {
@@ -15,11 +13,7 @@ export const Home = () => {
     >
       <GetStartedLabel />
 
-      <QuickActions />
-      <div className="flex flex-col lg:flex-row gap-6">
-        <Posts mode="all" />
-        <RandomConnect />
-      </div>
+      <Posts mode="all" />
     </motion.div>
   );
 };
