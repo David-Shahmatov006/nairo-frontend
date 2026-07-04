@@ -9,10 +9,16 @@ type DashboardLayoutProps = {
 };
 export const MainLayout = ({ children }: DashboardLayoutProps) => {
   const location = useLocation();
+  console.log(location.pathname);
 
   return (
     <>
-      <div className="dark:bg-[#0f0f0f] flex flex-col h-screen">
+      <div
+        className={clsx(
+          "dark:bg-[#0f0f0f] flex flex-col",
+          location.pathname.includes("chats") && "h-screen",
+        )}
+      >
         <Header />
         <div className="flex flex-1">
           <div className="max-1024px:hidden">
