@@ -111,7 +111,7 @@ export const PostPage = () => {
         </div>
       </div>
 
-      <div className="w-full max-768px:h-[30%] h-[60vh] rounded-xl overflow-hidden dark:bg-white/10 bg-gray-100 flex items-center justify-center mb-5">
+      <div className="w-full h-[60vh] rounded-xl overflow-hidden dark:bg-white/10 bg-gray-100 flex items-center justify-center mb-5">
         <PostImage src={post.image} title="Post image" />
       </div>
 
