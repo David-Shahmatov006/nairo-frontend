@@ -7,11 +7,6 @@ export const AvatarImage = ({ src, className, iconClassName }: any) => {
 
   const showFallback = !src || error;
 
-  const finalSrc =
-    src && !src.startsWith("blob:")
-      ? `${import.meta.env.VITE_API_URL}${src}?v=${Date.now()}`
-      : src;
-
   return (
     <div
       className={clsx(
@@ -23,7 +18,7 @@ export const AvatarImage = ({ src, className, iconClassName }: any) => {
         <RxAvatar className={clsx("w-14 h-14 text-main/70", iconClassName)} />
       ) : (
         <img
-          src={finalSrc}
+          src={src}
           onError={() => setError(true)}
           className="w-full h-full object-cover"
         />
