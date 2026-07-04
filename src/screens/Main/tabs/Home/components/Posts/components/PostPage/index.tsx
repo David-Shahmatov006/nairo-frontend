@@ -84,7 +84,7 @@ export const PostPage = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
-      className="font-manrope min-h-screen w-full max-768px:max-w-full max-w-[80%] max-768px:ml-0 ml-[10%] max-768px:p-0 px-5 pt-8"
+      className="font-manrope  w-full max-768px:max-w-full max-w-[80%] max-768px:ml-0 ml-[10%] max-768px:p-0 px-5 pt-8"
     >
       <BackButton handleBack={() => navigate(-1)} />
 
