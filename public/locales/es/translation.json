@@ -85,8 +85,8 @@
     "bio_placeholder": "Cuenta algo sobre ti...",
     "save_changes": "Guardar cambios",
     "invalid_username": "El nombre de usuario debe tener al menos 3 caracteres y contener solo letras, números o guiones bajos",
-    "invalid_first_name": "El nombre debe usar letras A–Z y tener al menos 2 caracteres",
-    "invalid_last_name": "El apellido debe usar letras A–Z y tener al menos 2 caracteres"
+    "invalid_first_name": "El nombre debe tener al menos 2 caracteres",
+    "invalid_last_name": "El apellido debe tener al menos 2 caracteres"
   },
   "shop": {
     "title": "Comprar Nairo Coins",
@@ -157,6 +157,5 @@
   "post_page": {
     "not_found": "Es extraño, pero por alguna razón no pudimos encontrar esta publicación.",
     "left_first_comment": "Alguien tiene que empezar… ¿por qué no tú? 😉"
-
   }
 }

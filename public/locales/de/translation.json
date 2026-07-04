@@ -85,8 +85,8 @@
     "bio_placeholder": "Erzähl etwas über dich...",
     "save_changes": "Änderungen speichern",
     "invalid_username": "Der Benutzername muss mindestens 3 Zeichen lang sein und darf nur Buchstaben, Zahlen oder Unterstriche enthalten",
-    "invalid_first_name": "Der Vorname muss Buchstaben A–Z verwenden und mindestens 2 Zeichen lang sein",
-    "invalid_last_name": "Der Nachname muss Buchstaben A–Z verwenden und mindestens 2 Zeichen lang sein"
+    "invalid_first_name": "Der Vorname muss mindestens 2 Zeichen lang sein",
+    "invalid_last_name": "Der Nachname muss mindestens 2 Zeichen lang sein"
   },
   "shop": {
     "title": "Nairo Coins kaufen",

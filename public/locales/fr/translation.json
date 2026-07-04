@@ -85,8 +85,8 @@
     "bio_placeholder": "Parlez un peu de vous...",
     "save_changes": "Enregistrer",
     "invalid_username": "Le nom d’utilisateur doit comporter au moins 3 caractères et contenir uniquement des lettres, des chiffres ou des tirets bas",
-    "invalid_first_name": "Le prénom doit utiliser des lettres A–Z et comporter au moins 2 caractères",
-    "invalid_last_name": "Le nom doit utiliser des lettres A–Z et comporter au moins 2 caractères"
+    "invalid_first_name": "Le prénom doit comporter au moins 2 caractères",
+    "invalid_last_name": "Le nom de famille doit comporter au moins 2 caractères"
   },
   "shop": {
     "title": "Acheter des Nairo Coins",

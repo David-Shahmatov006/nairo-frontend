@@ -25,7 +25,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const nameRegex = /^[A-Za-z]+$/;
+  const nameRegex = /^\p{L}+$/u
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
 
   const isValidName = (value: string) =>
