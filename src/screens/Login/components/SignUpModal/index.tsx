@@ -40,7 +40,8 @@ export const SignUpModal = () => {
   };
 
   const validateName = (name: string) => {
-    const onlyLetters = /^[A-Za-z]+$/.test(name);
+    const onlyLetters = /^\p{L}+$/u.test(name);
+
     return name.length >= 2 && onlyLetters;
   };
 
