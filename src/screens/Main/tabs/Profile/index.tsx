@@ -14,6 +14,7 @@ import { Loader } from "../../../../components/Loader";
 import { useUser } from "../../../../hooks/useUser";
 import { chatsService } from "../../../../services/chats.service";
 import { FollowListModal } from "./components/FollowListModal";
+import { ShowAvatarImage } from "./components/ShowAvatarImage";
 
 export const Profile = () => {
   const { id: userIdFromUrl } = useParams();
@@ -25,6 +26,7 @@ export const Profile = () => {
   const trueUserId = userIdFromUrl ?? user?.id;
   const [isEditing, setIsEditing] = useState(false);
   const [isOpenFollowModal, setIsOpenFollowModal] = useState(false);
+  const [isOpenAvatarModal, setIsOpenAvatarModal] = useState(false);
   const [typeOfFollowModal, setTypeOfFollowModal] = useState("");
 
   const handleOpenFollowModal = (type: "followers" | "following") => {
@@ -91,9 +93,12 @@ export const Profile = () => {
           <div className="max-768px:w-full w-[70%] max-768px:flex-col flex items-start gap-6">
             <div className="flex items-center gap-5">
               <div>
-                <div className="max-768px:size-20 size-32 dark:bg-black/50 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow">
+                <button
+                  onClick={() => setIsOpenAvatarModal(true)}
+                  className="cursor-pointer max-768px:size-20 size-32 dark:bg-black/50 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow"
+                >
                   <AvatarImage src={profile.avatar || ""} />
-                </div>
+                </button>
               </div>
 
               <div className="flex flex-col">
@@ -236,6 +241,11 @@ export const Profile = () => {
         }
         open={isOpenFollowModal}
         onClose={() => setIsOpenFollowModal(false)}
+      />
+      <ShowAvatarImage
+        avatar={profile.avatar}
+        open={isOpenAvatarModal}
+        onClose={() => setIsOpenAvatarModal(false)}
       />
     </>
   );

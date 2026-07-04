@@ -9,7 +9,6 @@ type DashboardLayoutProps = {
 };
 export const MainLayout = ({ children }: DashboardLayoutProps) => {
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <>
