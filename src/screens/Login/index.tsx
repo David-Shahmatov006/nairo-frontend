@@ -15,7 +15,7 @@ export const Login = () => {
       <LoginBackground className="max-1024px:fixed absolute pointer-events-none" />
       <div className="flex max-1024px:w-[90%] w-[50%] mb-[10%] flex-col max-1024px:items-center justify-center z-[2]">
         <Logo iconClassName="[@media(min-width:1024px)_and_(max-width:1440px)]:size-10 size-[50px]" textClassName="[@media(min-width:1024px)_and_(max-width:1440px)]:text-[45px]" />
-        <h2 className="max-768px:text-[15px] [@media(min-width:1024px)_and_(max-width:1440px)]:text-[18px] text-[20px] font-[700] leading-[120%] dark:text-white/70 text-[#111827] mb-[16px]">
+        <h2 className="max-768px:text-[15px] [@media(min-width:1024px)_and_(max-width:1440px)]:text-[18px] text-[20px] font-[700] leading-[120%] dark:text-white/70 text-[#111827] mb-[16px] max-1024px:mt-2">
           Build connections, explore, and have fun.
         </h2>
         <p className="dark:text-white/50 text-[#3B4657] max-1024px:text-center max-768px:text-[14px] [@media(min-width:1024px)_and_(max-width:1440px)]:text-[15px] text-[16px] font-[500] leading-[150%]">
