@@ -8,12 +8,14 @@ import {
 import { useAppStore } from "../../../../stores/app";
 import { passwordService } from "../../../../services/password.service";
 import { BiLoaderAlt } from "react-icons/bi";
+import axios from "axios";
 
 export const OTPModal = () => {
   const { resetEmail, setResetToken, setAuthView } = useAppStore();
   const [code, setCode] = useState<string[]>(Array(6).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -95,6 +97,11 @@ export const OTPModal = () => {
       setResetToken(response.resetToken);
       setAuthView("reset-password");
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.message ?? "Invalid code");
+      } else {
+        setError("Something went wrong");
+      }
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -121,10 +128,12 @@ export const OTPModal = () => {
           <h1 className="max-1200px:text-[21px] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 mb-2">
             Enter confirmation code
           </h1>
-          <p className="text-gray-500 text-sm font-medium text-center">{resetEmail}</p>
+          <p className="text-gray-500 text-sm font-medium text-center">
+            {resetEmail}
+          </p>
         </div>
 
-        <div className="flex justify-between gap-2 mb-6">
+        <div className="flex justify-between gap-2 mb-1">
           {code.map((digit, index) => (
             <input
               key={index}
@@ -153,6 +162,8 @@ export const OTPModal = () => {
             />
           ))}
         </div>
+        <p className="text-red-500 text-center mb-3 font-medium">{error}</p>
+
 
         <p className="text-gray-500 text-sm mb-8">
           Didn't get an email?{" "}
