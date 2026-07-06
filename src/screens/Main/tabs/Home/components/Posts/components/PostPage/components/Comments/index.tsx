@@ -18,6 +18,7 @@ export const Comments = ({ postId }: { postId: string }) => {
   );
 
   const handlePostComment = async () => {
+    if (text.trim().length === 0) return;
     setIsPosting(true);
     try {
       await commentsService.createComment(text, postId);
@@ -67,7 +68,7 @@ export const Comments = ({ postId }: { postId: string }) => {
           className="flex-1 dark:bg-white/5 dark:text-white/80 bg-gray-100 px-4 h-12 rounded-xl outline-none focus:ring-2 ring-main/70 duration-300"
         />
         <button
-          disabled={isPosting}
+          disabled={isPosting || !text.trim().length}
           onClick={handlePostComment}
           className="flex items-center justify-center min-w-[55px] group dark:bg-white/5 bg-gray-800 h-12 font-medium text-white px-4 py-2 rounded-xl hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
         >
