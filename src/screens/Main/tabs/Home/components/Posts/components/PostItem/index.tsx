@@ -38,7 +38,7 @@ export const PostImage = ({
       <div
         className={clsx(
           "w-full h-full flex items-center justify-center dark:bg-white/5 bg-gray-200",
-          onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl"
+          onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl",
         )}
       >
         <PiImageBroken size={40} className="text-gray-400" />
@@ -50,7 +50,10 @@ export const PostImage = ({
     <img
       src={fullSrc}
       alt={title}
-      className="w-full h-full object-cover max-768px:rounded-none rounded-l-xl"
+      className={clsx(
+        "w-full h-full object-cover",
+        onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl"
+      )}
       onError={() => setHasError(true)}
     />
   );
