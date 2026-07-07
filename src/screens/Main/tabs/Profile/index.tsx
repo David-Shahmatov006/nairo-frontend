@@ -23,7 +23,6 @@ export const Profile = () => {
     useUser(userIdFromUrl);
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const trueUserId = userIdFromUrl ?? user?.id;
   const [isEditing, setIsEditing] = useState(false);
   const [isOpenFollowModal, setIsOpenFollowModal] = useState(false);
   const [isOpenAvatarModal, setIsOpenAvatarModal] = useState(false);
@@ -231,7 +230,7 @@ export const Profile = () => {
         </div>
 
         <div className="flex justify-between gap-5">
-          <Posts userId={trueUserId} mode="user" isOwnProfile={isOwnProfile} />
+          <Posts mode="user" />
         </div>
       </motion.div>
       <FollowListModal

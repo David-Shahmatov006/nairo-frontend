@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
-import { CreatePostModal } from "../screens/Main/tabs/Home/components/Posts/components/CreatePostModal";
+import { PostModal } from "../screens/Main/tabs/Home/components/Posts/components/PostModal";
 import { useLocation } from "react-router-dom";
 
 type DashboardLayoutProps = {
@@ -34,7 +34,7 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
           </main>
         </div>
       </div>
-      <CreatePostModal />
+      <PostModal />
     </>
   );
 };

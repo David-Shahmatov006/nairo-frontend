@@ -7,7 +7,7 @@ export class UserService {
     username?: string;
     bio?: string;
   }) {
-    const res = await $api.post("/user/update", data);
+    const res = await $api.patch("/user/update", data);
     return res.data;
   }
 

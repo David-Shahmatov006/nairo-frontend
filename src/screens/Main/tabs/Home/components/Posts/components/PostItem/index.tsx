@@ -10,13 +10,24 @@ import { postService } from "../../../../../../../../services/post.service";
 import { mutate } from "swr";
 import { BiLoaderAlt } from "react-icons/bi";
 import { motion } from "framer-motion";
+import { useAuthStore } from "../../../../../../../../stores/auth";
+import { useAppStore } from "../../../../../../../../stores/app";
+import { FiEdit3 } from "react-icons/fi";
 
 interface IPostProps {
   post: Post;
   isOwnProfile?: boolean;
 }
 
-export const PostImage = ({ src, title }: { src: string; title: string }) => {
+export const PostImage = ({
+  src,
+  title,
+  onModal,
+}: {
+  src: string;
+  title: string;
+  onModal?: boolean;
+}) => {
   const [hasError, setHasError] = useState(false);
 
   const API = import.meta.env.VITE_API_URL;
@@ -24,7 +35,12 @@ export const PostImage = ({ src, title }: { src: string; title: string }) => {
 
   if (!src || hasError) {
     return (
-      <div className="w-full h-full flex items-center justify-center dark:bg-white/5 bg-gray-200 max-768px:rounded-l-none rounded-l-xl">
+      <div
+        className={clsx(
+          "w-full h-full flex items-center justify-center dark:bg-white/5 bg-gray-200",
+          onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl"
+        )}
+      >
         <PiImageBroken size={40} className="text-gray-400" />
       </div>
     );
@@ -44,6 +60,9 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
   const [saved, setSaved] = useState(false);
   const [liked, setLiked] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { user } = useAuthStore();
+  const isOwnPost = post?.user?.id === user?.id;
+  const { openEditPostModal } = useAppStore();
 
   const handleToggleSave = async () => {
     try {
@@ -197,8 +216,21 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
               >
                 {saved ? <FaBookmark /> : <FaRegBookmark />}
               </motion.button>
+
+              {isOwnPost && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openEditPostModal(post);
+                  }}
+                  className="flex items-center gap-2 hover:text-main duration-300 cursor-pointer flex items-center gap-1"
+                >
+                  <FiEdit3 className="text-[17px]" />
+                </button>
+              )}
             </div>
-            {isOwnProfile && (
+            {isOwnPost && (
               <button
                 onClick={(e) => {
                   e.preventDefault();

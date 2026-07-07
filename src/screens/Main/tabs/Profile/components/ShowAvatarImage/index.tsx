@@ -7,8 +7,6 @@ interface IProps {
 }
 
 export const ShowAvatarImage = ({ avatar, open, onClose }: IProps) => {
-  console.log(avatar, "777");
-
   return (
     avatar && (
       <AnimatePresence>

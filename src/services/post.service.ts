@@ -57,6 +57,32 @@ export class PostService {
     return data;
   }
 
+  async updatePost(
+    postId: string,
+    body: {
+      title: string;
+      description: string;
+      imageFile?: File | null;
+    },
+  ) {
+    const formData = new FormData();
+
+    formData.append("title", body.title);
+    formData.append("description", body.description);
+
+    if (body.imageFile) {
+      formData.append("image", body.imageFile);
+    }
+
+    const { data } = await $api.patch(`/posts/${postId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return data;
+  }
+
   async toggleSave(postId: string) {
     const { data } = await $api.post(`/posts/${postId}/toggle-save`);
     return data;

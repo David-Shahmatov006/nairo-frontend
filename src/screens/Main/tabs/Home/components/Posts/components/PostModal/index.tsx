@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FiImage, FiX } from "react-icons/fi";
+import { FiImage } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../../../../../../../stores/app";
 import { TfiClose } from "react-icons/tfi";
@@ -8,11 +8,15 @@ import { postService } from "../../../../../../../../services/post.service";
 import { BiLoaderAlt } from "react-icons/bi";
 import { mutate } from "swr";
 import { useAuthStore } from "../../../../../../../../stores/auth";
+import { IoCameraReverse } from "react-icons/io5";
+import { PostImage } from "../PostItem";
 
-export const CreatePostModal = () => {
-  const { isOpenPostModal, setIsOpenPostModal } = useAppStore();
+export const PostModal = () => {
   const { user } = useAuthStore();
   const { t } = useTranslation();
+  const { postModal, closePostModal } = useAppStore();
+
+  const isEdit = !!postModal.post?.id;
 
   const [image, setImage] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -29,15 +33,15 @@ export const CreatePostModal = () => {
       return;
     }
 
-    setIsOpenPostModal(false);
+    closePostModal();
   };
 
   useEffect(() => {
-    document.body.style.overflow = isOpenPostModal ? "hidden" : "";
+    document.body.style.overflow = postModal.isOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isOpenPostModal]);
+  }, [postModal.isOpen]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -51,39 +55,71 @@ export const CreatePostModal = () => {
     setImage(URL.createObjectURL(file));
   };
 
-  const handlePublish = async () => {
+  const handleSubmit = async () => {
     setError("");
 
-    if (!imageFile || !title || !description) {
+    if (!title.trim() || !description.trim()) {
       setError("Fill all fields");
       return;
     }
 
+    if (!isEdit && !imageFile) {
+      setError("Select image");
+      return;
+    }
+
     setIsLoading(true);
+
     try {
-      await postService.createPost(title, description, imageFile);
+      if (isEdit) {
+        await postService.updatePost(postModal.post!.id, {
+          title,
+          description,
+          imageFile,
+        });
+      } else {
+        await postService.createPost(title, description, imageFile!);
+      }
 
       setTitle("");
       setDescription("");
       setImage(null);
       setImageFile(null);
 
-      setIsOpenPostModal(false);
+      closePostModal();
+
       mutate(["user", user?.id]);
       mutate(["posts-user"]);
-      mutate(["posts-saved"]);
       mutate(["posts-all"]);
+      mutate(["posts-saved"]);
     } catch (err: any) {
-      const msg = err?.response?.data?.message || "Error creating post";
-      setError(msg);
+      setError(err?.response?.data?.message ?? "Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (!postModal.isOpen) return;
+
+    if (postModal.post) {
+      setTitle(postModal.post.title);
+      setDescription(postModal.post.description);
+      setImage(postModal.post.image);
+      setImageFile(null);
+    } else {
+      setTitle("");
+      setDescription("");
+      setImage(null);
+      setImageFile(null);
+    }
+
+    setError("");
+  }, [postModal]);
+
   return (
     <AnimatePresence>
-      {isOpenPostModal && (
+      {postModal.isOpen && (
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
           initial={{ opacity: 0 }}
@@ -100,14 +136,14 @@ export const CreatePostModal = () => {
             className="w-full max-w-[37%] max-550px:max-w-full [@media(min-width:551px)_and_(max-width:1024px)]:max-w-full dark:bg-black/50 bg-white rounded-2xl p-6 shadow-xl font-manrope relative"
           >
             <button
-              onClick={() => setIsOpenPostModal(false)}
+              onClick={closePostModal}
               className="absolute w-[40px] h-[40px] max-768px:size-9 max-768px:top-4 max-768px:right-4 top-4 right-4 flex items-center justify-center rounded-[12px] border dark:border-white/10 border-gray-300 dark:bg-white/10 bg-white hover:ring-2 hover:ring-main/70 duration-300"
             >
               <TfiClose className="dark:text-white/50" />
             </button>
 
             <h2 className="max-768px:text-[18px] text-[22px] font-[600] dark:text-white/80 text-gray-900 max-768px:mb-3 mb-6 text-center">
-              {t("create_post.title")}
+              {isEdit ? "Редагувати пост" : t("create_post.title")}
             </h2>
 
             <div className="max-768px:mb-3 mb-6">
@@ -130,20 +166,16 @@ export const CreatePostModal = () => {
                 </label>
               ) : (
                 <div className="relative w-full h-48">
-                  <img
-                    src={image}
-                    alt="preview"
-                    className="w-full h-full object-cover rounded-xl"
-                  />
-                  <button
-                    onClick={() => {
-                      setImage(null);
-                      setImageFile(null);
-                    }}
-                    className="absolute top-2 right-2 p-1 bg-black/60 rounded-full hover:bg-black/80 duration-300 cursor-pointer"
-                  >
-                    <FiX className="text-white text-lg" />
-                  </button>
+                  <PostImage onModal src={image} title=""/>
+                  <label className="absolute top-2 right-2 p-1 rounded-full cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/jpeg, image/png, image/webp"
+                      className="hidden"
+                      onChange={handleImageChange}
+                    />
+                    <IoCameraReverse className="text-black hover:text-black/70 text-[30px] duration-300" />
+                  </label>
                 </div>
               )}
             </div>
@@ -168,10 +200,14 @@ export const CreatePostModal = () => {
               />
             </div>
 
-            {error && <p className="text-red-500 font-[500] text-center mb-3">{error}</p>}
+            {error && (
+              <p className="text-red-500 font-[500] text-center mb-3">
+                {error}
+              </p>
+            )}
 
             <button
-              onClick={handlePublish}
+              onClick={handleSubmit}
               disabled={isLoading}
               className="w-full flex items-center justify-center dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white py-3 rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
             >

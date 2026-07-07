@@ -4,31 +4,35 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 
-
 import { postService } from "../../../../../../services/post.service";
 import { Loader } from "../../../../../../components/Loader";
 import { PostItem } from "./components/PostItem";
 
 import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
 import { BiLoaderAlt } from "react-icons/bi";
+import { useUser } from "../../../../../../hooks/useUser";
+import { useParams } from "react-router-dom";
+import { useAuthStore } from "../../../../../../stores/auth";
 
 interface PostsProps {
   mode: "all" | "saved" | "user";
-  userId?: string;
-  isOwnProfile?: boolean;
 }
 
 const LIMIT = 10;
 
-export const Posts = ({ mode, userId, isOwnProfile }: PostsProps) => {
+export const Posts = ({ mode }: PostsProps) => {
   const { t } = useTranslation();
+  const { id: userIdFromUrl } = useParams();
+  const { user } = useAuthStore();
+  const trueUserId = userIdFromUrl ?? user?.id;
 
+  const { isOwnProfile } = useUser(trueUserId);
   const scrollable = mode === "user";
 
   const getKey = (pageIndex: number, previousPage: any) => {
     if (previousPage && !previousPage.hasMore) return null;
 
-    return [mode, userId, pageIndex + 1];
+    return [mode, trueUserId, pageIndex + 1];
   };
 
   const { data, setSize, isLoading, isValidating } = useSWRInfinite(

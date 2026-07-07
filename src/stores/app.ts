@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { ILang } from "../types/lang";
+import type { Post } from "../types/post";
 
 type Theme = "light" | "dark";
 
@@ -10,6 +11,10 @@ type AuthView =
   | "verify-otp"
   | "reset-password";
 
+type PostModalState = {
+  isOpen: boolean;
+  post: Post | null;
+};
 interface AppState {
   resetToken: string;
   setResetToken: (email: string) => void;
@@ -26,6 +31,11 @@ interface AppState {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
+  postModal: PostModalState;
+
+  openCreatePostModal: () => void;
+  openEditPostModal: (post: Post) => void;
+  closePostModal: () => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -44,8 +54,8 @@ export const useAppStore = create<AppState>((set) => ({
     localStorage.setItem("activeTab", String(tab));
     set({ activeTab: tab });
   },
-  theme: (localStorage.getItem("theme") as Theme) || "light",
 
+  theme: (localStorage.getItem("theme") as Theme) || "light",
   setTheme: (theme) => {
     localStorage.setItem("theme", theme);
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -63,4 +73,33 @@ export const useAppStore = create<AppState>((set) => ({
       return { theme: newTheme };
     });
   },
+
+  postModal: {
+    isOpen: false,
+    post: null,
+  },
+
+  openCreatePostModal: () =>
+    set({
+      postModal: {
+        isOpen: true,
+        post: null,
+      },
+    }),
+
+  openEditPostModal: (post) =>
+    set({
+      postModal: {
+        isOpen: true,
+        post,
+      },
+    }),
+
+  closePostModal: () =>
+    set({
+      postModal: {
+        isOpen: false,
+        post: null,
+      },
+    }),
 }));
