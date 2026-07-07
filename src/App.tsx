@@ -19,6 +19,7 @@ import { useAuthStore } from "./stores/auth";
 import { useTranslation } from "react-i18next";
 import { LANGS } from "./constants/langs";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { NotFound } from "./screens/NotFound";
 
 function App() {
   const { theme } = useAppStore();
@@ -73,6 +74,7 @@ function App() {
           <Route path="/user/:id" element={<Profile />} />
           <Route path="/post/:id" element={<PostPage />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

@@ -202,9 +202,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
         onClick={saveChanges}
         disabled={isSaveDisabled}
         className={clsx(
-          "w-full flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 py-3 px-6 text-base h-[48px] gap-[12px]",
-          "dark:bg-black/90 dark:border border-white/10 bg-gray-900 text-white",
-          "hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70",
+          "w-full flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 py-3 px-6 text-base h-[48px] gap-[12px] dark:bg-black/90 dark:border border-white/10 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70",
           isSaveDisabled && "opacity-50 cursor-not-allowed hover:ring-0"
         )}
       >

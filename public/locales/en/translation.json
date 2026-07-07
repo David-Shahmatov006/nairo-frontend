@@ -7,6 +7,10 @@
   "edit_comment": "Edit comment",
   "cancel": "Cancel",
   "save": "Save",
+  "not_found": {
+    "subtitle": "Page not found",
+    "button_text": "Back to Home"
+  },
   "sidebar": {
     "home": "Home",
     "search": "Search Members",

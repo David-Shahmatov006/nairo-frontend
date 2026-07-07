@@ -7,6 +7,10 @@
   "edit_comment": "Editar comentario",
   "cancel": "Cancelar",
   "save": "Guardar",
+  "not_found": {
+    "subtitle": "Página no encontrada",
+    "button_text": "Volver al inicio"
+  },
   "sidebar": {
     "home": "Inicio",
     "search": "Buscar miembros",

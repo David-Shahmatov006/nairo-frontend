@@ -7,6 +7,10 @@
   "edit_comment": "Modifier le commentaire",
   "cancel": "Annuler",
   "save": "Enregistrer",
+  "not_found": {
+    "subtitle": "Page introuvable",
+    "button_text": "Retour à l'accueil"
+  },
   "sidebar": {
     "home": "Accueil",
     "search": "Rechercher des membres",
