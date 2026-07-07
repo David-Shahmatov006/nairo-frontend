@@ -94,8 +94,9 @@ export const Profile = () => {
             <div className="flex items-center gap-5">
               <div>
                 <button
+                  disabled={!profile.avatar}
                   onClick={() => setIsOpenAvatarModal(true)}
-                  className="cursor-pointer max-768px:size-20 size-32 dark:bg-black/50 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow"
+                  className="disabled:cursor-default cursor-pointer max-768px:size-20 size-32 dark:bg-black/50 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow"
                 >
                   <AvatarImage src={profile.avatar || ""} />
                 </button>
