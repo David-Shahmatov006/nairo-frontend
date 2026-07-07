@@ -1,61 +1,122 @@
 import { motion } from "framer-motion";
-import useSWR from "swr";
-import { postService } from "../../../../../../services/post.service";
-import { PostItem } from "./components/PostItem";
-import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
-import { useTranslation } from "react-i18next";
-import { Loader } from "../../../../../../components/Loader";
-import { useLocation } from "react-router-dom";
+import useSWRInfinite from "swr/infinite";
+import InfiniteScroll from "react-infinite-scroll-component";
 import clsx from "clsx";
+import { useTranslation } from "react-i18next";
+
+
+import { postService } from "../../../../../../services/post.service";
+import { Loader } from "../../../../../../components/Loader";
+import { PostItem } from "./components/PostItem";
+
+import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
+import { BiLoaderAlt } from "react-icons/bi";
+
 interface PostsProps {
   mode: "all" | "saved" | "user";
   userId?: string;
   isOwnProfile?: boolean;
 }
 
+const LIMIT = 10;
+
 export const Posts = ({ mode, userId, isOwnProfile }: PostsProps) => {
   const { t } = useTranslation();
-  const location = useLocation();
-  const { data: posts, isLoading } = useSWR(
-    mode === "user"
-      ? ["posts-user"]
-      : mode === "saved"
-      ? ["posts-saved"]
-      : ["posts-all"],
 
-    () =>
-      mode === "user"
-        ? postService.getUserPosts(userId as string)
-        : mode === "saved"
-        ? postService.getSavedPosts()
-        : postService.getRandomPosts()
+  const scrollable = mode === "user";
+
+  const getKey = (pageIndex: number, previousPage: any) => {
+    if (previousPage && !previousPage.hasMore) return null;
+
+    return [mode, userId, pageIndex + 1];
+  };
+
+  const { data, setSize, isLoading, isValidating } = useSWRInfinite(
+    getKey,
+    ([mode, userId, page]) => {
+      switch (mode) {
+        case "saved":
+          return postService.getSavedPosts(page as number, LIMIT);
+
+        case "user":
+          return postService.getUserPosts(
+            userId! as string,
+            page as number,
+            LIMIT,
+          );
+
+        default:
+          return postService.getAllPosts(page as number, LIMIT);
+      }
+    },
   );
 
-  if (isLoading) return <Loader />;
+  if (isLoading && !data) {
+    return <Loader />;
+  }
 
-  if (!posts || posts.length === 0)
+  const posts = data?.flatMap((page) => page.posts) ?? [];
+
+  const hasMore = data?.[data.length - 1]?.hasMore ?? false;
+
+  if (!posts.length) {
     return (
-      <div className="flex-1 flex flex-col justify-center items-center">
+      <div className="flex-1 flex flex-col items-center justify-center">
         <img src={surprisedMuskot} className="w-[120px]" />
-        <p className="text-gray-500 text-center py-4">{t("no_posts")}</p>
+        <p className="py-4 text-center text-gray-500">{t("no_posts")}</p>
       </div>
     );
+  }
+
+  const content = (
+    <InfiniteScroll
+      dataLength={posts.length}
+      next={() => setSize((s) => s + 1)}
+      hasMore={hasMore}
+      scrollableTarget={scrollable ? "posts-scroll" : undefined}
+      loader={
+        isValidating ? (
+          <div className="flex justify-center py-6">
+            <BiLoaderAlt className="animate-spin text-main text-[28px]" />
+          </div>
+        ) : null
+      }
+      className="w-full"
+    >
+      <div
+        className={clsx(
+          "grid gap-6 rounded-xl",
+          "grid-cols-2 max-768px:grid-cols-1",
+        )}
+      >
+        {posts.map((post: any) => (
+          <PostItem key={post.id} post={post} isOwnProfile={isOwnProfile} />
+        ))}
+      </div>
+    </InfiniteScroll>
+  );
+
+  if (scrollable) {
+    return (
+      <motion.div
+        id="posts-scroll"
+        initial={{ opacity: 0, x: "-20%" }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-full custom-scrollbar max-h-[63.5vh] overflow-y-auto"
+      >
+        {content}
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
       initial={{ opacity: 0, x: "-20%" }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
-      className={clsx(
-        "rounded-xl grid max-768px:grid-cols-1 grid-cols-2 gap-6",
-        (location.pathname.includes("profile") ||
-          location.pathname.includes("user")) &&
-          "custom-scrollbar max-h-[63.5vh] overflow-y-auto"
-      )}
     >
-      {posts.map((post: any) => (
-        <PostItem key={post.id} post={post} isOwnProfile={isOwnProfile} />
-      ))}
+      {content}
     </motion.div>
   );
 };

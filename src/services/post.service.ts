@@ -20,18 +20,34 @@ export class PostService {
     return data;
   }
 
-  async getRandomPosts() {
-    const { data } = await $api.get("/posts/random");
+  async getAllPosts(page: number = 1, limit: number = 20) {
+    const { data } = await $api.get("/posts/all", {
+      params: {
+        page,
+        limit,
+      },
+    });
+
     return data;
   }
 
-  async getUserPosts(userId: string) {
-    const { data } = await $api.get(`/posts/user/${userId}`);
+  async getUserPosts(userId: string, page: number = 1, limit: number = 20) {
+    const { data } = await $api.get(`/posts/user/${userId}`, {
+      params: {
+        page,
+        limit,
+      },
+    });
     return data;
   }
 
-  async getSavedPosts() {
-    const { data } = await $api.get("/posts/saved");
+  async getSavedPosts(page: number = 1, limit: number = 20) {
+    const { data } = await $api.get("/posts/saved", {
+      params: {
+        page,
+        limit,
+      },
+    });
     return data;
   }
 
