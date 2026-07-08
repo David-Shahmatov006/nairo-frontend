@@ -6,21 +6,18 @@ import { TfiClose } from "react-icons/tfi";
 import { useTranslation } from "react-i18next";
 import { postService } from "../../../../../../../../services/post.service";
 import { BiLoaderAlt } from "react-icons/bi";
-import { mutate } from "swr";
-import { useAuthStore } from "../../../../../../../../stores/auth";
 import { IoCameraReverse } from "react-icons/io5";
 import { PostImage } from "../PostItem";
+import { usePosts } from "../../../../../../../../hooks/usePosts";
 
 export const PostModal = () => {
-  const { user } = useAuthStore();
   const { t } = useTranslation();
   const { postModal, closePostModal } = useAppStore();
-
   const isEdit = !!postModal.post?.id;
 
   const [image, setImage] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-
+  const { mutate } = usePosts(postModal.mode);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -88,10 +85,7 @@ export const PostModal = () => {
 
       closePostModal();
 
-      mutate(["user", user?.id]);
-      mutate(["posts-user"]);
-      mutate(["posts-all"]);
-      mutate(["posts-saved"]);
+      await mutate();
     } catch (err: any) {
       setError(err?.response?.data?.message ?? "Something went wrong");
     } finally {
@@ -166,7 +160,7 @@ export const PostModal = () => {
                 </label>
               ) : (
                 <div className="relative w-full h-48">
-                  <PostImage onModal src={image} title=""/>
+                  <PostImage onModal src={image} title="" />
                   <label className="absolute top-2 right-2 p-1 rounded-full cursor-pointer">
                     <input
                       type="file"

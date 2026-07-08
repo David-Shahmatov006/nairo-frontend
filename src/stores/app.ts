@@ -11,44 +11,60 @@ type AuthView =
   | "verify-otp"
   | "reset-password";
 
+export type PostsMode = "all" | "saved" | "user";
+
 type PostModalState = {
   isOpen: boolean;
   post: Post | null;
+  mode: PostsMode;
 };
+
 interface AppState {
   resetToken: string;
   setResetToken: (email: string) => void;
+
   resetEmail: string;
   setResetEmail: (email: string) => void;
+
   authView: AuthView;
   setAuthView: (view: AuthView) => void;
+
   selectedLanguage: ILang | null;
   setSelectedLanguage: (arg: ILang) => void;
+
   isOpenPostModal: boolean;
   setIsOpenPostModal: (arg: boolean) => void;
+
   activeTab: number;
   setActiveTab: (tab: number) => void;
+
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
+
   postModal: PostModalState;
 
-  openCreatePostModal: () => void;
-  openEditPostModal: (post: Post) => void;
+  openCreatePostModal: (mode: PostsMode) => void;
+  openEditPostModal: (post: Post, mode: PostsMode) => void;
   closePostModal: () => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   resetToken: "",
-  setResetToken: (email: string) => set({ resetToken: email }),
+  setResetToken: (email) => set({ resetToken: email }),
+
   resetEmail: "",
-  setResetEmail: (email: string) => set({ resetEmail: email }),
+  setResetEmail: (email) => set({ resetEmail: email }),
+
   authView: "login",
-  setAuthView: (view: AuthView) => set({ authView: view }),
+  setAuthView: (view) => set({ authView: view }),
+
   selectedLanguage: null,
-  setSelectedLanguage: (value: ILang) => set({ selectedLanguage: value }),
+  setSelectedLanguage: (value) => set({ selectedLanguage: value }),
+
   isOpenPostModal: false,
-  setIsOpenPostModal: (arg: boolean) => set({ isOpenPostModal: arg }),
+  setIsOpenPostModal: (arg) => set({ isOpenPostModal: arg }),
+
   activeTab: 0,
   setActiveTab: (tab) => {
     localStorage.setItem("activeTab", String(tab));
@@ -56,6 +72,7 @@ export const useAppStore = create<AppState>((set) => ({
   },
 
   theme: (localStorage.getItem("theme") as Theme) || "light",
+
   setTheme: (theme) => {
     localStorage.setItem("theme", theme);
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -66,40 +83,46 @@ export const useAppStore = create<AppState>((set) => ({
   toggleTheme: () => {
     set((state) => {
       const newTheme = state.theme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", newTheme);
 
+      localStorage.setItem("theme", newTheme);
       document.documentElement.classList.toggle("dark", newTheme === "dark");
 
-      return { theme: newTheme };
+      return {
+        theme: newTheme,
+      };
     });
   },
 
   postModal: {
     isOpen: false,
     post: null,
+    mode: "all",
   },
 
-  openCreatePostModal: () =>
+  openCreatePostModal: (mode) =>
     set({
       postModal: {
         isOpen: true,
         post: null,
+        mode,
       },
     }),
 
-  openEditPostModal: (post) =>
+  openEditPostModal: (post, mode) =>
     set({
       postModal: {
         isOpen: true,
         post,
+        mode,
       },
     }),
 
   closePostModal: () =>
-    set({
+    set((state) => ({
       postModal: {
         isOpen: false,
         post: null,
+        mode: state.postModal.mode,
       },
-    }),
+    })),
 }));

@@ -7,16 +7,21 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../../../../../../../utils/formatDate";
 import { postService } from "../../../../../../../../services/post.service";
-import { mutate } from "swr";
 import { BiLoaderAlt } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../../../../../../../../stores/auth";
-import { useAppStore } from "../../../../../../../../stores/app";
+import {
+  useAppStore,
+  type PostsMode,
+} from "../../../../../../../../stores/app";
 import { FiEdit3 } from "react-icons/fi";
+import type { SWRInfiniteKeyedMutator } from "swr/infinite";
 
 interface IPostProps {
   post: Post;
   isOwnProfile?: boolean;
+  mode: PostsMode;
+  mutate: SWRInfiniteKeyedMutator<any[]>;
 }
 
 export const PostImage = ({
@@ -52,14 +57,14 @@ export const PostImage = ({
       alt={title}
       className={clsx(
         "w-full h-full object-cover",
-        onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl"
+        onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl",
       )}
       onError={() => setHasError(true)}
     />
   );
 };
 
-export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
+export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
   const [saved, setSaved] = useState(false);
   const [liked, setLiked] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -70,10 +75,32 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
   const handleToggleSave = async () => {
     try {
       const res = await postService.toggleSave(post.id);
+
       setSaved(res.saved);
-      mutate(["posts-user", post.user.id]);
-      mutate(["posts-saved"]);
-      mutate(["post", post.id]);
+
+      mutate(
+        (pages) => {
+          if (!pages) return pages;
+
+          return pages
+            .map((page) => ({
+              ...page,
+              posts:
+                mode === "saved" && !res.saved
+                  ? page.posts.filter((p: any) => p.id !== post.id)
+                  : page.posts.map((p: any) =>
+                      p.id === post.id
+                        ? {
+                            ...p,
+                            isSaved: res.saved,
+                          }
+                        : p,
+                    ),
+            }))
+            .filter((page) => page.posts.length > 0 || page.hasMore);
+        },
+        { revalidate: false },
+      );
     } catch (e) {
       console.error(e);
     }
@@ -82,48 +109,28 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
   const handleToggleLike = async () => {
     try {
       const res = await postService.toggleLike(post.id);
+
       setLiked(res.isLiked);
 
       mutate(
-        ["posts-all"],
-        (prev: any) => {
-          if (!prev) return prev;
-          return prev.map((p: any) =>
-            p.id === post.id
-              ? { ...p, isLiked: res.isLiked, likes: res.likes }
-              : p,
-          );
-        },
-        false,
-      );
+        (pages) => {
+          if (!pages) return pages;
 
-      mutate(
-        ["posts-user"],
-        (prev: any) => {
-          if (!prev) return prev;
-          return prev.map((p: any) =>
-            p.id === post.id
-              ? { ...p, isLiked: res.isLiked, likes: res.likes }
-              : p,
-          );
+          return pages.map((page) => ({
+            ...page,
+            posts: page.posts.map((p: any) =>
+              p.id === post.id
+                ? {
+                    ...p,
+                    isLiked: res.isLiked,
+                    likes: res.likes,
+                  }
+                : p,
+            ),
+          }));
         },
-        false,
+        { revalidate: false },
       );
-
-      mutate(
-        ["posts-saved"],
-        (prev: any) => {
-          if (!prev) return prev;
-          return prev.map((p: any) =>
-            p.id === post.id
-              ? { ...p, isLiked: res.isLiked, likes: res.likes }
-              : p,
-          );
-        },
-        false,
-      );
-
-      mutate(["post", post.id]);
     } catch (e) {
       console.error(e);
     }
@@ -131,12 +138,23 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
 
   const handleDeletePost = async (postId: string) => {
     setIsDeleting(true);
+
     try {
       await postService.deletePost(postId);
-      mutate(["user", post.user.id]);
-      mutate(["posts-user"]);
-    } catch (error) {
-      console.error(error);
+
+      mutate(
+        (pages) => {
+          if (!pages) return pages;
+
+          return pages.map((page) => ({
+            ...page,
+            posts: page.posts.filter((p: any) => p.id !== postId),
+          }));
+        },
+        { revalidate: false },
+      );
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsDeleting(false);
     }
@@ -225,7 +243,7 @@ export const PostItem = ({ post, isOwnProfile }: IPostProps) => {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    openEditPostModal(post);
+                    openEditPostModal(post, mode);
                   }}
                   className="flex items-center gap-2 hover:text-main duration-300 cursor-pointer flex items-center gap-1"
                 >

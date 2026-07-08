@@ -1,24 +1,19 @@
 import { motion } from "framer-motion";
-import useSWRInfinite from "swr/infinite";
 import InfiniteScroll from "react-infinite-scroll-component";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-
-import { postService } from "../../../../../../services/post.service";
 import { Loader } from "../../../../../../components/Loader";
 import { PostItem } from "./components/PostItem";
-
 import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
 import { BiLoaderAlt } from "react-icons/bi";
 import { useUser } from "../../../../../../hooks/useUser";
 import { useParams } from "react-router-dom";
 import { useAuthStore } from "../../../../../../stores/auth";
+import { usePosts } from "../../../../../../hooks/usePosts";
 
 interface PostsProps {
   mode: "all" | "saved" | "user";
 }
-
-const LIMIT = 10;
 
 export const Posts = ({ mode }: PostsProps) => {
   const { t } = useTranslation();
@@ -29,32 +24,7 @@ export const Posts = ({ mode }: PostsProps) => {
   const { isOwnProfile } = useUser(trueUserId);
   const scrollable = mode === "user";
 
-  const getKey = (pageIndex: number, previousPage: any) => {
-    if (previousPage && !previousPage.hasMore) return null;
-
-    return [mode, trueUserId, pageIndex + 1];
-  };
-
-  const { data, setSize, isLoading, isValidating } = useSWRInfinite(
-    getKey,
-    ([mode, userId, page]) => {
-      switch (mode) {
-        case "saved":
-          return postService.getSavedPosts(page as number, LIMIT);
-
-        case "user":
-          return postService.getUserPosts(
-            userId! as string,
-            page as number,
-            LIMIT,
-          );
-
-        default:
-          return postService.getAllPosts(page as number, LIMIT);
-      }
-    },
-  );
-
+  const { data, setSize, isLoading, isValidating, mutate } = usePosts(mode);
   if (isLoading && !data) {
     return <Loader />;
   }
@@ -94,7 +64,13 @@ export const Posts = ({ mode }: PostsProps) => {
         )}
       >
         {posts.map((post: any) => (
-          <PostItem key={post.id} post={post} isOwnProfile={isOwnProfile} />
+          <PostItem
+            key={post.id}
+            post={post}
+            isOwnProfile={isOwnProfile}
+            mode={mode}
+            mutate={mutate}
+          />
         ))}
       </div>
     </InfiniteScroll>
@@ -115,12 +91,14 @@ export const Posts = ({ mode }: PostsProps) => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: "-20%" }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.4 }}
-    >
-      {content}
-    </motion.div>
+    <>
+      <motion.div
+        initial={{ opacity: 0, x: "-20%" }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        {content}
+      </motion.div>
+    </>
   );
 };

@@ -17,7 +17,7 @@ import { useAuthStore } from "../../stores/auth";
 import { AvatarImage } from "../AvatarImage";
 
 export const Header = () => {
-  const { theme, toggleTheme, openCreatePostModal } = useAppStore();
+  const { theme, toggleTheme, openCreatePostModal, postModal } = useAppStore();
   const { t } = useTranslation();
   const { logout, user } = useAuthStore();
   const { chatId: chatIdFromUrl } = useParams();
@@ -66,7 +66,7 @@ export const Header = () => {
           </button>
 
           <button
-            onClick={openCreatePostModal}
+            onClick={() => openCreatePostModal(postModal.mode)}
             className="
             flex items-center justify-center size-[48px]
             rounded-lg border border-gray-300 dark:border-[gray]/50
@@ -84,7 +84,7 @@ export const Header = () => {
 
         <div className="max-1024px:flex hidden items-center gap-2">
           <button
-            onClick={openCreatePostModal}
+            onClick={() => openCreatePostModal(postModal.mode)}
             className="
             flex items-center justify-center size-[42px]
             rounded-lg border border-gray-300 dark:border-white/10
