@@ -9,6 +9,7 @@ import { authService } from "../../../../services/auth.service";
 import { useAuthStore } from "../../../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { BiLoaderAlt } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 export const SignUpModal = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +24,8 @@ export const SignUpModal = () => {
   const [error, setError] = useState("");
   const { setUser, setToken } = useAuthStore();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const language = localStorage.getItem("language")
 
   const validateEmail = (email: string) =>
     email.includes("@") && email.includes(".") && email.length > 5;
@@ -47,60 +50,53 @@ export const SignUpModal = () => {
 
   const handleRegister = async () => {
     setError("");
+    
     if (!validateName(firstName)) {
-      setError(
-        "First name must be at least 2 letters and contain only letters.",
-      );
+      setError(t("auth.first_name_error"));
       return;
     }
 
     if (!validateName(lastName)) {
-      setError(
-        "Last name must be at least 2 letters and contain only letters.",
-      );
+      setError(t("auth.last_name_error"));
       return;
     }
 
     if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
+      setError(t("auth.email_error"));
       return;
     }
 
     if (!validateUsername(username)) {
-      setError(
-        "Username must contain at least 3 characters and include only letters, numbers, or underscores.",
-      );
+      setError(t("auth.username_error"));
       return;
     }
 
     if (!validatePassword(password)) {
-      setError(
-        "Password must be at least 8 characters long, include 1 uppercase letter and 1 number.",
-      );
+      setError(t("auth.password_error"));
       return;
     }
 
     if (password !== repeatPassword) {
-      setError("Passwords do not match.");
+      setError(t("auth.password_matching_error"));
       return;
     }
     try {
       setIsLoading(true);
 
       const response = await userService.checkUserFields(email, username);
-
+      
       if (response.emailExists) {
-        setError("This email is already taken");
+        setError(t("auth.email_exists_error"));
         return;
       }
 
       if (response.usernameExists) {
-        setError("This username is already taken");
+        setError(t("auth.username_taken_error"));
         return;
       }
     } catch (e) {
       console.error(e);
-      setError("Server error, try again later.");
+      setError(t("auth.server_error"));
       return;
     }
 
@@ -116,7 +112,10 @@ export const SignUpModal = () => {
       lastName,
       password,
       username,
+      language: language ?? "en",
     };
+    console.log(payload, 'payload');
+    
     try {
       const response = await authService.register(payload);
       setUser(response.user);
@@ -126,15 +125,14 @@ export const SignUpModal = () => {
       navigate("/");
     } finally {
       setIsLoading(false);
-      localStorage.removeItem("referralCode");
     }
   };
 
   return (
     <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
-      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 p-[32px] sm:p-[48px] rounded-[16px]">
+      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 px-7 py-5 rounded-[16px]">
         <h1 className="dark:text-white/80 text-[26px] text-center font-[600] text-gray-900 mb-8">
-          Sign Up
+          {t("auth.sign_up")}
         </h1>
         <div className="flex flex-col max-1200px:gap-3 gap-7 max-1200px:mb-4 mb-8">
           <div className="flex items-center gap-2 w-full">
@@ -149,7 +147,7 @@ export const SignUpModal = () => {
                   setError("");
                 }}
                 className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="your.email@example.com"
+                placeholder="email@example.com"
               />
             </div>
           </div>
@@ -163,7 +161,7 @@ export const SignUpModal = () => {
                     setError("");
                   }}
                   className="w-full pl-2 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                  placeholder="First name"
+                  placeholder={t("auth.first_name")}
                 />
               </div>
             </div>
@@ -176,7 +174,7 @@ export const SignUpModal = () => {
                     setError("");
                   }}
                   className="w-full pl-2 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                  placeholder="Last name"
+                  placeholder={t("auth.last_name")}
                 />
               </div>
             </div>
@@ -193,7 +191,7 @@ export const SignUpModal = () => {
                   setError("");
                 }}
                 className="w-full pl-10 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="Username"
+                placeholder={t("auth.username")}
               />
             </div>
           </div>
@@ -206,7 +204,7 @@ export const SignUpModal = () => {
                 type={passwordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="Password"
+                placeholder={t("auth.password")}
               />
 
               <button
@@ -221,8 +219,7 @@ export const SignUpModal = () => {
               </button>
             </div>
             <p className="text-[12px] dark:text-white/50 text-[#9CA3AF] max-1200px:mt-0 mt-2">
-              Use a strong password with at least 8 characters, including a mix
-              of uppercase and lowercase letters and numbers.
+              {t("auth.password_instructions")}
             </p>
           </div>
           <div className="flex items-center gap-2 w-full">
@@ -234,7 +231,7 @@ export const SignUpModal = () => {
                 type={repeatPasswordVisible ? "text" : "password"}
                 onChange={(e) => setRepeatPassword(e.target.value)}
                 className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="Repeat Password"
+                placeholder={t("auth.repeat_password")}
               />
 
               <button
@@ -269,7 +266,7 @@ export const SignUpModal = () => {
           {isLoading ? (
             <BiLoaderAlt className="animate-spin text-[20px]" />
           ) : (
-            "Join Community"
+            t("auth.join_button")
           )}
         </button>
       </div>

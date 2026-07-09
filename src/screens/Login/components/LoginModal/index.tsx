@@ -11,11 +11,12 @@ import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "../../../../stores/app";
 import { passwordService } from "../../../../services/password.service";
+import { useTranslation } from "react-i18next";
 
 export const LoginModal = () => {
   const { setUser, setToken } = useAuthStore();
   const { setAuthView, setResetEmail, resetEmail } = useAppStore();
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,17 +29,17 @@ export const LoginModal = () => {
     setResetEmail(e.target.value);
   };
 
-    const handleGenerateCode = async () => {
-      setIsLoading(true);
-      try {
-        await passwordService.generateOTP(resetEmail);
-        setAuthView("forgot-password")
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const handleGenerateCode = async () => {
+    setIsLoading(true);
+    try {
+      await passwordService.generateOTP(resetEmail);
+      setAuthView("forgot-password");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleLogin = async () => {
     const payload = {
@@ -56,9 +57,9 @@ export const LoginModal = () => {
       navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(error.response?.data?.message ?? "Login failed");
+        setError(error.response?.data?.message ?? t('auth.login_failed_error'));
       } else {
-        setError("Something went wrong");
+        setError(t('auth.something_went_wrong_error'));
       }
     } finally {
       setIsLoading(false);
@@ -66,10 +67,10 @@ export const LoginModal = () => {
   };
 
   return (
-    <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
-      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 p-[32px] sm:p-[48px] rounded-[16px]">
+    <div className="z-[888] w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
+      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 px-7 py-5  rounded-[16px]">
         <h1 className="text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 mb-8">
-          Log in
+          {t('auth.login_text')}
         </h1>
         <div className="flex flex-col max-1200px:gap-3 gap-7 mb-8">
           <div className="flex items-center gap-2 w-full">
@@ -81,7 +82,7 @@ export const LoginModal = () => {
                 type="email"
                 onChange={(e) => handleChangeEmail(e)}
                 className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="your.email@example.com"
+                placeholder="email@example.com"
               />
             </div>
           </div>
@@ -94,7 +95,7 @@ export const LoginModal = () => {
                 type={passwordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="Password"
+                placeholder={t('auth.password')}
               />
 
               <button
@@ -120,7 +121,7 @@ export const LoginModal = () => {
             </div>
           ) : (
             <>
-              Log in
+              {t('auth.login_button')}
               <FiArrowRight className="group-hover:translate-x-[15%] duration-300" />
             </>
           )}
@@ -134,7 +135,7 @@ export const LoginModal = () => {
               transition={{ duration: 0.3 }}
               className="max-1200px:text-[12px] font-[500] text-red-500 text-center mt-3"
             >
-              Invalid username or password
+              {t('auth.invalid_login_error')}
             </motion.p>
           )}
         </AnimatePresence>
@@ -149,7 +150,7 @@ export const LoginModal = () => {
               onClick={handleGenerateCode}
             >
               <p className="hover:opacity-50 duration-300 cursor-pointer dark:text-white/80 max-1200px:text-[14px] cursor-pointer font-[700] mb-[16px]">
-                Forgot Password ?
+                {t('auth.forgot_password_title')}
               </p>
             </motion.div>
           )}

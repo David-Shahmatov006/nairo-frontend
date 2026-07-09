@@ -68,14 +68,6 @@ export class UserService {
 
     return data;
   }
-
-  async sendNairoCoins(receiverId: string, nairoCount: number) {
-    const { data } = await $api.post(`/user/${receiverId}/send-nairo-coins`, {
-      nairoCount,
-    });
-
-    return data;
-  }
 }
 
 export const userService = new UserService();

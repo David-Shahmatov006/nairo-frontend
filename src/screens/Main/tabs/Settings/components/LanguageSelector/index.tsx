@@ -7,6 +7,8 @@ import { useAppStore } from "../../../../../../stores/app";
 import { useAuthStore } from "../../../../../../stores/auth";
 import { LANGS } from "../../../../../../constants/langs";
 import { userService } from "../../../../../../services/user.service";
+import { useLocation } from "react-router-dom";
+import { ROUTES } from "../../../../../../routes";
 
 export const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
@@ -14,6 +16,8 @@ export const LanguageSelector = () => {
   const { user, updateUser } = useAuthStore();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const { i18n } = useTranslation();
+  const { pathname } = useLocation();
+  const isAuthPage = pathname.includes(ROUTES.LOGIN);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -29,12 +33,13 @@ export const LanguageSelector = () => {
     const lang = LANGS.find((l) => l.code === code);
     if (!lang) return;
 
+    setSelectedLanguage(lang);
+    i18n.changeLanguage(code);
+    localStorage.setItem("language", code);
+
+    if (isAuthPage) return;
     try {
       await userService.changeLanguage(code);
-
-      setSelectedLanguage(lang);
-      i18n.changeLanguage(code);
-      localStorage.setItem("language", code);
 
       updateUser({
         ...user,
@@ -50,13 +55,13 @@ export const LanguageSelector = () => {
   return (
     <div
       ref={rootRef}
-      className="h-[max-content] relative flex justify-end text-left"
+      className="z-[999] h-[max-content] relative flex justify-end text-left"
     >
       <button
         type="button"
         onClick={() => setOpen((s) => !s)}
         className={clsx(
-          "w-[150px] flex items-center justify-between px-3 py-1.5 dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 rounded-md shadow-sm cursor-pointer duration-300",
+          "w-[150px] flex items-center justify-between px-3 max-1024px:py-1 py-1.5 dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 rounded-md shadow-sm cursor-pointer duration-300",
           !open && "hover:ring-2 hover:ring-main/70 ",
         )}
       >
@@ -82,7 +87,7 @@ export const LanguageSelector = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 mt-[30%] w-[150px] dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 rounded-md shadow-lg z-20 overflow-hidden"
+            className="absolute right-0 max-1024px:mt-10 mt-[30%] w-[150px] dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 rounded-md shadow-lg z-[999] overflow-hidden"
           >
             <div className="py-1">
               {LANGS.map((lang, idx) => {

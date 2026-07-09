@@ -1,7 +1,10 @@
+import { useTranslation } from "react-i18next";
 import { useAppStore } from "../../../../stores/app";
 
 export const LoginTabs = () => {
-  const {authView, setAuthView} = useAppStore()
+  const { authView, setAuthView } = useAppStore();
+  const { t } = useTranslation();
+
   return (
     <div className="flex items-center dark:bg-[#272727] bg-[#F3F4F6] p-[4px] border dark:border-white/20 border-[#E5E7EB] rounded-[12px] h-[41px] mb-[48px]">
       <button
@@ -12,7 +15,7 @@ export const LoginTabs = () => {
             : "dark:hover:text-white/50 hover:text-gray-700"
         }`}
       >
-        Sign up
+        {t('auth.sign_up')}
       </button>
 
       <button
@@ -23,7 +26,7 @@ export const LoginTabs = () => {
             : "dark:hover:text-white/50 hover:text-gray-700 hover:text-gray-700"
         }`}
       >
-        Log in
+        {t('auth.login_text')}
       </button>
     </div>
   );

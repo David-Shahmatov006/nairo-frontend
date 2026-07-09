@@ -5,6 +5,7 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useAppStore } from "../../../../stores/app";
 import { passwordService } from "../../../../services/password.service";
+import { useTranslation } from "react-i18next";
 
 export const NewPasswordModal = () => {
   const [password, setPassword] = useState("");
@@ -12,6 +13,7 @@ export const NewPasswordModal = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { setAuthView, resetEmail, resetToken } = useAppStore();
+  const { t } = useTranslation();
 
   const validatePassword = (pass: string) => {
     const hasUppercase = /[A-Z]/.test(pass);
@@ -24,7 +26,7 @@ export const NewPasswordModal = () => {
     setIsLoading(true);
     if (!validatePassword(password)) {
       setError(
-        "Password must be at least 8 characters long, include 1 uppercase letter and 1 number.",
+        t('auth.password_error'),
       );
       setIsLoading(false);
 
@@ -49,7 +51,7 @@ export const NewPasswordModal = () => {
     <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
       <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 p-[32px] sm:p-[48px] rounded-[16px]">
         <h1 className="max-1200px:text-[22px] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 max-1200px:mb-4 mb-8">
-          Confirm new password
+          {t('auth.confirm_new_password')}
         </h1>
         <div className="max-1200px:mb-2 mb-3">
           <div className="flex items-center gap-2 w-full">
@@ -61,7 +63,7 @@ export const NewPasswordModal = () => {
                 type={passwordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-                placeholder="Password"
+                placeholder={t('auth.password')}
               />
 
               <button
@@ -78,8 +80,7 @@ export const NewPasswordModal = () => {
           </div>
         </div>
         <p className="text-[12px] dark:text-white/50 text-[#9CA3AF] max-1200px:mb-4 mb-8">
-          Use a strong password with at least 8 characters, including a mix of
-          uppercase and lowercase letters and numbers.
+          {t('auth.password_instructions')}
         </p>
         <button
           onClick={handleConfirmPassword}
@@ -90,7 +91,7 @@ export const NewPasswordModal = () => {
               <BiLoaderAlt className="animate-spin text-[25px]" />
             </div>
           ) : (
-            "Confirm new password"
+            t('auth.confirm_new_password_button')
           )}
         </button>
         {error && (

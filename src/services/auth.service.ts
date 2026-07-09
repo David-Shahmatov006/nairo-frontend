@@ -7,6 +7,7 @@ export class AuthService {
     lastName: string;
     username: string;
     password: string;
+    language: string;
   }) {
     try {
       const { data } = await $api.post("/auth/register", body);

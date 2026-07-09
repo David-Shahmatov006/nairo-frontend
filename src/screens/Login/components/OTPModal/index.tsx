@@ -9,6 +9,7 @@ import { useAppStore } from "../../../../stores/app";
 import { passwordService } from "../../../../services/password.service";
 import { BiLoaderAlt } from "react-icons/bi";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export const OTPModal = () => {
   const { resetEmail, setResetToken, setAuthView } = useAppStore();
@@ -16,6 +17,7 @@ export const OTPModal = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -98,9 +100,9 @@ export const OTPModal = () => {
       setAuthView("reset-password");
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(error.response?.data?.message ?? "Invalid code");
+        setError(error.response?.data?.message ?? t('auth.invalid_otp_error'));
       } else {
-        setError("Something went wrong");
+        setError(t('auth.something_went_wrong_error'));
       }
       console.error(error);
     } finally {
@@ -126,7 +128,7 @@ export const OTPModal = () => {
       <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 p-[32px] sm:p-[48px] rounded-[16px]">
         <div className="max-1200px:mb-4 mb-8">
           <h1 className="max-1200px:text-[21px] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 mb-2">
-            Enter confirmation code
+            {t('auth.otp_confirmation_title')}
           </h1>
           <p className="text-gray-500 text-sm font-medium text-center">
             {resetEmail}
@@ -164,15 +166,14 @@ export const OTPModal = () => {
         </div>
         <p className="text-red-500 text-center mb-3 font-medium">{error}</p>
 
-
         <p className="text-gray-500 text-sm mb-8">
-          Didn't get an email?{" "}
+          {t("auth.didn't_get_code")}{" "}
           <button
             onClick={handleResendCode}
             className="ml-1 cursor-pointer duration-300 hover:text-main text-gray-700 font-medium underline outline-none"
             disabled={isLoading}
           >
-            Resend code
+            {t('auth.resend_code')}
           </button>
         </p>
 
@@ -186,7 +187,7 @@ export const OTPModal = () => {
               <BiLoaderAlt className="animate-spin text-[25px]" />
             </div>
           ) : (
-            "Verify OTP code"
+            t('auth.verify_otp_button')
           )}
         </button>
       </div>
