@@ -4,7 +4,7 @@ import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../../../../../../utils/formatDate";
 import { postService } from "../../../../../../../../services/post.service";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -64,13 +64,14 @@ export const PostImage = ({
   );
 };
 
-export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
+export const PostItem = ({ post, mode, mutate }: IPostProps) => {
   const [saved, setSaved] = useState(false);
   const [liked, setLiked] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { user } = useAuthStore();
   const isOwnPost = post?.user?.id === user?.id;
   const { openEditPostModal } = useAppStore();
+  const navigate = useNavigate();
 
   const handleToggleSave = async () => {
     try {
@@ -168,108 +169,111 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
   }, [post]);
 
   return (
-    <Link to={`/post/${post?.id}`}>
-      <div
-        key={post.id}
-        className="dark:bg-white/5 bg-white min-2000px:rounded-[.6vw] rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex max-1440px:flex-col"
-      >
-        <div className="flex-shrink-0 max-1440px:w-full min-2000px:size-[9vw] size-48 dark:bg-white/10 bg-gray-200">
-          <PostImage src={post.image} title={post.title} />
+    <div
+      onClick={() => navigate(`/post/${post.id}`)}
+      key={post.id}
+      className="cursor-pointer dark:bg-white/5 bg-white min-2000px:rounded-[.6vw] rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex max-1440px:flex-col"
+    >
+      <div className="flex-shrink-0 max-1440px:w-full min-2000px:size-[9vw] size-48 dark:bg-white/10 bg-gray-200">
+        <PostImage src={post.image} title={post.title} />
+      </div>
+
+      <div className="min-2000px:p-[.7vw] p-4 flex flex-col flex-1 min-2000px:gap-[0.3vw] gap-2">
+        <div className="flex items-center justify-between dark:text-[#6f6f6f] text-gray-500 min-2000px:text-[.75vw] text-sm">
+          <span
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+
+              if (!isOwnPost) {
+                navigate(`/user/${post.user.id}`);
+              }
+            }}
+            className="hover:text-main/80 duration-300 cursor-pointer font-[500]"
+          >
+            {post.user.firstName} {post.user.lastName}
+          </span>
+
+          <span>{formatDate(post.createdAt)}</span>
         </div>
 
-        <div className="min-2000px:p-[.7vw] p-4 flex flex-col flex-1 min-2000px:gap-[0.3vw] gap-2">
-          <div className="flex items-center justify-between dark:text-[#6f6f6f] text-gray-500 min-2000px:text-[.75vw] text-sm">
-            <Link to={isOwnProfile ? "" : `/user/${post.user.id}`}>
-              <span
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                className="hover:text-main/80 duration-300 cursor-pointer font-[500]"
-              >
-                {post.user.firstName} {post.user.lastName}
-              </span>
-            </Link>
-            <span>{formatDate(post.createdAt)}</span>
-          </div>
+        <h3 className="min-2000px:text-[.9vw] text-lg font-semibold dark:text-[#f9f5e8] text-gray-900 line-clamp-1">
+          {post.title}
+        </h3>
+        <p className="dark:text-[#6f6f6f] text-gray-700 min-2000px:text-[.7vw] text-sm line-clamp-2">
+          {post.description}
+        </p>
 
-          <h3 className="min-2000px:text-[.9vw] text-lg font-semibold dark:text-[#f9f5e8] text-gray-900 line-clamp-1">
-            {post.title}
-          </h3>
-          <p className="dark:text-[#6f6f6f] text-gray-700 min-2000px:text-[.7vw] text-sm line-clamp-2">
-            {post.description}
-          </p>
-
-          <div className="flex items-center justify-between mt-auto dark:text-[#6f6f6f] text-gray-600">
-            <div className="flex items-center min-2000px:gap-[.9vw] gap-4">
-              <motion.button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleToggleLike();
-                }}
-                whileTap={{ scale: 0.7 }}
-                initial={{ scale: 1 }}
-                animate={liked ? { scale: [1, 1.9, 1] } : {}}
-                transition={{ duration: 0.25 }}
-                className={clsx(
-                  "min-2000px:text-[0.8vw] flex items-center min-2000px:gap-[.3vw] gap-1 hover:text-main duration-300 cursor-pointer",
-                  liked && "text-main",
-                )}
-              >
-                {liked ? <FaHeart /> : <FaRegHeart />}
-                <span>{post.likes}</span>
-              </motion.button>
-
-              <motion.button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleToggleSave();
-                }}
-                whileTap={{ scale: 0.7 }}
-                initial={{ scale: 1 }}
-                animate={saved ? { scale: [1, 1.9, 1] } : {}}
-                transition={{ duration: 0.25 }}
-                className={clsx(
-                  "min-2000px:text-[0.8vw] flex items-center hover:text-main duration-300 cursor-pointer flex items-center",
-                  saved && "text-main",
-                )}
-              >
-                {saved ? <FaBookmark /> : <FaRegBookmark />}
-              </motion.button>
-
-              {isOwnPost && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    openEditPostModal(post, mode);
-                  }}
-                  className="flex items-center hover:text-main duration-300 cursor-pointer flex items-center"
-                >
-                  <FiEdit3 className="min-2000px:text-[0.8vw] text-[17px]" />
-                </button>
+        <div className="flex items-center justify-between mt-auto dark:text-[#6f6f6f] text-gray-600">
+          <div className="flex items-center min-2000px:gap-[.9vw] gap-4">
+            <motion.button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleToggleLike();
+              }}
+              whileTap={{ scale: 0.7 }}
+              initial={{ scale: 1 }}
+              animate={liked ? { scale: [1, 1.9, 1] } : {}}
+              transition={{ duration: 0.25 }}
+              className={clsx(
+                "min-2000px:text-[0.8vw] flex items-center min-2000px:gap-[.3vw] gap-1 hover:text-main duration-300 cursor-pointer",
+                liked && "text-main",
               )}
-            </div>
+            >
+              {liked ? <FaHeart /> : <FaRegHeart />}
+              <span>{post.likes}</span>
+            </motion.button>
+
+            <motion.button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleToggleSave();
+              }}
+              whileTap={{ scale: 0.7 }}
+              initial={{ scale: 1 }}
+              animate={saved ? { scale: [1, 1.9, 1] } : {}}
+              transition={{ duration: 0.25 }}
+              className={clsx(
+                "min-2000px:text-[0.8vw] flex items-center hover:text-main duration-300 cursor-pointer flex items-center",
+                saved && "text-main",
+              )}
+            >
+              {saved ? <FaBookmark /> : <FaRegBookmark />}
+            </motion.button>
+
             {isOwnPost && (
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  handleDeletePost(post.id);
+                  e.stopPropagation();
+                  openEditPostModal(post, mode);
                 }}
-                disabled={isDeleting}
-                className="min-2000px:text-[0.8vw] flex items-center justify-center min-2000px:size-[1.1vw] size-6 rounded cursor-pointer dark:hover:bg-white/10 hover:bg-red-200 duration-300"
+                className="flex items-center hover:text-main duration-300 cursor-pointer flex items-center"
               >
-                {isDeleting ? (
-                  <BiLoaderAlt className="animate-spin" />
-                ) : (
-                  <RiDeleteBin6Line className="text-red-400" />
-                )}
+                <FiEdit3 className="min-2000px:text-[0.8vw] text-[17px]" />
               </button>
             )}
           </div>
+          {isOwnPost && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleDeletePost(post.id);
+              }}
+              disabled={isDeleting}
+              className="min-2000px:text-[0.8vw] flex items-center justify-center min-2000px:size-[1.1vw] size-6 rounded cursor-pointer dark:hover:bg-white/10 hover:bg-red-200 duration-300"
+            >
+              {isDeleting ? (
+                <BiLoaderAlt className="animate-spin" />
+              ) : (
+                <RiDeleteBin6Line className="text-red-400" />
+              )}
+            </button>
+          )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
