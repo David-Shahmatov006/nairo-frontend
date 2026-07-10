@@ -313,7 +313,7 @@ export const Chats = () => {
       transition={{ duration: 0.4 }}
       className={clsx(
         "font-manrope h-full w-full flex",
-        !(chatIdFromURL && isMobile) ? "mt-[80px]" : "mt-4",
+        !(chatIdFromURL && isMobile) ? "min-2000px:mt-[1vw] mt-[80px]" : "mt-4",
       )}
     >
       {showChatList && (
@@ -350,15 +350,15 @@ export const Chats = () => {
             <div className="flex-1 flex items-center justify-center text-gray-500">
               {userChats.length > 0 ? (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-                  <img src={searchMuskot} className="w-[80px]" />
-                  <p className="text-gray-500 text-center py-4">
+                  <img src={searchMuskot} className="min-2000px:w-[5vw] w-[80px]" />
+                  <p className="text-gray-500 text-center min-2000px:text-[.7vw] py-4">
                     {t("chat.select_chat")}
                   </p>
                 </div>
               ) : (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-                  <img src={surprisedMuskot} className="w-[120px]" />
-                  <p className="text-gray-500 text-center py-4">
+                  <img src={surprisedMuskot} className="min-2000px:w-[7vw] w-[120px]" />
+                  <p className="text-gray-500 text-center min-2000px:text-[.9vw] py-4">
                     {t("chat.no_chats")}
                   </p>
                 </div>

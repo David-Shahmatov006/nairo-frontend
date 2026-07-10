@@ -158,13 +158,13 @@ export const ChatInput = ({
   };
 
   return (
-    <div className="mt-auto mb-5 px-4">
-      <div className="flex items-center gap-3 border dark:border-white/10 border-gray-300 rounded-xl px-3">
+    <div className="mt-auto min-2000px:mb-[1vw] mb-5 min-2000px:px-[.4vw] px-4">
+      <div className="flex items-center min-2000px:gap-[.3vw] gap-3 border dark:border-white/10 border-gray-300 min-2000px:rounded-[.3vw] rounded-xl min-2000px:px-[.3vw] px-3">
         <button
           onClick={() => setIsEmojiOpen(true)}
           className="text-gray-500 hover:text-main duration-300"
         >
-          <BsEmojiSunglasses size={20} />
+          <BsEmojiSunglasses className="min-2000px:text-[.9vw] text-[20px]" />
         </button>
 
         <div className="flex-1 relative flex items-center min-h-[44px]">
@@ -174,11 +174,11 @@ export const ChatInput = ({
             onInput={handleTypingInput}
             onPaste={handlePaste}
             onKeyDown={handleKeyDown}
-            className="dark:text-white/80 flex-1 outline-none text-[15px] py-2"
+            className="dark:text-white/80 flex-1 outline-none min-2000px:text-[.7vw] text-[15px] min-2000px:py-[.3vw] py-2"
           ></div>
 
           {!messageContent.length && (
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none min-2000px:text-[.6vw]">
               {t("chat.type_message")}
             </span>
           )}
@@ -186,9 +186,9 @@ export const ChatInput = ({
 
         <button
           onClick={handleSend}
-          className="dark:bg-white/10 bg-gray-900 text-white px-4 py-2 rounded-lg hover:ring-2 ring-main/70 duration-300"
+          className="cursor-pointer dark:bg-white/10 bg-gray-900 text-white min-2000px:px-[.5vw] px-4 min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-lg hover:ring-2 ring-main/70 duration-300"
         >
-          <IoSend size={18} />
+          <IoSend className="min-2000px:text-[.7vw] text-[18px]" />
         </button>
       </div>
 

@@ -24,18 +24,18 @@ export const UserDropdown = () => {
   }, []);
 
   return (
-    <div className="font-manrope relative" ref={ref}>
+    <div className="font-manrope relative z-[999]" ref={ref}>
       <div
         onClick={() => setOpen((prev) => !prev)}
-        className="min-w-[150px] h-[48px] border dark:border-[gray]/50 dark:hover:bg-black/20 border-gray-300 px-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-gray-50 duration-200"
+        className="min-w-[150px] min-2000px:h-[3vw] h-[48px] border dark:border-[gray]/50 dark:hover:bg-black/20 border-gray-300 min-2000px:px-[0.7vw] px-2 min-2000px:rounded-[.5vw] rounded-lg flex items-center min-2000px:gap-[0.5vw] gap-2 cursor-pointer hover:bg-gray-50 duration-200 z-[999]"
       >
-        <div className="size-9 bg-main/10 rounded-full flex items-center justify-center overflow-hidden">
+        <div className="min-2000px:size-[2vw] size-9 bg-main/10 rounded-full flex items-center justify-center overflow-hidden">
           <AvatarImage
             src={user?.avatar || ""}
           />
         </div>
 
-        <span className="dark:text-[#f9f5e8] font-manrope whitespace-nowrap">
+        <span className="min-2000px:text-[1vw] dark:text-[#f9f5e8] font-manrope whitespace-nowrap">
           {user?.firstName} {user?.lastName}
         </span>
       </div>
@@ -47,20 +47,20 @@ export const UserDropdown = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 w-[230px] dark:bg-[#191a1a] bg-white shadow-lg rounded-xl border dark:border-white/20 border-gray-200 p-4 z-50"
+            className="absolute right-0 mt-2 min-2000px:w-[11.8vw] w-[230px] dark:bg-[#191a1a] bg-white shadow-lg rounded-xl border dark:border-white/20 border-gray-200 min-2000px:p-[.5vw] p-4 z-50"
           >
-            <div className="flex items-center gap-[10px] pb-3 mb-3 border-b dark:border-white/20 border-gray-200">
-              <div className="size-10 rounded-full bg-main/10 flex items-center justify-center overflow-hidden">
+            <div className="flex items-center gap-[10px] min-2000px:pb-[.4vw] pb-3 min-2000px:mb-[.3vw] mb-3 border-b dark:border-white/20 border-gray-200">
+              <div className="min-2000px:size-[1.8vw] size-10 rounded-full bg-main/10 flex items-center justify-center overflow-hidden">
                 <AvatarImage
                   src={user?.avatar || ""}
                 />
               </div>
 
               <div className="flex flex-col">
-                <span className="text-sm font-medium dark:text-[#f9f5e8] text-gray-800">
+                <span className="min-2000px:text-[.7vw] text-sm font-medium dark:text-[#f9f5e8] text-gray-800">
                   {user?.firstName} {user?.lastName}
                 </span>
-                <span className="text-gray-500 text-sm">@{user?.username}</span>
+                <span className="text-gray-500 min-2000px:text-[.6vw] text-sm">@{user?.username}</span>
               </div>
             </div>
             <button
@@ -68,7 +68,7 @@ export const UserDropdown = () => {
                 setOpen(false);
                 navigate(ROUTES.SETTINGS)
               }}
-              className="w-full cursor-pointer text-left py-2 px-3 text-sm dark:text-[#f9f5e8]/50 text-gray-700 dark:hover:bg-white/10 hover:bg-gray-100 rounded-md duration-300"
+              className="w-full cursor-pointer text-left min-2000px:py-[.2vw] min-2000px:py-[.2vw] py-2 min-2000px:px-[.3vw] px-3 min-2000px:text-[.6vw] text-sm dark:text-[#f9f5e8]/50 text-gray-700 dark:hover:bg-white/10 hover:bg-gray-100 min-2000px:rounded-[.3vw] rounded-md duration-300"
             >
               <span>{t("sidebar.settings")}</span>
             </button>
@@ -78,7 +78,7 @@ export const UserDropdown = () => {
                 e.stopPropagation();
                 logout();
               }}
-              className="w-full text-left py-2 cursor-pointer px-3 text-sm text-red-600 dark:hover:bg-white/10 hover:bg-red-50 rounded-md duration-300"
+              className="w-full cursor-pointer text-left min-2000px:py-[.2vw] min-2000px:py-[.2vw] py-2 min-2000px:px-[.3vw] px-3 min-2000px:text-[.6vw] text-sm dark:text-red-400 text-red-600 dark:hover:bg-white/10 hover:bg-red-50 min-2000px:rounded-[.3vw] rounded-md duration-300"
             >
               <span>{t("settings.logout")}</span>
             </button>

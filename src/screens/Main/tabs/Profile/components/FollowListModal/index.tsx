@@ -16,7 +16,7 @@ export const FollowListModal = ({ users, open, onClose }: IProps) => {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 bg-black/40 backdrop-blur-[7px] flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/40 backdrop-blur-[7px] flex items-center justify-center z-50 min-2000px:p-[.5vw] p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -26,24 +26,24 @@ export const FollowListModal = ({ users, open, onClose }: IProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="relative dark:bg-white/5 bg-white p-5 max-550px:!w-full [@media(min-width:530px)_and_(max-width:930px)]:w-[70%] w-[35%] rounded-[20px]"
+            className="relative dark:bg-white/5 bg-white min-2000px:p-[.6vw] p-5 max-550px:!w-full [@media(min-width:530px)_and_(max-width:930px)]:w-[70%] min-2000px:w-[25vw] w-[35%] min-2000px:rounded-[.4vw] rounded-[20px]"
           >
-            <div className="max-h-[50vh] overflow-y-auto custom-scrollbar flex flex-col items-center gap-3">
+            <div className="min-2000px:max-h-[18vw] max-h-[50vh] overflow-y-auto custom-scrollbar flex flex-col items-center min-2000px:gap-[.4vw] gap-3">
               {users.map((user) => (
                 <div
                   key={user.id}
-                  className="w-full flex items-center justify-between px-4 py-2 dark:bg-white/5 bg-white shadow rounded-[20px] hover:bg-gray-50 cursor-pointer duration-300"
+                  className="w-full flex items-center justify-between min-2000px:px-[.5vw] px-4 min-2000px:py-[.3vw] py-2 dark:bg-white/5 bg-white shadow min-2000px:rounded-[.4vw] rounded-[20px] hover:bg-gray-50 cursor-pointer duration-300"
                   onClick={() => navigate(`/user/${user.id}`)}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="size-10">
+                  <div className="flex items-center min-2000px:gap-[.3vw] gap-4">
+                    <div className="min-2000px:size-[2vw] size-10">
                       <AvatarImage src={user.avatar} />
                     </div>
-                    <h2 className="dark:text-white/80 font-medium">
+                    <h2 className="min-2000px:text-[.8vw] dark:text-white/80 font-medium">
                       {user.firstName} {user.lastName}
                     </h2>
                   </div>
-                  <span className="text-[14px] dark:text-white/30 text-black/50">
+                  <span className="min-2000px:text-[.65vw] text-[14px] dark:text-white/30 text-black/50">
                     @{user.username}
                   </span>
                 </div>

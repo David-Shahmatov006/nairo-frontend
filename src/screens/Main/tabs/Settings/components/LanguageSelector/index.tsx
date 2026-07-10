@@ -55,25 +55,25 @@ export const LanguageSelector = () => {
   return (
     <div
       ref={rootRef}
-      className="z-[999] h-[max-content] relative flex justify-end text-left"
+      className="z-[1] h-[max-content] relative flex justify-end text-left"
     >
       <button
         type="button"
         onClick={() => setOpen((s) => !s)}
         className={clsx(
-          "w-[150px] flex items-center justify-between px-3 max-1024px:py-1 py-1.5 dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 rounded-md shadow-sm cursor-pointer duration-300",
+          "min-2000px:w-[10vw] w-[150px] flex items-center justify-between min-2000px:px-[.3vw] px-3 max-1024px:py-1 min-2000px:py-[.2vw] py-1.5 dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.4vw] rounded-md shadow-sm cursor-pointer duration-300",
           !open && "hover:ring-2 hover:ring-main/70 ",
         )}
       >
-        <div className="flex items-center gap-2">
-          <span className="text-lg">{selectedLanguage?.flag}</span>
-          <span className="dark:text-white/80 text-sm font-medium">
+        <div className="flex items-center min-2000px:gap-[.4vw] gap-2">
+          <span className="min-2000px:text-[1vw] text-lg">{selectedLanguage?.flag}</span>
+          <span className="dark:text-white/80 min-2000px:text-[.75vw] text-sm font-medium">
             {selectedLanguage?.label}
           </span>
         </div>
         <IoIosArrowDown
           className={clsx(
-            "dark:text-white/80 duration-300",
+            "min-2000px:text-[.8vw] dark:text-white/80 duration-300",
             open && "rotate-[180deg]",
           )}
         />
@@ -87,9 +87,9 @@ export const LanguageSelector = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 max-1024px:mt-10 mt-[30%] w-[150px] dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 rounded-md shadow-lg z-[999] overflow-hidden"
+            className="absolute right-0 max-1024px:mt-10 min-2000px:mt-[2.3vw] mt-[30%] min-2000px:w-[10vw] w-[150px] dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.3vw] rounded-md shadow-lg z-[999] overflow-hidden"
           >
-            <div className="py-1">
+            <div className="min-2000px:py-[.2vw] py-1">
               {LANGS.map((lang, idx) => {
                 const active = lang.code === selectedLanguage?.code;
 
@@ -98,11 +98,11 @@ export const LanguageSelector = () => {
                     key={idx}
                     onClick={() => handleChange(lang.code)}
                     className={clsx(
-                      "cursor-pointer w-full text-left flex items-center gap-3 px-3 py-2 text-sm dark:hover:bg-white/10 hover:bg-gray-50 transition",
+                      "cursor-pointer w-full text-left flex items-center min-2000px:gap-[.3vw] gap-3 min-2000px:px-[.3vw] px-3 min-2000px:py-[.2vw] py-2 min-2000px:text-[.7vw] text-sm dark:hover:bg-white/10 hover:bg-gray-50 transition",
                       active && "dark:bg-white/20 bg-gray-100 font-semibold",
                     )}
                   >
-                    <span className="text-lg">{lang.flag}</span>
+                    <span className="min-2000px:text-[.7vw] text-lg">{lang.flag}</span>
                     <span className="flex-1 dark:text-white/80">
                       {lang.label}
                     </span>

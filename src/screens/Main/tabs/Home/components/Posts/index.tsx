@@ -36,8 +36,8 @@ export const Posts = ({ mode }: PostsProps) => {
   if (!posts.length) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center">
-        <img src={surprisedMuskot} className="w-[120px]" />
-        <p className="py-4 text-center text-gray-500">{t("no_posts")}</p>
+        <img src={surprisedMuskot} className="min-2000px:w-[7vw] w-[120px]" />
+        <p className="min-2000px:py-[1vw] min-2000px:text-[.8vw] py-4 text-center text-gray-500">{t("no_posts")}</p>
       </div>
     );
   }

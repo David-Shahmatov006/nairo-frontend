@@ -15,7 +15,7 @@ export const AvatarImage = ({ src, className, iconClassName }: any) => {
       )}
     >
       {showFallback ? (
-        <RxAvatar className={clsx("w-14 h-14 text-main/70", iconClassName)} />
+        <RxAvatar className={clsx("min-2000px:size-[2vw] size-14 text-main/70", iconClassName)} />
       ) : (
         <img
           src={src}

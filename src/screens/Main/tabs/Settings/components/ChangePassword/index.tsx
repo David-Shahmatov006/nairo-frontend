@@ -33,7 +33,7 @@ export const ChangePassword = () => {
     if (!isValidNewPassword) {
       setError(
         t("settings.password_invalid") ||
-          "Password must contain letters, numbers and be at least 6 characters long"
+          "Password must contain letters, numbers and be at least 6 characters long",
       );
       return;
     }
@@ -55,52 +55,51 @@ export const ChangePassword = () => {
   };
 
   return (
-    <>
-      <p className="text-[20px] font-[700] leading-[120%] dark:text-white/80 text-[#111827] mb-[32px]">
+    <div>
+      <p className="min-2000px:text-[1vw] text-[20px] font-[700] leading-[120%] dark:text-white/80 text-[#111827] min-2000px:mb-[.8vw] mb-[32px]">
         {t("settings.change_password")}
       </p>
 
-      <div className="mb-5">
-        <div className="dark:text-white/30 text-[#374151]/60 text-[14px] font-[500] mb-[6px]">
+      <div className="min-2000px:mb-[.5vw] mb-5">
+        <div className="dark:text-white/30 text-[#374151]/60 min-2000px:text-[.7vw] text-[14px] font-[500] min-2000px:mb-[.3vw] mb-[6px]">
           {t("settings.old_password_label")}
         </div>
 
         <div className="relative w-full">
-          <CiLock className="absolute left-2 top-1/2 -translate-y-1/2 text-[20px] dark:text-white/50 text-black/40" />
+          <CiLock className="absolute min-2000px:left-[.3vw] left-2 top-1/2 -translate-y-1/2 min-2000px:text-[1vw] text-[20px] dark:text-white/50 text-black/40" />
 
           <input
             autoComplete="old-password"
-
             type={oldPasswordVisible ? "text" : "password"}
             value={oldPassword}
             onChange={(e) => {
               setOldPassword(e.target.value);
               setError("");
             }}
-            className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-            placeholder="Password"
+            className="w-full min-2000px:px-[1.6vw] px-10 min-2000px:py-[.3vw] py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] min-2000px:rounded-[.2vw] rounded-lg min-2000px:text-[.7vw] text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+            placeholder={t("auth.password")}
           />
 
           <button
             onClick={() => setOldPasswordVisible((prev) => !prev)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#6B7280] group"
+            className="absolute min-2000px:right-[.3vw] right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#6B7280] group"
           >
             {oldPasswordVisible ? (
-              <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+              <LuEye className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
             ) : (
-              <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+              <LuEyeClosed className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
             )}
           </button>
         </div>
       </div>
 
       <div>
-        <div className="dark:text-white/30 text-[#374151]/60 text-[14px] font-[500] mb-[6px]">
+        <div className="dark:text-white/30 text-[#374151]/60 min-2000px:text-[.7vw] text-[14px] font-[500] min-2000px:mb-[.3vw] mb-[6px]">
           {t("settings.new_password_label")}
         </div>
 
         <div className="relative w-full">
-          <CiLock className="absolute left-2 top-1/2 -translate-y-1/2 text-[20px] dark:text-white/50 text-black/40" />
+          <CiLock className="absolute min-2000px:left-[.3vw] left-2 top-1/2 -translate-y-1/2 min-2000px:text-[1vw] text-[20px] dark:text-white/50 text-black/40" />
 
           <input
             autoComplete="new-password"
@@ -110,8 +109,8 @@ export const ChangePassword = () => {
               setNewPassword(e.target.value);
               setError("");
             }}
-            className="w-full pl-10 pr-10 py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] rounded-lg text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-            placeholder="Password"
+            className="w-full min-2000px:px-[1.6vw] px-10 min-2000px:py-[.3vw] py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] min-2000px:rounded-[.2vw] rounded-lg min-2000px:text-[.7vw] text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+            placeholder={t("auth.password")}
           />
 
           <button
@@ -119,14 +118,14 @@ export const ChangePassword = () => {
             className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#6B7280] group"
           >
             {newPasswordVisible ? (
-              <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+              <LuEye className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
             ) : (
-              <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+              <LuEyeClosed className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
             )}
           </button>
         </div>
 
-        <p className="text-[12px] text-[#9CA3AF] mt-2">
+        <p className="min-2000px:text-[.65vw] text-[12px] text-[#9CA3AF] min-2000px:mt-[.4vw] mt-2">
           {t("settings.password_warning")}
         </p>
 
@@ -136,7 +135,7 @@ export const ChangePassword = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="text-red-500 font-[500] text-sm mt-2"
+            className="text-red-500 font-[500] min-2000px:text-[.7vw] text-sm min-2000px:mt-[.3vw] mt-2"
           >
             {error}
           </motion.p>
@@ -148,7 +147,7 @@ export const ChangePassword = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="text-green-600 font-[500] text-sm mt-2"
+            className="text-green-600 font-[500] min-2000px:text-[.7vw] text-sm min-2000px:mt-[.3vw] mt-2"
           >
             {success}
           </motion.p>
@@ -159,7 +158,7 @@ export const ChangePassword = () => {
           disabled={
             isLoading || !oldPassword || !newPassword || !isValidNewPassword
           }
-          className="flex items-center justify-center mt-5 min-w-[120px] font-[500] px-4 h-10 rounded-lg dark:bg-black dark:border border-white/10 bg-gray-800 text-white hover:ring-2 hover:ring-main/70 duration-300 cursor-pointer disabled:opacity-50 disabled:hover:ring-0 disabled:cursor-not-allowed"
+          className="flex items-center justify-center min-2000px:mt-[.6vw] mt-5 min-2000px:min-w-[7vw] min-w-[120px] min-2000px:px-[.5vw] px-4 min-2000px:h-[1.5vw] h-10 min-2000px:rounded-[.3vw] rounded-lg font-[500] dark:bg-black dark:border border-white/10 bg-gray-800 min-2000px:text-[.8vw] text-white hover:ring-2 hover:ring-main/70 duration-300 cursor-pointer disabled:opacity-50 disabled:hover:ring-0 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <BiLoaderAlt className="animate-spin text-[25px]" />
@@ -168,6 +167,6 @@ export const ChangePassword = () => {
           )}
         </button>
       </div>
-    </>
+    </div>
   );
 };

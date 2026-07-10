@@ -171,14 +171,14 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
     <Link to={`/post/${post?.id}`}>
       <div
         key={post.id}
-        className="dark:bg-white/5 bg-white rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex max-1440px:flex-col"
+        className="dark:bg-white/5 bg-white min-2000px:rounded-[.6vw] rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex max-1440px:flex-col"
       >
-        <div className="flex-shrink-0 max-1440px:w-full w-48 h-48 dark:bg-white/10 bg-gray-200">
+        <div className="flex-shrink-0 max-1440px:w-full min-2000px:size-[9vw] size-48 dark:bg-white/10 bg-gray-200">
           <PostImage src={post.image} title={post.title} />
         </div>
 
-        <div className="p-4 flex flex-col flex-1 gap-2">
-          <div className="flex items-center justify-between dark:text-[#6f6f6f] text-gray-500 text-sm">
+        <div className="min-2000px:p-[.7vw] p-4 flex flex-col flex-1 min-2000px:gap-[0.3vw] gap-2">
+          <div className="flex items-center justify-between dark:text-[#6f6f6f] text-gray-500 min-2000px:text-[.75vw] text-sm">
             <Link to={isOwnProfile ? "" : `/user/${post.user.id}`}>
               <span
                 onClick={(e) => {
@@ -192,15 +192,15 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
             <span>{formatDate(post.createdAt)}</span>
           </div>
 
-          <h3 className="text-lg font-semibold dark:text-[#f9f5e8] text-gray-900 line-clamp-1">
+          <h3 className="min-2000px:text-[.9vw] text-lg font-semibold dark:text-[#f9f5e8] text-gray-900 line-clamp-1">
             {post.title}
           </h3>
-          <p className="dark:text-[#6f6f6f] text-gray-700 text-sm line-clamp-2">
+          <p className="dark:text-[#6f6f6f] text-gray-700 min-2000px:text-[.7vw] text-sm line-clamp-2">
             {post.description}
           </p>
 
           <div className="flex items-center justify-between mt-auto dark:text-[#6f6f6f] text-gray-600">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center min-2000px:gap-[.9vw] gap-4">
               <motion.button
                 onClick={(e) => {
                   e.preventDefault();
@@ -212,7 +212,7 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
                 animate={liked ? { scale: [1, 1.9, 1] } : {}}
                 transition={{ duration: 0.25 }}
                 className={clsx(
-                  "flex items-center gap-1 hover:text-main duration-300 cursor-pointer",
+                  "min-2000px:text-[0.8vw] flex items-center min-2000px:gap-[.3vw] gap-1 hover:text-main duration-300 cursor-pointer",
                   liked && "text-main",
                 )}
               >
@@ -231,7 +231,7 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
                 animate={saved ? { scale: [1, 1.9, 1] } : {}}
                 transition={{ duration: 0.25 }}
                 className={clsx(
-                  "flex items-center gap-2 hover:text-main duration-300 cursor-pointer flex items-center gap-1",
+                  "min-2000px:text-[0.8vw] flex items-center hover:text-main duration-300 cursor-pointer flex items-center",
                   saved && "text-main",
                 )}
               >
@@ -245,9 +245,9 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
                     e.stopPropagation();
                     openEditPostModal(post, mode);
                   }}
-                  className="flex items-center gap-2 hover:text-main duration-300 cursor-pointer flex items-center gap-1"
+                  className="flex items-center hover:text-main duration-300 cursor-pointer flex items-center"
                 >
-                  <FiEdit3 className="text-[17px]" />
+                  <FiEdit3 className="min-2000px:text-[0.8vw] text-[17px]" />
                 </button>
               )}
             </div>
@@ -258,7 +258,7 @@ export const PostItem = ({ post, isOwnProfile, mode, mutate }: IPostProps) => {
                   handleDeletePost(post.id);
                 }}
                 disabled={isDeleting}
-                className="flex items-center justify-center size-6 rounded cursor-pointer dark:hover:bg-white/10 hover:bg-red-200 duration-300"
+                className="min-2000px:text-[0.8vw] flex items-center justify-center min-2000px:size-[1.1vw] size-6 rounded cursor-pointer dark:hover:bg-white/10 hover:bg-red-200 duration-300"
               >
                 {isDeleting ? (
                   <BiLoaderAlt className="animate-spin" />

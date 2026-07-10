@@ -43,15 +43,15 @@ export const Header = () => {
 
   return (
     !(isMobile && chatIdFromUrl) && (
-      <header className="dark:bg-[#191a1a] z-[50] fixed top-0 left-0 w-full flex items-center justify-between bg-white px-4 py-3 md:px-8 md:py-4 dark:border-white/10 border-b border-[#E5E7EB]">
+      <header className="dark:bg-[#191a1a] z-[50] fixed top-0 left-0 w-full flex items-center justify-between bg-white min-2000px:px-[2vw] px-4 min-2000px:py-[0.7vw] py-3 md:px-8 md:py-4 dark:border-white/10 border-b border-[#E5E7EB]">
         <Logo />
 
         <div className="max-1024px:hidden flex items-center gap-4">
           <button
             onClick={toggleTheme}
             className="
-              flex items-center justify-center size-[48px]
-              rounded-lg border border-gray-300 dark:border-[gray]/50
+              flex items-center justify-center min-2000px:size-[3vw] size-[48px]
+              min-2000px:rounded-[0.5vw] rounded-lg border border-gray-300 dark:border-[gray]/50
               bg-white dark:bg-[#1a1a1a]
               hover:ring-2 ring-main/70
               duration-300 cursor-pointer
@@ -59,24 +59,24 @@ export const Header = () => {
             aria-label="Toggle theme"
           >
             {theme === "light" ? (
-              <LuMoon className="text-[22px] text-main" />
+              <LuMoon className="min-2000px:text-[1.5vw] text-[22px] text-main" />
             ) : (
-              <LuSun className="text-[22px] text-main" />
+              <LuSun className="min-2000px:text-[1.5vw] text-[22px] text-main" />
             )}
           </button>
 
           <button
             onClick={() => openCreatePostModal(postModal.mode)}
             className="
-            flex items-center justify-center size-[48px]
-            rounded-lg border border-gray-300 dark:border-[gray]/50
+            flex items-center justify-center min-2000px:size-[3vw] size-[48px]
+            min-2000px:rounded-[0.5vw] rounded-lg border border-gray-300 dark:border-[gray]/50
             bg-white dark:bg-[#1a1a1a]
             duration-300 hover:ring-2 ring-main/70
             cursor-pointer
           "
             aria-label="Create post"
           >
-            <IoAddOutline className="text-[25px] text-main" />
+            <IoAddOutline className="min-2000px:text-[1.7vw] text-[25px] text-main" />
           </button>
 
           <UserDropdown />

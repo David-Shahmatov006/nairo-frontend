@@ -42,9 +42,9 @@ export const ScrollButton = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
       onClick={() => scrollToBottom()}
-      className="absolute bottom-[20px] right-1/2 bg-main/50 size-7 flex items-center justify-center rounded-full text-white hover:bg-main/90 duration-300 cursor-pointer"
+      className="absolute bottom-[20px] right-1/2 bg-main/50 min-2000px:size-[1.3vw] size-7 flex items-center justify-center rounded-full text-white hover:bg-main/90 duration-300 cursor-pointer"
     >
-      <HiOutlineArrowDown />
+      <HiOutlineArrowDown className="text-[.7vw]" />
     </motion.button>
   );
 };

@@ -15,10 +15,10 @@ export const Logo = ({
   return (
     <Link to={ROUTES.HOME}>
       <div className={clsx("w-fit flex items-center gap-2", className)}>
-        <img src={logo} className={clsx(iconClassName, "size-8")} />
+        <img src={logo} className={clsx(iconClassName, "min-2000px:size-[2vw] size-8")} />
         <span
           className={clsx(
-            "dark:text-[#f9f5e8] font-manrope font-[700] text-[30px]",
+            "dark:text-[#f9f5e8] font-manrope font-[700] min-2000px:text-[1.7vw] text-[30px]",
             textClassName,
           )}
         >

@@ -9,7 +9,7 @@ export const Home = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="flex flex-col gap-6"
+      className="flex flex-col min-2000px:gap-[1vw] gap-6"
     >
       <GetStartedLabel />
 
