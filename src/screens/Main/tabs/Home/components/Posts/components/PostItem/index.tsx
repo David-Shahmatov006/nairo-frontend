@@ -260,6 +260,8 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
             <button
               onClick={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
+
                 handleDeletePost(post.id);
               }}
               disabled={isDeleting}

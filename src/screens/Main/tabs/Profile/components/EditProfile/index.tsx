@@ -95,23 +95,23 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="font-manrope w-full max-1024px:ml-0 ml-[10%] [@media(min-width:1024px)_and_(max-width:1440px)]:max-w-[80%] max-1024px:max-w-full max-w-[70%] max-1440px:p-0 p-6 flex flex-col gap-6">
+    <div className="font-manrope w-full max-1024px:ml-0 ml-[10%] [@media(min-width:1024px)_and_(max-width:1440px)]:max-w-[80%] max-1024px:max-w-full max-w-[70%] max-1440px:p-0 p-6 flex flex-col min-2000px:gap-[1vw] gap-6">
       <div className="flex items-center justify-between">
-        <h2 className="max-768px:text-[20px] text-[25px] font-semibold dark:text-white/80 text-gray-800">
+        <h2 className="max-768px:text-[20px] min-2000px:text-[1.1vw] text-[25px] font-semibold dark:text-white/80 text-gray-800">
           {t("edit_profile.title")}
         </h2>
         <BackButton handleBack={onClose} />
       </div>
 
-      <div className="flex items-center gap-5">
-        <div className="relative max-768px:size-24 size-28">
+      <div className="flex items-center min-2000px:gap-[1vw] gap-5">
+        <div className="relative max-768px:size-24 min-2000px:size-[5vw] size-28">
           <AvatarImage src={avatarUrl} />
 
           <label
             htmlFor="avatarUpload"
-            className="flex items-center justify-center absolute bottom-1 right-1 bg-gray-800 text-white size-7 rounded-full cursor-pointer shadow hover:ring-2 ring-main/70 duration-300"
+            className="flex items-center justify-center absolute bottom-1 right-1 bg-gray-800 text-white min-2000px:size-[1.4vw] size-7 rounded-full cursor-pointer shadow hover:ring-2 ring-main/70 duration-300"
           >
-            <IoCameraReverseOutline className="text-[17px]" />
+            <IoCameraReverseOutline className="min-2000px:text-[.9vw] text-[17px]" />
           </label>
 
           <input
@@ -123,15 +123,15 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
           />
         </div>
 
-        <div className="text-gray-500 text-sm">
+        <div className="text-gray-500 min-2000px:text-[.8vw] text-sm">
           {t("edit_profile.upload_img")}
         </div>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <div className="w-full max-768px:flex-col flex items-center gap-4">
-          <div className="w-full flex flex-col gap-1">
-            <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
+      <div className="flex flex-col min-2000px:gap-[.5vw] gap-4">
+        <div className="w-full max-768px:flex-col flex items-center min-2000px:gap-[.5vw] gap-4">
+          <div className="w-full flex flex-col min-2000px:gap-[.2vw] gap-1">
+            <label className="min-2000px:ml-[.2vw] ml-1 min-2000px:text-[.7vw] text-[14px] font-[500] text-gray-700 dark:text-white/50">
               {t("edit_profile.first_name_label")}
             </label>
             <input
@@ -139,17 +139,17 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               className={clsx(
-                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 max-768px:py-2 max-768px:text-[14px] py-2 rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
+                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
                 !isValidName(firstName) && "border border-red-500"
               )}
             />
             {firstNameError && (
-              <span className="text-red-500 text-xs">{firstNameError}</span>
+              <span className="text-red-500 min-2000px:text-[.7vw] text-xs">{firstNameError}</span>
             )}
           </div>
 
           <div className="w-full flex flex-col gap-1">
-            <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
+            <label className="min-2000px:ml-[.2vw] ml-1 min-2000px:text-[.7vw] text-[14px] font-[500] text-gray-700 dark:text-white/50 min-2000px:mb-[.1vw]">
               {t("edit_profile.last_name_label")}
             </label>
             <input
@@ -157,18 +157,18 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               className={clsx(
-                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 max-768px:text-[14px] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
+                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
                 !isValidName(lastName) && "border border-red-500"
               )}
             />
             {lastNameError && (
-              <span className="text-red-500 text-xs">{lastNameError}</span>
+              <span className="text-red-500 min-2000px:text-[.7vw] text-xs">{lastNameError}</span>
             )}
           </div>
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="ml-1 text-[14px] font-[500] text-gray-700 dark:text-white/50">
+          <label className="min-2000px:ml-[.2vw] ml-1 min-2000px:text-[.7vw] text-[14px] font-[500] text-gray-700 dark:text-white/50 min-2000px:mb-[.2vw]">
             {t("edit_profile.username_label")}
           </label>
           <input
@@ -176,25 +176,25 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={clsx(
-              "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 max-768px:text-[14px] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
+              "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
               !isValidUsername(username) && "border border-red-500"
             )}
           />
           {usernameError && (
-            <span className="text-red-500 text-xs">{usernameError}</span>
+            <span className="text-red-500 min-2000px:text-[.7vw] text-xs">{usernameError}</span>
           )}
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-[14px] font-[500] text-gray-700 dark:text-white/50">
+          <label className="min-2000px:ml-[.2vw] ml-1 min-2000px:text-[.7vw] text-[14px] font-[500] text-gray-700 dark:text-white/50 min-2000px:mb-[.2vw]">
             {t("edit_profile.bio_label")}
           </label>
           <textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
-            className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 px-4 py-2 max-768px:text-[14px] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none"
+            className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none"
           ></textarea>
-          <p className="text-red-500 font-[500]">{error}</p>
+          <p className="text-red-500 min-2000px:text-[.7vw] font-[500]">{error}</p>
         </div>
       </div>
 
@@ -202,13 +202,13 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
         onClick={saveChanges}
         disabled={isSaveDisabled}
         className={clsx(
-          "w-full flex items-center justify-center cursor-pointer font-bold rounded-lg duration-300 py-3 px-6 text-base h-[48px] gap-[12px] dark:bg-black/90 dark:border border-white/10 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70",
+          "w-full flex items-center justify-center cursor-pointer font-bold min-2000px:rounded-[.3vw] rounded-lg duration-300 min-2000px:py-[.4vw] py-3 min-2000px:px-[.7vw] px-6 min-2000px:text-[.8vw] text-base min-2000px:h-[2vw] h-[48px] gap-[12px] dark:bg-black/90 dark:border border-white/10 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70",
           isSaveDisabled && "opacity-50 cursor-not-allowed hover:ring-0"
         )}
       >
         {loading ? (
           <div>
-            <BiLoaderAlt className="animate-spin text-[25px]" />
+            <BiLoaderAlt className="animate-spin min-2000px:text-[1vw] text-[25px]" />
           </div>
         ) : (
           t("edit_profile.save_changes")
