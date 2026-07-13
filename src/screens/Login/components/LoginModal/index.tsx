@@ -54,8 +54,8 @@ export const LoginModal = () => {
     try {
       const response = await authService.login(payload);
       setUser(response.user);
-      setToken(response.token);
-      localStorage.setItem("token", response.token);
+      setToken(response.accessToken);
+      localStorage.setItem("token", response.accessToken);
 
       navigate("/");
     } catch (error) {

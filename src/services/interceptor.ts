@@ -5,7 +5,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 export const $api = axios.create({
   baseURL: baseUrl,
-  withCredentials: false,
+  withCredentials: true,
 });
 
 $api.interceptors.request.use((config) => {
@@ -20,19 +20,42 @@ $api.interceptors.request.use((config) => {
 
 $api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    const status = error?.response?.status;
 
-    if (status === 401) {
-      const { logout } = useAuthStore.getState();
+  async (error) => {
+    const originalRequest = error.config;
 
-      logout();
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/auth/refresh")
+    ) {
+      originalRequest._retry = true;
 
-      localStorage.removeItem("token");
+      try {
+        const { data } = await axios.post(
+          `${baseUrl}/auth/refresh`,
+          {},
+          {
+            withCredentials: true,
+          },
+        );
 
-      window.location.href = "/login";
+        useAuthStore.getState().setToken(data.accessToken);
+        localStorage.setItem("token", data.accessToken);
+
+        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+
+        return $api(originalRequest);
+      } catch {
+        const { logout } = useAuthStore.getState();
+
+        logout();
+        localStorage.removeItem("token");
+
+        window.location.href = "/login";
+      }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
