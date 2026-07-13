@@ -25,7 +25,7 @@ export const SignUpModal = () => {
   const { setUser, setToken } = useAuthStore();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const language = localStorage.getItem("language")
+  const language = localStorage.getItem("language");
 
   const validateEmail = (email: string) =>
     email.includes("@") && email.includes(".") && email.length > 5;
@@ -50,7 +50,7 @@ export const SignUpModal = () => {
 
   const handleRegister = async () => {
     setError("");
-    
+
     if (!validateName(firstName)) {
       setError(t("auth.first_name_error"));
       return;
@@ -84,7 +84,7 @@ export const SignUpModal = () => {
       setIsLoading(true);
 
       const response = await userService.checkUserFields(email, username);
-      
+
       if (response.emailExists) {
         setError(t("auth.email_exists_error"));
         return;
@@ -114,8 +114,8 @@ export const SignUpModal = () => {
       username,
       language: language ?? "en",
     };
-    console.log(payload, 'payload');
-    
+    console.log(payload, "payload");
+
     try {
       const response = await authService.register(payload);
       setUser(response.user);
@@ -129,16 +129,16 @@ export const SignUpModal = () => {
   };
 
   return (
-    <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
-      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 px-7 py-5 rounded-[16px]">
-        <h1 className="dark:text-white/80 text-[26px] text-center font-[600] text-gray-900 mb-8">
+    <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] min-2000px:p-[.1vw] p-[1.5px] relative">
+      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 min-2000px:px-[.8vw] px-7 min-2000px:py-[.5vw] py-5 min-2000px:rounded-[.4vw] rounded-[16px]">
+        <h1 className="min-2000px:text-[1.3vw] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 min-2000px:mb-[.9vw] mb-8">
           {t("auth.sign_up")}
         </h1>
-        <div className="flex flex-col max-1200px:gap-3 gap-7 max-1200px:mb-4 mb-8">
-          <div className="flex items-center gap-2 w-full">
+        <div className="flex flex-col max-1200px:gap-3 min-2000px:gap-[.7vw] gap-7 max-1200px:mb-4 min-2000px:mb-[.9vw] mb-8">
+          <div className="flex items-center min-2000px:gap-[.3vw] gap-2 w-full">
             <div className="relative w-full">
-              <div className="absolute left-2 top-1/2 -translate-y-1/2">
-                <HiOutlineEnvelope className="text-[20px] dark:text-white/50 text-black/40" />
+              <div className="absolute min-2000px:left-[.3vw] left-2 top-1/2 -translate-y-1/2">
+                <HiOutlineEnvelope className="min-2000px:text-[.9vw] text-[20px] dark:text-white/50 text-black/40" />
               </div>
               <input
                 type="email"
@@ -146,13 +146,13 @@ export const SignUpModal = () => {
                   setEmail(e.target.value);
                   setError("");
                 }}
-                className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:pl-[1.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder="email@example.com"
               />
             </div>
           </div>
-          <div className="w-full flex items-center gap-3">
-            <div className="flex items-center gap-2 flex-1">
+          <div className="w-full flex items-center min-2000px:gap-[.4vw] gap-3">
+            <div className="flex items-center min-2000px:gap-[.3vw] gap-2 flex-1">
               <div className="relative w-full">
                 <input
                   type="text"
@@ -160,12 +160,12 @@ export const SignUpModal = () => {
                     setFirstName(e.target.value);
                     setError("");
                   }}
-                  className="w-full pl-2 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                  className="w-full min-2000px:pl-[.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                   placeholder={t("auth.first_name")}
                 />
               </div>
             </div>
-            <div className="flex items-center gap-2 flex-1">
+            <div className="flex items-center min-2000px:gap-[.3vw] gap-2 flex-1">
               <div className="relative w-full">
                 <input
                   type="text"
@@ -173,16 +173,16 @@ export const SignUpModal = () => {
                     setLastName(e.target.value);
                     setError("");
                   }}
-                  className="w-full pl-2 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                  className="w-full min-2000px:pl-[.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                   placeholder={t("auth.last_name")}
                 />
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2 w-full">
+          <div className="flex items-center min-2000px:gap-[.3vw] gap-2 w-full">
             <div className="relative w-full">
-              <div className="absolute left-2 top-1/2 -translate-y-1/2">
-                <FiUser className="text-[20px] dark:text-white/50 text-black/40" />
+              <div className="absolute min-2000px:left-[.3vw] left-2 top-1/2 -translate-y-1/2">
+                <FiUser className="min-2000px:text-[.9vw] text-[20px] dark:text-white/50 text-black/40" />
               </div>
               <input
                 type="text"
@@ -190,58 +190,58 @@ export const SignUpModal = () => {
                   setUsername(e.target.value);
                   setError("");
                 }}
-                className="w-full pl-10 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:pl-[1.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder={t("auth.username")}
               />
             </div>
           </div>
-          <div className="flex flex-col items-center gap-2 w-full">
+          <div className="flex flex-col items-center min-2000px:gap-[.3vw] gap-2 w-full">
             <div className="relative w-full">
-              <div className="absolute left-2 top-1/2 -translate-y-1/2">
-                <CiLock className="text-[20px] dark:text-white/50 text-black/40" />
+              <div className="absolute min-2000px:left-[.3vw] left-2 top-1/2 -translate-y-1/2">
+                <CiLock className="min-2000px:text-[1vw] text-[20px] dark:text-white/50 text-black/40" />
               </div>
               <input
                 type={passwordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 max-1200px:pr-1 max-1200px:py-2 pr-10 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:pl-[1.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder={t("auth.password")}
               />
 
               <button
                 onClick={() => setPasswordVisible((prev) => !prev)}
-                className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
+                className="cursor-pointer absolute min-2000px:right-[.4vw] right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
               >
                 {passwordVisible ? (
-                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+                  <LuEye className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 ) : (
-                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+                  <LuEyeClosed className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 )}
               </button>
             </div>
-            <p className="text-[12px] dark:text-white/50 text-[#9CA3AF] max-1200px:mt-0 mt-2">
+            <p className="min-2000px:text-[.7vw] text-[12px] dark:text-white/50 text-[#9CA3AF] max-1200px:mt-0 min-2000px:mt-[.3vw] mt-2 min-2000px:mb-[.3vw]">
               {t("auth.password_instructions")}
             </p>
           </div>
-          <div className="flex items-center gap-2 w-full">
+          <div className="flex items-center min-2000px:gap-[.3vw] gap-2 w-full">
             <div className="relative w-full">
-              <div className="absolute left-2 top-1/2 -translate-y-1/2">
-                <CiLock className="text-[20px] dark:text-white/50 text-black/40" />
+              <div className="absolute min-2000px:left-[.3vw] left-2 top-1/2 -translate-y-1/2">
+                <CiLock className="min-2000px:text-[1vw] text-[20px] dark:text-white/50 text-black/40" />
               </div>
               <input
                 type={repeatPasswordVisible ? "text" : "password"}
                 onChange={(e) => setRepeatPassword(e.target.value)}
-                className="w-full pl-10 max-1200px:pr-1 pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:pl-[1.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder={t("auth.repeat_password")}
               />
 
               <button
                 onClick={() => setRepeatPasswordVisible((prev) => !prev)}
-                className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
+                className="cursor-pointer absolute min-2000px:right-[.4vw] right-3 top-1/2 -translate-y-1/2 text-[#6B7280] group"
               >
                 {repeatPasswordVisible ? (
-                  <LuEye className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+                  <LuEye className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 ) : (
-                  <LuEyeClosed className="group-hover:text-main duration-300 text-[20px] dark:text-[#6f6f6f] text-black/40" />
+                  <LuEyeClosed className="group-hover:text-main duration-300 min-2000px:text-[1vw] text-[20px] dark:text-[#6f6f6f] text-black/40" />
                 )}
               </button>
             </div>
@@ -252,7 +252,7 @@ export const SignUpModal = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="text-red-500 max-1200px:text-[12px] font-[500] text-sm mt-[-10px]"
+              className="text-red-500 max-1200px:text-[12px] font-[500] min-2000px:text-[.7vw] text-sm mt-[-10px]"
             >
               {error}
             </motion.p>
@@ -261,10 +261,10 @@ export const SignUpModal = () => {
         <button
           type="button"
           onClick={handleRegister}
-          className="outline-none group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] dark:bg-black/80 bg-gray-900 text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
+          className="group flex items-center justify-center min-2000px:gap-[.4vw] gap-3 min-2000px:min-h-[1.7vw] min-h-[48px] min-2000px:rounded-[.3vw] rounded-[12px] min-2000px:text-[.8vw] dark:bg-black/90 bg-gray-900 text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
         >
           {isLoading ? (
-            <BiLoaderAlt className="animate-spin text-[20px]" />
+            <BiLoaderAlt className="animate-spin min-2000px:text-[1vw] text-[20px]" />
           ) : (
             t("auth.join_button")
           )}

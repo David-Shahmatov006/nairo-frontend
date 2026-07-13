@@ -124,18 +124,18 @@ export const OTPModal = () => {
   const isCodeComplete = code.every((digit) => digit !== "");
 
   return (
-    <div className="w-ful font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] p-[1.5px] relative">
-      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 p-[32px] sm:p-[48px] rounded-[16px]">
-        <div className="max-1200px:mb-4 mb-8">
-          <h1 className="max-1200px:text-[21px] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 mb-2">
+    <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent min-2000px:rounded-[.5vw] rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] min-2000px:p-[.1vw] p-[1.5px] relative">
+      <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 min-2000px:p-[.9vw] p-[32px] sm:p-[48px] min-2000px:rounded-[.5vw] rounded-[16px]">
+        <div className="max-1200px:mb-4 min-2000px:mb-[.9vw] mb-8">
+          <h1 className="max-1200px:text-[21px] min-2000px:text-[1.3vw] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 min-2000px:mb-[.3vw] mb-2">
             {t('auth.otp_confirmation_title')}
           </h1>
-          <p className="text-gray-500 text-sm font-medium text-center">
+          <p className="text-gray-500 min-2000px:text-[.7vw] text-sm font-medium text-center">
             {resetEmail}
           </p>
         </div>
 
-        <div className="flex justify-between gap-2 mb-1">
+        <div className="flex justify-center min-2000px:gap-[.4vw] gap-4 min-2000px:mb-[.2vw] mb-1">
           {code.map((digit, index) => (
             <input
               key={index}
@@ -149,7 +149,7 @@ export const OTPModal = () => {
                 inputRefs.current[index] = el;
               }}
               className={`
-              max-1200px:size-9 size-12 text-center max-1200px:text-[18px] text-2xl font-semibold rounded-xl
+              max-1200px:size-9 min-2000px:size-[2.5vw] size-12 text-center max-1200px:text-[18px] min-2000px:text-[1.4vw] text-2xl font-semibold min-2000px:rounded-[.5vw] rounded-xl
               border-[1px] dark:border-white/5 border-gray-300 duration-300 focus:ring-2 ring-main/70 dark:text-white/60
               outline-none
               ${digit === "" ? "placeholder:text-gray-400" : ""}
@@ -164,13 +164,13 @@ export const OTPModal = () => {
             />
           ))}
         </div>
-        <p className="text-red-500 text-center mb-3 font-medium">{error}</p>
+        <p className="text-red-500 text-center min-2000px:text-[.7vw] mb-3 font-medium">{error}</p>
 
-        <p className="text-gray-500 text-sm mb-8">
+        <p className="text-gray-500 min-2000px:text-[.7vw] text-sm min-2000px:mb-[1vw] mb-8">
           {t("auth.didn't_get_code")}{" "}
           <button
             onClick={handleResendCode}
-            className="ml-1 cursor-pointer duration-300 hover:text-main text-gray-700 font-medium underline outline-none"
+            className="min-2000px:ml-[.2vw] ml-1 cursor-pointer duration-300 hover:text-main text-gray-700 font-medium underline outline-none"
             disabled={isLoading}
           >
             {t('auth.resend_code')}
@@ -180,11 +180,11 @@ export const OTPModal = () => {
         <button
           onClick={handleVerify}
           disabled={!isCodeComplete}
-          className="disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center gap-3 min-h-[48px] rounded-[12px] dark:bg-black/90 bg-gray-900 text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
+          className="disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center min-2000px:gap-[.4vw] gap-3 min-2000px:min-h-[2vw] min-h-[48px] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-black/90 bg-gray-900 min-2000px:text-[.8vw] text-white w-full font-[500] cursor-pointer hover:opacity-70 duration-300"
         >
           {isLoading ? (
             <div>
-              <BiLoaderAlt className="animate-spin text-[25px]" />
+              <BiLoaderAlt className="animate-spin min-2000px:text-[1vw] text-[25px]" />
             </div>
           ) : (
             t('auth.verify_otp_button')
