@@ -108,7 +108,11 @@
     "upload_img": "Bild hochladen",
     "post_title": "Beitragstitel",
     "post_desc": "Fügen Sie eine Beschreibung hinzu...",
-    "publish": "Veröffentlichen"
+    "publish": "Veröffentlichen",
+    "max_img_size_error": "Die maximale Bildgröße beträgt 5 MB",
+    "invalid_image": "Hm... das scheint kein Bild zu sein",
+    "fill_all_fields_error": "Füllen Sie alle Felder aus",
+    "select_image_error": "Wählen Sie ein Bild aus"
   },
   "edit_profile": {
     "title": "Persönliche Informationen bearbeiten",

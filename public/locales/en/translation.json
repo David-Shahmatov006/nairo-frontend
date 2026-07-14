@@ -108,7 +108,11 @@
     "upload_img": "Upload an image",
     "post_title": "Post title",
     "post_desc": "Add a description...",
-    "publish": "Publish"
+    "publish": "Publish",
+    "max_img_size_error": "Max size of image is 5MB",
+    "invalid_image": "Hmm... it's not an image",
+    "fill_all_fields_error": "Fill all fields",
+    "select_image_error": "Select an image"
   },
   "edit_profile": {
     "title": "Edit your personal info",

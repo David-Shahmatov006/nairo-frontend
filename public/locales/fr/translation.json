@@ -108,7 +108,11 @@
     "upload_img": "Télécharger une image",
     "post_title": "Titre de la publication",
     "post_desc": "Ajoutez une description..",
-    "publish": "Publier"
+    "publish": "Publier",
+    "max_img_size_error": "La taille maximale de l'image est de 5 Mo",
+    "invalid_image": "Hmm... on dirait que ce n'est pas une image",
+    "fill_all_fields_error": "Remplissez tous les champs",
+    "select_image_error": "Sélectionnez une image"
   },
   "edit_profile": {
     "title": "Modifier vos informations personnelles",

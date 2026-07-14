@@ -9,6 +9,7 @@ import type { User } from "../../../../../../types/user";
 import clsx from "clsx";
 import { BiLoaderAlt } from "react-icons/bi";
 import { mutate } from "swr";
+import { fileTypeFromBlob } from "file-type";
 
 export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   const { t } = useTranslation();
@@ -25,7 +26,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const nameRegex = /^\p{L}+$/u
+  const nameRegex = /^\p{L}+$/u;
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
 
   const isValidName = (value: string) =>
@@ -51,9 +52,24 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
     !isValidName(lastName) ||
     !isValidUsername(username);
 
-  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError(t("create_post.max_img_size_error"));
+      return;
+    }
+
+    const type = await fileTypeFromBlob(file);
+
+    if (
+      !type ||
+      !["image/jpeg", "image/png", "image/webp"].includes(type.mime)
+    ) {
+      setError(t("create_post.invalid_image"));
+      return;
+    }
 
     setAvatarFile(file);
 
@@ -140,11 +156,13 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               onChange={(e) => setFirstName(e.target.value)}
               className={clsx(
                 "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
-                !isValidName(firstName) && "border border-red-500"
+                !isValidName(firstName) && "border border-red-500",
               )}
             />
             {firstNameError && (
-              <span className="text-red-500 min-2000px:text-[.7vw] text-xs">{firstNameError}</span>
+              <span className="text-red-500 min-2000px:text-[.7vw] text-xs">
+                {firstNameError}
+              </span>
             )}
           </div>
 
@@ -158,11 +176,13 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               onChange={(e) => setLastName(e.target.value)}
               className={clsx(
                 "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
-                !isValidName(lastName) && "border border-red-500"
+                !isValidName(lastName) && "border border-red-500",
               )}
             />
             {lastNameError && (
-              <span className="text-red-500 min-2000px:text-[.7vw] text-xs">{lastNameError}</span>
+              <span className="text-red-500 min-2000px:text-[.7vw] text-xs">
+                {lastNameError}
+              </span>
             )}
           </div>
         </div>
@@ -177,11 +197,13 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             onChange={(e) => setUsername(e.target.value)}
             className={clsx(
               "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
-              !isValidUsername(username) && "border border-red-500"
+              !isValidUsername(username) && "border border-red-500",
             )}
           />
           {usernameError && (
-            <span className="text-red-500 min-2000px:text-[.7vw] text-xs">{usernameError}</span>
+            <span className="text-red-500 min-2000px:text-[.7vw] text-xs">
+              {usernameError}
+            </span>
           )}
         </div>
         <div className="flex flex-col gap-1">
@@ -194,7 +216,9 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             rows={3}
             className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none"
           ></textarea>
-          <p className="text-red-500 min-2000px:text-[.7vw] font-[500]">{error}</p>
+          <p className="text-red-500 min-2000px:text-[.7vw] font-[500]">
+            {error}
+          </p>
         </div>
       </div>
 
@@ -203,7 +227,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
         disabled={isSaveDisabled}
         className={clsx(
           "w-full flex items-center justify-center cursor-pointer font-bold min-2000px:rounded-[.3vw] rounded-lg duration-300 min-2000px:py-[.4vw] py-3 min-2000px:px-[.7vw] px-6 min-2000px:text-[.8vw] text-base min-2000px:h-[2vw] h-[48px] gap-[12px] dark:bg-black/90 dark:border border-white/10 bg-gray-900 text-white hover:ring-2 active:bg-gray-700 focus:ring-2 ring-main/70",
-          isSaveDisabled && "opacity-50 cursor-not-allowed hover:ring-0"
+          isSaveDisabled && "opacity-50 cursor-not-allowed hover:ring-0",
         )}
       >
         {loading ? (

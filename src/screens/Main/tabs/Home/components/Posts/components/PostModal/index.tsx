@@ -9,6 +9,7 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { IoCameraReverse } from "react-icons/io5";
 import { PostImage } from "../PostItem";
 import { usePosts } from "../../../../../../../../hooks/usePosts";
+import { fileTypeFromBlob } from "file-type";
 
 export const PostModal = () => {
   const { t } = useTranslation();
@@ -40,11 +41,25 @@ export const PostModal = () => {
     };
   }, [postModal.isOpen]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
 
+    setError("");
+
     if (file.size > 5 * 1024 * 1024) {
+      setError(t("create_post.max_img_size_error"));
+      return;
+    }
+
+    const type = await fileTypeFromBlob(file);
+
+    if (
+      !type ||
+      !["image/jpeg", "image/png", "image/webp"].includes(type.mime)
+    ) {
+      setError(t("create_post.invalid_image"));
       return;
     }
 
@@ -56,12 +71,12 @@ export const PostModal = () => {
     setError("");
 
     if (!title.trim() || !description.trim()) {
-      setError("Fill all fields");
+      setError(t("create_post.fill_all_fields_error"));
       return;
     }
 
     if (!isEdit && !imageFile) {
-      setError("Select image");
+      setError(t("create_post.select_image_error"));
       return;
     }
 
@@ -208,7 +223,9 @@ export const PostModal = () => {
               {isLoading ? (
                 <BiLoaderAlt className="animate-spin min-2000px:text-[1.1vw] text-[22px]" />
               ) : (
-                <span className="min-2000px:text-[.7vw]">{t("create_post.publish")}</span>
+                <span className="min-2000px:text-[.7vw]">
+                  {t("create_post.publish")}
+                </span>
               )}
             </button>
           </motion.div>
