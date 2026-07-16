@@ -217,7 +217,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             maxLength={200}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
-            className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none"
+            className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none custom-scrollbar"
           ></textarea>
           <p className="text-red-500 min-2000px:text-[.7vw] font-[500]">
             {error}

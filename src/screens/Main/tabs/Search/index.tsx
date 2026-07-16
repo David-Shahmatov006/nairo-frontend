@@ -89,7 +89,7 @@ export const Search = () => {
                 </span>
               </div>
             ) : (
-              <div className="min-2000px:max-h-[25vh] max-h-[40vh] overflow-y-auto scrollbar-hidden flex flex-col min-2000px:gap-[.5vw] gap-3">
+              <div className="min-2000px:max-h-[25vh] max-h-[40vh] overflow-y-auto scrollbar-hidden flex flex-col min-2000px:gap-[.5vw] gap-3 p-1">
                 {users.map((u: User) => (
                   <div
                     key={u.id}

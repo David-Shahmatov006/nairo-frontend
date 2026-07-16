@@ -60,7 +60,7 @@ export const Posts = ({ mode }: PostsProps) => {
       <div
         className={clsx(
           "grid gap-6 rounded-xl",
-          "grid-cols-2 max-768px:grid-cols-1",
+          "grid-cols-2 max-768px:grid-cols-1 pb-4",
         )}
       >
         {posts.map((post: any) => (

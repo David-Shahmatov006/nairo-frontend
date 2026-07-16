@@ -19,7 +19,7 @@ export const Login = () => {
   return (
     <>
       <div className="relative max-768px:max-w-full max-1024px:pt-[5%] min-2000px:max-w-[60vw] max-w-[70%] mx-auto h-screen flex max-1024px:flex-col items-center justify-between max-768px:pb-10">
-        <div className="w-full max-1024px:block hidden mb-7">
+        <div className="w-full max-1024px:block hidden mb-7 mr-7">
           <LanguageSelector />
         </div>
         <LoginBackground className="max-1024px:fixed min-2000px:scale-[1.2] min-2800px:scale-[2] min-4000px:scale-[3] min-5000px:scale-[4] min-4000px:left-[15vw] absolute pointer-events-none" />

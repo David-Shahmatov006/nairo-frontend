@@ -172,7 +172,7 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
     <div
       onClick={() => navigate(`/post/${post.id}`)}
       key={post.id}
-      className="cursor-pointer dark:bg-white/5 bg-white min-2000px:rounded-[.6vw] rounded-xl shadow hover:shadow-lg duration-300 overflow-hidden flex max-1440px:flex-col"
+      className="cursor-pointer dark:bg-white/5 bg-white min-2000px:rounded-[.6vw] rounded-xl shadow hover:shadow-lg duration-300 flex max-1440px:flex-col"
     >
       <div className="flex-shrink-0 max-1440px:w-full min-2000px:size-[9vw] size-48 dark:bg-white/10 bg-gray-200">
         <PostImage src={post.image} title={post.title} />

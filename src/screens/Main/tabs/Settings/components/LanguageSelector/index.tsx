@@ -55,7 +55,7 @@ export const LanguageSelector = () => {
   return (
     <div
       ref={rootRef}
-      className="z-[1] h-[max-content] relative flex justify-end text-left"
+      className="z-[999] h-[max-content] relative flex justify-end text-left"
     >
       <button
         type="button"
@@ -89,7 +89,7 @@ export const LanguageSelector = () => {
             transition={{ duration: 0.15, ease: "easeOut" }}
             className="absolute right-0 max-1024px:mt-10 min-2000px:mt-[2.3vw] mt-[30%] min-2000px:w-[10vw] w-[150px] dark:bg-[#272727] bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.3vw] rounded-md shadow-lg z-[999] overflow-hidden"
           >
-            <div className="min-2000px:py-[.2vw] py-1 max-h-[27vh] overflow-y-auto custom-scrollbar">
+            <div className="min-2000px:py-[.2vw] py-1 max-h-[27vh] overflow-y-auto custom-scrollbar overflow-x-hidden ">
               {LANGS.map((lang, idx) => {
                 const active = lang.code === selectedLanguage?.code;
 

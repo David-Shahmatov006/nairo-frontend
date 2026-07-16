@@ -89,7 +89,7 @@ export const Profile = () => {
         className="font-manrope max-1024px:p-0 min-2000px:p-[.7vw] p-6"
       >
         <div className="flex max-620px:flex-col items-start min-2000px:gap-[.7vw] gap-6 min-2000px:mb-[.7vw] mb-6">
-          <div className="max-768px:w-full w-[70%] max-768px:flex-col flex items-start min-2000px:gap-[.7vw] gap-6">
+          <div className="max-768px:w-full w-[70%] max-768px:flex-col flex items-start min-2000px:gap-[.7vw] gap-0">
             <div className="flex items-start min-2000px:gap-[.6vw] gap-5">
               <div>
                 <button
@@ -120,19 +120,12 @@ export const Profile = () => {
                     {profile.firstName} {profile.lastName}
                   </h1>
 
-                  <span
-                    className="
-      min-2000px:text-[.7vw]
-      text-sm
-      text-gray-500
-      break-all
-    "
-                  >
+                  <span className="leading-[100%] min-2000px:text-[.7vw] text-sm text-gray-500 break-all">
                     @{profile.username}
                   </span>
                 </div>
 
-                <p className="min-2000px:text-[.7vw] text-sm dark:text-[#6f6f6f] text-gray-600 min-2000px:mt-[.3vw] mt-2 max-w-md break-words">
+                <p className="max-1024px:hidden min-2000px:text-[.7vw] text-sm dark:text-[#6f6f6f] text-gray-600 min-2000px:mt-[.3vw] mt-2 max-w-[90%] break-words">
                   {profile.bio || t("profile.no_bio")}
                 </p>
 
@@ -171,6 +164,9 @@ export const Profile = () => {
                 </div>
               </div>
             </div>
+            <p className="hidden max-1024px:block mb-2 min-2000px:text-[.7vw] text-sm dark:text-[#6f6f6f] text-gray-600 min-2000px:mt-[.3vw] mt-2 max-w-[90%] break-words">
+              {profile.bio || t("profile.no_bio")}
+            </p>
             <div className="max-768px:block hidden">
               {!isOwnProfile ? (
                 <div className="mt-3 flex items-center gap-3">
