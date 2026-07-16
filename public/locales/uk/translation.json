@@ -90,7 +90,7 @@
   },
   "settings": {
     "change_email": "Змінити email",
-    "change_password": "Змініти пароль",
+    "change_password": "Змінити пароль",
     "current_mail_label": "Ваш поточний email",
     "old_password_label": "Старий пароль",
     "new_password_label": "Новий пароль",

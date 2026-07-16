@@ -90,28 +90,49 @@ export const Profile = () => {
       >
         <div className="flex max-620px:flex-col items-start min-2000px:gap-[.7vw] gap-6 min-2000px:mb-[.7vw] mb-6">
           <div className="max-768px:w-full w-[70%] max-768px:flex-col flex items-start min-2000px:gap-[.7vw] gap-6">
-            <div className="flex items-center min-2000px:gap-[.6vw] gap-5">
+            <div className="flex items-start min-2000px:gap-[.6vw] gap-5">
               <div>
                 <button
                   disabled={!profile.avatar}
                   onClick={() => setIsOpenAvatarModal(true)}
                   className="disabled:cursor-default cursor-pointer max-768px:size-20 min-2000px:size-[5vw] size-32 dark:bg-black/50 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden shadow"
                 >
-                  <AvatarImage iconClassName="min-2000px:size-[4.5vw]" src={profile.avatar || ""} />
+                  <AvatarImage
+                    iconClassName="min-2000px:size-[4.5vw]"
+                    src={profile.avatar || ""}
+                  />
                 </button>
               </div>
 
               <div className="flex flex-col">
-                <div className="max-768px:flex-col max-768px:items-start flex items-center max-768px:gap-0 min-2000px:gap-[.4vw] gap-3">
-                  <h1 className="[@media(min-width:1024px)_and_(max-width:1440px)]:text-[20px] min-2000px:text-[1vw] text-2xl font-semibold dark:text-white/80 text-gray-900">
+                <div className="flex flex-col min-[769px]:flex-row min-[769px]:items-center gap-1 min-[769px]:gap-3 min-2000px:gap-[.4vw] min-w-0">
+                  <h1
+                    className="
+      text-2xl
+      [@media(min-width:1024px)_and_(max-width:1440px)]:text-[20px]
+      min-2000px:text-[1vw]
+      font-semibold
+      dark:text-white/80
+      text-gray-900
+      break-words
+    "
+                  >
                     {profile.firstName} {profile.lastName}
                   </h1>
-                  <span className="min-2000px:text-[.7vw] text-sm text-gray-500">
+
+                  <span
+                    className="
+      min-2000px:text-[.7vw]
+      text-sm
+      text-gray-500
+      break-all
+    "
+                  >
                     @{profile.username}
                   </span>
                 </div>
 
-                <p className="min-2000px:text-[.7vw] text-sm dark:text-[#6f6f6f] text-gray-600 min-2000px:mt-[.3vw] mt-2 max-w-lg">
+                <p className="min-2000px:text-[.7vw] text-sm dark:text-[#6f6f6f] text-gray-600 min-2000px:mt-[.3vw] mt-2 max-w-md break-words">
                   {profile.bio || t("profile.no_bio")}
                 </p>
 

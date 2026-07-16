@@ -179,11 +179,11 @@ export const Header = () => {
                   className="flex items-center justify-between gap-3 mb-7"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="size-10">
+                    <div className="size-10 shrink-0">
                       <AvatarImage src={user?.avatar || ""} />
                     </div>
-                    <div className="flex flex-col">
-                      <span className="dark:text-white">
+                    <div className="flex flex-col max-w-[40vw]">
+                      <span className="dark:text-white truncate">
                         {user?.firstName} {user?.lastName}
                       </span>
                       <span className="text-[14px] dark:text-white/25 text-black/50">

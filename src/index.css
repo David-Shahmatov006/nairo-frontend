@@ -37,16 +37,16 @@ body.dark {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 0;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
+.custom-scrollbar:hover::-webkit-scrollbar {
+  width: 4px;
+  height: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #8c53ff45;
+  background: #8c53ff45;
   border-radius: 4px;
 }
 

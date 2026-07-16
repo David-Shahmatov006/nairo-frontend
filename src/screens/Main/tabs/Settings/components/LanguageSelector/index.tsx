@@ -61,7 +61,7 @@ export const LanguageSelector = () => {
         type="button"
         onClick={() => setOpen((s) => !s)}
         className={clsx(
-          "min-2000px:w-[10vw] w-[150px] flex items-center justify-between min-2000px:px-[.3vw] px-3 max-1024px:py-1 min-2000px:py-[.2vw] py-1.5 dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.4vw] rounded-md shadow-sm cursor-pointer duration-300",
+          "min-2000px:w-[10vw] w-[150px] flex items-center justify-between min-2000px:px-[.3vw] px-3 max-1024px:py-1 min-2000px:py-[.2vw] py-1.5 dark:bg-[#272727] bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.4vw] rounded-md shadow-sm cursor-pointer duration-300",
           !open && "hover:ring-2 hover:ring-main/70 ",
         )}
       >
@@ -87,9 +87,9 @@ export const LanguageSelector = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.97 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 max-1024px:mt-10 min-2000px:mt-[2.3vw] mt-[30%] min-2000px:w-[10vw] w-[150px] dark:bg-white/10 bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.3vw] rounded-md shadow-lg z-[999] overflow-hidden"
+            className="absolute right-0 max-1024px:mt-10 min-2000px:mt-[2.3vw] mt-[30%] min-2000px:w-[10vw] w-[150px] dark:bg-[#272727] bg-white border dark:border-white/10 border-gray-200 min-2000px:rounded-[.3vw] rounded-md shadow-lg z-[999] overflow-hidden"
           >
-            <div className="min-2000px:py-[.2vw] py-1">
+            <div className="min-2000px:py-[.2vw] py-1 max-h-[27vh] overflow-y-auto custom-scrollbar">
               {LANGS.map((lang, idx) => {
                 const active = lang.code === selectedLanguage?.code;
 

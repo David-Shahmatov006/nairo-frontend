@@ -189,7 +189,7 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
                 navigate(`/user/${post.user.id}`);
               }
             }}
-            className="hover:text-main/80 duration-300 cursor-pointer font-[500]"
+            className="hover:text-main/80 duration-300 cursor-pointer font-[500] min-2000px:max-w-[15vw] max-w-[8vw] min-1600px:max-w-[13vw] min-1900px:max-w-[16vw] line-clamp-1"
           >
             {post.user.firstName} {post.user.lastName}
           </span>

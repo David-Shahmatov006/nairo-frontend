@@ -63,6 +63,7 @@ export const Comments = ({ postId }: { postId: string }) => {
         <input
           type="text"
           onChange={(e) => setText(e.target.value)}
+          maxLength={500}
           value={text}
           placeholder="Write a comment..."
           className="min-2000px:text-[.7vw] flex-1 dark:bg-white/5 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 min-2000px:h-[1.7vw] h-12 min-2000px:rounded-[.4vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300"

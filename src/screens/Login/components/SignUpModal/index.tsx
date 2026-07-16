@@ -114,7 +114,6 @@ export const SignUpModal = () => {
       username,
       language: language ?? "en",
     };
-    console.log(payload, "payload");
 
     try {
       const response = await authService.register(payload);
@@ -156,6 +155,7 @@ export const SignUpModal = () => {
               <div className="relative w-full">
                 <input
                   type="text"
+                  maxLength={40}
                   onChange={(e) => {
                     setFirstName(e.target.value);
                     setError("");
@@ -169,6 +169,7 @@ export const SignUpModal = () => {
               <div className="relative w-full">
                 <input
                   type="text"
+                  maxLength={40}
                   onChange={(e) => {
                     setLastName(e.target.value);
                     setError("");

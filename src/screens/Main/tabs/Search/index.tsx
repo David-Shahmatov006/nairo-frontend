@@ -43,7 +43,7 @@ export const Search = () => {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="font-montreal w-full min-2000px:max-w-[22vw] max-w-md dark:bg-white/5 bg-white min-2000px:rounded-[1vw] rounded-2xl max-768px:p-4 min-2000px:p-[1vw] p-6 shadow-xl"
+          className="font-montreal w-full min-2000px:max-w-[22vw] max-w-md dark:bg-[#202020] bg-white min-2000px:rounded-[1vw] rounded-2xl max-768px:p-4 min-2000px:p-[1vw] p-6 shadow-xl"
         >
           <div className="flex items-center justify-between min-2000px:mb-[1vw] mb-4">
             <h1 className="dark:text-white/80 min-2000px:text-[1vw] text-[20px] font-[500]">

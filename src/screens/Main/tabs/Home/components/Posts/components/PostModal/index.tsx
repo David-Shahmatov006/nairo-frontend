@@ -142,7 +142,7 @@ export const PostModal = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="w-full min-2000px:max-w-[30vw] max-w-[37%] max-550px:max-w-full [@media(min-width:551px)_and_(max-width:1024px)]:max-w-full dark:bg-black/50 bg-white min-2000px:rounded-[1vw] rounded-2xl min-2000px:p-[1.1vw] p-6 shadow-xl font-manrope relative"
+            className="w-full min-2000px:max-w-[30vw] max-w-[37%] max-550px:max-w-full [@media(min-width:551px)_and_(max-width:1024px)]:max-w-full dark:bg-[#181818] bg-white min-2000px:rounded-[1vw] rounded-2xl min-2000px:p-[1.1vw] p-6 shadow-xl font-manrope relative"
           >
             <button
               onClick={closePostModal}
@@ -160,7 +160,7 @@ export const PostModal = () => {
                 <label
                   className="flex flex-col items-center justify-center w-full min-2000px:h-[9vw] h-40 
                                  border border-dashed dark:border-white/20 border-gray-300 min-2000px:rounded-[.7vw] rounded-xl 
-                                 cursor-pointer dark:bg-white/10 bg-gray-50 hover:bg-gray-100 transition"
+                                 cursor-pointer dark:bg-white/5 bg-gray-50 hover:bg-gray-100 transition"
                 >
                   <FiImage className="min-2000px:text-[1.5vw] text-3xl text-gray-400 mb-2" />
                   <span className="text-gray-500 min-2000px:text-[.8vw] text-sm">
@@ -193,9 +193,10 @@ export const PostModal = () => {
               <input
                 type="text"
                 placeholder={t("create_post.post_title")}
+                maxLength={200}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/5 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
               />
             </div>
 
@@ -204,8 +205,9 @@ export const PostModal = () => {
                 placeholder={t("create_post.post_desc")}
                 rows={4}
                 value={description}
+                maxLength={1000}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/5 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
               />
             </div>
 
@@ -218,7 +220,7 @@ export const PostModal = () => {
             <button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="w-full flex items-center justify-center dark:bg-white/10 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white min-2000px:py-[.5vw] py-3 min-2000px:rounded-[.5vw] rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
+              className="w-full flex items-center justify-center dark:bg-white/7 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white min-2000px:py-[.5vw] py-3 min-2000px:rounded-[.5vw] rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
             >
               {isLoading ? (
                 <BiLoaderAlt className="animate-spin min-2000px:text-[1.1vw] text-[22px]" />

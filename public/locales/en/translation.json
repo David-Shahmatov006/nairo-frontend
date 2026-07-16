@@ -130,38 +130,6 @@
     "invalid_first_name": "First name must be at least 2 characters long",
     "invalid_last_name": "Last name must be at least 2 characters long"
   },
-  "shop": {
-    "title": "Buy Nairo Coins",
-    "your_balance": "Your balance",
-    "buy_now": "Buy now"
-  },
-  "premium": {
-    "subtitle": "Exclusive features, custom badges and deeper profile personalization ✨",
-    "premium_features": "Premium Features",
-    "animated_avatars_title": "Animated Avatars",
-    "animated_avatars_subtitle": "Smooth looped animations",
-    "uniq_reactions_title": "Exclusive Reactions",
-    "uniq_reactions_subtitle": "Express your emotions with rare and animated emojis.",
-    "dark_mode_title": "Dark Mode",
-    "dark_mode_subtitle": "Exclusive elegant theme",
-    "premium_badges_title": "Premium Badges",
-    "premium_badges_subtitle": "Stand out with flair",
-    "pay_per_month": "month",
-    "cancel_anytime": "Cancel anytime",
-    "activate_premium": "Activate Premium"
-  },
-  "invite_friends": {
-    "title": "Invite your friends",
-    "subtitle": "Earn <span class='font-semibold text-main'>10 NC</span> for every friend who joins.",
-    "joined": "Joined",
-    "earned": "Earned"
-  },
-  "share_post": {
-    "title": "Share post",
-    "search_users_placeholder": "Search users...",
-    "no_users_found": "No users found",
-    "share_button": "Share"
-  },
   "chat": {
     "delete_chat": "Delete chat ?",
     "delete_chat_desc": "This conversation will be permanently deleted",
@@ -179,22 +147,6 @@
   "emoji_modal": {
     "default_emojis": "Emojis",
     "custom_emojis": "Custom Emojis"
-  },
-  "random_connect_modal": {
-    "searching_text": "Searching for a match...",
-    "common_interests": "You have common interests",
-    "connect": "Connect"
-  },
-  "send_nairo_modal": {
-    "title": "Send Nairo Coins",
-    "recipient": "Recipient",
-    "your_balance": "Your balance",
-    "enter_amount_placeholder": "Enter amount",
-    "send_button": "Send",
-    "cancel_button": "Cancel",
-    "sending_text": "Sending Nairo coins...",
-    "success_text": "Successfully sent!",
-    "close_button": "Close"
   },
   "post_page": {
     "not_found": "It's strange, but for some reason we couldn't find this post.",
