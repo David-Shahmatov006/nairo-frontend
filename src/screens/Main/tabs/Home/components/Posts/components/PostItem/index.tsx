@@ -57,7 +57,9 @@ export const PostImage = ({
       alt={title}
       className={clsx(
         "w-full h-full object-cover",
-        onModal ? "rounded-xl" : "max-768px:rounded-l-none rounded-l-xl",
+        onModal
+          ? "rounded-xl"
+          : "max-768px:rounded-l-none max-1024px:rounded-t-xl rounded-l-xl",
       )}
       onError={() => setHasError(true)}
     />
@@ -174,7 +176,7 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
       key={post.id}
       className="cursor-pointer dark:bg-white/5 bg-white min-2000px:rounded-[.6vw] rounded-xl shadow hover:shadow-lg duration-300 flex max-1440px:flex-col"
     >
-      <div className="flex-shrink-0 max-1440px:w-full min-2000px:size-[9vw] size-48 dark:bg-white/10 bg-gray-200">
+      <div className="flex-shrink-0 max-1440px:w-full min-2000px:size-[9vw] size-48 dark:bg-white/10">
         <PostImage src={post.image} title={post.title} />
       </div>
 

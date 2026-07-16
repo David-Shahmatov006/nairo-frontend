@@ -48,7 +48,7 @@ export const UserDropdown = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 mt-2 min-2000px:w-[12.8vw] w-[230px] dark:bg-[#191a1a] bg-white shadow-lg rounded-xl border dark:border-white/20 border-gray-200 min-2000px:p-[.5vw] p-4 z-50"
+            className="absolute right-0 mt-2 min-2000px:w-[12.8vw] w-[230px] dark:bg-[#191a1a] bg-white shadow-lg rounded-xl border dark:border-white/20 border-gray-200 min-2000px:p-[.5vw] p-4 z-[998]"
           >
             <div className="flex items-center gap-[10px] min-2000px:pb-[.4vw] pb-3 min-2000px:mb-[.3vw] mb-3 border-b dark:border-white/20 border-gray-200">
               <div className="min-2000px:size-[1.8vw] size-10 rounded-full bg-main/10 flex items-center justify-center overflow-hidden shrink-0">

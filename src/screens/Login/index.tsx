@@ -23,7 +23,7 @@ export const Login = () => {
           <LanguageSelector />
         </div>
         <LoginBackground className="max-1024px:fixed min-2000px:scale-[1.2] min-2800px:scale-[2] min-4000px:scale-[3] min-5000px:scale-[4] min-4000px:left-[15vw] absolute pointer-events-none" />
-        <div className="flex max-1024px:w-[90%] min-2000px:w-[30vw] w-[50%] mb-[10%] flex-col max-1024px:items-center justify-center z-[2]">
+        <div className="flex max-1024px:w-[90%] min-2000px:w-[30vw] w-[50%] mb-[10%] flex-col max-1024px:items-center justify-center z-[1]">
           <Logo
             iconClassName="[@media(min-width:1024px)_and_(max-width:1440px)]:size-10 min-2000px:size-[3vw] size-[50px]"
             textClassName="[@media(min-width:1024px)_and_(max-width:1440px)]:text-[45px] min-2000px:text-[3vw] min-2000px:ml-[.5vw]"
