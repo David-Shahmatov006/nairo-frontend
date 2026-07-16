@@ -174,7 +174,7 @@ export const ChatInput = ({
             onInput={handleTypingInput}
             onPaste={handlePaste}
             onKeyDown={handleKeyDown}
-            className="dark:text-white/80 flex-1 outline-none min-2000px:text-[.7vw] text-[15px] min-2000px:py-[.3vw] py-2"
+            className="dark:text-white/80 flex-1 outline-none min-2000px:text-[.7vw] text-[16px] min-2000px:py-[.3vw] py-2"
           ></div>
 
           {!messageContent.length && (
