@@ -156,7 +156,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               maxLength={40}
               onChange={(e) => setFirstName(e.target.value)}
               className={clsx(
-                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
+                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
                 !isValidName(firstName) && "border border-red-500",
               )}
             />
@@ -177,7 +177,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
               maxLength={40}
               onChange={(e) => setLastName(e.target.value)}
               className={clsx(
-                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
+                "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
                 !isValidName(lastName) && "border border-red-500",
               )}
             />
@@ -198,7 +198,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={clsx(
-              "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
+              "font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300",
               !isValidUsername(username) && "border border-red-500",
             )}
           />

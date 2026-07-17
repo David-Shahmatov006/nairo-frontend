@@ -76,7 +76,7 @@ export const ChangePassword = () => {
               setOldPassword(e.target.value);
               setError("");
             }}
-            className="w-full min-2000px:px-[1.6vw] px-10 min-2000px:py-[.3vw] py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] min-2000px:rounded-[.2vw] rounded-lg min-2000px:text-[.7vw] text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+            className="w-full min-2000px:px-[1.6vw] px-10 min-2000px:py-[.3vw] py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] min-2000px:rounded-[.2vw] rounded-lg min-2000px:text-[.7vw] text-[16px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
             placeholder={t("auth.password")}
           />
 
@@ -109,7 +109,7 @@ export const ChangePassword = () => {
               setNewPassword(e.target.value);
               setError("");
             }}
-            className="w-full min-2000px:px-[1.6vw] px-10 min-2000px:py-[.3vw] py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] min-2000px:rounded-[.2vw] rounded-lg min-2000px:text-[.7vw] text-[15px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+            className="w-full min-2000px:px-[1.6vw] px-10 min-2000px:py-[.3vw] py-2 border dark:border-white/10 dark:text-white/80 border-[#E5E7EB] min-2000px:rounded-[.2vw] rounded-lg min-2000px:text-[.7vw] text-[16px] text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
             placeholder={t("auth.password")}
           />
 

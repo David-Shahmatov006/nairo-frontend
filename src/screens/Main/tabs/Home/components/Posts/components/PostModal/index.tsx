@@ -196,7 +196,7 @@ export const PostModal = () => {
                 maxLength={200}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/5 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/5 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
               />
             </div>
 

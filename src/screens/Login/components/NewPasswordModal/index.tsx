@@ -62,7 +62,7 @@ export const NewPasswordModal = () => {
               <input
                 type={passwordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full min-2000px:pl-[1.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] max-1200px:text-[14px] min-2000px:text-[.8vw] text-[15px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
+                className="w-full min-2000px:pl-[1.5vw] pl-10 max-1200px:pr-1 min-2000px:pr-[1vw] pr-10 max-1200px:py-2 py-3 border dark:border-white/10 border-[#E5E7EB] min-2000px:rounded-[.4vw] rounded-[12px] dark:bg-white/10 bg-[#F9FAFB] shadow-[0px_1px_2px_0px_#1018280D] min-2000px:text-[.8vw] text-[16px] dark:text-white/80 text-[#111827] focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
                 placeholder={t('auth.password')}
               />
 
