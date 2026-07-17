@@ -1,73 +1,160 @@
-# React + TypeScript + Vite
+# 🌐 Nairo Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern social networking platform built with **React**, **TypeScript**, and **Vite**, focused on performance, user experience, and scalability.
 
-Currently, two official plugins are available:
+## 🔗 Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🌍 **Live Demo:** https://nairo-frontend-production.up.railway.app/
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔐 Authentication & Authorization
+  - Registration
+  - Login
+  - OTP email verification
+  - Password recovery
+  - Secure authentication with cookies
 
-## Expanding the ESLint configuration
+- 👤 User Profiles
+  - Edit profile information
+  - Upload avatar
+  - Bio support
+  - Follow / Unfollow users
+  - User search
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 📝 Posts
+  - Create posts with images
+  - View post details
+  - Comments
+  - Save posts
+  - Responsive post cards
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 💬 Real-Time Chat
+  - Private conversations
+  - Typing indicator
+  - Automatic scroll to latest messages
+  - Chat search
+  - Delete chats
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 🌍 Internationalization (i18n)
+  - Multi-language support
+  - Ukrainian
+  - English
+  - Polish
+  - Turkish
+  - Italian
+  - Portuguese
+  - Japanese
+  - French
+  - German
+  - Spanish
+  - Easy to add new languages
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 🎨 Themes
+  - Light Mode
+  - Dark Mode
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 📱 Responsive Design
+  - Mobile-first approach
+  - Tablet support
+  - Desktop optimization
+  - Ultra-wide screen support
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- ⚡ Performance
+  - Lazy loading
+  - Optimized images
+  - Infinite scrolling
+  - Efficient rendering
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 😊 UI/UX
+  - Smooth animations with Framer Motion
+  - Emoji picker
+  - Beautiful loading states
+  - Custom scrollbars
+
+---
+
+## 🛠️ Tech Stack
+
+### Core
+
+- React 19
+- TypeScript
+- Vite
+
+### Routing
+
+- React Router DOM
+
+### Styling
+
+- Tailwind CSS
+- clsx
+
+### State Management
+
+- Zustand
+
+### HTTP Client
+
+- Axios
+- SWR
+
+### Internationalization
+
+- i18next
+- react-i18next
+
+### Animations
+
+- Framer Motion
+
+### Realtime
+
+- Socket.IO Client
+
+### Notifications
+
+- React Hot Toast
+
+### Icons
+
+- React Icons
+
+### Utilities
+
+
+- date-fns
+- react-scroll-to-bottom
+- react-intersection-observer
+- react-infinite-scroll-component
+
+---
+
+## 📱 Responsive Breakpoints
+
+- Mobile
+- Tablet
+- Desktop
+- 2K / Ultra-wide monitors
+
+---
+
+## 🎯 Highlights
+
+- ✅ Fully responsive UI
+- ✅ Dark & Light themes
+- ✅ Multi-language support(10 languages)
+- ✅ Real-time messaging
+- ✅ Infinite scrolling
+- ✅ Secure authentication
+- ✅ Optimized performance
+- ✅ Reusable component architecture
+- ✅ Modern React patterns
+- ✅ Clean and scalable codebase
+
+---
+
+## 📄 License
+
+This project is created for educational and portfolio purposes.
