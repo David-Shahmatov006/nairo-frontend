@@ -15,7 +15,7 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
       <div
         className={clsx(
           "dark:bg-[#0f0f0f] flex flex-col",
-          location.pathname.includes("chats") && "h-screen",
+          location.pathname.includes("chats") && "min-[768px]:h-screen",
         )}
       >
         <Header />

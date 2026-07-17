@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import type { RefObject } from "react";
+import { type RefObject } from "react";
 import type { UIMessage } from "../../../../../types/chats";
 import { useTranslation } from "react-i18next";
 import surprisedMuskot from "../../../../../assets/images/surprisedMuskot.webp";
@@ -7,6 +7,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import { ScrollButton } from "../../../../../components/ScrollButton";
 import { motion } from "framer-motion";
 import { formatTime } from "../../../../../utils/formatDate";
+import browser from "browser-detect";
 
 interface ChatMessageListProps {
   messages: UIMessage[];
@@ -20,45 +21,56 @@ export const ChatMessageList = ({
   messagesEndRef,
 }: ChatMessageListProps) => {
   const { t } = useTranslation();
+  const { name } = browser();
+  const isChrome = name === "crios";
 
-  if (!messages.length) {
-    return (
-      <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-        <img src={surprisedMuskot} className="min-2000px:w-[7vw] w-[120px]" />
-        <p className="text-gray-500 text-center min-2000px:text-[.8vw] py-4">
-          {t("chat.no_messages")}
-        </p>
-      </div>
-    );
-  }
 
   return (
     <ScrollToBottom
       scrollViewClassName="scrollbar-hidden"
-      className="chat-scroll-container chat-scroll flex-1 max-768px:max-h-[80vh] min-2000px:max-h-[46.5vw] max-h-[70vh] min-2000px:px-[.5vw] px-5 min-2000px:pt-[.4vw] pt-4 relative custom-scrollbar"
+      className="chat-scroll-container chat-scroll flex-1  min-2000px:px-[.5vw] px-5 min-2000px:pt-[.4vw] pt-4 relative custom-scrollbar"
     >
-      <div className="flex flex-col min-2000px:gap-[.3vw] gap-3 custom-scrollbar">
-        {messages.map((msg) => {
-          return (
-            <div
-              key={msg.id}
-              className={clsx(
-                "w-fit min-2000px:max-w-[20vw] max-w-[30rem] max-768px:py-2 max-768px:px-3 min-2000px:px-[.5vw] px-5 min-2000px:py-[.2vw] py-3 min-2000px:rounded-[.4vw] rounded-xl border",
-                msg.fromMe
-                  ? "ml-auto dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
-                  : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200"
-              )}
-            >
+      <div
+        className={clsx(
+          "min-2000px:max-h-[46.5vw] max-h-[70vh] flex flex-col min-2000px:gap-[.3vw] gap-3 custom-scrollbar",
+          isChrome ? "max-768px:max-h-[70vh]" : "max-768px:max-h-[78vh]",
+        )}
+      >
+        {messages.length ? (
+          messages.map((msg) => {
+            return (
               <div
-                className="min-2000px:text-[.8vw] max-768px:text-[14px] dark:text-white/80 whitespace-pre-wrap break-words"
-                dangerouslySetInnerHTML={{ __html: msg.text }}
-              />
-              <div className="min-2000px:text-[.6vw] text-[11px] text-gray-500 min-2000px:mt-[.2vw] mt-1">
-                {formatTime(msg.time)}
+                key={msg.id}
+                className={clsx(
+                  "w-fit min-2000px:max-w-[20vw] max-w-[30rem] max-768px:py-2 max-768px:px-3 min-2000px:px-[.5vw] px-5 min-2000px:py-[.2vw] py-3 min-2000px:rounded-[.4vw] rounded-xl border",
+                  msg.fromMe
+                    ? "ml-auto dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
+                    : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200",
+                )}
+              >
+                <div
+                  className="min-2000px:text-[.8vw] max-768px:text-[14px] dark:text-white/80 whitespace-pre-wrap break-words"
+                  dangerouslySetInnerHTML={{ __html: msg.text }}
+                />
+                <div className="min-2000px:text-[.6vw] text-[11px] text-gray-500 min-2000px:mt-[.2vw] mt-1">
+                  {formatTime(msg.time)}
+                </div>
               </div>
+            );
+          })
+        ) : (
+          <div className="h-[70vh]">
+            <div className="flex-1 h-full flex flex-col justify-center items-center">
+              <img
+                src={surprisedMuskot}
+                className="min-2000px:w-[7vw] w-[120px]"
+              />
+              <p className="text-gray-500 text-center min-2000px:text-[.8vw] py-4">
+                {t("chat.no_messages")}
+              </p>
             </div>
-          );
-        })}
+          </div>
+        )}
 
         <div ref={messagesEndRef} />
       </div>

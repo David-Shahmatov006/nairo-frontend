@@ -328,7 +328,7 @@ export const Chats = () => {
       )}
 
       {showChatWindow && (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col max-768px:h-[80vh]">
           {activeChat ? (
             <>
               <ChatHeader activeChat={activeChat} />
@@ -348,16 +348,22 @@ export const Chats = () => {
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center text-gray-500">
-              {userChats.length > 0 ? (
+              {userChats.length < 0 ? (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-                  <img src={searchMuskot} className="min-2000px:w-[5vw] w-[80px]" />
+                  <img
+                    src={searchMuskot}
+                    className="min-2000px:w-[5vw] w-[80px]"
+                  />
                   <p className="text-gray-500 text-center min-2000px:text-[.7vw] py-4">
                     {t("chat.select_chat")}
                   </p>
                 </div>
               ) : (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-                  <img src={surprisedMuskot} className="min-2000px:w-[7vw] w-[120px]" />
+                  <img
+                    src={surprisedMuskot}
+                    className="min-2000px:w-[7vw] w-[120px]"
+                  />
                   <p className="text-gray-500 text-center min-2000px:text-[.9vw] py-4">
                     {t("chat.no_chats")}
                   </p>
