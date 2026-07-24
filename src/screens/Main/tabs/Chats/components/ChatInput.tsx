@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { EmojiPickerModal } from "./EmojiPickerModal";
 
 interface ChatInputProps {
-  onSendMessage: (htmlContent: string) => void;
+  onSendMessage: (content: string) => void;
   activeChatId: string | null;
   socket: any;
   userId: string;
@@ -68,21 +68,10 @@ export const ChatInput = ({
   };
 
   const handleEmojiSelect = (emoji: any) => {
-    // если обычный emoji — вставляем как текст
     if (typeof emoji.value === "string") {
       insertAtCursor(emoji.value);
       return;
     }
-
-    // если кастомный emoji (картинка)
-    if (emoji.value?.src) {
-      insertAtCursor(
-        `<img src="${emoji.value.src}" class="inline-block w-5 h-5 mx-[2px] align-middle" />`
-      );
-      return;
-    }
-
-    console.warn("Unknown emoji format:", emoji);
   };
 
   const handleTypingInput = (e: React.FormEvent<HTMLDivElement>) => {

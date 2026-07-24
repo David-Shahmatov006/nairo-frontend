@@ -1,18 +1,19 @@
 import clsx from "clsx";
 import { type RefObject } from "react";
-import type { UIMessage } from "../../../../../types/chats";
+import type { IMessage } from "../../../../../types/chats";
 import { useTranslation } from "react-i18next";
 import surprisedMuskot from "../../../../../assets/images/surprisedMuskot.webp";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { ScrollButton } from "../../../../../components/ScrollButton";
 import { motion } from "framer-motion";
-import { formatTime } from "../../../../../utils/formatDate";
 import browser from "browser-detect";
+import { Message } from "./Message";
 
 interface ChatMessageListProps {
-  messages: UIMessage[];
+  messages: IMessage[];
   isTyping: boolean;
   messagesEndRef: RefObject<HTMLDivElement | null>;
+  onUpdate: (messageId: string, newText: string) => void;
 }
 
 export const ChatMessageList = ({
@@ -24,11 +25,10 @@ export const ChatMessageList = ({
   const { name } = browser();
   const isChrome = name === "crios";
 
-
   return (
     <ScrollToBottom
       scrollViewClassName="scrollbar-hidden"
-      className="chat-scroll-container chat-scroll flex-1  min-2000px:px-[.5vw] px-5 min-2000px:pt-[.4vw] pt-4 relative custom-scrollbar"
+      className="chat-scroll-container chat-scroll flex-1  min-2000px:px-[.5vw] px-5 min-2000px:pt-[.4vw] pt-4 pb-2 relative custom-scrollbar"
     >
       <div
         className={clsx(
@@ -39,23 +39,7 @@ export const ChatMessageList = ({
         {messages.length ? (
           messages.map((msg) => {
             return (
-              <div
-                key={msg.id}
-                className={clsx(
-                  "w-fit min-2000px:max-w-[20vw] max-w-[30rem] max-768px:py-2 max-768px:px-3 min-2000px:px-[.5vw] px-5 min-2000px:py-[.2vw] py-3 min-2000px:rounded-[.4vw] rounded-xl border",
-                  msg.fromMe
-                    ? "ml-auto dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
-                    : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200",
-                )}
-              >
-                <div
-                  className="min-2000px:text-[.8vw] max-768px:text-[14px] dark:text-white/80 whitespace-pre-wrap break-words"
-                  dangerouslySetInnerHTML={{ __html: msg.text }}
-                />
-                <div className="min-2000px:text-[.6vw] text-[11px] text-gray-500 min-2000px:mt-[.2vw] mt-1">
-                  {formatTime(msg.time)}
-                </div>
-              </div>
+              <Message onDelete={() => {}} message={msg} />
             );
           })
         ) : (

@@ -142,7 +142,10 @@
     "no_messages": "Henüz mesaj yok",
     "no_chats": "Henüz hiç sohbetiniz yok",
     "no_results": "Maalesef böyle bir sohbet bulunamadı",
-    "select_chat": "Lütfen bir sohbet seçin"
+    "select_chat": "Lütfen bir sohbet seçin",
+    "edit_message": "Mesajı düzenle",
+    "delete_message": "Mesajı sil",
+    "edited_label": "Düzenlendi"
   },
   "emoji_modal": {
     "default_emojis": "Emojiler",

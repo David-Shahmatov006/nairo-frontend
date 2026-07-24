@@ -6,9 +6,10 @@ import type { User } from "../../../../../../../../../../../types/user";
 import { Link } from "react-router-dom";
 import { commentsService } from "../../../../../../../../../../../services/comments.service";
 import { mutate } from "swr";
-import { EditCommentModal } from "./EditCommentModal";
+import { EditModal } from "../../../../../../../../../../../components/EditModal";
 import { BiLoaderAlt } from "react-icons/bi";
 import type { Post } from "../../../../../../../../../../../types/post";
+import { useTranslation } from "react-i18next";
 interface CommentProps {
   comment: {
     id: string;
@@ -27,6 +28,7 @@ export const Comment = ({ comment, currentUserId, postId }: CommentProps) => {
   const isPostOwner = currentUserId === comment.post.user.id;
   const canEdit = isCommentOwner;
   const canDelete = isCommentOwner || isPostOwner;
+  const { t } = useTranslation();
 
   const handleDelete = async (commentId: string) => {
     setIsDeleting(true);
@@ -89,14 +91,18 @@ export const Comment = ({ comment, currentUserId, postId }: CommentProps) => {
             </div>
 
             <p className="dark:text-white/60 text-gray-700 min-2000px:mt-[.2vw] mt-1 w-full">
-              <span className="block w-full break-words min-2000px:text-[.7vw]">{comment.text}</span>
+              <span className="block w-full break-words min-2000px:text-[.7vw]">
+                {comment.text}
+              </span>
             </p>
           </div>
         </div>
       </div>
 
-      <EditCommentModal
-        commentId={comment.id}
+      <EditModal
+        type="comment"
+        title={t("edit_comment")}
+        targetId={comment.id}
         postId={postId}
         isOpen={isEditOpen}
         onClose={() => setIsEditOpen(false)}

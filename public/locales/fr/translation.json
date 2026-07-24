@@ -174,7 +174,10 @@
     "no_messages": "Pas encore de messages",
     "no_chats": "Vous n'avez pas encore de discussions",
     "no_results": "Malheureusement, nous n'avons pas trouvé ce chat",
-    "select_chat": "Veuillez sélectionner un chat"
+    "select_chat": "Veuillez sélectionner un chat",
+    "edit_message": "Modifier le message",
+    "delete_message": "Supprimer le message",
+    "edited_label": "Modifié"
   },
   "emoji_modal": {
     "default_emojis": "Émojis",

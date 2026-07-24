@@ -142,7 +142,10 @@
     "no_messages": "Brak wiadomości",
     "no_chats": "Nie masz jeszcze żadnych czatów",
     "no_results": "Nie udało się znaleźć takiego czatu",
-    "select_chat": "Wybierz czat"
+    "select_chat": "Wybierz czat",
+    "edit_message": "Edytuj wiadomość",
+    "delete_message": "Usuń wiadomość",
+    "edited_label": "Edytowano"
   },
   "emoji_modal": {
     "default_emojis": "Emoji",

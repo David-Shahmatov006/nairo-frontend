@@ -142,7 +142,10 @@
     "no_messages": "Nessun messaggio",
     "no_chats": "Non hai ancora nessuna chat",
     "no_results": "Non siamo riusciti a trovare questa chat",
-    "select_chat": "Seleziona una chat"
+    "select_chat": "Seleziona una chat",
+    "edit_message": "Modifica messaggio",
+    "delete_message": "Elimina messaggio",
+    "edited_label": "Modificato"
   },
   "emoji_modal": {
     "default_emojis": "Emoji",

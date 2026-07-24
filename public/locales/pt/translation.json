@@ -142,7 +142,10 @@
     "no_messages": "Ainda não há mensagens",
     "no_chats": "Você ainda não tem nenhuma conversa",
     "no_results": "Não foi possível encontrar essa conversa",
-    "select_chat": "Selecione uma conversa"
+    "select_chat": "Selecione uma conversa",
+    "edit_message": "Editar mensagem",
+    "delete_message": "Excluir mensagem",
+    "edited_label": "Editado"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

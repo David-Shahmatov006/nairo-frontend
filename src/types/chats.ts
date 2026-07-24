@@ -12,7 +12,6 @@ export interface Chat {
   name: string;
   username: string;
   avatar?: string;
-  online: boolean;
   messages: Message[];
   participants: User[]
 }
@@ -22,10 +21,13 @@ export interface MessageFromServer {
   sender: { id: string };
   text: string;
   createdAt: string;
+  editedAt?: string | null;
 }
-export interface UIMessage {
-  id: string | number;
+
+export interface IMessage {
+  id: string;
   fromMe: boolean;
   text: string;
   time: string;
+  editedAt?: string | null;
 }

@@ -1,5 +1,5 @@
 {
-    "back_button": "戻る",
+  "back_button": "戻る",
   "password": "パスワード",
   "comments": "コメント",
   "online": "オンライン",
@@ -142,7 +142,10 @@
     "no_messages": "まだメッセージはありません",
     "no_chats": "まだチャットはありません",
     "no_results": "該当するチャットが見つかりませんでした",
-    "select_chat": "チャットを選択してください"
+    "select_chat": "チャットを選択してください",
+    "edit_message": "メッセージを編集",
+    "delete_message": "メッセージを削除",
+    "edited_label": "編集済み"
   },
   "emoji_modal": {
     "default_emojis": "絵文字",

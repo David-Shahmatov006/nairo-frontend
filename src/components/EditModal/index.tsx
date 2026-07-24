@@ -2,35 +2,59 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoIosClose } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { commentsService } from "../../../../../../../../../../../services/comments.service";
+import { commentsService } from "../../services/comments.service";
 import { BiLoaderAlt } from "react-icons/bi";
 import { mutate } from "swr";
+import { socket } from "../../services/socket.service";
+import { useAuthStore } from "../../stores/auth";
 
-interface EditCommentModalProps {
+interface EditModalProps {
+  title: string;
   isOpen: boolean;
   onClose: () => void;
   initialText: string;
-  commentId: string;
-  postId: string;
+  targetId: string;
+  type: "message" | "comment";
+  postId?: string;
 }
 
-export const EditCommentModal = ({
+export const EditModal = ({
+  title,
   isOpen,
   onClose,
   initialText,
-  commentId,
+  targetId,
   postId,
-}: EditCommentModalProps) => {
+  type,
+}: EditModalProps) => {
   const { t } = useTranslation();
   const [text, setText] = useState(initialText);
   const [isUpdating, setIsUpdating] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuthStore();
 
   const handleUpdateComment = async () => {
     setIsUpdating(true);
     try {
-      await commentsService.updateComment(text, commentId);
+      await commentsService.updateComment(text, targetId);
       mutate(["comments", postId]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsUpdating(false);
+      onClose();
+    }
+  };
+
+  const handleEditMessage = async () => {
+    setIsUpdating(true);
+
+    try {
+      socket.emit("updateMessage", {
+        messageId: targetId,
+        newText: text,
+        userId: user?.id,
+      });
     } catch (error) {
       console.error(error);
     } finally {
@@ -63,7 +87,9 @@ export const EditCommentModal = ({
             transition={{ type: "spring", duration: 0.35 }}
           >
             <div className="min-2000px:mb-[.5vw] mb-4 flex items-center justify-between">
-              <h2 className="min-2000px:text-[1vw] text-xl font-semibold">{t("edit_comment")}</h2>
+              <h2 className="min-2000px:text-[1vw] text-xl font-semibold">
+                {title}
+              </h2>
               <button
                 onClick={onClose}
                 className="cursor-pointer min-2000px:size-[1.2vw] size-7 dark:bg-white/10 bg-gray-200 flex items-center justify-center rounded-full text-gray-500 hover:ring-2 ring-main/70 duration-300"
@@ -90,7 +116,9 @@ export const EditCommentModal = ({
 
               <button
                 disabled={isUpdating || !text.length}
-                onClick={handleUpdateComment}
+                onClick={
+                  type === "comment" ? handleUpdateComment : handleEditMessage
+                }
                 className="min-2000px:text-[.7vw] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:ring-0 min-2000px:min-w-[4vw] min-w-[110px] flex items-center justify-center font-medium cursor-pointer px-4 py-2 min-2000px:rounded-[.3vw] rounded-xl bg-gray-900 dark:bg-white/10 text-white hover:ring-2 ring-main/70 duration-300"
               >
                 {isUpdating ? (

@@ -14,6 +14,9 @@ export const Sidebar = () => {
     if (route === ROUTES.PROFILE) {
       return location.pathname.startsWith("/profile");
     }
+    if (route === ROUTES.CHATS) {
+      return location.pathname.includes('/chats')
+    }
     return location.pathname === route;
   };
 

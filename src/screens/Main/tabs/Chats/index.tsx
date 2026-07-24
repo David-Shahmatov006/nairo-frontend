@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type {
   Chat,
   MessageFromServer,
-  UIMessage,
+  IMessage,
 } from "../../../../types/chats";
 import { ChatList } from "./components/ChatList";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
@@ -32,7 +32,7 @@ export const Chats = () => {
 
   const [userChats, setUserChats] = useState<Chat[]>([]);
   const [activeChat, setActiveChat] = useState<Chat | null>(null);
-  const [messages, setMessages] = useState<UIMessage[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [chatToDelete, setChatToDelete] = useState<string | null>(null);
 
   const [isDeleteModal, setIsDeleteModal] = useState(false);
@@ -43,11 +43,12 @@ export const Chats = () => {
   const mapMessageToUI = (
     msg: MessageFromServer,
     userId: string | undefined,
-  ): UIMessage => ({
+  ): IMessage => ({
     id: msg.id,
     fromMe: msg.sender.id === userId,
     text: msg.text,
     time: msg.createdAt,
+    editedAt: msg.editedAt,
   });
 
   const mapChatToClient = (chat: Chat, currentUserId: string): Chat | null => {
@@ -66,7 +67,6 @@ export const Chats = () => {
       username: otherParticipant.username,
       avatar: otherParticipant.avatar,
       participants: chat.participants,
-      online: true,
       messages: [],
     };
   };
@@ -104,7 +104,6 @@ export const Chats = () => {
             avatar: userData.avatar,
             participants: [user, userData],
             messages: [],
-            online: true,
           });
 
           return;
@@ -125,104 +124,6 @@ export const Chats = () => {
   useEffect(() => {
     fetchUserChats();
   }, [fetchUserChats]);
-
-  useEffect(() => {
-    if (!activeChat || !user?.id) {
-      setMessages([]);
-      return;
-    }
-
-    const currentChatId = activeChat.id;
-
-    socket.off("receiveMessage");
-    socket.off("newActivity");
-
-    if (currentChatId) {
-      chatsService.getMessages(currentChatId).then((data) => {
-        setMessages(
-          data.map((m: MessageFromServer) => mapMessageToUI(m, user.id)),
-        );
-        setTimeout(scrollToBottom, 50);
-      });
-    }
-
-    socket.emit("joinChat", { chatId: currentChatId });
-
-    const handleReceiveMessage = (data: any) => {
-      const current = activeChatRef.current;
-
-      if (!current?.id && data.chatId) {
-        const receiver = current?.participants.find((p) => p.id !== user.id);
-
-        const newChat: Chat = {
-          id: data.chatId,
-          name: `${receiver?.firstName} ${receiver?.lastName}`,
-          username: receiver?.username!,
-          avatar: receiver?.avatar,
-          participants: current?.participants!,
-          messages: [],
-          online: true,
-        };
-
-        setActiveChat(newChat);
-        navigate(`/chats/${newChat?.id}`, { replace: true });
-
-        return;
-      }
-
-      if (data.chatId === current?.id) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: data.id,
-            fromMe: data.senderId === user.id,
-            text: data.text,
-            time: data.time,
-          },
-        ]);
-
-        scrollToBottom();
-      }
-    };
-
-    socket.on("receiveMessage", handleReceiveMessage);
-    socket.on("newActivity", (data: any) => {
-      const current = activeChatRef.current;
-
-      if (!current?.id && data.chatId) {
-        const receiver = current?.participants.find((p) => p.id !== user.id);
-
-        const newChat: Chat = {
-          id: data.chatId,
-          name: `${receiver?.firstName} ${receiver?.lastName}`,
-          username: receiver?.username!,
-          avatar: receiver?.avatar,
-          participants: current?.participants!,
-          messages: [],
-          online: true,
-        };
-
-        setUserChats((prev) => {
-          const filtered = prev.filter((c) => c.id !== "");
-          return [...filtered, newChat];
-        });
-
-        setActiveChat(newChat);
-
-        navigate(`/chats/${newChat.id}`, { replace: true });
-
-        fetchUserChats();
-
-        return;
-      }
-    });
-
-    return () => {
-      socket.off("receiveMessage", handleReceiveMessage);
-      socket.off("newActivity", fetchUserChats);
-      socket.emit("leaveChat", { chatId: currentChatId });
-    };
-  }, [activeChat?.id]);
 
   const handleSendMessage = (htmlContent: string) => {
     if (!activeChat || !user?.id || !htmlContent.trim()) return;
@@ -248,12 +149,141 @@ export const Chats = () => {
     });
   };
 
+  const handleUpdateMessage = (messageId: string, newText: string) => {
+    if (!user?.id || !newText.trim()) return;
+
+    socket.emit("updateMessage", {
+      messageId,
+      newText,
+      userId: user.id,
+    });
+  };
+
+  useEffect(() => {
+    if (!activeChat || !user?.id) {
+      setMessages([]);
+      return;
+    }
+
+    const currentChatId = activeChat.id;
+
+    socket.off("receiveMessage");
+    socket.off("messageUpdated");
+    socket.off("newActivity");
+
+    if (currentChatId) {
+      chatsService.getMessages(currentChatId).then((data) => {
+        setMessages(
+          data.map((m: MessageFromServer) => mapMessageToUI(m, user.id)),
+        );
+        setTimeout(scrollToBottom, 50);
+      });
+    }
+
+    if (currentChatId) {
+      socket.emit("joinChat", {
+        chatId: currentChatId,
+      });
+    }
+
+    const handleReceiveMessage = (data: any) => {
+      const current = activeChatRef.current;
+
+      if (!current?.id && data.chatId) {
+        const receiver = current?.participants.find((p) => p.id !== user.id);
+
+        const newChat: Chat = {
+          id: data.chatId,
+          name: `${receiver?.firstName} ${receiver?.lastName}`,
+          username: receiver?.username!,
+          avatar: receiver?.avatar,
+          participants: current?.participants!,
+          messages: [],
+        };
+
+        setActiveChat(newChat);
+        navigate(`/chats/${newChat?.id}`, { replace: true });
+
+        return;
+      }
+
+      if (data.chatId === current?.id) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: data.id,
+            fromMe: data.senderId === user.id,
+            text: data.text,
+            time: data.time,
+          },
+        ]);
+
+        scrollToBottom();
+      }
+    };
+
+    const handleMessageUpdated = (data: {
+      messageId: string;
+      text: string;
+      editedAt: string;
+    }) => {
+      setMessages((prev) =>
+        prev.map((message) =>
+          message.id === data.messageId
+            ? {
+                ...message,
+                text: data.text,
+                editedAt: data.editedAt,
+              }
+            : message,
+        ),
+      );
+    };
+
+    socket.on("receiveMessage", handleReceiveMessage);
+    socket.on("messageUpdated", handleMessageUpdated);
+    socket.on("newActivity", (data: any) => {
+      const current = activeChatRef.current;
+
+      if (!current?.id && data.chatId) {
+        const receiver = current?.participants.find((p) => p.id !== user.id);
+
+        const newChat: Chat = {
+          id: data.chatId,
+          name: `${receiver?.firstName} ${receiver?.lastName}`,
+          username: receiver?.username!,
+          avatar: receiver?.avatar,
+          participants: current?.participants!,
+          messages: [],
+        };
+
+        setUserChats((prev) => {
+          const filtered = prev.filter((c) => c.id !== "");
+          return [...filtered, newChat];
+        });
+
+        setActiveChat(newChat);
+
+        navigate(`/chats/${newChat.id}`, { replace: true });
+
+        fetchUserChats();
+
+      }
+    });
+
+    return () => {
+      socket.off("receiveMessage", handleReceiveMessage);
+      socket.off("messageUpdated", handleMessageUpdated);
+      socket.off("newActivity", fetchUserChats);
+      socket.emit("leaveChat", { chatId: currentChatId });
+    };
+  }, [activeChat?.id]);
+
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     socket.on("typingStatus", (data) => {
       if (!activeChat?.id) return;
-      if (data.userId === user?.id) return;
 
       setIsTyping(data.isTyping);
     });
@@ -337,6 +367,7 @@ export const Chats = () => {
                 isTyping={isTyping}
                 messages={messages}
                 messagesEndRef={messagesEndRef}
+                onUpdate={handleUpdateMessage}
               />
 
               <ChatInput
