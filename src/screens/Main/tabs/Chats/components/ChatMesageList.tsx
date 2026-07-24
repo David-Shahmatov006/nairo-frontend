@@ -8,12 +8,13 @@ import { ScrollButton } from "../../../../../components/ScrollButton";
 import { motion } from "framer-motion";
 import browser from "browser-detect";
 import { Message } from "./Message";
+import { socket } from "../../../../../services/socket.service";
+import { useAuthStore } from "../../../../../stores/auth";
 
 interface ChatMessageListProps {
   messages: IMessage[];
   isTyping: boolean;
   messagesEndRef: RefObject<HTMLDivElement | null>;
-  onUpdate: (messageId: string, newText: string) => void;
 }
 
 export const ChatMessageList = ({
@@ -24,6 +25,11 @@ export const ChatMessageList = ({
   const { t } = useTranslation();
   const { name } = browser();
   const isChrome = name === "crios";
+  const { user } = useAuthStore();
+
+  const handleDeleteMessage = (messageId: string) => {
+    socket.emit("deleteMessage", { messageId, userId: user?.id });
+  };
 
   return (
     <ScrollToBottom
@@ -38,9 +44,7 @@ export const ChatMessageList = ({
       >
         {messages.length ? (
           messages.map((msg) => {
-            return (
-              <Message onDelete={() => {}} message={msg} />
-            );
+            return <Message onDelete={handleDeleteMessage} message={msg} />;
           })
         ) : (
           <div className="h-[70vh]">

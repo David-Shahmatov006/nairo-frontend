@@ -6,6 +6,7 @@ import type { IMessage } from "../../../../../types/chats";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { EditModal } from "../../../../../components/EditModal";
 import { useTranslation } from "react-i18next";
+import { ConfirmModal } from "../../../../../components/ConfirmModal";
 
 interface IProps {
   message: IMessage;
@@ -16,9 +17,10 @@ export const Message = ({ message, onDelete }: IProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isHolding, setIsHolding] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const startLongPress = () => {
     if (!message.fromMe) return;
@@ -86,7 +88,9 @@ export const Message = ({ message, onDelete }: IProps) => {
 
         <div className="w-full flex justify-between gap-1 items-center mt-1">
           {message.editedAt && (
-            <span className="text-[10px] text-gray-400 italic">{t('chat.edited_label')}</span>
+            <span className="text-[10px] text-gray-400 italic">
+              {t("chat.edited_label")}
+            </span>
           )}
 
           <span className="min-2000px:text-[.5vw] text-[11px] text-gray-500">
@@ -109,24 +113,29 @@ export const Message = ({ message, onDelete }: IProps) => {
             <button
               onClick={() => {
                 setIsOpenEditModal(true);
+                setMenuOpen(false);
               }}
               className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
             >
               <FiEdit2 className="min-2000px:text-[.6vw] text-[15px] text-gray-500 group-hover:text-main duration-300 group-hover:scale-110" />
-              <span className="min-2000px:text-[.7vw]">{t("chat.edit_message")}</span>
+              <span className="min-2000px:text-[.7vw]">
+                {t("chat.edit_message")}
+              </span>
             </button>
 
             <div className="mx-2 my-1 h-px bg-gray-200 dark:bg-white/10" />
 
             <button
               onClick={() => {
+                setIsOpenDeleteModal(true);
                 setMenuOpen(false);
-                onDelete(message.id);
               }}
               className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
             >
               <FiTrash2 className="min-2000px:text-[.6vw] text-[15px] group-hover:text-red-400 duration-300 group-hover:scale-110" />
-              <span className="min-2000px:text-[.7vw]">{t("chat.delete_message")}</span>
+              <span className="min-2000px:text-[.7vw]">
+                {t("chat.delete_message")}
+              </span>
             </button>
           </motion.div>
         )}
@@ -142,6 +151,26 @@ export const Message = ({ message, onDelete }: IProps) => {
         initialText={message.text}
         targetId={message.id}
         type="message"
+      />
+
+      <ConfirmModal
+        isOpen={isOpenDeleteModal}
+        onClose={() => setIsOpenDeleteModal(false)}
+        onConfirm={() => {
+          if (message) {
+            try {
+              onDelete(message.id);
+            } catch (error) {
+              console.error(error);
+            } finally {
+              setIsOpenDeleteModal(false);
+            }
+          }
+        }}
+        title={t("chat.delete_message")}
+        subtitle={t("chat.delete_message_subtitle")}
+        confirmText={t("chat.delete_modal_confirm")}
+        cancelText={t("chat.confirm_modal_cancel")}
       />
     </div>
   );

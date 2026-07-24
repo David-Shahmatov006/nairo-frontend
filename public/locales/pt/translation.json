@@ -135,7 +135,7 @@
     "delete_chat_desc": "Esta conversa será excluída permanentemente",
     "block_user": "Bloquear usuário?",
     "block_user_desc": "Este usuário não poderá mais enviar mensagens para você",
-    "delete_chat_confirm": "Excluir",
+    "delete_modal_confirm": "Excluir",
     "block_user_confirm": "Bloquear",
     "confirm_modal_cancel": "Cancelar",
     "type_message": "Digite uma mensagem...",
@@ -145,7 +145,8 @@
     "select_chat": "Selecione uma conversa",
     "edit_message": "Editar mensagem",
     "delete_message": "Excluir mensagem",
-    "edited_label": "Editado"
+    "edited_label": "Editado",
+    "delete_message_subtitle": "Esta ação não pode ser desfeita"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

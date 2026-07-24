@@ -135,7 +135,7 @@
     "delete_chat_desc": "この会話は完全に削除されます",
     "block_user": "このユーザーをブロックしますか？",
     "block_user_desc": "このユーザーは今後あなたにメッセージを送信できなくなります",
-    "delete_chat_confirm": "削除",
+    "delete_modal_confirm": "削除",
     "block_user_confirm": "ブロック",
     "confirm_modal_cancel": "キャンセル",
     "type_message": "メッセージを入力...",
@@ -145,7 +145,8 @@
     "select_chat": "チャットを選択してください",
     "edit_message": "メッセージを編集",
     "delete_message": "メッセージを削除",
-    "edited_label": "編集済み"
+    "edited_label": "編集済み",
+    "delete_message_subtitle": "この操作は元に戻せません"
   },
   "emoji_modal": {
     "default_emojis": "絵文字",

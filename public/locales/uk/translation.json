@@ -167,8 +167,7 @@
     "delete_chat_desc": "Цю розмову буде видалено назавжди",
     "block_user": "Заблокувати користувача ?",
     "block_user_desc": "Цей користувач більше не зможе писати вам",
-    "delete_chat_confirm": "Видалити",
-    "block_user_confirm": "Заблокувати",
+    "delete_modal_confirm": "Видалити",
     "confirm_modal_cancel": "Скасувати",
     "type_message": "Напишіть повідомлення...",
     "no_messages": "Поки що, немає повідомлень",
@@ -177,7 +176,8 @@
     "select_chat": "Будь ласка, оберіть чат",
     "edit_message": "Редагувати повідомлення",
     "delete_message": "Видалити повідомлення",
-    "edited_label": "Змінено"
+    "edited_label": "Змінено",
+    "delete_message_subtitle": "Ця дія є незворотною"
   },
   "emoji_modal": {
     "default_emojis": "Емодзі",

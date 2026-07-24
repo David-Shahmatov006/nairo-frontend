@@ -167,7 +167,7 @@
     "delete_chat_desc": "Dieser Chat wird dauerhaft gelöscht",
     "block_user": "Benutzer blockieren ?",
     "block_user_desc": "Dieser Benutzer kann dir keine Nachrichten mehr senden",
-    "delete_chat_confirm": "Löschen",
+    "delete_modal_confirm": "Löschen",
     "block_user_confirm": "Blockieren",
     "confirm_modal_cancel": "Abbrechen",
     "type_message": "Nachricht eingeben...",
@@ -177,7 +177,8 @@
     "select_chat": "Bitte wählen Sie einen Chat aus",
     "edit_message": "Nachricht bearbeiten",
     "delete_message": "Nachricht löschen",
-    "edited_label": "Bearbeitet"
+    "edited_label": "Bearbeitet",
+    "delete_message_subtitle": "Diese Aktion kann nicht rückgängig gemacht werden"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

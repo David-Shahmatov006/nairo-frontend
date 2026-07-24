@@ -135,7 +135,7 @@
     "delete_chat_desc": "Questa conversazione verrà eliminata definitivamente",
     "block_user": "Bloccare l'utente?",
     "block_user_desc": "Questo utente non potrà più inviarti messaggi",
-    "delete_chat_confirm": "Elimina",
+    "delete_modal_confirm": "Elimina",
     "block_user_confirm": "Blocca",
     "confirm_modal_cancel": "Annulla",
     "type_message": "Scrivi un messaggio...",
@@ -145,7 +145,8 @@
     "select_chat": "Seleziona una chat",
     "edit_message": "Modifica messaggio",
     "delete_message": "Elimina messaggio",
-    "edited_label": "Modificato"
+    "edited_label": "Modificato",
+    "delete_message_subtitle": "Questa azione non può essere annullata"
   },
   "emoji_modal": {
     "default_emojis": "Emoji",

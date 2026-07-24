@@ -167,7 +167,7 @@
     "delete_chat_desc": "Cette conversation sera supprimée définitivement",
     "block_user": "Bloquer l’utilisateur ?",
     "block_user_desc": "Cet utilisateur ne pourra plus vous envoyer de messages",
-    "delete_chat_confirm": "Supprimer",
+    "delete_modal_confirm": "Supprimer",
     "block_user_confirm": "Bloquer",
     "confirm_modal_cancel": "Annuler",
     "type_message": "Tapez un message...",
@@ -177,7 +177,8 @@
     "select_chat": "Veuillez sélectionner un chat",
     "edit_message": "Modifier le message",
     "delete_message": "Supprimer le message",
-    "edited_label": "Modifié"
+    "edited_label": "Modifié",
+    "delete_message_subtitle": "Cette action est irréversible"
   },
   "emoji_modal": {
     "default_emojis": "Émojis",

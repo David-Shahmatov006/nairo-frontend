@@ -149,16 +149,6 @@ export const Chats = () => {
     });
   };
 
-  const handleUpdateMessage = (messageId: string, newText: string) => {
-    if (!user?.id || !newText.trim()) return;
-
-    socket.emit("updateMessage", {
-      messageId,
-      newText,
-      userId: user.id,
-    });
-  };
-
   useEffect(() => {
     if (!activeChat || !user?.id) {
       setMessages([]);
@@ -169,6 +159,7 @@ export const Chats = () => {
 
     socket.off("receiveMessage");
     socket.off("messageUpdated");
+    socket.off("messageDeleted");
     socket.off("newActivity");
 
     if (currentChatId) {
@@ -240,8 +231,15 @@ export const Chats = () => {
       );
     };
 
+    const handleMessageDeleted = (data: { messageId: string }) => {
+      setMessages((prev) =>
+        prev.filter((message) => message.id !== data.messageId),
+      );
+    };
+
     socket.on("receiveMessage", handleReceiveMessage);
     socket.on("messageUpdated", handleMessageUpdated);
+    socket.on("messageDeleted", handleMessageDeleted);
     socket.on("newActivity", (data: any) => {
       const current = activeChatRef.current;
 
@@ -267,13 +265,13 @@ export const Chats = () => {
         navigate(`/chats/${newChat.id}`, { replace: true });
 
         fetchUserChats();
-
       }
     });
 
     return () => {
       socket.off("receiveMessage", handleReceiveMessage);
       socket.off("messageUpdated", handleMessageUpdated);
+      socket.off("messageDeleted", handleMessageDeleted);
       socket.off("newActivity", fetchUserChats);
       socket.emit("leaveChat", { chatId: currentChatId });
     };
@@ -367,7 +365,6 @@ export const Chats = () => {
                 isTyping={isTyping}
                 messages={messages}
                 messagesEndRef={messagesEndRef}
-                onUpdate={handleUpdateMessage}
               />
 
               <ChatInput
@@ -413,7 +410,7 @@ export const Chats = () => {
         }}
         title={t("chat.delete_chat")}
         subtitle={t("chat.delete_chat_desc")}
-        confirmText={t("chat.delete_chat_confirm")}
+        confirmText={t("chat.delete_modal_confirm")}
         cancelText={t("chat.confirm_modal_cancel")}
       />
     </motion.div>

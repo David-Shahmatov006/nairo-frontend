@@ -135,7 +135,7 @@
     "delete_chat_desc": "Bu konuşma kalıcı olarak silinecek",
     "block_user": "Kullanıcı engellensin mi?",
     "block_user_desc": "Bu kullanıcı artık size mesaj gönderemeyecek",
-    "delete_chat_confirm": "Sil",
+    "delete_modal_confirm": "Sil",
     "block_user_confirm": "Engelle",
     "confirm_modal_cancel": "İptal",
     "type_message": "Bir mesaj yazın...",
@@ -145,7 +145,8 @@
     "select_chat": "Lütfen bir sohbet seçin",
     "edit_message": "Mesajı düzenle",
     "delete_message": "Mesajı sil",
-    "edited_label": "Düzenlendi"
+    "edited_label": "Düzenlendi",
+    "delete_message_subtitle": "Bu işlem geri alınamaz"
   },
   "emoji_modal": {
     "default_emojis": "Emojiler",

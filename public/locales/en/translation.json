@@ -135,7 +135,7 @@
     "delete_chat_desc": "This conversation will be permanently deleted",
     "block_user": "Block user ?",
     "block_user_desc": "This user will not be able to message you anymore",
-    "delete_chat_confirm": "Delete",
+    "delete_modal_confirm": "Delete",
     "block_user_confirm": "Block",
     "confirm_modal_cancel": "Cancel",
     "type_message": "Type a message...",
@@ -145,7 +145,8 @@
     "select_chat": "Please, select a chat",
     "edit_message": "Edit Message",
     "delete_message": "Delete Message",
-    "edited_label": "Edited"
+    "edited_label": "Edited",
+    "delete_message_subtitle": "This action cannot be undone"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",
