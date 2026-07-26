@@ -1,4 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import "./i18n";
 import { Login } from "./screens/Login";
 import { PostPage } from "./screens/Main/tabs/Home/components/Posts/components/PostPage";
@@ -22,9 +26,9 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { NotFound } from "./screens/NotFound";
 
 function App() {
-  const { theme } = useAppStore();
+  const { theme, setSelectedLanguage } =
+    useAppStore();
   const { user } = useAuthStore();
-  const { setSelectedLanguage } = useAppStore();
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -51,6 +55,7 @@ function App() {
       localStorage.setItem("referralCode", ref);
     }
   }, []);
+
 
   return (
     <Router>

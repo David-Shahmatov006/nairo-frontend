@@ -7,6 +7,7 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { EditModal } from "../../../../../components/EditModal";
 import { useTranslation } from "react-i18next";
 import { ConfirmModal } from "../../../../../components/ConfirmModal";
+import { useAuthStore } from "../../../../../stores/auth";
 
 interface IProps {
   message: IMessage;
@@ -18,12 +19,14 @@ export const Message = ({ message, onDelete }: IProps) => {
   const [isHolding, setIsHolding] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const { t } = useTranslation();
+  const { user } = useAuthStore();
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+  const fromMe = message.sender.id === user?.id;
 
   const startLongPress = () => {
-    if (!message.fromMe) return;
+    if (!fromMe) return;
 
     setIsHolding(true);
 
@@ -67,12 +70,12 @@ export const Message = ({ message, onDelete }: IProps) => {
         }}
         className={clsx(
           "w-fit min-w-[13%] min-2000px:max-w-[20vw] max-w-[30rem] rounded-xl border px-3 py-2 relative",
-          message.fromMe
+          fromMe
             ? "ml-auto dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
             : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200",
         )}
         onContextMenu={(e) => {
-          if (!message.fromMe) return;
+          if (!fromMe) return;
 
           e.preventDefault();
           setMenuOpen(true);
@@ -94,7 +97,7 @@ export const Message = ({ message, onDelete }: IProps) => {
           )}
 
           <span className="min-2000px:text-[.5vw] text-[11px] text-gray-500">
-            {formatTime(message.time)}
+            {formatTime(message.createdAt)}
           </span>
         </div>
       </motion.div>

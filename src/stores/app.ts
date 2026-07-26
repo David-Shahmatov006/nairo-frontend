@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { ILang } from "../types/lang";
 import type { Post } from "../types/post";
+import type { IMessage } from "../types/chats";
 
 type Theme = "light" | "dark";
 
@@ -35,6 +36,9 @@ interface AppState {
   isOpenPostModal: boolean;
   setIsOpenPostModal: (arg: boolean) => void;
 
+  isOpenMessageToast: boolean;
+  setIsOpenMessageToast: (arg: boolean) => void;
+
   activeTab: number;
   setActiveTab: (tab: number) => void;
 
@@ -47,6 +51,9 @@ interface AppState {
   openCreatePostModal: (mode: PostsMode) => void;
   openEditPostModal: (post: Post, mode: PostsMode) => void;
   closePostModal: () => void;
+
+  toastMessage: IMessage | null;
+  setToast: (message: IMessage) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -64,6 +71,9 @@ export const useAppStore = create<AppState>((set) => ({
 
   isOpenPostModal: false,
   setIsOpenPostModal: (arg) => set({ isOpenPostModal: arg }),
+
+  isOpenMessageToast: false,
+  setIsOpenMessageToast: (arg: boolean) => set({ isOpenMessageToast: arg }),
 
   activeTab: 0,
   setActiveTab: (tab) => {
@@ -92,6 +102,8 @@ export const useAppStore = create<AppState>((set) => ({
       };
     });
   },
+  toastMessage: null,
+  setToast: (message: IMessage) => set({ toastMessage: message }),
 
   postModal: {
     isOpen: false,

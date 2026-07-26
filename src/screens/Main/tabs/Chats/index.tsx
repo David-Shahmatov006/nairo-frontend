@@ -5,11 +5,7 @@ import { useAuthStore } from "../../../../stores/auth";
 import { chatsService } from "../../../../services/chats.service";
 import { socket } from "../../../../services/socket.service";
 import { useNavigate, useParams } from "react-router-dom";
-import type {
-  Chat,
-  MessageFromServer,
-  IMessage,
-} from "../../../../types/chats";
+import type { Chat, IMessage } from "../../../../types/chats";
 import { ChatList } from "./components/ChatList";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
 import { ChatHeader } from "./components/ChatHeader";
@@ -39,17 +35,6 @@ export const Chats = () => {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const activeChatRef = useRef<Chat | null>(null);
-
-  const mapMessageToUI = (
-    msg: MessageFromServer,
-    userId: string | undefined,
-  ): IMessage => ({
-    id: msg.id,
-    fromMe: msg.sender.id === userId,
-    text: msg.text,
-    time: msg.createdAt,
-    editedAt: msg.editedAt,
-  });
 
   const mapChatToClient = (chat: Chat, currentUserId: string): Chat | null => {
     const otherParticipant = chat.participants.find(
@@ -128,10 +113,10 @@ export const Chats = () => {
   const handleSendMessage = (htmlContent: string) => {
     if (!activeChat || !user?.id || !htmlContent.trim()) return;
 
-    if (!activeChat.id) {
-      const receiver = activeChat.participants.find((p) => p.id !== user.id);
-      if (!receiver) return;
+    const receiver = activeChat.participants.find((p) => p.id !== user.id);
+    if (!receiver) return;
 
+    if (!activeChat.id) {
       socket.emit("sendMessage", {
         chatId: null,
         senderId: user.id,
@@ -145,6 +130,7 @@ export const Chats = () => {
     socket.emit("sendMessage", {
       chatId: activeChat.id,
       senderId: user.id,
+      receiverId: receiver.id,
       text: htmlContent,
     });
   };
@@ -163,21 +149,17 @@ export const Chats = () => {
     socket.off("newActivity");
 
     if (currentChatId) {
+      socket.emit("joinChat", {
+        chatId: currentChatId,
+      });
+
       chatsService.getMessages(currentChatId).then((data) => {
-        setMessages(
-          data.map((m: MessageFromServer) => mapMessageToUI(m, user.id)),
-        );
+        setMessages(data);
         setTimeout(scrollToBottom, 50);
       });
     }
 
-    if (currentChatId) {
-      socket.emit("joinChat", {
-        chatId: currentChatId,
-      });
-    }
-
-    const handleReceiveMessage = (data: any) => {
+    const handleReceiveMessage = (data: IMessage) => {
       const current = activeChatRef.current;
 
       if (!current?.id && data.chatId) {
@@ -203,9 +185,10 @@ export const Chats = () => {
           ...prev,
           {
             id: data.id,
-            fromMe: data.senderId === user.id,
+            sender: data.sender,
             text: data.text,
-            time: data.time,
+            chatId: data.chatId,
+            createdAt: data.createdAt,
           },
         ]);
 

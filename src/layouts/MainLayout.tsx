@@ -2,13 +2,46 @@ import clsx from "clsx";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { PostModal } from "../screens/Main/tabs/Home/components/Posts/components/PostModal";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Toast } from "../components/Toast";
+import { ROUTES } from "../routes";
+import { useAppStore } from "../stores/app";
+import { useEffect } from "react";
+import { useAuthStore } from "../stores/auth";
+import { socket } from "../services/socket.service";
+import type { IMessage } from "../types/chats";
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
 };
 export const MainLayout = ({ children }: DashboardLayoutProps) => {
+  const { isOpenMessageToast, toastMessage, setToast, setIsOpenMessageToast } =
+    useAppStore();
+  const { user } = useAuthStore();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    socket.emit("connectUser", {
+      userId: user.id,
+    });
+
+    const handleNotification = (message: IMessage) => {
+      if (message.sender.id === user?.id) return;
+      if (location.pathname.includes(message.chatId)) return;
+
+      setToast(message);
+      if (message.sender.id !== user.id) setIsOpenMessageToast(true);
+    };
+
+    socket.on("newMessageNotification", handleNotification);
+
+    return () => {
+      socket.off("newMessageNotification", handleNotification);
+    };
+  }, [user?.id, location.pathname]);
 
   return (
     <>
@@ -35,6 +68,14 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
         </div>
       </div>
       <PostModal />
+      {toastMessage && (
+        <Toast
+          open={isOpenMessageToast}
+          message={toastMessage}
+          onClose={() => setIsOpenMessageToast(false)}
+          onOpenChat={() => navigate(`${ROUTES.CHATS}/${toastMessage.chatId}`)}
+        />
+      )}
     </>
   );
 };

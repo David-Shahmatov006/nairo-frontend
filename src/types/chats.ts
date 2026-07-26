@@ -16,18 +16,11 @@ export interface Chat {
   participants: User[]
 }
 
-export interface MessageFromServer {
-  id: string;
-  sender: { id: string };
-  text: string;
-  createdAt: string;
-  editedAt?: string | null;
-}
-
 export interface IMessage {
   id: string;
-  fromMe: boolean;
+  sender: User;
   text: string;
-  time: string;
+  chatId: string;
+  createdAt: string;
   editedAt?: string | null;
 }
