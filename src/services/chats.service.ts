@@ -1,7 +1,8 @@
+import type { Chat } from "../types/chats";
 import { $api } from "./interceptor";
 
 export class ChatsService {
-  async getUserChats() {
+  async getUserChats(): Promise<Chat[]> {
     const response = await $api.get("/chats");
     return response.data;
   }

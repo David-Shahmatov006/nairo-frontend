@@ -145,6 +145,7 @@
     "select_chat": "Selecione uma conversa",
     "edit_message": "Editar mensagem",
     "delete_message": "Excluir mensagem",
+    "copy_message": "Copiar mensagem",
     "edited_label": "Editado",
     "delete_message_subtitle": "Esta ação não pode ser desfeita"
   },

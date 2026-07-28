@@ -145,6 +145,7 @@
     "select_chat": "Lütfen bir sohbet seçin",
     "edit_message": "Mesajı düzenle",
     "delete_message": "Mesajı sil",
+    "copy_message": "Mesajı kopyala",
     "edited_label": "Düzenlendi",
     "delete_message_subtitle": "Bu işlem geri alınamaz"
   },

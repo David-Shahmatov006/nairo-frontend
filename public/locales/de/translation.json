@@ -177,6 +177,7 @@
     "select_chat": "Bitte wählen Sie einen Chat aus",
     "edit_message": "Nachricht bearbeiten",
     "delete_message": "Nachricht löschen",
+    "copy_message": "Nachricht kopieren",
     "edited_label": "Bearbeitet",
     "delete_message_subtitle": "Diese Aktion kann nicht rückgängig gemacht werden"
   },

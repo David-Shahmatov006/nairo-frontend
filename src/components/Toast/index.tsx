@@ -21,13 +21,14 @@ export const Toast = ({
   onClose,
   onOpenChat,
 }: ToastProps) => {
+  const isMobile = window.innerWidth <= 768;
   useEffect(() => {
     if (!open) return;
 
     const timer = setTimeout(onClose, duration);
 
     return () => clearTimeout(timer);
-  }, [open, duration, onClose]);
+  }, [open, duration]);
 
   return (
     <AnimatePresence>
@@ -41,11 +42,21 @@ export const Toast = ({
             stiffness: 360,
             damping: 28,
           }}
+          drag={isMobile ? "x" : false}
+          dragDirectionLock
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.15}
+          whileDrag={{ scale: 0.96 }}
+          onDragEnd={(_, info) => {
+            if (info.offset.x > 120 || info.velocity.x > 500) {
+              onClose();
+            }
+          }}
           className="fixed max-500px:right-1/2 max-500px:translate-x-1/2 min-2000px:right-[3vw] right-5 min-2000px:top-[5vw] top-24 z-[9999]"
         >
           <div
             onClick={onOpenChat}
-            className="relative max-768px:w-full min-2000px:w-[19vw] w-[360px] overflow-hidden min-2000px:rounded-[.6vw] rounded-[15px] border border-main/10 bg-white/90 dark:bg-[#181818]/95 backdrop-blur-xl cursor-pointer"
+            className="relative max-500px:w-[95vw] min-2000px:w-[19vw] w-[360px] overflow-hidden min-2000px:rounded-[.6vw] rounded-[15px] border border-main/10 bg-white/90 dark:bg-[#181818]/95 backdrop-blur-xl cursor-pointer"
           >
             <div className="flex items-start min-2000px:gap-[.4vw] gap-4 min-2000px:p-[.5vw] p-3">
               <div className="min-2000px:size-[2.3vw] size-11">

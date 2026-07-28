@@ -17,11 +17,16 @@ import { useAuthStore } from "../../stores/auth";
 import { AvatarImage } from "../AvatarImage";
 
 export const Header = () => {
-  const { theme, toggleTheme, openCreatePostModal, postModal } = useAppStore();
+  const { theme, toggleTheme, openCreatePostModal, postModal, chats } =
+    useAppStore();
   const { t } = useTranslation();
   const { logout, user } = useAuthStore();
   const { chatId: chatIdFromUrl } = useParams();
   const isMobile = window.innerWidth <= 768;
+  const unreadCount = chats?.reduce(
+    (sum, chat) => sum + (chat.unreadCount ?? 0),
+    0,
+  );
 
   const tabs = getSidebarTabs(t);
   const isActiveRoute = (route: string) => {
@@ -165,6 +170,11 @@ export const Header = () => {
                           >
                             <Icon className="scale-150" />
                             <span className="font-manrope">{label}</span>
+                            {idx === 2 && unreadCount > 0 && (
+                              <span className="size-5 flex items-center justify-center bg-main/70 text-white text-[14px] rounded-full">
+                                {unreadCount}
+                              </span>
+                            )}
                           </motion.button>
                         </Link>
                       );

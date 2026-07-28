@@ -15,16 +15,18 @@ import { userService } from "../../../../services/user.service";
 import surprisedMuskot from "../../../../assets/images/surprisedMuskot2.webp";
 import searchMuskot from "../../../../assets/images/search_muskot.webp";
 import clsx from "clsx";
+import { mutate } from "swr";
+import { useAppStore } from "../../../../stores/app";
 
 export const Chats = () => {
   const { t } = useTranslation();
   const { user } = useAuthStore();
-  const { chatId: chatIdFromUrl } = useParams();
+  const { chats } = useAppStore();
   const navigate = useNavigate();
-  const isMobile = window.innerWidth <= 768;
   const { chatId: chatIdFromURL } = useParams();
-  const showChatList = !isMobile || !chatIdFromUrl;
-  const showChatWindow = !isMobile || !!chatIdFromUrl;
+  const isMobile = window.innerWidth <= 768;
+  const showChatList = !isMobile || !chatIdFromURL;
+  const showChatWindow = !isMobile || !!chatIdFromURL;
 
   const [userChats, setUserChats] = useState<Chat[]>([]);
   const [activeChat, setActiveChat] = useState<Chat | null>(null);
@@ -53,6 +55,7 @@ export const Chats = () => {
       avatar: otherParticipant.avatar,
       participants: chat.participants,
       messages: [],
+      unreadCount: chat.unreadCount,
     };
   };
 
@@ -61,18 +64,17 @@ export const Chats = () => {
   };
 
   const fetchUserChats = useCallback(async () => {
-    if (!user?.id) return;
+    if (!user?.id || !chats) return;
 
     try {
-      const rawChatsData: any[] = await chatsService.getUserChats();
-      const clientChatsData = rawChatsData
+      const clientChatsData = chats
         .map((c) => mapChatToClient(c, user.id!))
         .filter((chat): chat is Chat => chat !== null);
 
       setUserChats(clientChatsData);
 
-      if (chatIdFromUrl) {
-        const chatByUrl = clientChatsData.find((c) => c.id === chatIdFromUrl);
+      if (chatIdFromURL) {
+        const chatByUrl = clientChatsData.find((c) => c.id === chatIdFromURL);
 
         if (chatByUrl) {
           setActiveChat(chatByUrl);
@@ -80,7 +82,7 @@ export const Chats = () => {
         }
 
         try {
-          const userData = await userService.getUserById(chatIdFromUrl);
+          const userData = await userService.getUserById(chatIdFromURL);
 
           setActiveChat({
             id: "",
@@ -89,6 +91,7 @@ export const Chats = () => {
             avatar: userData.avatar,
             participants: [user, userData],
             messages: [],
+            unreadCount: 0,
           });
 
           return;
@@ -100,7 +103,7 @@ export const Chats = () => {
     } catch (error) {
       console.error("Failed to fetch user chats:", error);
     }
-  }, [user, chatIdFromUrl]);
+  }, [user, chatIdFromURL, chats]);
 
   useEffect(() => {
     activeChatRef.current = activeChat;
@@ -153,6 +156,11 @@ export const Chats = () => {
         chatId: currentChatId,
       });
 
+      socket.emit("readMessages", {
+        chatId: currentChatId,
+        userId: user?.id,
+      });
+
       chatsService.getMessages(currentChatId).then((data) => {
         setMessages(data);
         setTimeout(scrollToBottom, 50);
@@ -172,7 +180,23 @@ export const Chats = () => {
           avatar: receiver?.avatar,
           participants: current?.participants!,
           messages: [],
+          unreadCount: 0,
         };
+
+        if (data.chatId !== currentChatId) {
+          setUserChats((prev) =>
+            prev.map((chat) => {
+              if (chat.id === data.chatId) {
+                return {
+                  ...chat,
+                  unreadCount: chat.unreadCount + 1,
+                };
+              }
+
+              return chat;
+            }),
+          );
+        }
 
         setActiveChat(newChat);
         navigate(`/chats/${newChat?.id}`, { replace: true });
@@ -220,9 +244,22 @@ export const Chats = () => {
       );
     };
 
+    const handleMessagesRead = async (data: {
+      chatId: string;
+      userId: string;
+      lastReadAt: string;
+    }) => {
+      if (data.chatId !== activeChatRef.current?.id) {
+        return;
+      }
+
+      await mutate("user-chats");
+    };
+
     socket.on("receiveMessage", handleReceiveMessage);
     socket.on("messageUpdated", handleMessageUpdated);
     socket.on("messageDeleted", handleMessageDeleted);
+    socket.on("messagesRead", handleMessagesRead);
     socket.on("newActivity", (data: any) => {
       const current = activeChatRef.current;
 
@@ -236,6 +273,7 @@ export const Chats = () => {
           avatar: receiver?.avatar,
           participants: current?.participants!,
           messages: [],
+          unreadCount: data.unreadCount,
         };
 
         setUserChats((prev) => {
@@ -255,6 +293,7 @@ export const Chats = () => {
       socket.off("receiveMessage", handleReceiveMessage);
       socket.off("messageUpdated", handleMessageUpdated);
       socket.off("messageDeleted", handleMessageDeleted);
+      socket.off("messagesRead", handleMessagesRead);
       socket.off("newActivity", fetchUserChats);
       socket.emit("leaveChat", { chatId: currentChatId });
     };
@@ -280,7 +319,7 @@ export const Chats = () => {
     setUserChats((prev) => {
       const newList = prev.filter((c) => c.id !== chatId);
 
-      if (chatIdFromUrl !== chatId) {
+      if (chatIdFromURL !== chatId) {
         return newList;
       }
 
@@ -359,7 +398,7 @@ export const Chats = () => {
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center text-gray-500">
-              {userChats.length < 0 ? (
+              {userChats.length > 0 ? (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
                   <img
                     src={searchMuskot}

@@ -145,6 +145,7 @@
     "select_chat": "Wybierz czat",
     "edit_message": "Edytuj wiadomość",
     "delete_message": "Usuń wiadomość",
+    "copy_message": "Kopiuj wiadomość",
     "edited_label": "Edytowano",
     "delete_message_subtitle": "Tej operacji nie można cofnąć"
   },

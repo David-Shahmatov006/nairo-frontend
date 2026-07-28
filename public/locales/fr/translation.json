@@ -177,6 +177,7 @@
     "select_chat": "Veuillez sélectionner un chat",
     "edit_message": "Modifier le message",
     "delete_message": "Supprimer le message",
+    "copy_message": "Copier le message",
     "edited_label": "Modifié",
     "delete_message_subtitle": "Cette action est irréversible"
   },

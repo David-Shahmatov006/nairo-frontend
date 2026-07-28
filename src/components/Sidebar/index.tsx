@@ -3,19 +3,28 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../../routes";
 import { getSidebarTabs } from "../../utils/getSidebarTabs";
+import useSWR from "swr";
+import { chatsService } from "../../services/chats.service";
 
 export const Sidebar = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  const { data: chats } = useSWR("user-chats", () =>
+    chatsService.getUserChats(),
+  );
 
   const tabs = getSidebarTabs(t);
+  const unreadCount = chats?.reduce(
+    (sum, chat) => sum + (chat.unreadCount ?? 0),
+    0,
+  );
 
   const isActiveRoute = (route: string) => {
     if (route === ROUTES.PROFILE) {
       return location.pathname.startsWith("/profile");
     }
     if (route === ROUTES.CHATS) {
-      return location.pathname.includes('/chats')
+      return location.pathname.includes("/chats");
     }
     return location.pathname === route;
   };
@@ -29,7 +38,7 @@ export const Sidebar = () => {
           <Link to={route} key={idx}>
             <button
               className={clsx(
-                "w-full dark:text-[#f9f5e8] flex items-center min-2000px:p-[0.6vw] p-3 min-2000px:rounded-[.7vw] rounded-[12px] min-2000px:gap-[1vw] gap-4 mt-2 cursor-pointer",
+                "relative w-full dark:text-[#f9f5e8] flex items-center min-2000px:p-[0.6vw] p-3 min-2000px:rounded-[.7vw] rounded-[12px] min-2000px:gap-[1vw] gap-4 mt-2 cursor-pointer",
 
                 active &&
                   "dark:bg-white/10 bg-white border dark:border-white/20 border-[#E5E7EB] shadow-sm",
@@ -38,7 +47,14 @@ export const Sidebar = () => {
               <div>
                 <Icon className="scale-150 min-2000px:text-[0.9vw]" />
               </div>
-              <span className="[@media(min-width:1024px)_and_(max-width:1339px)]:text-[14px] font-manrope min-2000px:text-[0.9vw]">{label}</span>
+              <span className="[@media(min-width:1024px)_and_(max-width:1339px)]:text-[14px] font-manrope min-2000px:text-[0.9vw]">
+                {label}
+              </span>
+              {idx === 2 && unreadCount !== 0 && (
+                <p className="absolute right-3 bg-main/70 rounded-full text-white size-5 flex items-center justify-center text-[14px]">
+                  {unreadCount}
+                </p>
+              )}
             </button>
           </Link>
         );

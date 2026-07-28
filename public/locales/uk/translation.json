@@ -176,6 +176,7 @@
     "select_chat": "Будь ласка, оберіть чат",
     "edit_message": "Редагувати повідомлення",
     "delete_message": "Видалити повідомлення",
+    "copy_message": "Копіювати повідомлення",
     "edited_label": "Змінено",
     "delete_message_subtitle": "Ця дія є незворотною"
   },

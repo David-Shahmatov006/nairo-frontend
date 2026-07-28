@@ -145,6 +145,7 @@
     "select_chat": "チャットを選択してください",
     "edit_message": "メッセージを編集",
     "delete_message": "メッセージを削除",
+    "copy_message": "メッセージをコピー",
     "edited_label": "編集済み",
     "delete_message_subtitle": "この操作は元に戻せません"
   },

@@ -177,6 +177,7 @@
     "select_chat": "Por favor, seleccione un chat",
     "edit_message": "Editar mensaje",
     "delete_message": "Eliminar mensaje",
+    "copy_message": "Copiar mensaje",
     "edited_label": "Editado",
     "delete_message_subtitle": "Esta acción no se puede deshacer"
   },

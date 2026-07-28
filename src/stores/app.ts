@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { ILang } from "../types/lang";
 import type { Post } from "../types/post";
-import type { IMessage } from "../types/chats";
+import type { Chat, IMessage } from "../types/chats";
 
 type Theme = "light" | "dark";
 
@@ -54,6 +54,9 @@ interface AppState {
 
   toastMessage: IMessage | null;
   setToast: (message: IMessage) => void;
+
+  chats: Chat[];
+  setChats: (chats: Chat[]) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -81,8 +84,10 @@ export const useAppStore = create<AppState>((set) => ({
     set({ activeTab: tab });
   },
 
-  theme: (localStorage.getItem("theme") as Theme) || "light",
+  chats: [],
+  setChats: (chats: Chat[]) => set({ chats }),
 
+  theme: (localStorage.getItem("theme") as Theme) || "light",
   setTheme: (theme) => {
     localStorage.setItem("theme", theme);
     document.documentElement.classList.toggle("dark", theme === "dark");

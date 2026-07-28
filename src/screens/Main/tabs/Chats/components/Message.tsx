@@ -8,6 +8,7 @@ import { EditModal } from "../../../../../components/EditModal";
 import { useTranslation } from "react-i18next";
 import { ConfirmModal } from "../../../../../components/ConfirmModal";
 import { useAuthStore } from "../../../../../stores/auth";
+import { LuCopy } from "react-icons/lu";
 
 interface IProps {
   message: IMessage;
@@ -24,6 +25,14 @@ export const Message = ({ message, onDelete }: IProps) => {
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const fromMe = message.sender.id === user?.id;
+
+  const handleCopyMessage = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const startLongPress = () => {
     if (!fromMe) return;
@@ -62,10 +71,10 @@ export const Message = ({ message, onDelete }: IProps) => {
     <div className="relative" ref={menuRef}>
       <motion.div
         animate={{
-          scale: isHolding ? 0.76 : 1,
+          scale: isHolding ? 0.9 : 1,
         }}
         transition={{
-          duration: 0.13,
+          duration: 0.33,
           ease: "easeOut",
         }}
         className={clsx(
@@ -91,12 +100,12 @@ export const Message = ({ message, onDelete }: IProps) => {
 
         <div className="w-full flex justify-between gap-1 items-center mt-1">
           {message.editedAt && (
-            <span className="text-[10px] text-gray-400 italic">
+            <span className="select-none text-[10px] text-gray-400 italic">
               {t("chat.edited_label")}
             </span>
           )}
 
-          <span className="min-2000px:text-[.5vw] text-[11px] text-gray-500">
+          <span className="select-none min-2000px:text-[.5vw] text-[11px] text-gray-500">
             {formatTime(message.createdAt)}
           </span>
         </div>
@@ -120,9 +129,22 @@ export const Message = ({ message, onDelete }: IProps) => {
               }}
               className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
             >
-              <FiEdit2 className="min-2000px:text-[.6vw] text-[15px] text-gray-500 group-hover:text-main duration-300 group-hover:scale-110" />
+              <FiEdit2 className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
               <span className="min-2000px:text-[.7vw]">
                 {t("chat.edit_message")}
+              </span>
+            </button>
+
+            <button
+              onClick={() => {
+                handleCopyMessage(message.text);
+                setMenuOpen(false);
+              }}
+              className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
+            >
+              <LuCopy className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
+              <span className="min-2000px:text-[.7vw]">
+                {t("chat.copy_message")}
               </span>
             </button>
 

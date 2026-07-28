@@ -10,16 +10,41 @@ import { useEffect } from "react";
 import { useAuthStore } from "../stores/auth";
 import { socket } from "../services/socket.service";
 import type { IMessage } from "../types/chats";
+import useSWR from "swr";
+import { chatsService } from "../services/chats.service";
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
 };
 export const MainLayout = ({ children }: DashboardLayoutProps) => {
-  const { isOpenMessageToast, toastMessage, setToast, setIsOpenMessageToast } =
-    useAppStore();
+  const {
+    isOpenMessageToast,
+    toastMessage,
+    setToast,
+    setIsOpenMessageToast,
+    setChats,
+  } = useAppStore();
   const { user } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { data: userChats } = useSWR("user-chats", () =>
+    chatsService.getUserChats(),
+  );
+
+  useEffect(() => {
+    if (!toastMessage) return;
+
+    if (location.pathname.includes(toastMessage.chatId)) {
+      setIsOpenMessageToast(false);
+    }
+  }, [location.pathname, toastMessage]);
+
+  useEffect(() => {
+    if (!userChats) return;
+
+    setChats(userChats);
+  }, [userChats]);
 
   useEffect(() => {
     if (!user?.id) return;
@@ -73,7 +98,10 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
           open={isOpenMessageToast}
           message={toastMessage}
           onClose={() => setIsOpenMessageToast(false)}
-          onOpenChat={() => navigate(`${ROUTES.CHATS}/${toastMessage.chatId}`)}
+          onOpenChat={() => {
+            setIsOpenMessageToast(false);
+            navigate(`${ROUTES.CHATS}/${toastMessage.chatId}`);
+          }}
         />
       )}
     </>

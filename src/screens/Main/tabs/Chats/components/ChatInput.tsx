@@ -1,6 +1,6 @@
 import { IoSend } from "react-icons/io5";
 import { BsEmojiSunglasses } from "react-icons/bs";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { EmojiPickerModal } from "./EmojiPickerModal";
 
@@ -21,69 +21,14 @@ export const ChatInput = ({
   userId,
 }: ChatInputProps) => {
   const { t } = useTranslation();
-  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+
   const [messageContent, setMessageContent] = useState("");
-  const editorRef = useRef<HTMLDivElement>(null);
+  const [isEmojiOpen, setIsEmojiOpen] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>(null);
   const typingTimeoutRef = useRef<number | null>(null);
 
-  const getPlainTextLength = (html: string) => {
-    const tmp = document.createElement("div");
-    tmp.innerHTML = html;
-    return tmp.innerText.length;
-  };
-
-  const insertAtCursor = (html: string) => {
-    const editor = editorRef.current;
-    if (!editor) return;
-
-    editor.focus();
-
-    const sel = window.getSelection();
-    if (!sel || !sel.rangeCount) return;
-
-    const range = sel.getRangeAt(0);
-    range.deleteContents();
-
-    const el = document.createElement("div");
-    el.innerHTML = html;
-
-    const frag = document.createDocumentFragment();
-    let node: ChildNode | null = null;
-    let lastNode: ChildNode | null = null;
-
-    while ((node = el.firstChild)) {
-      lastNode = frag.appendChild(node);
-    }
-
-    range.insertNode(frag);
-
-    if (lastNode) {
-      range.setStartAfter(lastNode);
-      range.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    }
-
-    setMessageContent(editor.innerHTML);
-  };
-
-  const handleEmojiSelect = (emoji: any) => {
-    if (typeof emoji.value === "string") {
-      insertAtCursor(emoji.value);
-      return;
-    }
-  };
-
-  const handleTypingInput = (e: React.FormEvent<HTMLDivElement>) => {
-    const html = e.currentTarget.innerHTML;
-    const len = getPlainTextLength(html);
-
-    if (len > MAX_LEN) {
-      e.currentTarget.innerText = e.currentTarget.innerText.slice(0, MAX_LEN);
-    }
-
-    setMessageContent(html);
-
+  const emitTyping = () => {
     if (!activeChatId) return;
 
     socket.emit("typing", {
@@ -96,7 +41,7 @@ export const ChatInput = ({
       clearTimeout(typingTimeoutRef.current);
     }
 
-    typingTimeoutRef.current = setTimeout(() => {
+    typingTimeoutRef.current = window.setTimeout(() => {
       socket.emit("typing", {
         chatId: activeChatId,
         userId,
@@ -105,30 +50,23 @@ export const ChatInput = ({
     }, TYPING_DELAY);
   };
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const editor = editorRef.current;
-    if (!editor) return;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.slice(0, MAX_LEN);
 
-    const pasteText = e.clipboardData.getData("text");
-    const currentTextLength = getPlainTextLength(editor.innerHTML);
-    const allowed = MAX_LEN - currentTextLength;
-    if (allowed <= 0) return;
-
-    document.execCommand("insertText", false, pasteText.slice(0, allowed));
+    setMessageContent(value);
+    emitTyping();
   };
 
   const handleSend = () => {
-    const editor = editorRef.current;
-    if (!editor) return;
+    if (!messageContent.trim()) return;
 
-    const html = editor.innerHTML.trim();
-    if (!html) return;
+    onSendMessage(messageContent);
 
-    onSendMessage(html);
-
-    editor.innerHTML = "";
     setMessageContent("");
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
 
     if (activeChatId) {
       socket.emit("typing", {
@@ -139,45 +77,110 @@ export const ChatInput = ({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+  const handleEmojiSelect = (emoji: any) => {
+    const value = emoji.value;
+
+    if (typeof value !== "string") return;
+
+    const input = inputRef.current;
+    if (!input) return;
+
+    input.focus();
+
+    const start = input.selectionStart ?? 0;
+    const end = input.selectionEnd ?? 0;
+
+    const newValue =
+      messageContent.slice(0, start) +
+      value +
+      messageContent.slice(end);
+
+    setMessageContent(newValue);
+
+    requestAnimationFrame(() => {
+      const pos = start + value.length;
+      input.selectionStart = pos;
+      input.selectionEnd = pos;
+    });
+
+    emitTyping();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSend();
     }
   };
 
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (isEmojiOpen) return;
+
+      const input = inputRef.current;
+      if (!input) return;
+
+      const active = document.activeElement;
+
+      if (
+        active instanceof HTMLInputElement ||
+        active instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
+
+      if (
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey ||
+        e.key.length !== 1
+      ) {
+        return;
+      }
+
+      input.focus();
+    };
+
+    window.addEventListener("keydown", handleGlobalKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleGlobalKeyDown);
+    };
+  }, [isEmojiOpen]);
+
   return (
     <div className="mt-auto min-2000px:mb-[1vw] mb-5 min-2000px:px-[.4vw] px-4">
-      <div className="flex items-center min-2000px:gap-[.3vw] gap-3 border dark:border-white/10 border-gray-300 min-2000px:rounded-[.3vw] rounded-xl min-2000px:px-[.3vw] px-3">
+      <div className="flex items-center min-2000px:gap-[.4vw] gap-3 border dark:border-white/10 border-gray-300 min-2000px:rounded-[.3vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.2vw] py-1">
         <button
           onClick={() => setIsEmojiOpen(true)}
-          className="text-gray-500 hover:text-main duration-300"
+          className="cursor-pointer text-gray-500 hover:text-main duration-300"
         >
-          <BsEmojiSunglasses className="min-2000px:text-[.9vw] text-[20px]" />
+          <BsEmojiSunglasses className="text-[20px] min-2000px:text-[.9vw]" />
         </button>
 
-        <div className="flex-1 relative flex items-center min-h-[44px]">
-          <div
-            ref={editorRef}
-            contentEditable
-            onInput={handleTypingInput}
-            onPaste={handlePaste}
-            onKeyDown={handleKeyDown}
-            className="dark:text-white/80 flex-1 outline-none min-2000px:text-[.7vw] text-[16px] min-2000px:py-[.3vw] py-2"
-          ></div>
-
-          {!messageContent.length && (
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none min-2000px:text-[.6vw]">
-              {t("chat.type_message")}
-            </span>
-          )}
-        </div>
+        <input
+          ref={inputRef}
+          type="text"
+          value={messageContent}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          maxLength={MAX_LEN}
+          placeholder={t("chat.type_message")}
+          className="
+            flex-1
+            min-2000px:h-[1.5vw] h-5
+            bg-transparent
+            outline-none
+            dark:text-white/80
+            min-2000px:text-[.7vw] text-[16px]
+          "
+        />
 
         <button
           onClick={handleSend}
-          className="cursor-pointer dark:bg-white/10 bg-gray-900 text-white min-2000px:px-[.5vw] px-4 min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-lg hover:ring-2 ring-main/70 duration-300"
+          className="cursor-pointer dark:bg-white/10 bg-gray-900 text-white min-2000px:px-[.6vw] px-4 min-2000px:py-[.4vw] py-2 min-2000px:rounded-[.3vw] rounded-lg hover:ring-2 ring-main/70 duration-300"
         >
-          <IoSend className="min-2000px:text-[.7vw] text-[18px]" />
+          <IoSend className="text-[18px] min-2000px:text-[.7vw]" />
         </button>
       </div>
 

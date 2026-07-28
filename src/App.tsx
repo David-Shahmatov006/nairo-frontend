@@ -47,16 +47,6 @@ function App() {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const ref = params.get("refCode");
-
-    if (ref) {
-      localStorage.setItem("referralCode", ref);
-    }
-  }, []);
-
-
   return (
     <Router>
       <ScrollToTop />

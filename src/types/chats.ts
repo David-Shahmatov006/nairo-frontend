@@ -13,7 +13,8 @@ export interface Chat {
   username: string;
   avatar?: string;
   messages: Message[];
-  participants: User[]
+  participants: User[];
+  unreadCount: number;
 }
 
 export interface IMessage {

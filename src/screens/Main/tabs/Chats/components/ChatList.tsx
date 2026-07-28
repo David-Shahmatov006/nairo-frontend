@@ -28,10 +28,12 @@ export const ChatList = ({
     navigate(`/chats/${chat.id}`, { replace: true });
   };
 
+  if (!chats) return;
+
   const filteredChats =
     query.trim().length === 0
       ? chats
-      : chats.filter((c) => {
+      : chats?.filter((c) => {
           const q = query.toLowerCase();
 
           const nameMatch = c.name?.toLowerCase().includes(q);
@@ -62,7 +64,7 @@ export const ChatList = ({
           </p>
         )}
 
-        {chats.length !== 0 && filteredChats.length === 0 && (
+        {chats.length !== 0 && filteredChats?.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-3">
             <img src={thinkingMuskot} className="min-2000px:w-[4vw] w-[70px]" />
             <span className="min-2000px:text-[.7vw] text-[17px] text-gray-500 text-center">
@@ -72,12 +74,12 @@ export const ChatList = ({
         )}
 
         {filteredChats.length > 0 &&
-          filteredChats.map((chat) => (
+          filteredChats?.map((chat) => (
             <div
               key={chat.id}
               className={clsx(
                 "flex items-center justify-between min-2000px:p-[.3vw] p-2 min-2000px:rounded-[.3vw] rounded-lg duration-300 cursor-pointer dark:hover:bg-white/3 hover:bg-gray-100",
-                chatId === chat.id && "dark:bg-white/10 bg-main/10"
+                chatId === chat.id && "dark:bg-white/10 bg-main/10",
               )}
             >
               <button
@@ -88,17 +90,30 @@ export const ChatList = ({
                   <AvatarImage src={chat.avatar || ""} />
                 </div>
 
-                <h3 className="font-semibold dark:text-white/80 text-gray-900 min-2000px:text-[.6vw] text-[15px]">
+                <h3
+                  className={clsx(
+                    "dark:text-white/80 text-gray-900 min-2000px:text-[.6vw] text-[15px]",
+                    chat.unreadCount > 0 ? "font-bold" : "font-medium",
+                  )}
+                >
                   {chat.name}
                 </h3>
               </button>
 
-              <button
-                onClick={() => onDeleteChat(chat.id)}
-                className="text-gray-400 hover:text-red-500 min-2000px:text-[.7vw] cursor-pointer duration-300"
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-4">
+                {chat.unreadCount > 0 && (
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-main opacity-60" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-main" />
+                  </span>
+                )}
+                <button
+                  onClick={() => onDeleteChat(chat.id)}
+                  className="text-gray-400 hover:text-red-500 min-2000px:text-[.7vw] cursor-pointer duration-300"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
           ))}
       </div>
