@@ -20,8 +20,9 @@ import { useAppStore } from "../../../../stores/app";
 
 export const Chats = () => {
   const { t } = useTranslation();
-  const { user } = useAuthStore();
-  const { chats } = useAppStore();
+  const user = useAuthStore((s) => s.user);
+  const chats = useAppStore((s) => s.chats);
+  const setChats = useAppStore((s) => s.setChats);
   const navigate = useNavigate();
   const { chatId: chatIdFromURL } = useParams();
   const isMobile = window.innerWidth <= 768;
@@ -145,11 +146,7 @@ export const Chats = () => {
     }
 
     const currentChatId = activeChat.id;
-
-    socket.off("receiveMessage");
-    socket.off("messageUpdated");
-    socket.off("messageDeleted");
-    socket.off("newActivity");
+    let cancelled = false;
 
     if (currentChatId) {
       socket.emit("joinChat", {
@@ -162,10 +159,28 @@ export const Chats = () => {
       });
 
       chatsService.getMessages(currentChatId).then((data) => {
+        if (cancelled) return;
         setMessages(data);
         setTimeout(scrollToBottom, 50);
       });
     }
+
+    const addNewChat = (newChat: Chat) => {
+      const currentChats = useAppStore.getState().chats;
+      const nextChats = [
+        ...currentChats.filter(
+          (chat) => chat.id && chat.id !== newChat.id,
+        ),
+        newChat,
+      ];
+
+      setChats(nextChats);
+      mutate("user-chats", nextChats, { revalidate: false });
+      setUserChats((prev) => [
+        ...prev.filter((chat) => chat.id && chat.id !== newChat.id),
+        newChat,
+      ]);
+    };
 
     const handleReceiveMessage = (data: IMessage) => {
       const current = activeChatRef.current;
@@ -183,21 +198,7 @@ export const Chats = () => {
           unreadCount: 0,
         };
 
-        if (data.chatId !== currentChatId) {
-          setUserChats((prev) =>
-            prev.map((chat) => {
-              if (chat.id === data.chatId) {
-                return {
-                  ...chat,
-                  unreadCount: chat.unreadCount + 1,
-                };
-              }
-
-              return chat;
-            }),
-          );
-        }
-
+        addNewChat(newChat);
         setActiveChat(newChat);
         navigate(`/chats/${newChat?.id}`, { replace: true });
 
@@ -249,18 +250,25 @@ export const Chats = () => {
       userId: string;
       lastReadAt: string;
     }) => {
+      if (data.userId !== user?.id) {
+        return;
+      }
+
       if (data.chatId !== activeChatRef.current?.id) {
         return;
       }
 
-      await mutate("user-chats");
+      await mutate(
+        "user-chats",
+        (chats: Chat[] | undefined) =>
+          chats?.map((chat) =>
+            chat.id === data.chatId ? { ...chat, unreadCount: 0 } : chat,
+          ),
+        { revalidate: false },
+      );
     };
 
-    socket.on("receiveMessage", handleReceiveMessage);
-    socket.on("messageUpdated", handleMessageUpdated);
-    socket.on("messageDeleted", handleMessageDeleted);
-    socket.on("messagesRead", handleMessagesRead);
-    socket.on("newActivity", (data: any) => {
+    const handleNewActivity = (data: any) => {
       const current = activeChatRef.current;
 
       if (!current?.id && data.chatId) {
@@ -276,25 +284,26 @@ export const Chats = () => {
           unreadCount: data.unreadCount,
         };
 
-        setUserChats((prev) => {
-          const filtered = prev.filter((c) => c.id !== "");
-          return [...filtered, newChat];
-        });
-
+        addNewChat(newChat);
         setActiveChat(newChat);
 
         navigate(`/chats/${newChat.id}`, { replace: true });
-
-        fetchUserChats();
       }
-    });
+    };
+
+    socket.on("receiveMessage", handleReceiveMessage);
+    socket.on("messageUpdated", handleMessageUpdated);
+    socket.on("messageDeleted", handleMessageDeleted);
+    socket.on("messagesRead", handleMessagesRead);
+    socket.on("newActivity", handleNewActivity);
 
     return () => {
+      cancelled = true;
       socket.off("receiveMessage", handleReceiveMessage);
       socket.off("messageUpdated", handleMessageUpdated);
       socket.off("messageDeleted", handleMessageDeleted);
       socket.off("messagesRead", handleMessagesRead);
-      socket.off("newActivity", fetchUserChats);
+      socket.off("newActivity", handleNewActivity);
       socket.emit("leaveChat", { chatId: currentChatId });
     };
   }, [activeChat?.id]);
@@ -302,19 +311,25 @@ export const Chats = () => {
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    socket.on("typingStatus", (data) => {
+    const handleTypingStatus = (data: { isTyping: boolean }) => {
       if (!activeChat?.id) return;
 
       setIsTyping(data.isTyping);
-    });
+    };
+
+    socket.on("typingStatus", handleTypingStatus);
 
     return () => {
-      socket.off("typingStatus");
+      socket.off("typingStatus", handleTypingStatus);
     };
   }, [activeChat?.id]);
 
   const deleteChat = async (chatId: string) => {
     await chatsService.deleteChat(chatId);
+
+    const remainingChats = chats.filter((chat) => chat.id !== chatId);
+    setChats(remainingChats);
+    await mutate("user-chats", remainingChats, { revalidate: false });
 
     setUserChats((prev) => {
       const newList = prev.filter((c) => c.id !== chatId);
@@ -363,7 +378,7 @@ export const Chats = () => {
       transition={{ duration: 0.4 }}
       className={clsx(
         "font-manrope h-full w-full flex",
-        !(chatIdFromURL && isMobile) ? "min-2000px:mt-[1vw] mt-[80px]" : "mt-4",
+        !(chatIdFromURL && isMobile) ? "min-2000px:mt-[1vw] mt-[80px]" : "mt-0",
       )}
     >
       {showChatList && (
@@ -378,7 +393,7 @@ export const Chats = () => {
       )}
 
       {showChatWindow && (
-        <div className="flex-1 flex flex-col max-768px:h-[80vh]">
+        <div className="flex-1 min-h-0 overflow-hidden flex flex-col h-[calc(100dvh-80px)] max-768px:h-[100dvh]">
           {activeChat ? (
             <>
               <ChatHeader activeChat={activeChat} />

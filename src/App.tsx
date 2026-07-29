@@ -1,11 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./i18n";
-import { Login } from "./screens/Login";
-import { PostPage } from "./screens/Main/tabs/Home/components/Posts/components/PostPage";
 import { MainLayoutWrapper } from "./layouts/MainLayoutWrapper";
 import { useEffect } from "react";
 import { useAppStore } from "./stores/app";
@@ -13,27 +7,29 @@ import { ROUTES } from "./routes";
 // TODO: UNCOMMENT IN WINTER
 // import { Snowfall } from "./components/Snowfall";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { Profile } from "./screens/Main/tabs/Profile";
+import { useAuthStore } from "./stores/auth";
+import { useTranslation } from "react-i18next";
+import { LANGS } from "./constants/langs";
+import { ScrollToTop } from "./components/ScrollToTop";
+import { Login } from "./screens/Login";
 import { Home } from "./screens/Main/tabs/Home";
 import { Search } from "./screens/Main/tabs/Search";
 import { Chats } from "./screens/Main/tabs/Chats";
 import { Saved } from "./screens/Main/tabs/Saved";
 import { Settings } from "./screens/Main/tabs/Settings";
-import { useAuthStore } from "./stores/auth";
-import { useTranslation } from "react-i18next";
-import { LANGS } from "./constants/langs";
-import { ScrollToTop } from "./components/ScrollToTop";
+import { Profile } from "./screens/Main/tabs/Profile";
+import { PostPage } from "./screens/Main/tabs/Home/components/Posts/components/PostPage";
 import { NotFound } from "./screens/NotFound";
 
 function App() {
-  const { theme, setSelectedLanguage } =
-    useAppStore();
-  const { user } = useAuthStore();
+  const theme = useAppStore((s) => s.theme);
+  const setSelectedLanguage = useAppStore((s) => s.setSelectedLanguage);
+  const preferredLanguage = useAuthStore((s) => s.user?.preferredLanguage);
   const { i18n } = useTranslation();
 
   useEffect(() => {
     const savedLang =
-      user?.preferredLanguage || localStorage.getItem("language") || "en";
+      preferredLanguage || localStorage.getItem("language") || "en";
 
     const langObj = LANGS.find((l) => l.code === savedLang);
 
@@ -41,7 +37,7 @@ function App() {
       setSelectedLanguage(langObj);
       i18n.changeLanguage(savedLang);
     }
-  }, [user]);
+  }, [preferredLanguage, setSelectedLanguage, i18n]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -61,7 +57,6 @@ function App() {
         >
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/chats" element={<Chats />} />
           <Route path="/chats/:chatId?" element={<Chats />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/settings" element={<Settings />} />

@@ -9,7 +9,6 @@ import type { User } from "../../../../../../types/user";
 import clsx from "clsx";
 import { BiLoaderAlt } from "react-icons/bi";
 import { mutate } from "swr";
-import { fileTypeFromBlob } from "file-type";
 
 export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   const { t } = useTranslation();
@@ -61,6 +60,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
       return;
     }
 
+    const { fileTypeFromBlob } = await import("file-type");
     const type = await fileTypeFromBlob(file);
 
     if (

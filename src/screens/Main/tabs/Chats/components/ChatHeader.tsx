@@ -15,7 +15,7 @@ export const ChatHeader = ({ activeChat }: ChatHeaderProps) => {
   const receiver = activeChat.participants.find((p) => p.id !== user?.id);
 
   return (
-    <div className="max-768px:h-[50px] max-768px:pb-2 min-2000px:h-[3vw] h-[70px] flex items-center max-768px:gap-3 min-2000px:px-[.7vw] px-4 border-b dark:border-white/10 border-gray-200">
+    <div className="shrink-0 max-768px:h-auto max-768px:py-2 min-2000px:h-[3vw] h-[70px] flex items-center max-768px:gap-3 min-2000px:px-[.7vw] px-4 border-b dark:border-white/10 border-gray-200">
       <button className="max-768px:block hidden" onClick={() => navigate(-1)}>
         <IoIosArrowBack className="dark:text-white/50 text-[25px]" />
       </button>

@@ -55,6 +55,8 @@ export const PostImage = ({
     <img
       src={fullSrc}
       alt={title}
+      loading="lazy"
+      decoding="async"
       className={clsx(
         "w-full h-full object-cover",
         onModal

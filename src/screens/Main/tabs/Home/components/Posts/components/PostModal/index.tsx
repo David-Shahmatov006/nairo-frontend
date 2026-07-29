@@ -9,22 +9,23 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { IoCameraReverse } from "react-icons/io5";
 import { PostImage } from "../PostItem";
 import { usePosts } from "../../../../../../../../hooks/usePosts";
-import { fileTypeFromBlob } from "file-type";
 
 export const PostModal = () => {
   const { t } = useTranslation();
-  const { postModal, closePostModal } = useAppStore();
+  const postModal = useAppStore((s) => s.postModal);
+  const closePostModal = useAppStore((s) => s.closePostModal);
   const isEdit = !!postModal.post?.id;
 
   const [image, setImage] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { mutate } = usePosts(postModal.mode);
+  const { mutate } = usePosts(postModal.isOpen ? postModal.mode : null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
+  const previewUrlRef = useRef<string | null>(null);
 
   const handleBlurModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if (modalRef.current?.contains(e.target as Node)) {
@@ -41,6 +42,14 @@ export const PostModal = () => {
     };
   }, [postModal.isOpen]);
 
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+      }
+    };
+  }, []);
+
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -53,6 +62,7 @@ export const PostModal = () => {
       return;
     }
 
+    const { fileTypeFromBlob } = await import("file-type");
     const type = await fileTypeFromBlob(file);
 
     if (
@@ -63,8 +73,14 @@ export const PostModal = () => {
       return;
     }
 
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current);
+    }
+
+    const previewUrl = URL.createObjectURL(file);
+    previewUrlRef.current = previewUrl;
     setImageFile(file);
-    setImage(URL.createObjectURL(file));
+    setImage(previewUrl);
   };
 
   const handleSubmit = async () => {

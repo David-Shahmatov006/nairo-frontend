@@ -168,7 +168,7 @@ export const PostPage = () => {
 
       <div className="w-full min-2000px:h-[.1vw] h-[1px] dark:bg-white/10 bg-gray-200 min-2000px:mb-[.5vw] mb-5" />
 
-      <Comments postId={id as string} />
+      <Comments postId={id as string} postOwnerId={post.user.id} />
     </motion.div>
   );
 };

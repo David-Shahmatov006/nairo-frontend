@@ -17,10 +17,14 @@ import { useAuthStore } from "../../stores/auth";
 import { AvatarImage } from "../AvatarImage";
 
 export const Header = () => {
-  const { theme, toggleTheme, openCreatePostModal, postModal, chats } =
-    useAppStore();
+  const theme = useAppStore((s) => s.theme);
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
+  const openCreatePostModal = useAppStore((s) => s.openCreatePostModal);
+  const postModal = useAppStore((s) => s.postModal);
+  const chats = useAppStore((s) => s.chats);
   const { t } = useTranslation();
-  const { logout, user } = useAuthStore();
+  const logout = useAuthStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
   const { chatId: chatIdFromUrl } = useParams();
   const isMobile = window.innerWidth <= 768;
   const unreadCount = chats?.reduce(

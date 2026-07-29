@@ -14,10 +14,8 @@ export const Sidebar = () => {
   );
 
   const tabs = getSidebarTabs(t);
-  const unreadCount = chats?.reduce(
-    (sum, chat) => sum + (chat.unreadCount ?? 0),
-    0,
-  );
+  const unreadCount =
+    chats?.reduce((sum, chat) => sum + (chat.unreadCount ?? 0), 0) ?? 0;
 
   const isActiveRoute = (route: string) => {
     if (route === ROUTES.PROFILE) {
@@ -50,7 +48,7 @@ export const Sidebar = () => {
               <span className="[@media(min-width:1024px)_and_(max-width:1339px)]:text-[14px] font-manrope min-2000px:text-[0.9vw]">
                 {label}
               </span>
-              {idx === 2 && unreadCount !== 0 && (
+              {idx === 2 && unreadCount > 0 && (
                 <p className="absolute right-3 bg-main/70 rounded-full text-white size-5 flex items-center justify-center text-[14px]">
                   {unreadCount}
                 </p>

@@ -8,13 +8,14 @@ const LIMIT = 10;
 
 export type PostsMode = "all" | "saved" | "user";
 
-export const usePosts = (mode: PostsMode) => {
+export const usePosts = (mode: PostsMode | null) => {
   const { id: userIdFromUrl } = useParams();
-  const { user } = useAuthStore();
+  const userId = useAuthStore((s) => s.user?.id);
 
-  const trueUserId = userIdFromUrl ?? user?.id;
+  const trueUserId = userIdFromUrl ?? userId;
 
   const getKey = (pageIndex: number, previousPage: any) => {
+    if (!mode) return null;
     if (previousPage && !previousPage.hasMore) return null;
 
     return [mode, trueUserId, pageIndex + 1];

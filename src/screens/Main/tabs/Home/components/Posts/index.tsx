@@ -6,9 +6,6 @@ import { Loader } from "../../../../../../components/Loader";
 import { PostItem } from "./components/PostItem";
 import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
 import { BiLoaderAlt } from "react-icons/bi";
-import { useUser } from "../../../../../../hooks/useUser";
-import { useParams } from "react-router-dom";
-import { useAuthStore } from "../../../../../../stores/auth";
 import { usePosts } from "../../../../../../hooks/usePosts";
 
 interface PostsProps {
@@ -17,11 +14,6 @@ interface PostsProps {
 
 export const Posts = ({ mode }: PostsProps) => {
   const { t } = useTranslation();
-  const { id: userIdFromUrl } = useParams();
-  const { user } = useAuthStore();
-  const trueUserId = userIdFromUrl ?? user?.id;
-
-  const { isOwnProfile } = useUser(trueUserId);
   const scrollable = mode === "user";
 
   const { data, setSize, isLoading, isValidating, mutate } = usePosts(mode);
@@ -67,7 +59,6 @@ export const Posts = ({ mode }: PostsProps) => {
           <PostItem
             key={post.id}
             post={post}
-            isOwnProfile={isOwnProfile}
             mode={mode}
             mutate={mutate}
           />

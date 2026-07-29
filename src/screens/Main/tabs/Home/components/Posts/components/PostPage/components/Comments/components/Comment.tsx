@@ -8,24 +8,28 @@ import { commentsService } from "../../../../../../../../../../../services/comme
 import { mutate } from "swr";
 import { EditModal } from "../../../../../../../../../../../components/EditModal";
 import { BiLoaderAlt } from "react-icons/bi";
-import type { Post } from "../../../../../../../../../../../types/post";
 import { useTranslation } from "react-i18next";
 interface CommentProps {
   comment: {
     id: string;
     user: User;
     text: string;
-    post: Post;
   };
   currentUserId: string;
+  postOwnerId: string;
   postId: string;
 }
 
-export const Comment = ({ comment, currentUserId, postId }: CommentProps) => {
+export const Comment = ({
+  comment,
+  currentUserId,
+  postOwnerId,
+  postId,
+}: CommentProps) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const isCommentOwner = currentUserId === comment.user.id;
-  const isPostOwner = currentUserId === comment.post.user.id;
+  const isPostOwner = currentUserId === postOwnerId;
   const canEdit = isCommentOwner;
   const canDelete = isCommentOwner || isPostOwner;
   const { t } = useTranslation();

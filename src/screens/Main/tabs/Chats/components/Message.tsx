@@ -21,10 +21,10 @@ export const Message = ({ message, onDelete }: IProps) => {
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const { t } = useTranslation();
-  const { user } = useAuthStore();
+  const userId = useAuthStore((s) => s.user?.id);
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const fromMe = message.sender.id === user?.id;
+  const fromMe = message.sender.id === userId;
 
   const handleCopyMessage = async (text: string) => {
     try {

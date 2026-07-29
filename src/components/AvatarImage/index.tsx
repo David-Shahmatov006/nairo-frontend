@@ -19,6 +19,8 @@ export const AvatarImage = ({ src, className, iconClassName }: any) => {
       ) : (
         <img
           src={src}
+          loading="lazy"
+          decoding="async"
           onError={() => setError(true)}
           className="w-full h-full object-cover"
         />

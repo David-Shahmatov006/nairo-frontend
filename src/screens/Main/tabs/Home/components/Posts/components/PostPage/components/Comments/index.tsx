@@ -8,7 +8,13 @@ import useSWR, { mutate } from "swr";
 import type { IComment } from "../../../../../../../../../../types/comment";
 import { BiLoaderAlt } from "react-icons/bi";
 
-export const Comments = ({ postId }: { postId: string }) => {
+export const Comments = ({
+  postId,
+  postOwnerId,
+}: {
+  postId: string;
+  postOwnerId: string;
+}) => {
   const { user } = useAuthStore();
   const [text, setText] = useState("");
   const [isPosting, setIsPosting] = useState(false);
@@ -51,6 +57,7 @@ export const Comments = ({ postId }: { postId: string }) => {
               key={comment.id}
               comment={comment}
               currentUserId={user?.id as string}
+              postOwnerId={postOwnerId}
             />
           ))
         ) : (

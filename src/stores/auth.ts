@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { User } from "../types/user";
+import { disconnectSocket } from "../services/socket.service";
 
 interface AuthState {
   user: User | null;
@@ -35,6 +36,7 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
+        disconnectSocket();
         set({ user: null, token: null });
         localStorage.removeItem("token");
         window.location.href = "/login";
@@ -42,6 +44,6 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
-    }
-  )
+    },
+  ),
 );

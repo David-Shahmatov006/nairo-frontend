@@ -149,8 +149,8 @@ export const ChatInput = ({
   }, [isEmojiOpen]);
 
   return (
-    <div className="mt-auto min-2000px:mb-[1vw] mb-5 min-2000px:px-[.4vw] px-4">
-      <div className="flex items-center min-2000px:gap-[.4vw] gap-3 border dark:border-white/10 border-gray-300 min-2000px:rounded-[.3vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.2vw] py-1">
+    <div className="mt-auto shrink-0 min-2000px:mb-[1vw] mb-5 max-1024px:mb-0 max-1024px:pb-[max(12px,env(safe-area-inset-bottom))] min-2000px:px-[.4vw] max-1024px:px-3 px-4">
+      <div className="flex items-center min-2000px:gap-[.4vw] gap-3 border dark:border-white/10 border-gray-300 dark:bg-[#0f0f0f] bg-white min-2000px:rounded-[.3vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.2vw] py-1">
         <button
           onClick={() => setIsEmojiOpen(true)}
           className="cursor-pointer text-gray-500 hover:text-main duration-300"

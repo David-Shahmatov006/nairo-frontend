@@ -6,7 +6,6 @@ import surprisedMuskot from "../../../../../assets/images/surprisedMuskot.webp";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { ScrollButton } from "../../../../../components/ScrollButton";
 import { motion } from "framer-motion";
-import browser from "browser-detect";
 import { Message } from "./Message";
 import { socket } from "../../../../../services/socket.service";
 import { useAuthStore } from "../../../../../stores/auth";
@@ -17,18 +16,19 @@ interface ChatMessageListProps {
   messagesEndRef: RefObject<HTMLDivElement | null>;
 }
 
+const isIOSChrome = /CriOS/i.test(navigator.userAgent);
+
 export const ChatMessageList = ({
   messages,
   isTyping,
   messagesEndRef,
 }: ChatMessageListProps) => {
   const { t } = useTranslation();
-  const { name } = browser();
-  const isChrome = name === "crios";
-  const { user } = useAuthStore();
+  const isChrome = isIOSChrome;
+  const userId = useAuthStore((s) => s.user?.id);
 
   const handleDeleteMessage = (messageId: string) => {
-    socket.emit("deleteMessage", { messageId, userId: user?.id });
+    socket.emit("deleteMessage", { messageId, userId });
   };
 
   return (
@@ -43,9 +43,13 @@ export const ChatMessageList = ({
         )}
       >
         {messages.length ? (
-          messages.map((msg) => {
-            return <Message onDelete={handleDeleteMessage} message={msg} />;
-          })
+          messages.map((msg) => (
+            <Message
+              key={msg.id}
+              onDelete={handleDeleteMessage}
+              message={msg}
+            />
+          ))
         ) : (
           <div className="h-[70vh]">
             <div className="flex-1 h-full flex flex-col justify-center items-center">

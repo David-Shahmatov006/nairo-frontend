@@ -12,10 +12,8 @@ export const ScrollButton = () => {
   const { width } = useWindowSize();
   const scrollToBottom = useScrollToBottom();
   const [isSticky] = useSticky();
-  const [scrollTop, setScrollTop] = useState(0);
-  const [scrollHeight, setScrollHeight] = useState(
-    document.getElementById("chat-scroll-container")?.scrollHeight || 0
-  );
+  const [isFarFromBottom, setIsFarFromBottom] = useState(false);
+  const [scrollHeight, setScrollHeight] = useState(0);
 
   useEffect(() => {
     const scrollContainer = document.querySelector(".chat-scroll-container");
@@ -25,13 +23,12 @@ export const ScrollButton = () => {
   }, [width]);
 
   useObserveScrollPosition(({ scrollTop }) => {
-    setScrollTop(scrollTop);
+    const threshold = width > 1440 ? 1500 : 1000;
+    const next = scrollTop + scrollHeight <= threshold;
+    setIsFarFromBottom((prev) => (prev === next ? prev : next));
   });
 
-  const isShouldShowButton =
-    scrollTop + scrollHeight > (width > 1440 ? 1500 : 1000);
-
-  if (isSticky || isShouldShowButton) {
+  if (isSticky || !isFarFromBottom) {
     return null;
   }
 

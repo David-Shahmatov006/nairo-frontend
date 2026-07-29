@@ -13,4 +13,21 @@ export const socket: Socket = io(SOCKET_URL, {
     token: getAuthToken(),
   },
   transports: ["websocket"],
+  autoConnect: false,
 });
+
+export const connectSocket = () => {
+  socket.auth = {
+    token: getAuthToken(),
+  };
+
+  if (!socket.connected) {
+    socket.connect();
+  }
+};
+
+export const disconnectSocket = () => {
+  if (socket.connected) {
+    socket.disconnect();
+  }
+};
