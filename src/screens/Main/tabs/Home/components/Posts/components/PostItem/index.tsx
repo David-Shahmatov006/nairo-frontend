@@ -71,6 +71,8 @@ export const PostImage = ({
 export const PostItem = ({ post, mode, mutate }: IPostProps) => {
   const [saved, setSaved] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(post.likes ?? 0);
+  const [isLiking, setIsLiking] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { user } = useAuthStore();
   const isOwnPost = post?.user?.id === user?.id;
@@ -112,10 +114,23 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
   };
 
   const handleToggleLike = async () => {
+    if (isLiking) return;
+
+    const previousLiked = liked;
+    const previousLikesCount = likesCount;
+    const nextLiked = !previousLiked;
+
+    setIsLiking(true);
+    setLiked(nextLiked);
+    setLikesCount(
+      Math.max(0, previousLikesCount + (nextLiked ? 1 : -1)),
+    );
+
     try {
       const res = await postService.toggleLike(post.id);
 
       setLiked(res.isLiked);
+      setLikesCount(res.likes);
 
       mutate(
         (pages) => {
@@ -137,7 +152,11 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
         { revalidate: false },
       );
     } catch (e) {
+      setLiked(previousLiked);
+      setLikesCount(previousLikesCount);
       console.error(e);
+    } finally {
+      setIsLiking(false);
     }
   };
 
@@ -169,6 +188,7 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
     if (post) {
       setSaved(post.isSaved!);
       setLiked(post.isLiked!);
+      setLikesCount(post.likes ?? 0);
     }
   }, [post]);
 
@@ -211,6 +231,7 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
         <div className="flex items-center justify-between mt-auto dark:text-[#6f6f6f] text-gray-600">
           <div className="flex items-center min-2000px:gap-[.9vw] gap-4">
             <motion.button
+              disabled={isLiking}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -226,7 +247,7 @@ export const PostItem = ({ post, mode, mutate }: IPostProps) => {
               )}
             >
               {liked ? <FaHeart /> : <FaRegHeart />}
-              <span>{post.likes}</span>
+              <span>{likesCount}</span>
             </motion.button>
 
             <motion.button

@@ -25,6 +25,8 @@ export const PostPage = () => {
   const navigate = useNavigate();
   const [saved, setSaved] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+  const [isLiking, setIsLiking] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const descriptionRef = useRef<HTMLParagraphElement | null>(null);
   const [maxHeight, setMaxHeight] = useState("100px");
@@ -42,13 +44,29 @@ export const PostPage = () => {
   };
 
   const handleToggleLike = async () => {
+    if (isLiking) return;
+
+    const previousLiked = liked;
+    const previousLikesCount = likesCount;
+    const nextLiked = !previousLiked;
+
+    setIsLiking(true);
+    setLiked(nextLiked);
+    setLikesCount(
+      Math.max(0, previousLikesCount + (nextLiked ? 1 : -1)),
+    );
+
     try {
       const res = await postService.toggleLike(post.id);
       setLiked(res.isLiked);
+      setLikesCount(res.likes);
       mutate(["post", post.id]);
-
     } catch (e) {
+      setLiked(previousLiked);
+      setLikesCount(previousLikesCount);
       console.error(e);
+    } finally {
+      setIsLiking(false);
     }
   };
 
@@ -56,6 +74,7 @@ export const PostPage = () => {
     if (post) {
       setSaved(post.isSaved);
       setLiked(post.isLiked);
+      setLikesCount(post.likes ?? 0);
     }
   }, [post]);
 
@@ -146,6 +165,7 @@ export const PostPage = () => {
 
       <div className="flex items-center max-768px:gap-4 min-2000px:gap-[1vw] gap-8 dark:text-white/80 text-gray-700 max-768px:text-[18px] min-2000px:text-[.8vw] text-[20px] font-medium max-768px:pb-3 min-2000px:pb-[.5vw] pb-5">
         <button
+          disabled={isLiking}
           onClick={handleToggleLike}
           className={clsx(
             "flex items-center min-2000px:gap-[.3vw] gap-2 hover:text-main duration-300 cursor-pointer",
@@ -153,7 +173,7 @@ export const PostPage = () => {
           )}
         >
           {liked ? <FaHeart /> : <FaRegHeart />}
-          <span>{post.likes}</span>
+          <span>{likesCount}</span>
         </button>
         <button
           onClick={handleToggleSave}
