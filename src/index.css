@@ -109,3 +109,75 @@ body.dark {
     filter: drop-shadow(0 0 10px cyan) drop-shadow(0 0 15px purple);
   }
 }
+
+:root {
+  --theme-transition-duration: 0.47s;
+}
+
+/* End size is injected per toggle in the app store. */
+@keyframes theme-circle-expand {
+  from {
+    mask-size: 0px 0px;
+    -webkit-mask-size: 0px 0px;
+  }
+
+  to {
+    mask-size: 100vmax 100vmax;
+    -webkit-mask-size: 100vmax 100vmax;
+  }
+}
+
+@supports (view-transition-name: root) {
+  ::view-transition {
+    pointer-events: none;
+  }
+
+  ::view-transition-group(root) {
+    animation: none;
+  }
+
+  ::view-transition-image-pair(root) {
+    isolation: isolate;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  ::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  ::view-transition-new(root) {
+    z-index: 2;
+    /* Soft edge: opaque core → transparent rim. Grows from center via mask-size. */
+    mask-image: radial-gradient(
+      circle closest-side,
+      #000 55%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      circle closest-side,
+      #000 55%,
+      transparent 100%
+    );
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    animation: theme-circle-expand var(--theme-transition-duration) ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

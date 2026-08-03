@@ -59,7 +59,7 @@ interface AppState {
   setChats: (chats: Chat[]) => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
+export const useAppStore = create<AppState>((set, get) => ({
   resetToken: "",
   setResetToken: (email) => set({ resetToken: email }),
 
@@ -96,16 +96,49 @@ export const useAppStore = create<AppState>((set) => ({
   },
 
   toggleTheme: () => {
-    set((state) => {
-      const newTheme = state.theme === "light" ? "dark" : "light";
+    const applyTheme = () => {
+      const newTheme = get().theme === "light" ? "dark" : "light";
 
       localStorage.setItem("theme", newTheme);
       document.documentElement.classList.toggle("dark", newTheme === "dark");
+      set({ theme: newTheme });
+    };
 
-      return {
-        theme: newTheme,
-      };
-    });
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const supportsViewTransition =
+      typeof document.startViewTransition === "function";
+
+    if (!supportsViewTransition || prefersReducedMotion) {
+      applyTheme();
+      return;
+    }
+
+    // Soft feather is the outer ~45% of the mask — size past the corner hypot.
+    const radius = Math.hypot(window.innerWidth / 2, window.innerHeight / 2);
+    const size = Math.ceil((radius / 0.55) * 2);
+
+    let style = document.getElementById("theme-circle-keyframes");
+    if (!style) {
+      style = document.createElement("style");
+      style.id = "theme-circle-keyframes";
+      document.head.appendChild(style);
+    }
+    style.textContent = `
+      @keyframes theme-circle-expand {
+        from {
+          mask-size: 0px 0px;
+          -webkit-mask-size: 0px 0px;
+        }
+        to {
+          mask-size: ${size}px ${size}px;
+          -webkit-mask-size: ${size}px ${size}px;
+        }
+      }
+    `;
+
+    document.startViewTransition(applyTheme);
   },
   toastMessage: null,
   setToast: (message: IMessage) => set({ toastMessage: message }),
