@@ -39,7 +39,8 @@
     "server_error": "Помилка сервера. Спробуйте пізніше.",
     "login_failed_error": "Не вдалося увійти.",
     "something_went_wrong_error": "Щось пішло не так.",
-    "invalid_otp_error": "Невірний OTP-код."
+    "invalid_otp_error": "Невірний OTP-код.",
+    "email_doesn't_exists_error": "Користувача з такою електронною адресою не існує."
   },
   "not_found": {
     "subtitle": "Сторінку не знайдено",
@@ -87,6 +88,25 @@
     "refill": "Поповнити",
     "no_bio": "Біографію ще не додано",
     "not_found_user": "Вибачте, але ми не змогли знайти такого користувача"
+  },
+  "achievements": {
+    "title": "Досягнення",
+    "night_owl_name": "Нічна сова",
+    "night_owl_description": "Опублікуйте пост між 3:00 та 5:00 ранку",
+    "early_bird_name": "Рання пташка",
+    "early_bird_description": "Станьте одним із перших 100 користувачів",
+    "polyglot_name": "Поліглот",
+    "polyglot_description": "Змініть мову інтерфейсу хоча б один раз",
+    "valentine_name": "День Валентина",
+    "valentine_description": "Зайдіть у Nairo 14 лютого",
+    "veteran_name": "Ветеран",
+    "veteran_description": "Будьте зареєстровані протягом року",
+    "christmas_spirit_name": "Різдвяний настрій",
+    "christmas_spirit_description": "Зайдіть у Nairo 25 грудня",
+    "halloween_name": "Геловін",
+    "halloween_description": "Зайдіть у Nairo 31 жовтня",
+    "unlocked": "Досягнення розблоковано!",
+    "got_it": "Супер!"
   },
   "settings": {
     "change_email": "Змінити email",

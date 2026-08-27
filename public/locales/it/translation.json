@@ -39,7 +39,8 @@
     "server_error": "Errore del server. Riprova più tardi.",
     "login_failed_error": "Accesso non riuscito",
     "something_went_wrong_error": "Qualcosa è andato storto",
-    "invalid_otp_error": "Codice OTP non valido"
+    "invalid_otp_error": "Codice OTP non valido",
+    "email_doesn't_exists_error": "Questa e-mail non esiste."
   },
   "not_found": {
     "subtitle": "Pagina non trovata",
@@ -87,6 +88,25 @@
     "refill": "Ricarica",
     "no_bio": "Nessuna biografia",
     "not_found_user": "Spiacenti, non siamo riusciti a trovare questo utente"
+  },
+  "achievements": {
+    "title": "Obiettivi",
+    "night_owl_name": "Gufo notturno",
+    "night_owl_description": "Pubblica un post tra le 3:00 e le 5:00",
+    "early_bird_name": "Mattiniero",
+    "early_bird_description": "Entra tra i primi 100 utenti",
+    "polyglot_name": "Poliglotta",
+    "polyglot_description": "Cambia almeno una volta la lingua dell'interfaccia",
+    "valentine_name": "San Valentino",
+    "valentine_description": "Entra su Nairo il 14 febbraio",
+    "veteran_name": "Veterano",
+    "veteran_description": "Rimani registrato per un anno",
+    "christmas_spirit_name": "Spirito natalizio",
+    "christmas_spirit_description": "Entra su Nairo il 25 dicembre",
+    "halloween_name": "Halloween",
+    "halloween_description": "Entra su Nairo il 31 ottobre",
+    "unlocked": "Obiettivo sbloccato!",
+    "got_it": "Fantastico!"
   },
   "settings": {
     "change_email": "Cambia e-mail",

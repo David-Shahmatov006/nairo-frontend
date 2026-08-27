@@ -9,16 +9,23 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { IoCameraReverse } from "react-icons/io5";
 import { PostImage } from "../PostItem";
 import { usePosts } from "../../../../../../../../hooks/usePosts";
+import { useAuthStore } from "../../../../../../../../stores/auth";
+import { mutate as mutateSWR } from "swr";
+import { pickAchievementKeys } from "../../../../../../../../constants/achievements";
 
 export const PostModal = () => {
   const { t } = useTranslation();
   const postModal = useAppStore((s) => s.postModal);
   const closePostModal = useAppStore((s) => s.closePostModal);
+  const enqueueAchievementUnlocks = useAppStore(
+    (s) => s.enqueueAchievementUnlocks,
+  );
   const isEdit = !!postModal.post?.id;
 
   const [image, setImage] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const { mutate } = usePosts(postModal.isOpen ? postModal.mode : null);
+  const userId = useAuthStore((s) => s.user?.id);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -98,6 +105,8 @@ export const PostModal = () => {
 
     setIsLoading(true);
 
+    let newlyUnlocked: string[] = [];
+
     try {
       if (isEdit) {
         await postService.updatePost(postModal.post!.id, {
@@ -106,7 +115,15 @@ export const PostModal = () => {
           imageFile,
         });
       } else {
-        await postService.createPost(title, description, imageFile!);
+        const created = await postService.createPost(
+          title,
+          description,
+          imageFile!,
+        );
+        newlyUnlocked = created?.newlyUnlocked ?? [];
+        if (userId) {
+          mutateSWR(["achievements", userId]);
+        }
       }
 
       setTitle("");
@@ -115,10 +132,14 @@ export const PostModal = () => {
       setImageFile(null);
 
       closePostModal();
+      enqueueAchievementUnlocks(pickAchievementKeys(newlyUnlocked));
 
       await mutate();
-    } catch (err: any) {
-      setError(err?.response?.data?.message ?? "Something went wrong");
+    } catch (err: unknown) {
+      const axiosError = err as {
+        response?: { data?: { message?: string } };
+      };
+      setError(axiosError.response?.data?.message ?? "Something went wrong");
     } finally {
       setIsLoading(false);
     }

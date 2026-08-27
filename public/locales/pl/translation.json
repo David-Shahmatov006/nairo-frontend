@@ -39,7 +39,8 @@
     "server_error": "Błąd serwera. Spróbuj ponownie później.",
     "login_failed_error": "Logowanie nie powiodło się",
     "something_went_wrong_error": "Coś poszło nie tak",
-    "invalid_otp_error": "Nieprawidłowy kod OTP"
+    "invalid_otp_error": "Nieprawidłowy kod OTP",
+    "email_doesn't_exists_error": "Ten adres e-mail nie istnieje."
   },
   "not_found": {
     "subtitle": "Nie znaleziono strony",
@@ -87,6 +88,25 @@
     "refill": "Doładuj",
     "no_bio": "Brak opisu",
     "not_found_user": "Przepraszamy, nie znaleziono takiego użytkownika"
+  },
+  "achievements": {
+    "title": "Osiągnięcia",
+    "night_owl_name": "Nocna sowa",
+    "night_owl_description": "Opublikuj post między 3:00 a 5:00 rano",
+    "early_bird_name": "Ranny ptaszek",
+    "early_bird_description": "Dołącz jako jeden z pierwszych 100 użytkowników",
+    "polyglot_name": "Poliglota",
+    "polyglot_description": "Zmień język interfejsu przynajmniej raz",
+    "valentine_name": "Walentynki",
+    "valentine_description": "Wejdź na Nairo 14 lutego",
+    "veteran_name": "Weteran",
+    "veteran_description": "Bądź zarejestrowany przez rok",
+    "christmas_spirit_name": "Świąteczny duch",
+    "christmas_spirit_description": "Wejdź na Nairo 25 grudnia",
+    "halloween_name": "Halloween",
+    "halloween_description": "Wejdź na Nairo 31 października",
+    "unlocked": "Odblokowano osiągnięcie!",
+    "got_it": "Super!"
   },
   "settings": {
     "change_email": "Zmień adres e-mail",

@@ -39,7 +39,8 @@
     "server_error": "Serverfehler. Bitte versuche es später erneut.",
     "login_failed_error": "Anmeldung fehlgeschlagen.",
     "something_went_wrong_error": "Etwas ist schiefgelaufen.",
-    "invalid_otp_error": "Ungültiger OTP-Code."
+    "invalid_otp_error": "Ungültiger OTP-Code.",
+    "email_doesn't_exists_error": "Diese E-Mail-Adresse existiert nicht."
   },
   "not_found": {
     "subtitle": "Seite nicht gefunden",
@@ -87,6 +88,25 @@
     "refill": "Aufladen",
     "no_bio": "Noch keine Biografie vorhanden",
     "not_found_user": "Entschuldigung, aber wir konnten diesen Nutzer nicht finden"
+  },
+  "achievements": {
+    "title": "Erfolge",
+    "night_owl_name": "Nachteule",
+    "night_owl_description": "Veröffentliche einen Beitrag zwischen 3:00 und 5:00 Uhr",
+    "early_bird_name": "Frühaufsteher",
+    "early_bird_description": "Gehöre zu den ersten 100 Nutzern",
+    "polyglot_name": "Polyglott",
+    "polyglot_description": "Ändere mindestens einmal die Sprache der Oberfläche",
+    "valentine_name": "Valentinstag",
+    "valentine_description": "Besuche Nairo am 14. Februar",
+    "veteran_name": "Veteran",
+    "veteran_description": "Sei ein Jahr lang registriert",
+    "christmas_spirit_name": "Weihnachtsstimmung",
+    "christmas_spirit_description": "Besuche Nairo am 25. Dezember",
+    "halloween_name": "Halloween",
+    "halloween_description": "Besuche Nairo am 31. Oktober",
+    "unlocked": "Erfolg freigeschaltet!",
+    "got_it": "Super!"
   },
   "settings": {
     "change_email": "E-Mail ändern",

@@ -7,15 +7,15 @@ import { authService } from "../../../../services/auth.service";
 import { useAuthStore } from "../../../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { BiLoaderAlt } from "react-icons/bi";
-import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "../../../../stores/app";
 import { passwordService } from "../../../../services/password.service";
 import { useTranslation } from "react-i18next";
+import { userService } from "../../../../services/user.service";
 
 export const LoginModal = () => {
   const { setUser, setToken } = useAuthStore();
-  const { setAuthView, setResetEmail, resetEmail } = useAppStore();
+  const { setAuthView, setResetEmail } = useAppStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -26,19 +26,32 @@ export const LoginModal = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValidEmail = emailRegex.test(email);
 
-
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setResetEmail(e.target.value);
   };
 
   const handleGenerateCode = async () => {
+    if (isLoading) {
+      return;
+    }
+
+    const normalizedEmail = email.trim();
+    setError("");
     setIsLoading(true);
+
     try {
-      await passwordService.generateOTP(resetEmail);
+      const exists = await userService.isEmailExists(normalizedEmail);
+      if (!exists) {
+        setError(t("auth.email_doesn't_exists_error"));
+        return;
+      }
+
+      await passwordService.generateOTP(normalizedEmail);
+      setResetEmail(normalizedEmail);
       setAuthView("forgot-password");
-    } catch (error) {
-      console.error(error);
+    } catch {
+      setError(t("auth.server_error"));
     } finally {
       setIsLoading(false);
     }
@@ -58,12 +71,8 @@ export const LoginModal = () => {
       localStorage.setItem("token", response.accessToken);
 
       navigate("/");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(error.response?.data?.message ?? t('auth.login_failed_error'));
-      } else {
-        setError(t('auth.something_went_wrong_error'));
-      }
+    } catch {
+      setError(t("auth.invalid_login_error"));
     } finally {
       setIsLoading(false);
     }
@@ -138,7 +147,7 @@ export const LoginModal = () => {
               transition={{ duration: 0.3 }}
               className="max-1200px:text-[12px] min-2000px:text-[.7vw] font-[500] text-red-500 text-center mt-3"
             >
-              {t('auth.invalid_login_error')}
+              {error}
             </motion.p>
           )}
         </AnimatePresence>
@@ -150,11 +159,15 @@ export const LoginModal = () => {
               exit={{ opacity: 1 }}
               transition={{ duration: 0.7 }}
               className="w-full flex items-center justify-center max-1200px:mt-5 min-2000px:mt-[1vw] mt-10"
-              onClick={handleGenerateCode}
             >
-              <p className="hover:opacity-50 duration-300 cursor-pointer dark:text-white/80 max-1200px:text-[14px] cursor-pointer min-2000px:text-[.7vw] font-[700] min-2000px:mb-[.5vw] mb-[16px]">
+              <button
+                type="button"
+                onClick={handleGenerateCode}
+                disabled={isLoading}
+                className="hover:opacity-50 duration-300 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 dark:text-white/80 max-1200px:text-[14px] min-2000px:text-[.7vw] font-[700] min-2000px:mb-[.5vw] mb-[16px] bg-transparent border-none"
+              >
                 {t('auth.forgot_password_title')}
-              </p>
+              </button>
             </motion.div>
           )}
         </AnimatePresence>

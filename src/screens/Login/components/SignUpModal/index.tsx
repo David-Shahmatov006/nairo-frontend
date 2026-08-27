@@ -10,6 +10,8 @@ import { useAuthStore } from "../../../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { BiLoaderAlt } from "react-icons/bi";
 import { useTranslation } from "react-i18next";
+import { useAppStore } from "../../../../stores/app";
+import { pickAchievementKeys } from "../../../../constants/achievements";
 
 export const SignUpModal = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +25,9 @@ export const SignUpModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const { setUser, setToken } = useAuthStore();
+  const enqueueAchievementUnlocks = useAppStore(
+    (s) => s.enqueueAchievementUnlocks,
+  );
   const navigate = useNavigate();
   const { t } = useTranslation();
   const language = localStorage.getItem("language");
@@ -120,6 +125,7 @@ export const SignUpModal = () => {
       setUser(response.user);
       setToken(response.accessToken);
       localStorage.setItem("token", response.accessToken);
+      enqueueAchievementUnlocks(pickAchievementKeys(response.newlyUnlocked));
 
       navigate("/");
     } finally {

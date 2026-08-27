@@ -39,7 +39,8 @@
     "server_error": "Error del servidor. Inténtalo de nuevo más tarde.",
     "login_failed_error": "Error al iniciar sesión.",
     "something_went_wrong_error": "Algo salió mal.",
-    "invalid_otp_error": "Código OTP no válido."
+    "invalid_otp_error": "Código OTP no válido.",
+    "email_doesn't_exists_error": "Este correo electrónico no existe."
   },
   "not_found": {
     "subtitle": "Página no encontrada",
@@ -87,6 +88,25 @@
     "refill": "Recargar",
     "no_bio": "Aún no hay biografía",
     "not_found_user": "Lo sentimos, pero no pudimos encontrar a ese usuario"
+  },
+  "achievements": {
+    "title": "Logros",
+    "night_owl_name": "Búho nocturno",
+    "night_owl_description": "Publica un post entre las 3:00 y las 5:00",
+    "early_bird_name": "Madrugador",
+    "early_bird_description": "Únete como uno de los primeros 100 usuarios",
+    "polyglot_name": "Políglota",
+    "polyglot_description": "Cambia el idioma de la interfaz al menos una vez",
+    "valentine_name": "San Valentín",
+    "valentine_description": "Entra a Nairo el 14 de febrero",
+    "veteran_name": "Veterano",
+    "veteran_description": "Lleva un año registrado",
+    "christmas_spirit_name": "Espíritu navideño",
+    "christmas_spirit_description": "Entra a Nairo el 25 de diciembre",
+    "halloween_name": "Halloween",
+    "halloween_description": "Entra a Nairo el 31 de octubre",
+    "unlocked": "¡Logro desbloqueado!",
+    "got_it": "¡Genial!"
   },
   "settings": {
     "change_email": "Cambiar correo",

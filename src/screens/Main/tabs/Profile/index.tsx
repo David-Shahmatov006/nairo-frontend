@@ -15,6 +15,9 @@ import { useUser } from "../../../../hooks/useUser";
 import { chatsService } from "../../../../services/chats.service";
 import { FollowListModal } from "./components/FollowListModal";
 import { ShowAvatarImage } from "./components/ShowAvatarImage";
+import { AchievementsModal } from "./components/AchievementsModal";
+import { mapAchievements } from "../../../../constants/achievements";
+import useSWR from "swr";
 
 export const Profile = () => {
   const { id: userIdFromUrl } = useParams();
@@ -26,7 +29,16 @@ export const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isOpenFollowModal, setIsOpenFollowModal] = useState(false);
   const [isOpenAvatarModal, setIsOpenAvatarModal] = useState(false);
+  const [isOpenAchievementsModal, setIsOpenAchievementsModal] = useState(false);
   const [typeOfFollowModal, setTypeOfFollowModal] = useState("");
+  const { data: achievementItems } = useSWR(
+    profile?.id ? ["achievements", profile.id] : null,
+    ([, userId]: [string, string]) => userService.getAchievements(userId),
+  );
+  const achievements = mapAchievements(achievementItems ?? []);
+  const unlockedAchievementsCount = achievements.filter(
+    (achievement) => achievement.unlocked,
+  ).length;
 
   const handleOpenFollowModal = (type: "followers" | "following") => {
     if (
@@ -154,12 +166,21 @@ export const Profile = () => {
                       </button>
                     </div>
                   ) : (
-                    <button
-                      onClick={() => setIsEditing(true)}
-                      className="min-2000px:mt-[.6vw] mt-5 font-bold min-2000px:rounded-[.4vw] rounded-lg duration-300 dark:bg-black dark:border border-white/10 bg-gray-900 text-white hover:ring-2 ring-main/70 min-2000px:py-0 py-3 min-2000px:px-[.7vw] px-6 min-2000px:text-[.7vw] text-base min-2000px:h-[1.7vw] h-[48px] cursor-pointer"
-                    >
-                      {t("profile.edit_profile")}
-                    </button>
+                    <div className="min-2000px:mt-[.6vw] mt-5 flex items-center min-2000px:gap-[.4vw] gap-3">
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="font-bold min-2000px:rounded-[.4vw] rounded-lg duration-300 dark:bg-black dark:border border-white/10 bg-gray-900 text-white hover:ring-2 ring-main/70 min-2000px:py-0 py-3 min-2000px:px-[.7vw] px-6 min-2000px:text-[.7vw] text-base min-2000px:h-[1.7vw] h-[48px] cursor-pointer"
+                      >
+                        {t("profile.edit_profile")}
+                      </button>
+                      <button
+                        onClick={() => setIsOpenAchievementsModal(true)}
+                        className="dark:bg-white/10 bg-white border dark:border-white/10 border-gray-300 dark:text-white/80 text-gray-800 min-2000px:rounded-[.4vw] rounded-lg duration-300 hover:ring-2 hover:ring-main/70 min-2000px:px-[.7vw] px-5 min-2000px:text-[.7vw] text-base min-2000px:h-[1.7vw] h-[48px] cursor-pointer font-medium"
+                      >
+                        {t("achievements.title")} {unlockedAchievementsCount}/
+                        {achievements.length}
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -190,12 +211,21 @@ export const Profile = () => {
                   </button>
                 </div>
               ) : (
-                <button
-                  onClick={() => setIsEditing(true)}
-                  className="max-768px:mt-0 mt-5 font-bold rounded-lg duration-300 dark:bg-black dark:border border-white/10 bg-gray-900 text-white hover:ring-2 ring-main/70 py-3 px-6 text-base h-[48px] cursor-pointer"
-                >
-                  {t("profile.edit_profile")}
-                </button>
+                <div className="max-768px:mt-0 mt-5 flex flex-col gap-3">
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="font-bold rounded-lg duration-300 dark:bg-black dark:border border-white/10 bg-gray-900 text-white hover:ring-2 ring-main/70 py-3 px-6 text-base h-[48px] cursor-pointer"
+                  >
+                    {t("profile.edit_profile")}
+                  </button>
+                  <button
+                    onClick={() => setIsOpenAchievementsModal(true)}
+                    className="dark:bg-white/10 bg-white border dark:border-white/10 border-gray-300 dark:text-white/80 text-gray-800 rounded-lg duration-300 hover:ring-2 hover:ring-main/70 px-5 text-base h-[48px] cursor-pointer font-medium"
+                  >
+                    {t("achievements.title")} {unlockedAchievementsCount}/
+                    {achievements.length}
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -263,6 +293,11 @@ export const Profile = () => {
         avatar={profile.avatar}
         open={isOpenAvatarModal}
         onClose={() => setIsOpenAvatarModal(false)}
+      />
+      <AchievementsModal
+        open={isOpenAchievementsModal}
+        onClose={() => setIsOpenAchievementsModal(false)}
+        achievements={achievements}
       />
     </>
   );

@@ -20,6 +20,7 @@ import { Settings } from "./screens/Main/tabs/Settings";
 import { Profile } from "./screens/Main/tabs/Profile";
 import { PostPage } from "./screens/Main/tabs/Home/components/Posts/components/PostPage";
 import { NotFound } from "./screens/NotFound";
+import { AchievementUnlockModal } from "./components/AchievementUnlockModal";
 
 function App() {
   const theme = useAppStore((s) => s.theme);
@@ -66,6 +67,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <AchievementUnlockModal />
     </Router>
   );
 }

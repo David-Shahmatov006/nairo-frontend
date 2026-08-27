@@ -6,10 +6,15 @@ export class PostService {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
+    formData.append("timeZone", Intl.DateTimeFormat().resolvedOptions().timeZone);
 
-    const { data } = await $api.post("/posts/create", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const { data } = await $api.post<{ newlyUnlocked?: string[] }>(
+      "/posts/create",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      },
+    );
 
     return data;
   }

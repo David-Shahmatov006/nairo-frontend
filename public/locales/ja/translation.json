@@ -39,7 +39,8 @@
     "server_error": "サーバーエラーです。後でもう一度お試しください。",
     "login_failed_error": "ログインに失敗しました",
     "something_went_wrong_error": "問題が発生しました",
-    "invalid_otp_error": "OTPコードが無効です"
+    "invalid_otp_error": "OTPコードが無効です",
+    "email_doesn't_exists_error": "このメールアドレスは存在しません。"
   },
   "not_found": {
     "subtitle": "ページが見つかりません",
@@ -87,6 +88,25 @@
     "refill": "チャージ",
     "no_bio": "自己紹介はまだありません",
     "not_found_user": "申し訳ありませんが、そのユーザーは見つかりませんでした"
+  },
+  "achievements": {
+    "title": "実績",
+    "night_owl_name": "夜型人間",
+    "night_owl_description": "午前3時〜5時の間に投稿する",
+    "early_bird_name": "早起き",
+    "early_bird_description": "最初の100人のユーザーになる",
+    "polyglot_name": "ポリグロット",
+    "polyglot_description": "インターフェースの言語を一度でも変更する",
+    "valentine_name": "バレンタイン",
+    "valentine_description": "2月14日にNairoを開く",
+    "veteran_name": "ベテラン",
+    "veteran_description": "登録から1年が経過する",
+    "christmas_spirit_name": "クリスマス",
+    "christmas_spirit_description": "12月25日にNairoを開く",
+    "halloween_name": "ハロウィン",
+    "halloween_description": "10月31日にNairoを開く",
+    "unlocked": "実績解除！",
+    "got_it": "すごい！"
   },
   "settings": {
     "change_email": "メールアドレスを変更",

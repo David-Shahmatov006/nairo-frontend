@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { ILang } from "../types/lang";
 import type { Post } from "../types/post";
 import type { Chat, IMessage } from "../types/chats";
+import type { AchievementKey } from "../types/achievements";
 
 type Theme = "light" | "dark";
 
@@ -57,6 +58,10 @@ interface AppState {
 
   chats: Chat[];
   setChats: (chats: Chat[]) => void;
+
+  achievementUnlockQueue: AchievementKey[];
+  enqueueAchievementUnlocks: (keys: AchievementKey[]) => void;
+  dismissAchievementUnlock: () => void;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -174,5 +179,24 @@ export const useAppStore = create<AppState>((set, get) => ({
         post: null,
         mode: state.postModal.mode,
       },
+    })),
+
+  achievementUnlockQueue: [],
+  enqueueAchievementUnlocks: (keys) =>
+    set((state) => {
+      const existing = new Set(state.achievementUnlockQueue);
+      const next = keys.filter((key) => !existing.has(key));
+
+      if (!next.length) {
+        return state;
+      }
+
+      return {
+        achievementUnlockQueue: [...state.achievementUnlockQueue, ...next],
+      };
+    }),
+  dismissAchievementUnlock: () =>
+    set((state) => ({
+      achievementUnlockQueue: state.achievementUnlockQueue.slice(1),
     })),
 }));

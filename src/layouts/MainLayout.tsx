@@ -10,8 +10,10 @@ import { useEffect } from "react";
 import { useAuthStore } from "../stores/auth";
 import { socket, connectSocket } from "../services/socket.service";
 import type { IMessage } from "../types/chats";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { chatsService } from "../services/chats.service";
+import { userService } from "../services/user.service";
+import { pickAchievementKeys } from "../constants/achievements";
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -22,6 +24,9 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
   const setToast = useAppStore((s) => s.setToast);
   const setIsOpenMessageToast = useAppStore((s) => s.setIsOpenMessageToast);
   const setChats = useAppStore((s) => s.setChats);
+  const enqueueAchievementUnlocks = useAppStore(
+    (s) => s.enqueueAchievementUnlocks,
+  );
   const user = useAuthStore((s) => s.user);
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,6 +49,41 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
 
     setChats(userChats);
   }, [userChats]);
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    let cancelled = false;
+    const timeouts: number[] = [];
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    void userService
+      .visit(timeZone)
+      .then((data) => {
+        if (cancelled) return;
+
+        void mutate(["achievements", user.id], data.achievements, {
+          revalidate: false,
+        });
+
+        const keys = pickAchievementKeys(data.newlyUnlocked);
+        if (!keys.length) return;
+
+        timeouts.push(
+          window.setTimeout(() => {
+            if (!cancelled) {
+              enqueueAchievementUnlocks(keys);
+            }
+          }, 450),
+        );
+      })
+      .catch(() => undefined);
+
+    return () => {
+      cancelled = true;
+      timeouts.forEach((id) => window.clearTimeout(id));
+    };
+  }, [user?.id, enqueueAchievementUnlocks]);
 
   useEffect(() => {
     if (!user?.id) return;

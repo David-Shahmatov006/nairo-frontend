@@ -39,7 +39,8 @@
     "server_error": "Sunucu hatası, lütfen daha sonra tekrar deneyin.",
     "login_failed_error": "Giriş başarısız",
     "something_went_wrong_error": "Bir şeyler ters gitti",
-    "invalid_otp_error": "Geçersiz OTP kodu"
+    "invalid_otp_error": "Geçersiz OTP kodu",
+    "email_doesn't_exists_error": "Bu e-posta adresi mevcut değil."
   },
   "not_found": {
     "subtitle": "Sayfa bulunamadı",
@@ -87,6 +88,25 @@
     "refill": "Bakiye Yükle",
     "no_bio": "Henüz biyografi yok",
     "not_found_user": "Üzgünüz, böyle bir kullanıcı bulunamadı"
+  },
+  "achievements": {
+    "title": "Başarımlar",
+    "night_owl_name": "Gece kuşu",
+    "night_owl_description": "Sabah 03:00-05:00 arasında bir gönderi paylaş",
+    "early_bird_name": "Erken kalkan",
+    "early_bird_description": "İlk 100 kullanıcıdan biri ol",
+    "polyglot_name": "Poliglot",
+    "polyglot_description": "Arayüz dilini en az bir kez değiştir",
+    "valentine_name": "Sevgililer Günü",
+    "valentine_description": "14 Şubat'ta Nairo'ya gir",
+    "veteran_name": "Veteran",
+    "veteran_description": "Bir yıldır kayıtlı ol",
+    "christmas_spirit_name": "Noel ruhu",
+    "christmas_spirit_description": "25 Aralık'ta Nairo'ya gir",
+    "halloween_name": "Cadılar Bayramı",
+    "halloween_description": "31 Ekim'de Nairo'ya gir",
+    "unlocked": "Başarım açıldı!",
+    "got_it": "Harika!"
   },
   "settings": {
     "change_email": "E-postayı değiştir",

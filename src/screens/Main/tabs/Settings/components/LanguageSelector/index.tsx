@@ -9,10 +9,13 @@ import { LANGS } from "../../../../../../constants/langs";
 import { userService } from "../../../../../../services/user.service";
 import { useLocation } from "react-router-dom";
 import { ROUTES } from "../../../../../../routes";
+import { mutate } from "swr";
+import { pickAchievementKeys } from "../../../../../../constants/achievements";
 
 export const LanguageSelector = () => {
   const [open, setOpen] = useState(false);
-  const { selectedLanguage, setSelectedLanguage } = useAppStore();
+  const { selectedLanguage, setSelectedLanguage, enqueueAchievementUnlocks } =
+    useAppStore();
   const { user, updateUser } = useAuthStore();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const { i18n } = useTranslation();
@@ -39,12 +42,17 @@ export const LanguageSelector = () => {
 
     if (isAuthPage) return;
     try {
-      await userService.changeLanguage(code);
+      const data = await userService.changeLanguage(code);
+      enqueueAchievementUnlocks(pickAchievementKeys(data?.newlyUnlocked));
 
       updateUser({
         ...user,
         preferredLanguage: code,
       });
+
+      if (user?.id) {
+        mutate(["achievements", user.id]);
+      }
 
     } catch (err) {
       console.error("Language update error", err);

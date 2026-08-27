@@ -39,7 +39,8 @@
     "server_error": "Erreur du serveur. Veuillez réessayer plus tard.",
     "login_failed_error": "Échec de la connexion.",
     "something_went_wrong_error": "Une erreur est survenue.",
-    "invalid_otp_error": "Code OTP invalide."
+    "invalid_otp_error": "Code OTP invalide.",
+    "email_doesn't_exists_error": "Cet e-mail n'existe pas."
   },
   "not_found": {
     "subtitle": "Page introuvable",
@@ -87,6 +88,25 @@
     "refill": "Recharger",
     "no_bio": "Aucune biographie pour l’instant",
     "not_found_user": "Désolé, mais nous n’avons pas pu trouver cet utilisateur"
+  },
+  "achievements": {
+    "title": "Succès",
+    "night_owl_name": "Oiseau de nuit",
+    "night_owl_description": "Publiez un post entre 3h et 5h du matin",
+    "early_bird_name": "Lève-tôt",
+    "early_bird_description": "Faites partie des 100 premiers utilisateurs",
+    "polyglot_name": "Polyglotte",
+    "polyglot_description": "Changez au moins une fois la langue de l’interface",
+    "valentine_name": "Saint-Valentin",
+    "valentine_description": "Connectez-vous à Nairo le 14 février",
+    "veteran_name": "Vétéran",
+    "veteran_description": "Restez inscrit pendant un an",
+    "christmas_spirit_name": "Esprit de Noël",
+    "christmas_spirit_description": "Connectez-vous à Nairo le 25 décembre",
+    "halloween_name": "Halloween",
+    "halloween_description": "Connectez-vous à Nairo le 31 octobre",
+    "unlocked": "Succès débloqué !",
+    "got_it": "Génial !"
   },
   "settings": {
     "change_email": "Changer l’email",

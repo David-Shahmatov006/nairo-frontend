@@ -39,7 +39,8 @@
     "server_error": "Erro no servidor. Tente novamente mais tarde.",
     "login_failed_error": "Falha no login",
     "something_went_wrong_error": "Algo deu errado",
-    "invalid_otp_error": "Código OTP inválido"
+    "invalid_otp_error": "Código OTP inválido",
+    "email_doesn't_exists_error": "Este e-mail não existe."
   },
   "not_found": {
     "subtitle": "Página não encontrada",
@@ -87,6 +88,25 @@
     "refill": "Recarregar",
     "no_bio": "Ainda não há biografia",
     "not_found_user": "Desculpe, não conseguimos encontrar esse usuário"
+  },
+  "achievements": {
+    "title": "Conquistas",
+    "night_owl_name": "Coruja noturna",
+    "night_owl_description": "Publique um post entre 3:00 e 5:00 da manhã",
+    "early_bird_name": "Madrugador",
+    "early_bird_description": "Entre como um dos 100 primeiros usuários",
+    "polyglot_name": "Poliglota",
+    "polyglot_description": "Mude o idioma da interface pelo menos uma vez",
+    "valentine_name": "Dia dos Namorados",
+    "valentine_description": "Entre no Nairo em 14 de fevereiro",
+    "veteran_name": "Veterano",
+    "veteran_description": "Fique registrado por um ano",
+    "christmas_spirit_name": "Espírito natalino",
+    "christmas_spirit_description": "Entre no Nairo em 25 de dezembro",
+    "halloween_name": "Halloween",
+    "halloween_description": "Entre no Nairo em 31 de outubro",
+    "unlocked": "Conquista desbloqueada!",
+    "got_it": "Incrível!"
   },
   "settings": {
     "change_email": "Alterar e-mail",

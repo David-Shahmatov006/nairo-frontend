@@ -88,6 +88,25 @@
     "no_bio": "No bio yet",
     "not_found_user": "Sorry, but we couldn't find such user"
   },
+  "achievements": {
+    "title": "Achievements",
+    "night_owl_name": "Night owl",
+    "night_owl_description": "Publish a post between 3:00 and 5:00 AM",
+    "early_bird_name": "Early bird",
+    "early_bird_description": "Join as one of the first 100 users",
+    "polyglot_name": "Polyglot",
+    "polyglot_description": "Change the interface language at least once",
+    "valentine_name": "Valentine's",
+    "valentine_description": "Visit Nairo on February 14",
+    "veteran_name": "Veteran",
+    "veteran_description": "Stay registered for one year",
+    "christmas_spirit_name": "Christmas spirit",
+    "christmas_spirit_description": "Visit Nairo on December 25",
+    "halloween_name": "Halloween",
+    "halloween_description": "Visit Nairo on October 31",
+    "unlocked": "Achievement unlocked!",
+    "got_it": "Awesome!"
+  },
   "settings": {
     "change_email": "Change email",
     "change_password": "Change Your Password",
