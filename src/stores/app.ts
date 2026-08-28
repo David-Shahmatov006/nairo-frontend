@@ -184,8 +184,15 @@ export const useAppStore = create<AppState>((set, get) => ({
   achievementUnlockQueue: [],
   enqueueAchievementUnlocks: (keys) =>
     set((state) => {
-      const existing = new Set(state.achievementUnlockQueue);
-      const next = keys.filter((key) => !existing.has(key));
+      const seen = new Set(state.achievementUnlockQueue);
+      const next: AchievementKey[] = [];
+
+      for (const key of keys) {
+        if (seen.has(key)) continue;
+
+        seen.add(key);
+        next.push(key);
+      }
 
       if (!next.length) {
         return state;
