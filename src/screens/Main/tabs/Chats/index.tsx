@@ -17,6 +17,7 @@ import searchMuskot from "../../../../assets/images/search_muskot.webp";
 import clsx from "clsx";
 import { mutate } from "swr";
 import { useAppStore } from "../../../../stores/app";
+import type { VoiceRecording } from "../../../../hooks/useVoiceRecorder";
 
 export const Chats = () => {
   const { t } = useTranslation();
@@ -139,6 +140,56 @@ export const Chats = () => {
     });
   };
 
+  const handleSendVoice = async (recording: VoiceRecording) => {
+    if (!activeChat || !user?.id) return;
+
+    const receiver = activeChat.participants.find((p) => p.id !== user.id);
+    if (!receiver) return;
+
+    const tempId = `pending-${Date.now()}`;
+    const objectUrl = URL.createObjectURL(recording.blob);
+
+    const pending: IMessage = {
+      id: tempId,
+      type: "voice",
+      text: null,
+      audioUrl: objectUrl,
+      durationMs: recording.durationMs,
+      waveform: recording.waveform,
+      sender: user,
+      chatId: activeChat.id || "",
+      createdAt: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, pending]);
+    setTimeout(scrollToBottom, 50);
+
+    try {
+      const saved = await chatsService.sendVoiceMessage({
+        chatId: activeChat.id || null,
+        receiverId: receiver.id,
+        blob: recording.blob,
+        durationMs: recording.durationMs,
+        waveform: recording.waveform,
+      });
+
+      setMessages((prev) => {
+        const withoutPending = prev.filter((message) => message.id !== tempId);
+
+        if (withoutPending.some((message) => message.id === saved.id)) {
+          return withoutPending;
+        }
+
+        return [...withoutPending, saved];
+      });
+    } catch (error) {
+      console.error(error);
+      setMessages((prev) => prev.filter((message) => message.id !== tempId));
+    } finally {
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+    }
+  };
+
   useEffect(() => {
     if (!activeChat || !user?.id) {
       setMessages([]);
@@ -206,16 +257,13 @@ export const Chats = () => {
       }
 
       if (data.chatId === current?.id) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: data.id,
-            sender: data.sender,
-            text: data.text,
-            chatId: data.chatId,
-            createdAt: data.createdAt,
-          },
-        ]);
+        setMessages((prev) => {
+          if (prev.some((message) => message.id === data.id)) {
+            return prev;
+          }
+
+          return [...prev, data];
+        });
 
         scrollToBottom();
       }
@@ -406,6 +454,7 @@ export const Chats = () => {
 
               <ChatInput
                 onSendMessage={handleSendMessage}
+                onSendVoice={handleSendVoice}
                 activeChatId={activeChat?.id || null}
                 socket={socket}
                 userId={user?.id!}

@@ -167,7 +167,15 @@
     "delete_message": "Mesajı sil",
     "copy_message": "Mesajı kopyala",
     "edited_label": "Düzenlendi",
-    "delete_message_subtitle": "Bu işlem geri alınamaz"
+    "delete_message_subtitle": "Bu işlem geri alınamaz",
+    "record_voice": "Sesli mesaj kaydet",
+    "recording": "Kaydediliyor...",
+    "cancel_recording": "Kaydı iptal et",
+    "send_voice": "Sesli mesaj gönder",
+    "voice_message": "Sesli mesaj",
+    "mic_denied": "Mikrofon erişimi reddedildi",
+    "mic_unsupported": "Sesli mesajlar bu tarayıcıda desteklenmiyor",
+    "voice_too_long": "Sesli mesajlar en fazla 2 dakika olabilir"
   },
   "emoji_modal": {
     "default_emojis": "Emojiler",

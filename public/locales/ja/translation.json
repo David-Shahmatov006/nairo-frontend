@@ -167,7 +167,15 @@
     "delete_message": "メッセージを削除",
     "copy_message": "メッセージをコピー",
     "edited_label": "編集済み",
-    "delete_message_subtitle": "この操作は元に戻せません"
+    "delete_message_subtitle": "この操作は元に戻せません",
+    "record_voice": "ボイスメッセージを録音",
+    "recording": "録音中...",
+    "cancel_recording": "録音をキャンセル",
+    "send_voice": "ボイスメッセージを送信",
+    "voice_message": "ボイスメッセージ",
+    "mic_denied": "マイクへのアクセスが拒否されました",
+    "mic_unsupported": "このブラウザではボイスメッセージに対応していません",
+    "voice_too_long": "ボイスメッセージは最大2分です"
   },
   "emoji_modal": {
     "default_emojis": "絵文字",

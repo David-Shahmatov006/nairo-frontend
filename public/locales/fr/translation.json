@@ -199,7 +199,15 @@
     "delete_message": "Supprimer le message",
     "copy_message": "Copier le message",
     "edited_label": "Modifié",
-    "delete_message_subtitle": "Cette action est irréversible"
+    "delete_message_subtitle": "Cette action est irréversible",
+    "record_voice": "Enregistrer un message vocal",
+    "recording": "Enregistrement...",
+    "cancel_recording": "Annuler l'enregistrement",
+    "send_voice": "Envoyer le message vocal",
+    "voice_message": "Message vocal",
+    "mic_denied": "L'accès au microphone a été refusé",
+    "mic_unsupported": "Les messages vocaux ne sont pas pris en charge dans ce navigateur",
+    "voice_too_long": "Les messages vocaux peuvent durer 2 minutes au maximum"
   },
   "emoji_modal": {
     "default_emojis": "Émojis",

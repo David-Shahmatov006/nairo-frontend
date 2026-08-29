@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { ConfirmModal } from "../../../../../components/ConfirmModal";
 import { useAuthStore } from "../../../../../stores/auth";
 import { LuCopy } from "react-icons/lu";
+import { VoiceMessage } from "./VoiceMessage";
 
 interface IProps {
   message: IMessage;
@@ -25,6 +26,8 @@ export const Message = ({ message, onDelete }: IProps) => {
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const fromMe = message.sender.id === userId;
+  const isVoice = message.type === "voice";
+  const isPending = message.id.startsWith("pending-");
 
   const handleCopyMessage = async (text: string) => {
     try {
@@ -35,7 +38,7 @@ export const Message = ({ message, onDelete }: IProps) => {
   };
 
   const startLongPress = () => {
-    if (!fromMe) return;
+    if (!fromMe || isPending) return;
 
     setIsHolding(true);
 
@@ -84,7 +87,7 @@ export const Message = ({ message, onDelete }: IProps) => {
             : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200",
         )}
         onContextMenu={(e) => {
-          if (!fromMe) return;
+          if (!fromMe || isPending) return;
 
           e.preventDefault();
           setMenuOpen(true);
@@ -93,10 +96,19 @@ export const Message = ({ message, onDelete }: IProps) => {
         onTouchEnd={cancelLongPress}
         onTouchMove={cancelLongPress}
       >
-        <div
-          className="min-2000px:text-[.8vw] text-[15px] dark:text-white/80 whitespace-pre-wrap break-words"
-          dangerouslySetInnerHTML={{ __html: message.text }}
-        />
+        {isVoice && message.audioUrl ? (
+          <VoiceMessage
+            audioUrl={message.audioUrl}
+            durationMs={message.durationMs ?? 0}
+            waveform={message.waveform ?? []}
+            pending={isPending}
+          />
+        ) : (
+          <div
+            className="min-2000px:text-[.8vw] text-[15px] dark:text-white/80 whitespace-pre-wrap break-words"
+            dangerouslySetInnerHTML={{ __html: message.text ?? "" }}
+          />
+        )}
 
         <div className="w-full flex justify-between gap-1 items-center mt-1">
           {message.editedAt && (
@@ -122,33 +134,37 @@ export const Message = ({ message, onDelete }: IProps) => {
               "absolute z-50 overflow-hidden min-2000px:rounded-[.5vw] rounded-[17px] border border-gray-200/70 dark:border-white/10 bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,.18)] min-2000px:min-w-[7vw] min-w-[130px] min-2000px:p-[.2vw] p-1.5 min-2000px:right-[5vw] right-[5%] top-[105%]",
             )}
           >
-            <button
-              onClick={() => {
-                setIsOpenEditModal(true);
-                setMenuOpen(false);
-              }}
-              className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
-            >
-              <FiEdit2 className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
-              <span className="min-2000px:text-[.7vw]">
-                {t("chat.edit_message")}
-              </span>
-            </button>
+            {!isVoice && (
+              <>
+                <button
+                  onClick={() => {
+                    setIsOpenEditModal(true);
+                    setMenuOpen(false);
+                  }}
+                  className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                >
+                  <FiEdit2 className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
+                  <span className="min-2000px:text-[.7vw]">
+                    {t("chat.edit_message")}
+                  </span>
+                </button>
 
-            <button
-              onClick={() => {
-                handleCopyMessage(message.text);
-                setMenuOpen(false);
-              }}
-              className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
-            >
-              <LuCopy className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
-              <span className="min-2000px:text-[.7vw]">
-                {t("chat.copy_message")}
-              </span>
-            </button>
+                <button
+                  onClick={() => {
+                    handleCopyMessage(message.text ?? "");
+                    setMenuOpen(false);
+                  }}
+                  className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                >
+                  <LuCopy className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
+                  <span className="min-2000px:text-[.7vw]">
+                    {t("chat.copy_message")}
+                  </span>
+                </button>
 
-            <div className="mx-2 my-1 h-px bg-gray-200 dark:bg-white/10" />
+                <div className="mx-2 my-1 h-px bg-gray-200 dark:bg-white/10" />
+              </>
+            )}
 
             <button
               onClick={() => {
@@ -166,17 +182,19 @@ export const Message = ({ message, onDelete }: IProps) => {
         )}
       </AnimatePresence>
 
-      <EditModal
-        title={t("chat.edit_message")}
-        isOpen={isOpenEditModal}
-        onClose={() => {
-          setIsOpenEditModal(false);
-          setMenuOpen(false);
-        }}
-        initialText={message.text}
-        targetId={message.id}
-        type="message"
-      />
+      {!isVoice && (
+        <EditModal
+          title={t("chat.edit_message")}
+          isOpen={isOpenEditModal}
+          onClose={() => {
+            setIsOpenEditModal(false);
+            setMenuOpen(false);
+          }}
+          initialText={message.text ?? ""}
+          targetId={message.id}
+          type="message"
+        />
+      )}
 
       <ConfirmModal
         isOpen={isOpenDeleteModal}

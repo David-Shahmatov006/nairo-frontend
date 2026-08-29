@@ -1,4 +1,4 @@
-import { formatDate, formatTime } from "./formatDate";
+import { formatDate, formatTime, formatVoiceDuration } from "./formatDate";
 
 // ISO strings without a trailing Z are parsed as local time, which keeps these
 // assertions independent of the machine timezone.
@@ -23,5 +23,13 @@ describe("formatTime", () => {
 
   it("pads single digit hours", () => {
     expect(formatTime("2024-03-05T07:05:00")).toBe("07:05");
+  });
+});
+
+describe("formatVoiceDuration", () => {
+  it("formats minutes and zero-padded seconds", () => {
+    expect(formatVoiceDuration(0)).toBe("0:00");
+    expect(formatVoiceDuration(4200)).toBe("0:04");
+    expect(formatVoiceDuration(65_000)).toBe("1:05");
   });
 });

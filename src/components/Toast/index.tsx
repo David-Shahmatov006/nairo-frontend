@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiArrowUpRight, FiX, FiMessageCircle } from "react-icons/fi";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import type { IMessage } from "../../types/chats";
 import { AvatarImage } from "../AvatarImage";
 
@@ -21,6 +22,7 @@ export const Toast = ({
   onClose,
   onOpenChat,
 }: ToastProps) => {
+  const { t } = useTranslation();
   const isMobile = window.innerWidth <= 768;
   useEffect(() => {
     if (!open) return;
@@ -73,7 +75,9 @@ export const Toast = ({
                 </div>
 
                 <p className="min-2000px:mt-[.1vw] mt-1 truncate min-2000px:text-[.7vw] text-[13px] text-gray-500 dark:text-white/60">
-                  {message.text}
+                  {message.type === "voice"
+                    ? t("chat.voice_message")
+                    : message.text}
                 </p>
               </div>
 

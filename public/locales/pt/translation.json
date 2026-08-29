@@ -167,7 +167,15 @@
     "delete_message": "Excluir mensagem",
     "copy_message": "Copiar mensagem",
     "edited_label": "Editado",
-    "delete_message_subtitle": "Esta ação não pode ser desfeita"
+    "delete_message_subtitle": "Esta ação não pode ser desfeita",
+    "record_voice": "Gravar uma mensagem de voz",
+    "recording": "A gravar...",
+    "cancel_recording": "Cancelar gravação",
+    "send_voice": "Enviar mensagem de voz",
+    "voice_message": "Mensagem de voz",
+    "mic_denied": "O acesso ao microfone foi recusado",
+    "mic_unsupported": "As mensagens de voz não são suportadas neste navegador",
+    "voice_too_long": "As mensagens de voz podem durar no máximo 2 minutos"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

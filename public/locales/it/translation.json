@@ -167,7 +167,15 @@
     "delete_message": "Elimina messaggio",
     "copy_message": "Copia messaggio",
     "edited_label": "Modificato",
-    "delete_message_subtitle": "Questa azione non può essere annullata"
+    "delete_message_subtitle": "Questa azione non può essere annullata",
+    "record_voice": "Registra un messaggio vocale",
+    "recording": "Registrazione...",
+    "cancel_recording": "Annulla registrazione",
+    "send_voice": "Invia messaggio vocale",
+    "voice_message": "Messaggio vocale",
+    "mic_denied": "Accesso al microfono negato",
+    "mic_unsupported": "I messaggi vocali non sono supportati in questo browser",
+    "voice_too_long": "I messaggi vocali possono durare al massimo 2 minuti"
   },
   "emoji_modal": {
     "default_emojis": "Emoji",

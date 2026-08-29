@@ -20,8 +20,12 @@ export interface Chat {
 export interface IMessage {
   id: string;
   sender: User;
-  text: string;
+  type: "text" | "voice";
+  text: string | null;
   chatId: string;
   createdAt: string;
   editedAt?: string | null;
+  audioUrl?: string | null;
+  durationMs?: number | null;
+  waveform?: number[] | null;
 }

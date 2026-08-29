@@ -199,7 +199,15 @@
     "delete_message": "Nachricht löschen",
     "copy_message": "Nachricht kopieren",
     "edited_label": "Bearbeitet",
-    "delete_message_subtitle": "Diese Aktion kann nicht rückgängig gemacht werden"
+    "delete_message_subtitle": "Diese Aktion kann nicht rückgängig gemacht werden",
+    "record_voice": "Sprachnachricht aufnehmen",
+    "recording": "Aufnahme...",
+    "cancel_recording": "Aufnahme abbrechen",
+    "send_voice": "Sprachnachricht senden",
+    "voice_message": "Sprachnachricht",
+    "mic_denied": "Mikrofonzugriff wurde verweigert",
+    "mic_unsupported": "Sprachnachrichten werden in diesem Browser nicht unterstützt",
+    "voice_too_long": "Sprachnachrichten dürfen höchstens 2 Minuten lang sein"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",
