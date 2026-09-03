@@ -170,6 +170,7 @@
     "delete_message_subtitle": "Questa azione non può essere annullata",
     "record_voice": "Registra un messaggio vocale",
     "recording": "Registrazione...",
+    "peer_recording": "Sta registrando un vocale",
     "cancel_recording": "Annulla registrazione",
     "send_voice": "Invia messaggio vocale",
     "voice_message": "Messaggio vocale",

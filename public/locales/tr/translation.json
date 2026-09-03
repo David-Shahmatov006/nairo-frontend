@@ -170,6 +170,7 @@
     "delete_message_subtitle": "Bu işlem geri alınamaz",
     "record_voice": "Sesli mesaj kaydet",
     "recording": "Kaydediliyor...",
+    "peer_recording": "Sesli mesaj kaydediyor",
     "cancel_recording": "Kaydı iptal et",
     "send_voice": "Sesli mesaj gönder",
     "voice_message": "Sesli mesaj",

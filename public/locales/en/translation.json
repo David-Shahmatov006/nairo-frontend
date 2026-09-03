@@ -169,6 +169,7 @@
     "delete_message_subtitle": "This action cannot be undone",
     "record_voice": "Record a voice message",
     "recording": "Recording...",
+    "peer_recording": "Recording a voice message",
     "cancel_recording": "Cancel recording",
     "send_voice": "Send voice message",
     "voice_message": "Voice message",

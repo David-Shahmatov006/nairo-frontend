@@ -170,6 +170,7 @@
     "delete_message_subtitle": "Esta ação não pode ser desfeita",
     "record_voice": "Gravar uma mensagem de voz",
     "recording": "A gravar...",
+    "peer_recording": "A gravar uma mensagem de voz",
     "cancel_recording": "Cancelar gravação",
     "send_voice": "Enviar mensagem de voz",
     "voice_message": "Mensagem de voz",

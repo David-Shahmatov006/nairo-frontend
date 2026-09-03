@@ -57,6 +57,37 @@ export const ChatInput = ({
 
   const isRecording = state === "recording" || state === "requesting";
 
+  useEffect(() => {
+    if (state !== "recording" || !activeChatId) {
+      return;
+    }
+
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = null;
+    }
+
+    socket.emit("typing", {
+      chatId: activeChatId,
+      userId,
+      isTyping: false,
+    });
+
+    socket.emit("recording", {
+      chatId: activeChatId,
+      userId,
+      isRecording: true,
+    });
+
+    return () => {
+      socket.emit("recording", {
+        chatId: activeChatId,
+        userId,
+        isRecording: false,
+      });
+    };
+  }, [state, activeChatId, userId, socket]);
+
   const emitTyping = () => {
     if (!activeChatId) return;
 

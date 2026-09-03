@@ -170,6 +170,7 @@
     "delete_message_subtitle": "Tej operacji nie można cofnąć",
     "record_voice": "Nagraj wiadomość głosową",
     "recording": "Nagrywanie...",
+    "peer_recording": "Nagrywa wiadomość głosową",
     "cancel_recording": "Anuluj nagrywanie",
     "send_voice": "Wyślij wiadomość głosową",
     "voice_message": "Wiadomość głosowa",

@@ -202,6 +202,7 @@
     "delete_message_subtitle": "Diese Aktion kann nicht rückgängig gemacht werden",
     "record_voice": "Sprachnachricht aufnehmen",
     "recording": "Aufnahme...",
+    "peer_recording": "Nimmt eine Sprachnachricht auf",
     "cancel_recording": "Aufnahme abbrechen",
     "send_voice": "Sprachnachricht senden",
     "voice_message": "Sprachnachricht",

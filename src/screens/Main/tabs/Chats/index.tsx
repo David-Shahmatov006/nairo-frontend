@@ -17,7 +17,13 @@ import searchMuskot from "../../../../assets/images/search_muskot.webp";
 import clsx from "clsx";
 import { mutate } from "swr";
 import { useAppStore } from "../../../../stores/app";
-import type { VoiceRecording } from "../../../../hooks/useVoiceRecorder";
+import { useIsMobile } from "../../../../hooks/useIsMobile";
+import {
+  VOICE_MAX_DURATION_MS,
+  type VoiceRecording,
+} from "../../../../hooks/useVoiceRecorder";
+
+const RECORDING_STALE_MS = VOICE_MAX_DURATION_MS + 10_000;
 
 export const Chats = () => {
   const { t } = useTranslation();
@@ -26,7 +32,7 @@ export const Chats = () => {
   const setChats = useAppStore((s) => s.setChats);
   const navigate = useNavigate();
   const { chatId: chatIdFromURL } = useParams();
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useIsMobile();
   const showChatList = !isMobile || !chatIdFromURL;
   const showChatWindow = !isMobile || !!chatIdFromURL;
 
@@ -36,9 +42,21 @@ export const Chats = () => {
   const [chatToDelete, setChatToDelete] = useState<string | null>(null);
 
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const activeChatRef = useRef<Chat | null>(null);
+  const recordingTimeoutRef = useRef<number | null>(null);
+
+  const clearRecordingIndicator = () => {
+    if (recordingTimeoutRef.current !== null) {
+      window.clearTimeout(recordingTimeoutRef.current);
+      recordingTimeoutRef.current = null;
+    }
+
+    setIsRecording(false);
+  };
 
   const mapChatToClient = (chat: Chat, currentUserId: string): Chat | null => {
     const otherParticipant = chat.participants.find(
@@ -257,6 +275,10 @@ export const Chats = () => {
       }
 
       if (data.chatId === current?.id) {
+        if (data.type === "voice" && data.sender?.id !== user?.id) {
+          clearRecordingIndicator();
+        }
+
         setMessages((prev) => {
           if (prev.some((message) => message.id === data.id)) {
             return prev;
@@ -356,8 +378,6 @@ export const Chats = () => {
     };
   }, [activeChat?.id]);
 
-  const [isTyping, setIsTyping] = useState(false);
-
   useEffect(() => {
     const handleTypingStatus = (data: { isTyping: boolean }) => {
       if (!activeChat?.id) return;
@@ -369,6 +389,36 @@ export const Chats = () => {
 
     return () => {
       socket.off("typingStatus", handleTypingStatus);
+      setIsTyping(false);
+    };
+  }, [activeChat?.id]);
+
+  useEffect(() => {
+    const handleRecordingStatus = (data: { isRecording: boolean }) => {
+      if (!activeChat?.id) return;
+
+      if (!data.isRecording) {
+        clearRecordingIndicator();
+        return;
+      }
+
+      setIsRecording(true);
+
+      if (recordingTimeoutRef.current !== null) {
+        window.clearTimeout(recordingTimeoutRef.current);
+      }
+
+      recordingTimeoutRef.current = window.setTimeout(() => {
+        setIsRecording(false);
+        recordingTimeoutRef.current = null;
+      }, RECORDING_STALE_MS);
+    };
+
+    socket.on("recordingStatus", handleRecordingStatus);
+
+    return () => {
+      socket.off("recordingStatus", handleRecordingStatus);
+      clearRecordingIndicator();
     };
   }, [activeChat?.id]);
 
@@ -448,6 +498,7 @@ export const Chats = () => {
 
               <ChatMessageList
                 isTyping={isTyping}
+                isRecording={isRecording}
                 messages={messages}
                 messagesEndRef={messagesEndRef}
               />

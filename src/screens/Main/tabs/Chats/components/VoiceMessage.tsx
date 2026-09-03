@@ -5,6 +5,9 @@ import { formatVoiceDuration } from "../../../../../utils/formatDate";
 
 const PLAYBACK_RATES = [1, 1.5, 2] as const;
 
+// HTMLMediaElement.HAVE_FUTURE_DATA — enough is buffered for playback to start.
+const HAVE_FUTURE_DATA = 3;
+
 let activeAudio: HTMLAudioElement | null = null;
 
 const claimPlayback = (audio: HTMLAudioElement) => {
@@ -19,6 +22,20 @@ const releasePlayback = (audio: HTMLAudioElement) => {
   if (activeAudio === audio) {
     activeAudio = null;
   }
+};
+
+// MediaRecorder webm/opus blobs carry no duration in their header, so
+// audio.duration stays Infinity — fall back to the duration we recorded.
+const resolveDuration = (audio: HTMLAudioElement, fallbackMs: number) =>
+  Number.isFinite(audio.duration) && audio.duration > 0
+    ? audio.duration
+    : fallbackMs / 1000;
+
+const attemptPlay = (audio: HTMLAudioElement, rate: number) => {
+  claimPlayback(audio);
+  audio.playbackRate = rate;
+
+  return Promise.resolve(audio.play());
 };
 
 interface VoiceMessageProps {
@@ -36,8 +53,21 @@ export const VoiceMessage = ({
 }: VoiceMessageProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [rateIndex, setRateIndex] = useState(0);
+
+  // The listeners below live as long as the <audio> element, so what they read
+  // has to come from a ref instead of a render-scoped closure.
+  const durationMsRef = useRef(durationMs);
+  const rateIndexRef = useRef(rateIndex);
+  const wantsPlayRef = useRef(false);
+
+  useEffect(() => {
+    durationMsRef.current = durationMs;
+    rateIndexRef.current = rateIndex;
+  }, [durationMs, rateIndex]);
+
   const bars = waveform.length > 0 ? waveform : Array.from({ length: 48 }, () => 8);
 
   useEffect(() => {
@@ -48,12 +78,31 @@ export const VoiceMessage = ({
     }
 
     const handleTimeUpdate = () => {
-      const duration = audio.duration || durationMs / 1000;
-      setProgress(duration > 0 ? audio.currentTime / duration : 0);
+      const duration = resolveDuration(audio, durationMsRef.current);
+      setProgress(duration > 0 ? Math.min(1, audio.currentTime / duration) : 0);
+    };
+
+    const handleLoadedMetadata = () => {
+      // Safari resets playbackRate once the media is (re)loaded.
+      audio.playbackRate = PLAYBACK_RATES[rateIndexRef.current];
+    };
+
+    const handleCanPlay = () => {
+      if (!wantsPlayRef.current) {
+        return;
+      }
+
+      wantsPlayRef.current = false;
+
+      void attemptPlay(audio, PLAYBACK_RATES[rateIndexRef.current]).catch(() => {
+        setIsLoading(false);
+      });
     };
 
     const handlePlay = () => {
       claimPlayback(audio);
+      wantsPlayRef.current = false;
+      setIsLoading(false);
       setIsPlaying(true);
     };
 
@@ -68,36 +117,65 @@ export const VoiceMessage = ({
       setProgress(0);
     };
 
+    const handleError = () => {
+      releasePlayback(audio);
+      wantsPlayRef.current = false;
+      setIsLoading(false);
+      setIsPlaying(false);
+    };
+
     audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("canplay", handleCanPlay);
+    audio.addEventListener("loadeddata", handleCanPlay);
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("error", handleError);
 
     return () => {
       audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("canplay", handleCanPlay);
+      audio.removeEventListener("loadeddata", handleCanPlay);
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("error", handleError);
+      wantsPlayRef.current = false;
       audio.pause();
       releasePlayback(audio);
     };
-  }, [audioUrl, durationMs]);
+  }, [audioUrl]);
 
-  const togglePlayback = async () => {
+  const togglePlayback = () => {
     const audio = audioRef.current;
 
     if (!audio || pending) {
       return;
     }
 
-    if (isPlaying) {
+    // Ask the element, not React state: a play() that never started leaves
+    // isPlaying false while the element may already be running, and vice versa.
+    if (wantsPlayRef.current || !audio.paused) {
+      wantsPlayRef.current = false;
+      setIsLoading(false);
       audio.pause();
       return;
     }
 
-    claimPlayback(audio);
-    audio.playbackRate = PLAYBACK_RATES[rateIndex];
-    await audio.play();
+    wantsPlayRef.current = true;
+    setIsLoading(audio.readyState < HAVE_FUTURE_DATA);
+
+    void attemptPlay(audio, PLAYBACK_RATES[rateIndex]).catch(() => {
+      // Mobile Safari rejects the first play() when nothing is buffered yet;
+      // handleCanPlay retries it as soon as the media is ready. Anything else
+      // (blocked autoplay, unsupported source) is final.
+      if (audio.readyState >= HAVE_FUTURE_DATA || audio.error) {
+        wantsPlayRef.current = false;
+        setIsLoading(false);
+      }
+    });
   };
 
   const handleSeek = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -109,9 +187,13 @@ export const VoiceMessage = ({
 
     const rect = event.currentTarget.getBoundingClientRect();
     const ratio = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-    const duration = audio.duration || durationMs / 1000;
-    audio.currentTime = ratio * duration;
-    setProgress(ratio);
+    const duration = resolveDuration(audio, durationMsRef.current);
+    const nextTime = ratio * duration;
+
+    if (Number.isFinite(nextTime)) {
+      audio.currentTime = nextTime;
+      setProgress(ratio);
+    }
   };
 
   const cycleRate = () => {
@@ -137,9 +219,12 @@ export const VoiceMessage = ({
         onClick={togglePlayback}
         disabled={pending}
         aria-label={isPlaying ? "Pause" : "Play"}
+        aria-busy={isLoading}
         className="flex items-center justify-center shrink-0 min-2000px:size-[1.6vw] size-8 rounded-full bg-main text-white disabled:opacity-50 cursor-pointer"
       >
-        {isPlaying ? (
+        {isLoading ? (
+          <span className="min-2000px:size-[.6vw] size-3 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+        ) : isPlaying ? (
           <FaPause className="min-2000px:text-[.55vw] text-[11px]" />
         ) : (
           <FaPlay className="min-2000px:ml-[.08vw] ml-[1px] min-2000px:text-[.55vw] text-[11px]" />

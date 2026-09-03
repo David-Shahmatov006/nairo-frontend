@@ -170,6 +170,7 @@
     "delete_message_subtitle": "この操作は元に戻せません",
     "record_voice": "ボイスメッセージを録音",
     "recording": "録音中...",
+    "peer_recording": "ボイスメッセージを録音中",
     "cancel_recording": "録音をキャンセル",
     "send_voice": "ボイスメッセージを送信",
     "voice_message": "ボイスメッセージ",

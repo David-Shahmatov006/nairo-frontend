@@ -15,6 +15,7 @@ import { TfiClose } from "react-icons/tfi";
 import { FiLogOut } from "react-icons/fi";
 import { useAuthStore } from "../../stores/auth";
 import { AvatarImage } from "../AvatarImage";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 export const Header = () => {
   const theme = useAppStore((s) => s.theme);
@@ -26,7 +27,7 @@ export const Header = () => {
   const logout = useAuthStore((s) => s.logout);
   const user = useAuthStore((s) => s.user);
   const { chatId: chatIdFromUrl } = useParams();
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = useIsMobile();
   const unreadCount = chats?.reduce(
     (sum, chat) => sum + (chat.unreadCount ?? 0),
     0,
