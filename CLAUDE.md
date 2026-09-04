@@ -16,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Read-only actions (viewing files, searching, running tests, `git status`, `git diff`) do not require approval.
 - If a task is small and the user's instruction already fully specifies the exact change (e.g. "rename variable X to Y in file Z"), Claude may still briefly restate the change before applying it, but doesn't need a full multi-step plan.
 - Never batch unrelated changes into one approval — get approval per logical change if the user hasn't approved the whole set upfront.
+- After applying an approved change, show the actual diff for every touched file (e.g. via `git diff`) alongside the summary — a prose description of the change is not enough on its own.
 
 ## Commands
 
