@@ -22,6 +22,17 @@ body {
   background: #f8fafc;
 }
 
+/* Second line of defence for the format-detection meta in index.html: when iOS
+   does detect something it wraps the text in an anchor of its own and
+   underlines it. Nothing in the app relies on those anchors. */
+a[x-apple-data-detectors],
+a[x-apple-data-detectors] * {
+  color: inherit !important;
+  text-decoration: none !important;
+  -webkit-text-decoration: none !important;
+  pointer-events: none !important;
+}
+
 html.dark>body,
 body.dark {
   background: #0f0f0f !important;
