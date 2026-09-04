@@ -2,6 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Change approval workflow
+
+**Before creating, editing, or deleting any file, Claude must first present a plan and wait for explicit approval.**
+
+- Do not run `str_replace`, `create_file`, `rm`, or any other command that modifies the filesystem until the plan below has been approved.
+- The plan must be shown in the chat as plain text (not as a diff already applied) and must include:
+  1. Which files will be created, changed, or deleted.
+  2. A short description of what will change in each file and why.
+  3. Any commands that will be run (installs, migrations, etc.).
+- After presenting the plan, stop and wait for the user to respond with something like "да", "ок", "approve", "go ahead", etc.
+- If the user asks for changes to the plan, revise it and present the updated plan again — do not proceed until approved.
+- Read-only actions (viewing files, searching, running tests, `git status`, `git diff`) do not require approval.
+- If a task is small and the user's instruction already fully specifies the exact change (e.g. "rename variable X to Y in file Z"), Claude may still briefly restate the change before applying it, but doesn't need a full multi-step plan.
+- Never batch unrelated changes into one approval — get approval per logical change if the user hasn't approved the whole set upfront.
+
 ## Commands
 
 Package manager is **yarn 1** (`packageManager` field + `yarn.lock`).
