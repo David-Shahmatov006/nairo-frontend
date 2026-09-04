@@ -141,7 +141,7 @@ export const Message = ({ message, onDelete }: IProps) => {
                     setIsOpenEditModal(true);
                     setMenuOpen(false);
                   }}
-                  className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                  className="select-none group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
                 >
                   <FiEdit2 className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
                   <span className="min-2000px:text-[.7vw]">
@@ -154,7 +154,7 @@ export const Message = ({ message, onDelete }: IProps) => {
                     handleCopyMessage(message.text ?? "");
                     setMenuOpen(false);
                   }}
-                  className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                  className="select-none group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
                 >
                   <LuCopy className="min-2000px:text-[.6vw] text-[15px] group-hover:text-main duration-300 group-hover:scale-110" />
                   <span className="min-2000px:text-[.7vw]">
@@ -171,7 +171,7 @@ export const Message = ({ message, onDelete }: IProps) => {
                 setIsOpenDeleteModal(true);
                 setMenuOpen(false);
               }}
-              className="group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
+              className="select-none group flex w-full items-center min-2000px:gap-[.3vw] gap-2 min-2000px:rounded-[.4vw] rounded-xl min-2000px:px-[.4vw] px-3 min-2000px:py-[.3vw] py-2 text-[14px] font-medium text-gray-700 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300 cursor-pointer"
             >
               <FiTrash2 className="min-2000px:text-[.6vw] text-[15px] group-hover:text-red-400 duration-300 group-hover:scale-110" />
               <span className="min-2000px:text-[.7vw]">
