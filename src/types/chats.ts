@@ -28,4 +28,8 @@ export interface IMessage {
   audioUrl?: string | null;
   durationMs?: number | null;
   waveform?: number[] | null;
+  // Client-only: keeps the React list key stable while an optimistic voice
+  // message is replaced by the server-saved one, so an actively-playing
+  // <audio> element does not get remounted mid-playback.
+  clientId?: string;
 }

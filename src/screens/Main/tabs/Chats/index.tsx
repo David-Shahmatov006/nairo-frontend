@@ -169,6 +169,7 @@ export const Chats = () => {
 
     const pending: IMessage = {
       id: tempId,
+      clientId: tempId,
       type: "voice",
       text: null,
       audioUrl: objectUrl,
@@ -192,19 +193,26 @@ export const Chats = () => {
       });
 
       setMessages((prev) => {
-        const withoutPending = prev.filter((message) => message.id !== tempId);
-
-        if (withoutPending.some((message) => message.id === saved.id)) {
-          return withoutPending;
+        if (prev.some((message) => message.id === saved.id)) {
+          // Already delivered over the socket while the upload was in
+          // flight - drop the optimistic entry instead of duplicating it.
+          return prev.filter((message) => message.id !== tempId);
         }
 
-        return [...withoutPending, saved];
+        // Keep the same React key (clientId) and the locally recorded blob
+        // as audioUrl: swapping either would remount or reload the <audio>
+        // element, killing playback if the user is listening (or has just
+        // started listening) to the message they just sent.
+        return prev.map((message) =>
+          message.id === tempId
+            ? { ...saved, clientId: tempId, audioUrl: objectUrl }
+            : message,
+        );
       });
     } catch (error) {
       console.error(error);
       setMessages((prev) => prev.filter((message) => message.id !== tempId));
-    } finally {
-      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+      URL.revokeObjectURL(objectUrl);
     }
   };
 

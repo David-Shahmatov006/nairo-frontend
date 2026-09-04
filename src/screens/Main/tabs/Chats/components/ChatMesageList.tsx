@@ -41,7 +41,7 @@ export const ChatMessageList = ({
         {messages.length ? (
           messages.map((msg) => (
             <Message
-              key={msg.id}
+              key={msg.clientId ?? msg.id}
               onDelete={handleDeleteMessage}
               message={msg}
             />
