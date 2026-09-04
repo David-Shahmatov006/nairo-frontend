@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { formatVoiceDuration } from "../../../../../utils/formatDate";
+import { primeAudioPlayback } from "../../../../../utils/audioUnlock";
 
 const PLAYBACK_RATES = [1, 1.5, 2] as const;
 
@@ -166,6 +167,10 @@ export const VoiceMessage = ({
 
     wantsPlayRef.current = true;
     setIsLoading(audio.readyState < HAVE_FUTURE_DATA);
+
+    // One more chance, right in this tap's gesture, to settle WebKit's
+    // audio session into playback mode before the real play() below.
+    primeAudioPlayback();
 
     void attemptPlay(audio, PLAYBACK_RATES[rateIndex]).catch(() => {
       // Mobile Safari rejects the first play() when nothing is buffered yet;

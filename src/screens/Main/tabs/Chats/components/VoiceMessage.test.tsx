@@ -11,6 +11,13 @@ const setMediaProperty = (name: string, descriptor: PropertyDescriptor) => {
   });
 };
 
+// The component also fires a throwaway play() on an unrelated, off-DOM
+// <audio> to nudge WebKit's audio session (see utils/audioUnlock.ts). That
+// shares this mocked HTMLMediaElement.prototype.play, so call-count
+// assertions must be scoped to the element under test.
+const callsOn = (mockFn: jest.Mock, target: EventTarget) =>
+  mockFn.mock.contexts.filter((context) => context === target).length;
+
 describe("VoiceMessage", () => {
   const play = jest.fn().mockResolvedValue(undefined);
   const pause = jest.fn();
@@ -54,14 +61,32 @@ describe("VoiceMessage", () => {
         waveform={waveform}
       />,
     );
+    const audio = container.querySelector("audio")!;
 
     await user.click(screen.getByRole("button", { name: "Play" }));
-    expect(play).toHaveBeenCalledTimes(1);
+    expect(callsOn(play, audio)).toBe(1);
 
-    const audio = container.querySelector("audio")!;
     fireEvent(audio, new Event("canplay"));
 
-    await waitFor(() => expect(play).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(callsOn(play, audio)).toBe(2));
+  });
+
+  it("primes a throwaway audio element before playing, to settle WebKit's audio session", async () => {
+    const user = userEvent.setup();
+    const audioSpy = jest.spyOn(window, "Audio");
+
+    render(
+      <VoiceMessage
+        audioUrl="https://cdn.example.com/voice.webm"
+        durationMs={4200}
+        waveform={waveform}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Play" }));
+
+    expect(audioSpy).toHaveBeenCalled();
+    audioSpy.mockRestore();
   });
 
   it("tracks progress with the recorded duration when the file reports no duration", () => {

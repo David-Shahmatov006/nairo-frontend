@@ -12,6 +12,7 @@ import {
   VOICE_MIN_DURATION_MS,
 } from "../../../../../hooks/useVoiceRecorder";
 import { formatVoiceDuration } from "../../../../../utils/formatDate";
+import { primeAudioPlayback } from "../../../../../utils/audioUnlock";
 import type { VoiceRecording } from "../../../../../hooks/useVoiceRecorder";
 
 interface ChatInputProps {
@@ -247,7 +248,10 @@ export const ChatInput = ({
         >
           <button
             type="button"
-            onClick={cancel}
+            onClick={() => {
+              primeAudioPlayback();
+              cancel();
+            }}
             aria-label={t("chat.cancel_recording")}
             className="cursor-pointer text-red-400 hover:text-red-500 duration-300"
           >
@@ -271,6 +275,7 @@ export const ChatInput = ({
           <button
             type="button"
             onClick={() => {
+              primeAudioPlayback();
               void stop();
             }}
             aria-label={t("chat.send_voice")}
