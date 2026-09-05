@@ -1,4 +1,9 @@
-import { collectPeak, normalizePeaks, WAVEFORM_BARS } from "./audioPeaks";
+import {
+  barsToPeaks,
+  normalizePeaks,
+  peaksToBars,
+  WAVEFORM_BARS,
+} from "./audioPeaks";
 
 describe("normalizePeaks", () => {
   it("returns a zero-filled buffer when there are no samples", () => {
@@ -23,28 +28,30 @@ describe("normalizePeaks", () => {
   });
 });
 
-describe("collectPeak", () => {
-  it("returns the RMS of the time-domain buffer", () => {
-    const analyser = {
-      fftSize: 4,
-      getByteTimeDomainData: (buffer: Uint8Array) => {
-        buffer.set([128, 128, 255, 1]);
-      },
-    } as AnalyserNode;
-
-    const peak = collectPeak(analyser);
-
-    expect(peak).toBeCloseTo(Math.sqrt((2 * (127 / 128) ** 2) / 4), 5);
+describe("barsToPeaks", () => {
+  it("maps stored bars onto the 0..1 range wavesurfer renders from", () => {
+    expect(barsToPeaks([0, 50, 100])).toEqual([0.08, 0.5, 1]);
   });
 
-  it("returns 0 for a silent buffer", () => {
-    const analyser = {
-      fftSize: 4,
-      getByteTimeDomainData: (buffer: Uint8Array) => {
-        buffer.fill(128);
-      },
-    } as AnalyserNode;
+  it("keeps silent bars visible instead of drawing gaps", () => {
+    expect(barsToPeaks([0, 0])).toEqual([0.08, 0.08]);
+  });
 
-    expect(collectPeak(analyser)).toBe(0);
+  it("clamps values outside the stored range", () => {
+    expect(barsToPeaks([-20, 140, NaN])).toEqual([0.08, 1, 0.08]);
+  });
+});
+
+describe("peaksToBars", () => {
+  it("turns exported peaks into the 0..100 bars the API stores", () => {
+    expect(peaksToBars([0, -0.5, 1], 3)).toEqual([0, 50, 100]);
+  });
+
+  it("uses the magnitude of negative peaks", () => {
+    expect(peaksToBars([-1, 0.5], 2)).toEqual([100, 50]);
+  });
+
+  it("defaults to 48 bars", () => {
+    expect(peaksToBars([0.2, 0.9])).toHaveLength(WAVEFORM_BARS);
   });
 });

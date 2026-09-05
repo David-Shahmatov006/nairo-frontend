@@ -35,6 +35,7 @@
     "swr": "^2.3.7",
     "usehooks-ts": "^3.1.1",
     "vconsole": "^3.15.1",
+    "wavesurfer.js": "^7.12.11",
     "workbox-core": "^7.4.1",
     "workbox-expiration": "^7.4.1",
     "workbox-precaching": "^7.4.1",

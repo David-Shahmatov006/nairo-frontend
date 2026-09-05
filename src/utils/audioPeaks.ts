@@ -1,22 +1,7 @@
 export const WAVEFORM_BARS = 48;
 
-export const collectPeak = (analyser: AnalyserNode): number => {
-  const data = new Uint8Array(analyser.fftSize);
-  analyser.getByteTimeDomainData(data);
-
-  if (data.length === 0) {
-    return 0;
-  }
-
-  let sum = 0;
-
-  for (let i = 0; i < data.length; i++) {
-    const normalized = (data[i] - 128) / 128;
-    sum += normalized * normalized;
-  }
-
-  return Math.sqrt(sum / data.length);
-};
+// Bars this short still read as a waveform rather than as gaps in one.
+const MIN_BAR = 0.08;
 
 export const normalizePeaks = (
   samples: number[],
@@ -51,3 +36,24 @@ export const normalizePeaks = (
 
   return result;
 };
+
+/**
+ * The 0..100 bars the API stores, as the -1..1 sample peaks wavesurfer
+ * renders from.
+ */
+export const barsToPeaks = (bars: number[]): number[] =>
+  bars.map((value) =>
+    Math.min(1, Math.max(MIN_BAR, (Number.isFinite(value) ? value : 0) / 100)),
+  );
+
+/**
+ * A wavesurfer `exportPeaks()` channel, as the 0..100 bars the API stores.
+ */
+export const peaksToBars = (
+  peaks: ArrayLike<number>,
+  bars = WAVEFORM_BARS,
+): number[] =>
+  normalizePeaks(
+    Array.from(peaks, (value) => (Number.isFinite(value) ? Math.abs(value) : 0)),
+    bars,
+  );

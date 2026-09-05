@@ -12,7 +12,6 @@ import {
   VOICE_MIN_DURATION_MS,
 } from "../../../../../hooks/useVoiceRecorder";
 import { formatVoiceDuration } from "../../../../../utils/formatDate";
-import { primeAudioPlayback } from "../../../../../utils/audioUnlock";
 import type { VoiceRecording } from "../../../../../hooks/useVoiceRecorder";
 
 interface ChatInputProps {
@@ -45,7 +44,7 @@ export const ChatInput = ({
   const {
     state,
     elapsedMs,
-    livePeaks,
+    waveContainerRef,
     result,
     start,
     stop,
@@ -248,36 +247,26 @@ export const ChatInput = ({
         >
           <button
             type="button"
-            onClick={() => {
-              primeAudioPlayback();
-              cancel();
-            }}
+            onClick={cancel}
             aria-label={t("chat.cancel_recording")}
             className="cursor-pointer text-red-400 hover:text-red-500 duration-300"
           >
             <IoMdClose className="text-[22px] min-2000px:text-[.95vw]" />
           </button>
 
-          <span className="select-none tabular-nums min-2000px:text-[.7vw] text-[14px] text-red-400 min-w-[3.2rem]">
+          <span className="flex items-center shrink-0 min-2000px:gap-[.2vw] gap-1.5 select-none tabular-nums min-2000px:text-[.7vw] text-[14px] text-red-400 min-w-[3.9rem]">
+            <span className="min-2000px:size-[.35vw] size-2 rounded-full bg-red-500 animate-pulse" />
             {formatVoiceDuration(elapsedMs)}
           </span>
 
-          <div className="flex-1 flex items-end min-2000px:h-[1.4vw] h-6 min-2000px:gap-[.08vw] gap-[2px]">
-            {livePeaks.map((value, index) => (
-              <div
-                key={index}
-                className="flex-1 min-w-0 bg-main/80 min-2000px:rounded-[.05vw] rounded-sm"
-                style={{ height: `${Math.max(8, value)}%` }}
-              />
-            ))}
-          </div>
+          <div
+            ref={waveContainerRef}
+            className="flex-1 min-w-0 min-2000px:h-[1.4vw] h-6 overflow-hidden"
+          />
 
           <button
             type="button"
-            onClick={() => {
-              primeAudioPlayback();
-              void stop();
-            }}
+            onClick={() => void stop()}
             aria-label={t("chat.send_voice")}
             className="cursor-pointer dark:bg-white/10 bg-gray-900 text-white min-2000px:px-[.6vw] px-4 min-2000px:py-[.4vw] py-2 min-2000px:rounded-[.3vw] rounded-lg hover:ring-2 ring-main/70 duration-300"
           >

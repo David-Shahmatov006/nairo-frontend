@@ -12,8 +12,17 @@ export type InstalledMediaMocks = {
 export class FakeAnalyser {
   fftSize = 2048;
 
+  get frequencyBinCount() {
+    return this.fftSize / 2;
+  }
+
   getByteTimeDomainData(buffer: Uint8Array) {
     buffer.fill(128);
+  }
+
+  // What wavesurfer's record plugin samples the live waveform with.
+  getFloatTimeDomainData(buffer: Float32Array) {
+    buffer.fill(0);
   }
 }
 
@@ -21,6 +30,7 @@ export class FakeAudioContext {
   state: AudioContextState = "running";
   createMediaStreamSource = jest.fn(() => ({
     connect: jest.fn(),
+    disconnect: jest.fn(),
   }));
   createAnalyser = jest.fn(() => new FakeAnalyser());
   resume = jest.fn(() => Promise.resolve());
@@ -34,6 +44,7 @@ export class FakeMediaRecorder {
   mimeType: string;
   ondataavailable: ((event: { data: Blob }) => void) | null = null;
   onstop: (() => void) | null = null;
+  onpause: (() => void) | null = null;
   stream: MediaStream;
 
   constructor(stream: MediaStream, options?: MediaRecorderOptions) {
@@ -51,6 +62,21 @@ export class FakeMediaRecorder {
       data: new Blob(["voice"], { type: this.mimeType }),
     });
     this.onstop?.();
+  }
+
+  pause() {
+    this.state = "paused";
+    this.onpause?.();
+  }
+
+  resume() {
+    this.state = "recording";
+  }
+
+  requestData() {
+    this.ondataavailable?.({
+      data: new Blob(["voice"], { type: this.mimeType }),
+    });
   }
 }
 
@@ -74,6 +100,10 @@ export const installMediaMocks = (
   const originalMediaDevices = navigator.mediaDevices;
   const originalRaf = window.requestAnimationFrame;
   const originalCaf = window.cancelAnimationFrame;
+  // jsdom ships no object-URL implementation, and the record plugin hands the
+  // finished recording back to wavesurfer as one.
+  const originalCreateObjectURL = URL.createObjectURL;
+  const originalRevokeObjectURL = URL.revokeObjectURL;
 
   class TrackingMediaRecorder extends FakeMediaRecorder {
     constructor(stream: MediaStream, recorderOptions?: MediaRecorderOptions) {
@@ -98,6 +128,9 @@ export const installMediaMocks = (
     writable: true,
     value: FakeAudioContext,
   });
+
+  URL.createObjectURL = jest.fn(() => "blob:voice");
+  URL.revokeObjectURL = jest.fn();
 
   window.requestAnimationFrame = ((cb: FrameRequestCallback) => {
     return window.setTimeout(() => cb(0), 0) as unknown as number;
@@ -136,6 +169,9 @@ export const installMediaMocks = (
         configurable: true,
         value: originalMediaDevices,
       });
+
+      URL.createObjectURL = originalCreateObjectURL;
+      URL.revokeObjectURL = originalRevokeObjectURL;
 
       window.requestAnimationFrame = originalRaf;
       window.cancelAnimationFrame = originalCaf;
