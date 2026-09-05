@@ -5,9 +5,17 @@ import WaveSurfer from "wavesurfer.js";
 import { formatVoiceDuration } from "../../../../../utils/formatDate";
 import { enterPlaybackSession } from "../../../../../utils/audioSession";
 import { barsToPeaks } from "../../../../../utils/audioPeaks";
+import {
+  attachMediaLogger,
+  logVoice,
+  mediaSnapshot,
+  probeAudioUrl,
+} from "../../../../../utils/voiceDebug";
 import { useAppStore } from "../../../../../stores/app";
 
 const PLAYBACK_RATES = [1, 1.5, 2] as const;
+
+const WARM_UP_TIMEOUT_MS = 200;
 
 const WAVE_COLORS = {
   light: { wave: "rgba(107, 114, 128, .45)", progress: "#8b53ff" },
@@ -16,6 +24,27 @@ const WAVE_COLORS = {
 
 // Only one voice message is audible at a time, across the whole list.
 let activeWave: WaveSurfer | null = null;
+
+/**
+ * iOS runs a media element's first playback without routing any audio out:
+ * the element plays, currentTime advances, and nothing is heard until it is
+ * played a second time — per element, whether or not anything was recorded
+ * and whether or not the file is already cached. So spend that first
+ * playback here, inside the tap, and rewind before the real one.
+ */
+const warmUpPlayback = (media: HTMLMediaElement) =>
+  new Promise<void>((resolve) => {
+    const settle = () => {
+      window.clearTimeout(timeout);
+      media.removeEventListener("playing", settle);
+      resolve();
+    };
+
+    const timeout = window.setTimeout(settle, WARM_UP_TIMEOUT_MS);
+
+    media.addEventListener("playing", settle);
+    void media.play().catch(settle);
+  });
 
 interface VoiceMessageProps {
   audioUrl: string;
@@ -46,6 +75,10 @@ export const VoiceMessage = ({
   const durationMsRef = useRef(durationMs);
   const rateIndexRef = useRef(rateIndex);
   const themeRef = useRef(theme);
+
+  // One warm-up per media element; the UI stays on the spinner while it runs.
+  const warmedRef = useRef(false);
+  const warmingRef = useRef(false);
 
   useEffect(() => {
     waveformRef.current = waveform;
@@ -81,14 +114,24 @@ export const VoiceMessage = ({
       progressColor: colors.progress,
     });
 
+    const media = wave.getMediaElement();
+
     // MediaRecorder blobs carry no duration in their header, which makes
     // Safari download the whole file just to answer `duration`.
-    wave.getMediaElement().preload = "metadata";
+    media.preload = "metadata";
 
     waveRef.current = wave;
+    warmedRef.current = false;
+    warmingRef.current = false;
+
+    const detachLogger = attachMediaLogger(media, "media");
 
     const subscriptions = [
       wave.on("play", () => {
+        if (warmingRef.current) {
+          return;
+        }
+
         if (activeWave && activeWave !== wave) {
           activeWave.pause();
         }
@@ -99,6 +142,10 @@ export const VoiceMessage = ({
       }),
 
       wave.on("pause", () => {
+        if (warmingRef.current) {
+          return;
+        }
+
         setIsPlaying(false);
       }),
 
@@ -109,11 +156,16 @@ export const VoiceMessage = ({
       }),
 
       wave.on("timeupdate", (currentTime) => {
+        if (warmingRef.current) {
+          return;
+        }
+
         const duration = wave.getDuration();
         setProgress(duration > 0 ? Math.min(1, currentTime / duration) : 0);
       }),
 
-      wave.on("error", () => {
+      wave.on("error", (error) => {
+        logVoice("wavesurfer error", { message: String(error) });
         setIsLoading(false);
         setIsPlaying(false);
       }),
@@ -121,6 +173,7 @@ export const VoiceMessage = ({
 
     return () => {
       subscriptions.forEach((unsubscribe) => unsubscribe());
+      detachLogger();
 
       if (activeWave === wave) {
         activeWave = null;
@@ -141,16 +194,15 @@ export const VoiceMessage = ({
     });
   }, [theme, pending]);
 
-  const togglePlayback = () => {
+  const togglePlayback = async () => {
     const wave = waveRef.current;
 
-    if (!wave || pending) {
+    if (!wave || pending || warmingRef.current) {
       return;
     }
 
     // Synchronously, inside the tap: hands WebKit a playback-only audio
-    // session, so a message recorded moments ago is not routed to the
-    // earpiece and heard as silence.
+    // session where that API exists.
     enterPlaybackSession();
 
     if (wave.isPlaying()) {
@@ -158,10 +210,43 @@ export const VoiceMessage = ({
       return;
     }
 
+    const media = wave.getMediaElement();
+
+    logVoice("tap play", mediaSnapshot(media));
     setIsLoading(true);
     wave.setPlaybackRate(PLAYBACK_RATES[rateIndex]);
 
-    void wave.play().catch(() => setIsLoading(false));
+    if (!warmedRef.current) {
+      warmedRef.current = true;
+      warmingRef.current = true;
+
+      void probeAudioUrl(audioUrl);
+      await warmUpPlayback(media);
+
+      media.pause();
+
+      try {
+        media.currentTime = 0;
+      } catch {
+        // Seeking before the metadata is in throws; the element still got
+        // its warm-up, which is all this is here for.
+      }
+
+      warmingRef.current = false;
+      logVoice("warm-up done", mediaSnapshot(media));
+
+      if (waveRef.current !== wave) {
+        return;
+      }
+    }
+
+    void wave
+      .play()
+      .then(() => logVoice("play resolved", mediaSnapshot(media)))
+      .catch((error) => {
+        logVoice("play rejected", { message: String(error) });
+        setIsLoading(false);
+      });
   };
 
   const cycleRate = () => {
@@ -179,7 +264,7 @@ export const VoiceMessage = ({
     <div className="flex items-center min-2000px:gap-[.45vw] gap-3 min-2000px:min-w-[13vw] min-w-[210px]">
       <button
         type="button"
-        onClick={togglePlayback}
+        onClick={() => void togglePlayback()}
         disabled={pending}
         aria-label={isPlaying ? "Pause" : "Play"}
         aria-busy={isLoading}
