@@ -6,12 +6,76 @@ import { TfiClose } from "react-icons/tfi";
 import { useTranslation } from "react-i18next";
 import { postService } from "../../../../../../../../services/post.service";
 import { BiLoaderAlt } from "react-icons/bi";
-import { IoCameraReverse } from "react-icons/io5";
+import { IoCameraReverse, IoSparklesOutline } from "react-icons/io5";
 import { PostImage } from "../PostItem";
 import { usePosts } from "../../../../../../../../hooks/usePosts";
 import { useAuthStore } from "../../../../../../../../stores/auth";
 import { mutate as mutateSWR } from "swr";
 import { pickAchievementKeys } from "../../../../../../../../constants/achievements";
+
+const ImproveWithAI = ({
+  field,
+  value,
+  onImproved,
+}: {
+  field: "title" | "description";
+  value: string;
+  onImproved: (text: string) => void;
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleImproveWithAI = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const improvedText = await postService.improveTextWithAI(value);
+      onImproved(improvedText);
+    } catch (err) {
+      console.error("Error improving text with AI:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={{ height: "auto", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+      className="overflow-hidden"
+    >
+      <div className="flex justify-end max-768px:justify-center [@media(hover:none)]:justify-center px-2 pb-2 min-2000px:px-[.4vw] min-2000px:pb-[.4vw]">
+        <button
+          onClick={handleImproveWithAI}
+          disabled={isLoading}
+          aria-busy={isLoading}
+          type="button"
+          aria-label={`Improve ${field} with AI`}
+          className="group inline-flex h-10 max-768px:h-11 cursor-pointer items-center justify-center rounded-full bg-main/10 px-3 text-xs font-semibold text-main transition-colors hover:bg-main/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-main/70 disabled:cursor-wait disabled:opacity-50 dark:bg-main/15 dark:text-[#c4a6ff] dark:hover:bg-main/25 min-2000px:h-[2vw] min-2000px:px-[.6vw] min-2000px:text-[.65vw]"
+        >
+          {isLoading ? (
+            <BiLoaderAlt
+              aria-hidden="true"
+              className="shrink-0 animate-spin size-4 min-2000px:size-[.8vw]"
+            />
+          ) : (
+            <IoSparklesOutline
+              aria-hidden="true"
+              className="shrink-0 size-4 min-2000px:size-[.8vw]"
+            />
+          )}
+          <span className="grid grid-cols-[0fr] opacity-0 transition-[grid-template-columns,opacity] duration-200 ease-in-out group-hover:grid-cols-[1fr] group-hover:opacity-100 group-focus-visible:grid-cols-[1fr] group-focus-visible:opacity-100 max-768px:grid-cols-[1fr] max-768px:opacity-100 [@media(hover:none)]:grid-cols-[1fr] [@media(hover:none)]:opacity-100 motion-reduce:transition-none">
+            <span className="overflow-hidden whitespace-nowrap">
+              <span className="pl-1.5 min-2000px:pl-[.3vw]">Improve with AI</span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </motion.div>
+  );
+};
 
 export const PostModal = () => {
   const { t } = useTranslation();
@@ -227,25 +291,51 @@ export const PostModal = () => {
             </div>
 
             <div className="max-768px:mb-3 min-2000px:mb-[.9vw] mb-4">
-              <input
-                type="text"
-                placeholder={t("create_post.post_title")}
-                maxLength={200}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/5 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-              />
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
+                <input
+                  type="text"
+                  aria-label={t("create_post.post_title")}
+                  placeholder={t("create_post.post_title")}
+                  maxLength={200}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="block w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:text-white/80 bg-transparent max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none"
+                />
+                <AnimatePresence initial={false}>
+                  {title.trim().length >= 10 && (
+                    <ImproveWithAI
+                      key="title-ai"
+                      field="title"
+                      value={title}
+                      onImproved={setTitle}
+                    />
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             <div className="max-768px:mb-3 min-2000px:mb-[.3vw] mb-6">
-              <textarea
-                placeholder={t("create_post.post_desc")}
-                rows={4}
-                value={description}
-                maxLength={1000}
-                onChange={(e) => setDescription(e.target.value)}
-                className="w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:bg-white/5 dark:border-white/20 dark:text-white/80 bg-gray-50 border border-gray-200 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-main/70 duration-300"
-              />
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
+                <textarea
+                  aria-label={t("create_post.post_desc")}
+                  placeholder={t("create_post.post_desc")}
+                  rows={4}
+                  value={description}
+                  maxLength={1000}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="block w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:text-white/80 bg-transparent max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl resize-none focus:outline-none"
+                />
+                <AnimatePresence initial={false}>
+                  {description.trim().length >= 10 && (
+                    <ImproveWithAI
+                      key="description-ai"
+                      field="description"
+                      value={description}
+                      onImproved={setDescription}
+                    />
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
 
             {error && (

@@ -97,5 +97,13 @@ export class PostService {
     const { data } = await $api.post(`/posts/${postId}/like`);
     return data;
   }
+
+  async improveTextWithAI(text: string) {
+    const { data } = await $api.post(`/ai/improve-text`, {
+      text,
+    });
+
+    return data;
+  }
 }
 export const postService = new PostService();
