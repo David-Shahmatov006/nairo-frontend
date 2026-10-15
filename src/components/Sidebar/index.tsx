@@ -33,7 +33,7 @@ export const Sidebar = () => {
         const active = isActiveRoute(route);
 
         return (
-          <Link to={route} key={idx}>
+          <Link to={route} key={idx} aria-current={active ? "page" : undefined}>
             <button
               className={clsx(
                 "relative w-full dark:text-[#f9f5e8] flex items-center min-2000px:p-[0.6vw] p-3 min-2000px:rounded-[.7vw] rounded-[12px] min-2000px:gap-[1vw] gap-4 mt-2 cursor-pointer",

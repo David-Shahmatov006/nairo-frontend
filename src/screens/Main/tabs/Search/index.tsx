@@ -1,7 +1,6 @@
+import { SeasonalMascot } from "../../../../components/SeasonalTheme/SeasonalMascot";
 import { IoIosSearch } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
-import searchMuskot from "../../../../assets/images/search_muskot.webp";
-import thinkingMuskot from "../../../../assets/images/thinkingMuskot.webp";
 import { TfiClose } from "react-icons/tfi";
 import { useTranslation } from "react-i18next";
 import { AvatarImage } from "../../../../components/AvatarImage";
@@ -72,7 +71,7 @@ export const Search = () => {
           <div className="flex flex-col min-2000px:gap-[1vw] gap-4">
             {!debouncedQuery ? (
               <div className="mt-[5%] flex flex-col items-center min-2000px:gap-[1vw] gap-3">
-                <img src={searchMuskot} className="min-2000px:w-[5vw] w-[100px]" />
+                <SeasonalMascot pose="search" className="min-2000px:w-[5vw] w-[100px]" />
                 <span className="dark:text-[#6f6f6f] max-768px:text-[14px] min-2000px:text-[.8vw] text-[17px] text-center">
                   {t("search.find_desc")}
                 </span>
@@ -83,7 +82,7 @@ export const Search = () => {
               </div>
             ) : users?.length === 0 ? (
               <div className="mt-[5%] flex flex-col items-center min-2000px:gap-[1vw] gap-3">
-                <img src={thinkingMuskot} className="min-2000px:w-[5vw] w-[100px]" />
+                <SeasonalMascot pose="thinking" className="min-2000px:w-[5vw] w-[100px]" />
                 <span className="dark:text-[#6f6f6f] max-768px:text-[14px] min-2000px:text-[.8vw] text-[17px] text-center">
                   {t("search.no_results")}
                 </span>

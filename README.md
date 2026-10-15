@@ -2,6 +2,28 @@
 
 A modern social networking platform built with **React**, **TypeScript**, and **Vite**, focused on performance, user experience, and scalability.
 
+## Seasonal themes
+
+Change `SEASONAL_THEME` in `src/constants/seasonalTheme.ts`:
+
+```ts
+export const SEASONAL_THEME: SeasonalThemeId = "halloween";
+```
+
+- `"off"` — original Nairo.
+- `"halloween"` — seasonal mascot costumes, occasional flying bats and a corner web.
+- `"christmas"` — seasonal mascot costumes, lights on the welcome banner and the existing `Snowfall` component.
+- `"valentine"` — seasonal mascot costumes.
+
+Holidays preserve the original light/dark backgrounds, panels and accent color.
+Mascots only change in places where the original app already shows them.
+The existing light/dark toggle works with every holiday. During development,
+Vite reloads the theme after saving; production needs a rebuild/deploy.
+Decoration styles live in `src/styles/seasonal.css`; the components live in
+`src/components/SeasonalTheme`. Mascot sheets are stored in
+`src/assets/images/seasonal-mascots/`.
+Animations respect `prefers-reduced-motion` and never intercept clicks.
+
 ## 🔗 Links
 
 - 🌍 **Live Demo:** https://nairo-frontend-production.up.railway.app/

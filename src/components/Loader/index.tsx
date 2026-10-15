@@ -7,7 +7,7 @@ export const Loader = () => {
         {[0, 1, 2].map((i) => (
           <motion.span
             key={i}
-            className="w-7 h-7 rounded-full bg-[#8b53ff]"
+            className="w-7 h-7 rounded-full bg-main"
             animate={{
               y: ["0%", "-60%", "0%"],
               opacity: [0.5, 1, 0.5],

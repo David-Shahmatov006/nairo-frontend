@@ -185,5 +185,19 @@
   "post_page": {
     "not_found": "È strano, ma non siamo riusciti a trovare questo post.",
     "left_first_comment": "Qualcuno deve iniziare… perché non tu? 😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "Insieme, dopo il tramonto.",
+      "tagline": "Un po’ di magia. Tante nuove connessioni."
+    },
+    "christmas": {
+      "title": "La stagione dello stare insieme.",
+      "tagline": "La buona compagnia è il regalo più bello."
+    },
+    "valentine": {
+      "title": "Un po’ più di cuore.",
+      "tagline": "I legami più belli iniziano da te."
+    }
   }
 }

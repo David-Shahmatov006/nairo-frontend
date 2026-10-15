@@ -233,5 +233,19 @@
   "post_page": {
     "not_found": "C'est étrange, mais pour une raison quelconque, nous n'avons pas pu trouver cette publication",
     "left_first_comment": "Quelqu’un doit commencer… pourquoi pas toi ?😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "Ensemble à la nuit tombée.",
+      "tagline": "Un peu de magie. Beaucoup de rencontres."
+    },
+    "christmas": {
+      "title": "La saison du partage.",
+      "tagline": "Être bien entouré, le plus beau cadeau."
+    },
+    "valentine": {
+      "title": "Un peu plus de cœur.",
+      "tagline": "Les belles rencontres commencent avec vous."
+    }
   }
 }

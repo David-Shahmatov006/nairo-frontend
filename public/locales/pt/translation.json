@@ -185,5 +185,19 @@
   "post_page": {
     "not_found": "Estranhamente, não conseguimos encontrar esta publicação.",
     "left_first_comment": "Alguém precisa começar... por que não você? 😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "Juntos ao anoitecer.",
+      "tagline": "Um pouco de magia. Muitas conexões."
+    },
+    "christmas": {
+      "title": "A época de estar juntos.",
+      "tagline": "Boa companhia é o melhor presente."
+    },
+    "valentine": {
+      "title": "Um pouco mais de coração.",
+      "tagline": "Grandes conexões começam contigo."
+    }
   }
 }

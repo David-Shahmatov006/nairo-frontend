@@ -233,5 +233,19 @@
   "post_page": {
     "not_found": "Es ist seltsam, aber aus irgendeinem Grund konnten wir diesen Beitrag nicht finden.",
     "left_first_comment": "Jemand muss anfangen… warum nicht du? 😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "Gemeinsam durch die Nacht.",
+      "tagline": "Ein wenig Magie. Viele neue Kontakte."
+    },
+    "christmas": {
+      "title": "Die Zeit des Miteinanders.",
+      "tagline": "Gute Gesellschaft ist das schönste Geschenk."
+    },
+    "valentine": {
+      "title": "Ein bisschen mehr Herz.",
+      "tagline": "Besondere Begegnungen beginnen mit dir."
+    }
   }
 }

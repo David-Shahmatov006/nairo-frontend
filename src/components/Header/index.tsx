@@ -160,7 +160,7 @@ export const Header = () => {
                       const active = isActiveRoute(route);
 
                       return (
-                        <Link to={route} key={idx}>
+                        <Link to={route} key={idx} aria-current={active ? "page" : undefined}>
                           <motion.button
                             initial={{ opacity: 0, x: 100 }}
                             animate={{ opacity: 1, x: 0 }}

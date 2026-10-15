@@ -81,10 +81,17 @@ export const Message = ({ message, onDelete }: IProps) => {
           ease: "easeOut",
         }}
         className={clsx(
-          "w-fit min-w-[13%] min-2000px:max-w-[20vw] max-w-[30rem] rounded-xl border px-3 py-2 relative",
-          fromMe
-            ? "ml-auto dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
-            : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200",
+          "w-fit min-2000px:max-w-[20vw] max-w-[30rem] relative",
+          fromMe && "ml-auto",
+          // A voice message is its own capsule: no second bubble around it.
+          isVoice
+            ? "rounded-full"
+            : clsx(
+                "min-w-[13%] rounded-xl border px-3 py-2",
+                fromMe
+                  ? "dark:bg-main/20 bg-main/10 dark:border-main/30 border-main/10"
+                  : "dark:bg-white/10 bg-white dark:border-white/15 border-gray-200",
+              ),
         )}
         onContextMenu={(e) => {
           if (!fromMe || isPending) return;
@@ -102,6 +109,8 @@ export const Message = ({ message, onDelete }: IProps) => {
             durationMs={message.durationMs ?? 0}
             waveform={message.waveform ?? []}
             pending={isPending}
+            fromMe={fromMe}
+            timeLabel={formatTime(message.createdAt)}
           />
         ) : (
           <div
@@ -110,17 +119,20 @@ export const Message = ({ message, onDelete }: IProps) => {
           />
         )}
 
-        <div className="w-full flex justify-between gap-1 items-center mt-1">
-          {message.editedAt && (
-            <span className="select-none text-[10px] text-gray-400 italic">
-              {t("chat.edited_label")}
-            </span>
-          )}
+        {/* The voice capsule carries its own clock time, inside the bubble. */}
+        {!isVoice && (
+          <div className="w-full flex justify-between gap-1 items-center mt-1">
+            {message.editedAt && (
+              <span className="select-none text-[10px] text-gray-400 italic">
+                {t("chat.edited_label")}
+              </span>
+            )}
 
-          <span className="select-none min-2000px:text-[.5vw] text-[11px] text-gray-500">
-            {formatTime(message.createdAt)}
-          </span>
-        </div>
+            <span className="select-none min-2000px:text-[.5vw] text-[11px] text-gray-500">
+              {formatTime(message.createdAt)}
+            </span>
+          </div>
+        )}
       </motion.div>
 
       <AnimatePresence>

@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        main: "#8b53ff",
+        main: "var(--color-main)",
       },
       keyframes: {
         shake: {

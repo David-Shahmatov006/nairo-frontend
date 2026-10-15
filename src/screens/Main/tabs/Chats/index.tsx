@@ -1,3 +1,4 @@
+import { SeasonalMascot } from "../../../../components/SeasonalTheme/SeasonalMascot";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -12,8 +13,6 @@ import { ChatHeader } from "./components/ChatHeader";
 import { ChatMessageList } from "./components/ChatMesageList";
 import { ChatInput } from "./components/ChatInput";
 import { userService } from "../../../../services/user.service";
-import surprisedMuskot from "../../../../assets/images/surprisedMuskot2.webp";
-import searchMuskot from "../../../../assets/images/search_muskot.webp";
 import clsx from "clsx";
 import { mutate } from "swr";
 import { useAppStore } from "../../../../stores/app";
@@ -523,8 +522,7 @@ export const Chats = () => {
             <div className="flex-1 flex items-center justify-center text-gray-500">
               {userChats.length > 0 ? (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-                  <img
-                    src={searchMuskot}
+                  <SeasonalMascot pose="search"
                     className="min-2000px:w-[5vw] w-[80px]"
                   />
                   <p className="text-gray-500 text-center min-2000px:text-[.7vw] py-4">
@@ -533,8 +531,7 @@ export const Chats = () => {
                 </div>
               ) : (
                 <div className="flex-1 max-h-[70vh] flex flex-col justify-center items-center">
-                  <img
-                    src={surprisedMuskot}
+                  <SeasonalMascot pose="shrug"
                     className="min-2000px:w-[7vw] w-[120px]"
                   />
                   <p className="text-gray-500 text-center min-2000px:text-[.9vw] py-4">

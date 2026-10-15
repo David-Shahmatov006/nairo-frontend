@@ -1,3 +1,4 @@
+import { SeasonalMascot } from "../../../../../../../../components/SeasonalTheme/SeasonalMascot";
 import { FaBookmark, FaHeart, FaRegBookmark, FaRegHeart } from "react-icons/fa";
 import clsx from "clsx";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -11,7 +12,6 @@ import { motion } from "framer-motion";
 import useSWR, { mutate } from "swr";
 import { postService } from "../../../../../../../../services/post.service";
 import { formatDate } from "../../../../../../../../utils/formatDate";
-import thinkingMuskot from "../../../../../../../../assets/images/thinkingMuskot.webp";
 import { useTranslation } from "react-i18next";
 import { Loader } from "../../../../../../../../components/Loader";
 
@@ -90,7 +90,7 @@ export const PostPage = () => {
   if (!post)
     return (
       <div className="min-2000px:pt-[15vw] h-full flex flex-col items-center justify-center min-2000px:gap-[.7vw] gap-3">
-        <img src={thinkingMuskot} className="min-2000px:w-[5vw] w-[100px]" />
+        <SeasonalMascot pose="thinking" className="min-2000px:w-[5vw] w-[100px]" />
         <span className="min-2000px:text-[.9vw] text-[17px] text-gray-500 text-center">
           {t("post_page.not_found")}
         </span>

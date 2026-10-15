@@ -4,8 +4,8 @@ import { MainLayoutWrapper } from "./layouts/MainLayoutWrapper";
 import { useEffect } from "react";
 import { useAppStore } from "./stores/app";
 import { ROUTES } from "./routes";
-// TODO: UNCOMMENT IN WINTER
-// import { Snowfall } from "./components/Snowfall";
+import { applySeasonalThemeToDocument } from "./constants/seasonalTheme";
+import { SeasonalThemeRoot } from "./components/SeasonalTheme";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useAuthStore } from "./stores/auth";
 import { useTranslation } from "react-i18next";
@@ -27,6 +27,8 @@ function App() {
   const setSelectedLanguage = useAppStore((s) => s.setSelectedLanguage);
   const preferredLanguage = useAuthStore((s) => s.user?.preferredLanguage);
   const { i18n } = useTranslation();
+
+  applySeasonalThemeToDocument();
 
   useEffect(() => {
     const savedLang =
@@ -68,6 +70,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <AchievementUnlockModal />
+      <SeasonalThemeRoot />
     </Router>
   );
 }

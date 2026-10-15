@@ -1,3 +1,4 @@
+import { SeasonalMascot } from "../../../../components/SeasonalTheme/SeasonalMascot";
 import { useState } from "react";
 import { Posts } from "../Home/components/Posts";
 import clsx from "clsx";
@@ -6,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { EditProfile } from "./components/EditProfile";
 import { motion } from "framer-motion";
 import { AvatarImage } from "../../../../components/AvatarImage";
-import thinkingMuskot from "../../../../assets/images/thinkingMuskot.webp";
 import { useAuthStore } from "../../../../stores/auth";
 import { useNavigate, useParams } from "react-router-dom";
 import { userService } from "../../../../services/user.service";
@@ -80,7 +80,7 @@ export const Profile = () => {
   if (!profile) {
     return (
       <div className="min-2000px:pt-[10vw] h-full flex flex-col items-center justify-center gap-3">
-        <img src={thinkingMuskot} className="min-2000px:w-[5vw] w-[100px]" />
+        <SeasonalMascot pose="thinking" className="min-2000px:w-[5vw] w-[100px]" />
         <span className="min-2000px:text-[.9vw] text-[17px] text-gray-500 text-center">
           {t("profile.not_found_user")}
         </span>

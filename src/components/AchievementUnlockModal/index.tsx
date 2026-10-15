@@ -20,7 +20,7 @@ const PARTICLES = Array.from({ length: 22 }, (_, index) => {
       index % 3 === 0
         ? "#fbbf24"
         : index % 3 === 1
-          ? "#8b53ff"
+          ? "var(--color-main)"
           : "#ffffff",
   };
 });
@@ -82,7 +82,7 @@ export const AchievementUnlockModal = () => {
           onClick={dismiss}
         >
           <div className="absolute inset-0 bg-black/70 backdrop-blur-[10px]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,83,255,0.28),transparent_62%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--color-main)_28%,transparent),transparent_62%)]" />
 
           <motion.div
             onClick={(e) => e.stopPropagation()}
@@ -90,7 +90,7 @@ export const AchievementUnlockModal = () => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 16 }}
             transition={{ type: "spring", stiffness: 280, damping: 22 }}
-            className="relative w-full min-2000px:max-w-[24vw] max-w-[420px] dark:bg-[#191a1a] bg-white min-2000px:rounded-[.8vw] rounded-3xl min-2000px:p-[1vw] p-8 shadow-[0_24px_80px_rgba(139,83,255,0.28)] text-center"
+            className="relative w-full min-2000px:max-w-[24vw] max-w-[420px] dark:bg-[#191a1a] bg-white min-2000px:rounded-[.8vw] rounded-3xl min-2000px:p-[1vw] p-8 shadow-[0_24px_80px_color-mix(in_srgb,var(--color-main)_28%,transparent)] text-center"
           >
             <button
               type="button"
@@ -141,7 +141,7 @@ export const AchievementUnlockModal = () => {
                   damping: 16,
                   delay: 0.08,
                 }}
-                className="relative min-2000px:size-[6vw] size-28 rounded-full overflow-hidden ring-4 ring-main/40 shadow-[0_0_40px_rgba(139,83,255,0.55)]"
+                className="relative min-2000px:size-[6vw] size-28 rounded-full overflow-hidden ring-4 ring-main/40 shadow-[0_0_40px_color-mix(in_srgb,var(--color-main)_55%,transparent)]"
               >
                 <img
                   src={current.icon}

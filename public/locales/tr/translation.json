@@ -185,5 +185,19 @@
   "post_page": {
     "not_found": "İlginç, ancak bu gönderi bulunamadı.",
     "left_first_comment": "Birinin ilk yorumu yapması gerekiyor… Neden sen olmayasın? 😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "Gece de birlikteyiz.",
+      "tagline": "Biraz sihir. Birçok yeni bağlantı."
+    },
+    "christmas": {
+      "title": "Birlikte olma mevsimi.",
+      "tagline": "Güzel bir arkadaşlık en iyi hediyedir."
+    },
+    "valentine": {
+      "title": "Biraz daha sevgi.",
+      "tagline": "Güzel bağlar seninle başlar."
+    }
   }
 }

@@ -1,10 +1,10 @@
+import { SeasonalMascot } from "../../../../../../components/SeasonalTheme/SeasonalMascot";
 import { motion } from "framer-motion";
 import InfiniteScroll from "react-infinite-scroll-component";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { Loader } from "../../../../../../components/Loader";
 import { PostItem } from "./components/PostItem";
-import surprisedMuskot from "../../../../../../assets/images/surprisedMuskot2.webp";
 import { BiLoaderAlt } from "react-icons/bi";
 import { usePosts } from "../../../../../../hooks/usePosts";
 
@@ -28,7 +28,7 @@ export const Posts = ({ mode }: PostsProps) => {
   if (!posts.length) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center">
-        <img src={surprisedMuskot} className="min-2000px:w-[7vw] w-[120px]" />
+        <SeasonalMascot pose="shrug" className="min-2000px:w-[7vw] w-[120px]" />
         <p className="min-2000px:py-[1vw] min-2000px:text-[.8vw] py-4 text-center text-gray-500">{t("no_posts")}</p>
       </div>
     );

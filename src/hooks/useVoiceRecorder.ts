@@ -157,6 +157,10 @@ export const useVoiceRecorder = () => {
       slotRef.current.appendChild(host);
     }
 
+    const recordingColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--color-main")
+      .trim() || "#8b53ff";
+
     const wave = WaveSurfer.create({
       container: host,
       height: 24,
@@ -165,8 +169,8 @@ export const useVoiceRecorder = () => {
       barRadius: 2,
       cursorWidth: 0,
       interact: false,
-      waveColor: "rgba(139, 83, 255, .8)",
-      progressColor: "rgba(139, 83, 255, .8)",
+      waveColor: recordingColor,
+      progressColor: recordingColor,
     });
 
     const record = wave.registerPlugin(

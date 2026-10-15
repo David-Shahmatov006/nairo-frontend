@@ -184,5 +184,19 @@
   "post_page": {
     "not_found": "It's strange, but for some reason we couldn't find this post.",
     "left_first_comment": "Someone has to start… why not you? 😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "After dark, together.",
+      "tagline": "A little magic. A lot of connection."
+    },
+    "christmas": {
+      "title": "The season of together.",
+      "tagline": "Good company is the best gift."
+    },
+    "valentine": {
+      "title": "A little more heart.",
+      "tagline": "Great connections start with you."
+    }
   }
 }

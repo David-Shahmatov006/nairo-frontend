@@ -124,7 +124,7 @@ export const OTPModal = () => {
   const isCodeComplete = code.every((digit) => digit !== "");
 
   return (
-    <div className="w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent min-2000px:rounded-[.5vw] rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] min-2000px:p-[.1vw] p-[1.5px] relative">
+    <div className="w-full font-manrope bg-gradient-to-t from-main to-transparent min-2000px:rounded-[.5vw] rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] min-2000px:p-[.1vw] p-[1.5px] relative">
       <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 min-2000px:p-[.9vw] p-[32px] sm:p-[48px] min-2000px:rounded-[.5vw] rounded-[16px]">
         <div className="max-1200px:mb-4 min-2000px:mb-[.9vw] mb-8">
           <h1 className="max-1200px:text-[21px] min-2000px:text-[1.3vw] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 min-2000px:mb-[.3vw] mb-2">

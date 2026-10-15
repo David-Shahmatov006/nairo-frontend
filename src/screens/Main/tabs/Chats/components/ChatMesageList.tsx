@@ -1,7 +1,7 @@
+import { SeasonalMascot } from "../../../../../components/SeasonalTheme/SeasonalMascot";
 import { type RefObject } from "react";
 import type { IMessage } from "../../../../../types/chats";
 import { useTranslation } from "react-i18next";
-import surprisedMuskot from "../../../../../assets/images/surprisedMuskot.webp";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { ScrollButton } from "../../../../../components/ScrollButton";
 import { motion } from "framer-motion";
@@ -49,8 +49,7 @@ export const ChatMessageList = ({
         ) : (
           <div className="flex-1">
             <div className="flex-1 h-full flex flex-col justify-center items-center">
-              <img
-                src={surprisedMuskot}
+              <SeasonalMascot pose="surprised"
                 className="min-2000px:w-[7vw] w-[120px]"
               />
               <p className="text-gray-500 text-center min-2000px:text-[.8vw] py-4">

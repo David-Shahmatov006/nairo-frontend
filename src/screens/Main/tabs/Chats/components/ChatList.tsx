@@ -1,10 +1,10 @@
+import { SeasonalMascot } from "../../../../../components/SeasonalTheme/SeasonalMascot";
 import clsx from "clsx";
 import { IoSearch } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import { AvatarImage } from "../../../../../components/AvatarImage";
 import type { Chat } from "../../../../../types/chats";
 import { useNavigate, useParams } from "react-router-dom";
-import thinkingMuskot from "../../../../../assets/images/thinkingMuskot2.webp";
 import { useState } from "react";
 
 interface ChatListProps {
@@ -66,7 +66,7 @@ export const ChatList = ({
 
         {chats.length !== 0 && filteredChats?.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-3">
-            <img src={thinkingMuskot} className="min-2000px:w-[4vw] w-[70px]" />
+            <SeasonalMascot pose="puzzled" className="min-2000px:w-[4vw] w-[70px]" />
             <span className="min-2000px:text-[.7vw] text-[17px] text-gray-500 text-center">
               {t("chat.no_results")}
             </span>

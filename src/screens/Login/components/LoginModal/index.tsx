@@ -79,7 +79,7 @@ export const LoginModal = () => {
   };
 
   return (
-    <div className="z-[888] w-full font-manrope bg-gradient-to-t from-[#8b53ff] to-transparent min-2000px:rounded-[.5vw] rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] min-2000px:p-[.07vw] p-[1.5px] relative">
+    <div className="z-[888] w-full font-manrope bg-gradient-to-t from-main to-transparent min-2000px:rounded-[.5vw] rounded-[16px] shadow-[0px_32px_64px_-12px_#10182824] min-2000px:p-[.07vw] p-[1.5px] relative">
       <div className="dark:bg-[#191a1a] bg-white max-1200px:p-5 min-2000px:px-[.8vw] px-7 min-2000px:py-[.5vw] py-5 min-2000px:rounded-[.4vw] rounded-[16px]">
         <h1 className="min-2000px:text-[1.3vw] text-[26px] text-center font-[600] dark:text-white/80 text-gray-900 min-2000px:mb-[.9vw] mb-8">
           {t('auth.login_text')}

@@ -185,5 +185,19 @@
   "post_page": {
     "not_found": "To dziwne, ale nie udało się znaleźć tego posta.",
     "left_first_comment": "Ktoś musi zacząć… Dlaczego nie Ty? 😉"
+  },
+  "seasonal": {
+    "halloween": {
+      "title": "Razem po zmroku.",
+      "tagline": "Odrobina magii. Mnóstwo nowych znajomości."
+    },
+    "christmas": {
+      "title": "Czas być razem.",
+      "tagline": "Dobre towarzystwo to najlepszy prezent."
+    },
+    "valentine": {
+      "title": "Trochę więcej serca.",
+      "tagline": "Wyjątkowe znajomości zaczynają się od ciebie."
+    }
   }
 }
