@@ -48,14 +48,14 @@ const ImproveWithAI = ({
       transition={{ duration: 0.2, ease: "easeInOut" }}
       className="overflow-hidden"
     >
-      <div className="flex justify-end max-768px:justify-center [@media(hover:none)]:justify-center px-2 pb-2 min-2000px:px-[.4vw] min-2000px:pb-[.4vw]">
+      <div className="[@media(hover:none)]:justify-center px-2 pb-2 min-2000px:px-[.4vw] min-2000px:pb-[.4vw]">
         <button
           onClick={handleImproveWithAI}
           disabled={isLoading}
           aria-busy={isLoading}
           type="button"
           aria-label={`Improve ${field} with AI`}
-          className="group inline-flex h-10 max-768px:h-11 cursor-pointer items-center justify-center rounded-full bg-main/10 px-3 text-xs font-semibold text-main transition-colors hover:bg-main/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-main/70 disabled:cursor-wait disabled:opacity-50 dark:bg-main/15 dark:text-[#c4a6ff] dark:hover:bg-main/25 min-2000px:h-[2vw] min-2000px:px-[.6vw] min-2000px:text-[.65vw]"
+          className="group inline-flex h-10 max-768px:h-11 cursor-pointer items-center justify-center rounded-full bg-[#eeeafb] px-3 text-xs font-semibold text-main transition-colors hover:bg-[#e3d9fd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-main/70 disabled:cursor-not-allowed dark:bg-[#332b45] dark:text-[#c4a6ff] dark:hover:bg-[#3e2f5b] min-2000px:h-[2vw] min-2000px:px-[.6vw] min-2000px:text-[.65vw]"
         >
           {isLoading ? (
             <BiLoaderAlt
@@ -292,9 +292,6 @@ export const PostModal = () => {
       {postModal.isOpen && (
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
-          // initial={{ opacity: 0 }}
-          // animate={{ opacity: 1 }}
-          // exit={{ opacity: 0 }}
           onClick={handleBlurModal}
         >
           <motion.div
@@ -361,7 +358,7 @@ export const PostModal = () => {
               </div>
 
               <div className="max-768px:mb-3 min-2000px:mb-[.9vw] mb-4">
-                <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
+                <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
                   <input
                     type="text"
                     aria-label={t("create_post.post_title")}
@@ -373,19 +370,21 @@ export const PostModal = () => {
                   />
                   <AnimatePresence initial={false}>
                     {title.trim().length >= 10 && (
-                      <ImproveWithAI
-                        key="title-ai"
-                        field="title"
-                        value={title}
-                        onImproved={setTitle}
-                      />
+                      <div className="absolute -bottom-[.3vw] right-0">
+                        <ImproveWithAI
+                          key="title-ai"
+                          field="title"
+                          value={title}
+                          onImproved={setTitle}
+                        />
+                      </div>
                     )}
                   </AnimatePresence>
                 </div>
               </div>
 
               <div className="max-768px:mb-3 min-2000px:mb-[.3vw] mb-6">
-                <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
+                <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
                   <textarea
                     aria-label={t("create_post.post_desc")}
                     placeholder={t("create_post.post_desc")}
@@ -397,12 +396,14 @@ export const PostModal = () => {
                   />
                   <AnimatePresence initial={false}>
                     {description.trim().length >= 10 && (
-                      <ImproveWithAI
-                        key="description-ai"
-                        field="description"
-                        value={description}
-                        onImproved={setDescription}
-                      />
+                      <div className="absolute bottom-0 right-0">
+                        <ImproveWithAI
+                          key="description-ai"
+                          field="description"
+                          value={description}
+                          onImproved={setDescription}
+                        />
+                      </div>
                     )}
                   </AnimatePresence>
                 </div>
