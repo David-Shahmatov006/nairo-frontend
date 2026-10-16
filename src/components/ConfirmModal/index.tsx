@@ -25,9 +25,6 @@ export const ConfirmModal = ({
       {isOpen && (
         <motion.div
           className="font-manrope fixed inset-0 bg-black/40 backdrop-blur-sm z-[999] flex items-center justify-center min-2000px:px-[.5vw] px-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           onClick={onClose}
         >
           <motion.div

@@ -124,6 +124,15 @@
     "password_changed": "¡Contraseña actualizada!"
   },
   "create_post": {
+    "ai_generating": "Generando…",
+    "ai_error": "No se pudo generar la publicación. Inténtalo de nuevo.",
+    "ai_compose": "Crear con IA",
+    "ai_hint": "Describe tu idea, el público y el tono. La IA te ayudará a convertirla en una publicación.",
+    "ai_idea": "Tu idea para la publicación",
+    "ai_placeholder": "Por ejemplo: Una publicación cercana sobre mi primera excursión a la montaña, con algunos consejos para principiantes.",
+    "ai_with_image": "Con imagen",
+    "ai_generate": "Generar borrador",
+    "ai_coming_soon": "La creación de publicaciones con IA estará disponible pronto.",
     "title": "Crear una publicación",
     "upload_img": "Subir imagen",
     "post_title": "Título de la publicación",

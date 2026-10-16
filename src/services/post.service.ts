@@ -1,3 +1,4 @@
+import type { GeneratedPost } from "../types/post";
 import { $api } from "./interceptor";
 
 export class PostService {
@@ -6,7 +7,10 @@ export class PostService {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
-    formData.append("timeZone", Intl.DateTimeFormat().resolvedOptions().timeZone);
+    formData.append(
+      "timeZone",
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+    );
 
     const { data } = await $api.post<{ newlyUnlocked?: string[] }>(
       "/posts/create",
@@ -15,6 +19,15 @@ export class PostService {
         headers: { "Content-Type": "multipart/form-data" },
       },
     );
+
+    return data;
+  }
+
+  async createPostWithAI(idea: string, withImage = false) {
+    const { data } = await $api.post<GeneratedPost>("ai/generate-post", {
+      idea,
+      withImage,
+    });
 
     return data;
   }

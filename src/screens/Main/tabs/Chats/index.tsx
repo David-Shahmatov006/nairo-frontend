@@ -1,7 +1,6 @@
 import { SeasonalMascot } from "../../../../components/SeasonalTheme/SeasonalMascot";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 import { useAuthStore } from "../../../../stores/auth";
 import { chatsService } from "../../../../services/chats.service";
 import { socket } from "../../../../services/socket.service";
@@ -476,11 +475,7 @@ export const Chats = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+    <div
       className={clsx(
         "font-manrope h-full w-full flex",
         !(chatIdFromURL && isMobile) ? "min-2000px:mt-[1vw] mt-[80px]" : "mt-0",
@@ -555,6 +550,6 @@ export const Chats = () => {
         confirmText={t("chat.delete_modal_confirm")}
         cancelText={t("chat.confirm_modal_cancel")}
       />
-    </motion.div>
+    </div>
   );
 };

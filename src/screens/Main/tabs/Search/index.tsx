@@ -28,11 +28,10 @@ export const Search = () => {
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
         onClick={() => navigate(-1)}
         className="fixed inset-0 bg-black/40 min-2000px:backdrop-blur-[.5vw] backdrop-blur-[7px] flex items-center justify-center z-50"
-        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >

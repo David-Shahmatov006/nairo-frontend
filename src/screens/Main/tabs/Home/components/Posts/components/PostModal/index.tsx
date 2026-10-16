@@ -1,4 +1,6 @@
+import type { GeneratedPost } from "../../../../../../../../types/post";
 import { useEffect, useRef, useState } from "react";
+import { AIComposer } from "./AIComposer";
 import { FiImage } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "../../../../../../../../stores/app";
@@ -68,7 +70,9 @@ const ImproveWithAI = ({
           )}
           <span className="grid grid-cols-[0fr] opacity-0 transition-[grid-template-columns,opacity] duration-200 ease-in-out group-hover:grid-cols-[1fr] group-hover:opacity-100 group-focus-visible:grid-cols-[1fr] group-focus-visible:opacity-100 max-768px:grid-cols-[1fr] max-768px:opacity-100 [@media(hover:none)]:grid-cols-[1fr] [@media(hover:none)]:opacity-100 motion-reduce:transition-none">
             <span className="overflow-hidden whitespace-nowrap">
-              <span className="pl-1.5 min-2000px:pl-[.3vw]">Improve with AI</span>
+              <span className="pl-1.5 min-2000px:pl-[.3vw]">
+                Improve with AI
+              </span>
             </span>
           </span>
         </button>
@@ -94,6 +98,7 @@ export const PostModal = () => {
   const [description, setDescription] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState("");
   const modalRef = useRef<HTMLDivElement | null>(null);
   const previewUrlRef = useRef<string | null>(null);
@@ -154,7 +159,62 @@ export const PostModal = () => {
     setImage(previewUrl);
   };
 
+  const handleGeneratedPost = async (post: GeneratedPost) => {
+    if (
+      typeof post.title !== "string" ||
+      typeof post.description !== "string"
+    ) {
+      throw new Error("Invalid generated post");
+    }
+
+    let generatedFile: File | null = null;
+
+    if (post.imageUrl) {
+      const url = post.imageUrl.startsWith("/uploads")
+        ? `${import.meta.env.VITE_API_URL}${post.imageUrl}`
+        : post.imageUrl;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Could not download generated image");
+      }
+
+      const blob = await response.blob();
+
+      if (
+        !["image/png", "image/jpeg", "image/webp"].includes(blob.type) ||
+        blob.size > 5 * 1024 * 1024
+      ) {
+        throw new Error("Invalid generated image");
+      }
+
+      generatedFile = new File([blob], `ai-post.${blob.type.split("/")[1]}`, {
+        type: blob.type,
+      });
+    }
+
+    setTitle(post.title.slice(0, 200));
+    setDescription(post.description.slice(0, 1000));
+
+    if (generatedFile) {
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+      }
+
+      const previewUrl = URL.createObjectURL(generatedFile);
+
+      previewUrlRef.current = previewUrl;
+
+      setImage(previewUrl);
+      setImageFile(generatedFile);
+    }
+
+    setError("");
+  };
+
   const handleSubmit = async () => {
+    if (isLoading || isGenerating) return;
     setError("");
 
     if (!title.trim() || !description.trim()) {
@@ -232,9 +292,9 @@ export const PostModal = () => {
       {postModal.isOpen && (
         <motion.div
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          // initial={{ opacity: 0 }}
+          // animate={{ opacity: 1 }}
+          // exit={{ opacity: 0 }}
           onClick={handleBlurModal}
         >
           <motion.div
@@ -243,120 +303,133 @@ export const PostModal = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="w-full min-2000px:max-w-[30vw] max-w-[37%] max-550px:max-w-full [@media(min-width:551px)_and_(max-width:1024px)]:max-w-full dark:bg-[#181818] bg-white min-2000px:rounded-[1vw] rounded-2xl min-2000px:p-[1.1vw] p-6 shadow-xl font-manrope relative"
+            className="flex max-h-[calc(100dvh-2rem)] min-h-0 flex-col overflow-hidden w-full min-2000px:max-w-[30vw] max-w-[37%] max-550px:max-w-full [@media(min-width:551px)_and_(max-width:1024px)]:max-w-full dark:bg-[#181818] bg-white min-2000px:rounded-[1vw] rounded-2xl shadow-xl font-manrope relative"
           >
-            <button
-              onClick={closePostModal}
-              className="absolute min-2000px:size-[2vw] size-10 max-768px:size-9 min-2000px:top-[.8vw] top-4 min-2000px:right-[.8vw] right-4 flex items-center justify-center min-2000px:rounded-[.5vw] rounded-[12px] border dark:border-white/10 border-gray-300 dark:bg-white/10 bg-white hover:ring-2 hover:ring-main/70 duration-300"
-            >
-              <TfiClose className="min-2000px:text-[0.8vw] dark:text-white/50" />
-            </button>
+            <div className="relative shrink-0 px-6 pt-6 pb-4 min-2000px:px-[1.1vw] min-2000px:pt-[1.1vw] min-2000px:pb-[.8vw]">
+              <button
+                onClick={closePostModal}
+                className="absolute min-2000px:size-[2vw] size-10 max-768px:size-9 min-2000px:top-[.8vw] top-4 min-2000px:right-[.8vw] right-4 flex items-center justify-center min-2000px:rounded-[.5vw] rounded-[12px] border dark:border-white/10 border-gray-300 dark:bg-white/10 bg-white hover:ring-2 hover:ring-main/70 duration-300"
+              >
+                <TfiClose className="min-2000px:text-[0.8vw] dark:text-white/50" />
+              </button>
 
-            <h2 className="max-768px:text-[18px] min-2000px:text-[1.1vw] text-[22px] font-[600] dark:text-white/80 text-gray-900 max-768px:mb-3 min-2000px:mb-[1vw] mb-6 text-center">
-              {isEdit ? "Редагувати пост" : t("create_post.title")}
-            </h2>
+              <h2 className="max-768px:text-[18px] min-2000px:text-[1.1vw] text-[22px] font-[600] dark:text-white/80 text-gray-900 px-10 text-center">
+                {isEdit ? "Редагувати пост" : t("create_post.title")}
+              </h2>
+            </div>
 
-            <div className="max-768px:mb-3 min-2000px:mb-[.9vw] mb-6">
-              {!image ? (
-                <label
-                  className="flex flex-col items-center justify-center w-full min-2000px:h-[9vw] h-40 
-                                 border border-dashed dark:border-white/20 border-gray-300 min-2000px:rounded-[.7vw] rounded-xl 
-                                 cursor-pointer dark:bg-white/5 bg-gray-50 hover:bg-gray-100 transition"
-                >
-                  <FiImage className="min-2000px:text-[1.5vw] text-3xl text-gray-400 mb-2" />
-                  <span className="text-gray-500 min-2000px:text-[.8vw] text-sm">
-                    {t("create_post.upload_img")}
-                  </span>
-                  <input
-                    type="file"
-                    accept="image/jpeg, image/png, image/webp"
-                    className="hidden"
-                    onChange={handleImageChange}
-                  />
-                </label>
-              ) : (
-                <div className="relative w-full min-2000px:h-[9vw] h-48">
-                  <PostImage onModal src={image} title="" />
-                  <label className="absolute min-2000px:top-[.2vw] top-2 min-2000px:right-[0.5vw] right-2 rounded-full cursor-pointer">
+            <div className="min-h-0 overflow-y-auto overscroll-contain px-6 pt-1 pb-1 min-2000px:px-[1.1vw]">
+              {!isEdit && (
+                <AIComposer
+                  onGenerated={handleGeneratedPost}
+                  onGeneratingChange={setIsGenerating}
+                />
+              )}
+
+              <div className="max-768px:mb-3 min-2000px:mb-[.9vw] mb-6">
+                {!image ? (
+                  <label
+                    className="flex flex-col items-center justify-center w-full min-2000px:h-[9vw] h-40
+                                   border border-dashed dark:border-white/20 border-gray-300 min-2000px:rounded-[.7vw] rounded-xl
+                                   cursor-pointer dark:bg-white/5 bg-gray-50 hover:bg-gray-100 transition"
+                  >
+                    <FiImage className="min-2000px:text-[1.5vw] text-3xl text-gray-400 mb-2" />
+                    <span className="text-gray-500 min-2000px:text-[.8vw] text-sm">
+                      {t("create_post.upload_img")}
+                    </span>
                     <input
                       type="file"
                       accept="image/jpeg, image/png, image/webp"
                       className="hidden"
                       onChange={handleImageChange}
                     />
-                    <IoCameraReverse className="text-black hover:text-black/70 min-2000px:text-[1.5vw] text-[30px] duration-300" />
                   </label>
+                ) : (
+                  <div className="relative w-full min-2000px:h-[9vw] h-48">
+                    <PostImage onModal src={image} title="" />
+                    <label className="absolute min-2000px:top-[.2vw] top-2 min-2000px:right-[0.5vw] right-2 rounded-full cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/jpeg, image/png, image/webp"
+                        className="hidden"
+                        onChange={handleImageChange}
+                      />
+                      <IoCameraReverse className="text-black hover:text-black/70 min-2000px:text-[1.5vw] text-[30px] duration-300" />
+                    </label>
+                  </div>
+                )}
+              </div>
+
+              <div className="max-768px:mb-3 min-2000px:mb-[.9vw] mb-4">
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
+                  <input
+                    type="text"
+                    aria-label={t("create_post.post_title")}
+                    placeholder={t("create_post.post_title")}
+                    maxLength={200}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="block w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:text-white/80 bg-transparent max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none"
+                  />
+                  <AnimatePresence initial={false}>
+                    {title.trim().length >= 10 && (
+                      <ImproveWithAI
+                        key="title-ai"
+                        field="title"
+                        value={title}
+                        onImproved={setTitle}
+                      />
+                    )}
+                  </AnimatePresence>
                 </div>
+              </div>
+
+              <div className="max-768px:mb-3 min-2000px:mb-[.3vw] mb-6">
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
+                  <textarea
+                    aria-label={t("create_post.post_desc")}
+                    placeholder={t("create_post.post_desc")}
+                    rows={4}
+                    value={description}
+                    maxLength={1000}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="block w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:text-white/80 bg-transparent max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl resize-none focus:outline-none"
+                  />
+                  <AnimatePresence initial={false}>
+                    {description.trim().length >= 10 && (
+                      <ImproveWithAI
+                        key="description-ai"
+                        field="description"
+                        value={description}
+                        onImproved={setDescription}
+                      />
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {error && (
+                <p className="text-red-500 font-[500] text-center min-2000px:mb-[.6vw] mb-3">
+                  {error}
+                </p>
               )}
             </div>
 
-            <div className="max-768px:mb-3 min-2000px:mb-[.9vw] mb-4">
-              <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
-                <input
-                  type="text"
-                  aria-label={t("create_post.post_title")}
-                  placeholder={t("create_post.post_title")}
-                  maxLength={200}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="block w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:text-white/80 bg-transparent max-768px:text-[16px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl focus:outline-none"
-                />
-                <AnimatePresence initial={false}>
-                  {title.trim().length >= 10 && (
-                    <ImproveWithAI
-                      key="title-ai"
-                      field="title"
-                      value={title}
-                      onImproved={setTitle}
-                    />
-                  )}
-                </AnimatePresence>
-              </div>
+            <div className="shrink-0 px-6 pt-4 pb-6 min-2000px:px-[1.1vw] min-2000px:pt-[.8vw] min-2000px:pb-[1.1vw]">
+              <button
+                onClick={handleSubmit}
+                disabled={isLoading || isGenerating}
+                className="w-full flex items-center justify-center dark:bg-white/7 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white min-2000px:py-[.5vw] py-3 min-2000px:rounded-[.5vw] rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
+              >
+                {isLoading ? (
+                  <BiLoaderAlt className="animate-spin min-2000px:text-[1.1vw] text-[22px]" />
+                ) : (
+                  <span className="min-2000px:text-[.7vw]">
+                    {t("create_post.publish")}
+                  </span>
+                )}
+              </button>
             </div>
-
-            <div className="max-768px:mb-3 min-2000px:mb-[.3vw] mb-6">
-              <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-shadow focus-within:ring-2 focus-within:ring-main/70 dark:border-white/20 dark:bg-white/5 min-2000px:rounded-[.5vw]">
-                <textarea
-                  aria-label={t("create_post.post_desc")}
-                  placeholder={t("create_post.post_desc")}
-                  rows={4}
-                  value={description}
-                  maxLength={1000}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="block w-full min-2000px:px-[.8vw] px-4 max-768px:py-2 min-2000px:py-[.5vw] py-3 dark:text-white/80 bg-transparent max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:rounded-[.5vw] rounded-xl resize-none focus:outline-none"
-                />
-                <AnimatePresence initial={false}>
-                  {description.trim().length >= 10 && (
-                    <ImproveWithAI
-                      key="description-ai"
-                      field="description"
-                      value={description}
-                      onImproved={setDescription}
-                    />
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {error && (
-              <p className="text-red-500 font-[500] text-center min-2000px:mb-[.6vw] mb-3">
-                {error}
-              </p>
-            )}
-
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="w-full flex items-center justify-center dark:bg-white/7 dark:border-white/20 dark:text-white/80 bg-gray-800 text-white min-2000px:py-[.5vw] py-3 min-2000px:rounded-[.5vw] rounded-xl font-[600] hover:ring-2 ring-main/70 duration-300 cursor-pointer disabled:opacity-50"
-            >
-              {isLoading ? (
-                <BiLoaderAlt className="animate-spin min-2000px:text-[1.1vw] text-[22px]" />
-              ) : (
-                <span className="min-2000px:text-[.7vw]">
-                  {t("create_post.publish")}
-                </span>
-              )}
-            </button>
           </motion.div>
         </motion.div>
       )}

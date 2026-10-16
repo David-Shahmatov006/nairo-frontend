@@ -124,6 +124,15 @@
     "password_changed": "Şifre güncellendi!"
   },
   "create_post": {
+    "ai_generating": "Oluşturuluyor…",
+    "ai_error": "Gönderi oluşturulamadı. Lütfen tekrar dene.",
+    "ai_compose": "Yapay zekâ ile oluştur",
+    "ai_hint": "Fikrini, hedef kitleni ve üslubunu açıkla. Yapay zekâ, fikrini bir gönderiye dönüştürmene yardımcı olsun.",
+    "ai_idea": "Gönderi fikrin",
+    "ai_placeholder": "Örneğin: İlk dağ yürüyüşüm hakkında, yeni başlayanlar için birkaç ipucu içeren samimi bir gönderi.",
+    "ai_with_image": "Görselli",
+    "ai_generate": "Taslak oluştur",
+    "ai_coming_soon": "Yapay zekâ ile gönderi oluşturma yakında kullanıma sunulacak.",
     "title": "Gönderi Oluştur",
     "upload_img": "Resim yükle",
     "post_title": "Gönderi başlığı",

@@ -124,6 +124,15 @@
     "password_changed": "Passwort erfolgreich aktualisiert!"
   },
   "create_post": {
+    "ai_generating": "Wird erstellt…",
+    "ai_error": "Der Beitrag konnte nicht erstellt werden. Bitte versuche es erneut.",
+    "ai_compose": "Mit KI erstellen",
+    "ai_hint": "Beschreibe deine Idee, die Zielgruppe und den Ton. KI hilft dir, daraus einen Beitrag zu erstellen.",
+    "ai_idea": "Deine Beitragsidee",
+    "ai_placeholder": "Zum Beispiel: Ein freundlicher Beitrag über meine erste Bergwanderung mit ein paar Tipps für Anfänger.",
+    "ai_with_image": "Mit Bild",
+    "ai_generate": "Entwurf erstellen",
+    "ai_coming_soon": "Beiträge mit KI zu erstellen ist bald möglich.",
     "title": "Beitrag erstellen",
     "upload_img": "Bild hochladen",
     "post_title": "Beitragstitel",

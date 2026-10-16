@@ -123,6 +123,15 @@
     "password_changed": "Password updated!"
   },
   "create_post": {
+    "ai_generating": "Generating…",
+    "ai_error": "Could not generate the post. Please try again.",
+    "ai_compose": "Create with AI",
+    "ai_hint": "Describe your idea, audience, and tone. AI will help turn it into a post.",
+    "ai_idea": "Your post idea",
+    "ai_placeholder": "For example: A friendly post about my first mountain hike, with a few tips for beginners.",
+    "ai_with_image": "With image",
+    "ai_generate": "Generate draft",
+    "ai_coming_soon": "AI post generation is coming soon.",
     "title": "Create a Post",
     "upload_img": "Upload an image",
     "post_title": "Post title",

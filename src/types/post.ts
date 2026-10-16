@@ -14,3 +14,8 @@ export type Post = {
   user: User,
   createdAt: string
 };
+export type GeneratedPost = {
+  title: string;
+  description: string;
+  imageUrl: string | null;
+};

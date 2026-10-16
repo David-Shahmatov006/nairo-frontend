@@ -124,6 +124,15 @@
     "password_changed": "Password aggiornata!"
   },
   "create_post": {
+    "ai_generating": "Generazione…",
+    "ai_error": "Impossibile generare il post. Riprova.",
+    "ai_compose": "Crea con l’IA",
+    "ai_hint": "Descrivi la tua idea, il pubblico e il tono. L’IA ti aiuterà a trasformarla in un post.",
+    "ai_idea": "La tua idea per il post",
+    "ai_placeholder": "Per esempio: Un post amichevole sulla mia prima escursione in montagna, con qualche consiglio per principianti.",
+    "ai_with_image": "Con immagine",
+    "ai_generate": "Genera bozza",
+    "ai_coming_soon": "La creazione di post con l’IA sarà presto disponibile.",
     "title": "Crea un post",
     "upload_img": "Carica un'immagine",
     "post_title": "Titolo del post",

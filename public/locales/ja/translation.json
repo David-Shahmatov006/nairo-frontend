@@ -124,6 +124,15 @@
     "password_changed": "パスワードが更新されました！"
   },
   "create_post": {
+    "ai_generating": "生成中…",
+    "ai_error": "投稿を生成できませんでした。もう一度お試しください。",
+    "ai_compose": "AIで作成",
+    "ai_hint": "アイデア、読者層、文章の雰囲気を説明してください。AIが投稿の作成をお手伝いします。",
+    "ai_idea": "投稿のアイデア",
+    "ai_placeholder": "例：初めての登山について、初心者向けのアドバイスを交えた親しみやすい投稿。",
+    "ai_with_image": "画像付き",
+    "ai_generate": "下書きを生成",
+    "ai_coming_soon": "AIによる投稿作成は近日公開予定です。",
     "title": "投稿を作成",
     "upload_img": "画像をアップロード",
     "post_title": "投稿タイトル",
