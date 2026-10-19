@@ -207,5 +207,34 @@
       "title": "A little more heart.",
       "tagline": "Great connections start with you."
     }
+  },
+  "agent": {
+    "label": "Agent",
+    "open": "Open chat with Nairo Agent",
+    "minimize": "Minimize chat",
+    "subtitle": "A little help, whenever you need it",
+    "welcome": "What’s on your mind?",
+    "description": "An idea to explore or a thought to put into words. Let’s work on it together.",
+    "suggestion_idea": "Find my next spark",
+    "suggestion_write": "Make sense of an idea",
+    "suggestion_help": "Show me around Nairo",
+    "prompt_idea": "Help me come up with a fresh idea for my next post.",
+    "prompt_write": "I have an idea I’d like to turn into a post. Can you help me shape it?",
+    "prompt_help": "What can I do on Nairo? Help me get started.",
+    "history": "Conversation with Nairo Agent",
+    "you": "You",
+    "copy": "Copy",
+    "copied": "Copied",
+    "thinking": "Nairo is thinking",
+    "message": "Your message to the agent",
+    "placeholder": "Ask anything, or share an idea…",
+    "send": "Send message",
+    "hint": "Your conversation stays here when you minimize.",
+    "unavailable": "Sending is not available yet. Your message is kept here so you can come back to it.",
+    "error": "Couldn’t send your message. Your text has been restored — please try again.",
+    "sidekick": "Your co-pilot",
+    "eyebrow": "A little room for big ideas",
+    "start": "A place to start",
+    "input_label": "Over to you"
   }
 }

@@ -99,10 +99,10 @@ export const PostPage = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      initial={{ scale: 0.95 }}
+      animate={{ scale: 1 }}
+      exit={{ scale: 0.95 }}
+      transition={{ duration: 0.3 }}
       className="font-manrope  w-full max-768px:max-w-full max-w-[80%] max-768px:ml-0 ml-[10%] max-768px:p-0 px-5 pt-8"
     >
       <BackButton handleBack={() => navigate(-1)} />

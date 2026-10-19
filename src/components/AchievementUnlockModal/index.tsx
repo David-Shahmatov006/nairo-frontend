@@ -76,9 +76,6 @@ export const AchievementUnlockModal = () => {
           role="dialog"
           aria-modal="true"
           aria-labelledby="achievement-unlock-title"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           onClick={dismiss}
         >
           <div className="absolute inset-0 bg-black/70 backdrop-blur-[10px]" />

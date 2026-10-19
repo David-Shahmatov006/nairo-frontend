@@ -1,3 +1,4 @@
+import { AgentChat } from "./components/AgentChat";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./i18n";
 import { MainLayoutWrapper } from "./layouts/MainLayoutWrapper";
@@ -23,6 +24,7 @@ import { NotFound } from "./screens/NotFound";
 import { AchievementUnlockModal } from "./components/AchievementUnlockModal";
 
 function App() {
+  const agentUserId = useAuthStore((s) => s.user?.id);
   const theme = useAppStore((s) => s.theme);
   const setSelectedLanguage = useAppStore((s) => s.setSelectedLanguage);
   const preferredLanguage = useAuthStore((s) => s.user?.preferredLanguage);
@@ -69,6 +71,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {agentUserId && <AgentChat key={agentUserId} userId={agentUserId} />}
       <AchievementUnlockModal />
       <SeasonalThemeRoot />
     </Router>

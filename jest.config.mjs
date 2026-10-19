@@ -15,7 +15,7 @@ export default {
   },
   // These packages ship ESM only, so Babel has to transpile them too.
   transformIgnorePatterns: [
-    "/node_modules/(?!(file-type|strtok3|token-types|uint8array-extras|@tokenizer|peek-readable|usehooks-ts)/)",
+    "/node_modules/(?!(file-type|strtok3|token-types|uint8array-extras|@tokenizer|peek-readable|usehooks-ts|react-markdown|remark-.*|rehype-.*|unified|bail|devlop|is-plain-obj|trough|vfile.*|unist-.*|mdast-.*|micromark.*|decode-named-character-reference|character-entities.*|property-information|hast-.*|html-url-attributes|space-separated-tokens|comma-separated-tokens|ccount|escape-string-regexp|markdown-table|trim-lines|zwitch|longest-streak|estree-util-.*|style-to-.*|inline-style-parser|parse-entities|stringify-entities|is-alphanumerical|is-alphabetical|is-decimal|is-hexadecimal)/)",
   ],
   clearMocks: true,
   restoreMocks: true,

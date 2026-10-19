@@ -27,9 +27,6 @@ export const AchievementsModal = ({ open, onClose, achievements }: IProps) => {
       {open && (
         <motion.div
           className="font-manrope fixed inset-0 bg-black/40 backdrop-blur-[7px] z-[999] flex items-center justify-center min-2000px:px-[.5vw] px-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
           onClick={handleClose}
         >
           <motion.div
