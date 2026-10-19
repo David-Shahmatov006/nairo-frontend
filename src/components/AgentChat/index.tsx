@@ -28,7 +28,7 @@ export type AgentMessage = {
 type Props = { userId: string; onSend?: (messages: AgentMessage[]) => Promise<string> };
 
 const sendToAgent = (messages: AgentMessage[]) =>
-  agentService.chat(messages[messages.length - 1].content);
+  agentService.chat(messages[messages.length - 1].content, messages.slice(0, -1));
 
 export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
   const { t } = useTranslation();
