@@ -256,5 +256,6 @@
       "title": "Ein bisschen mehr Herz.",
       "tagline": "Besondere Begegnungen beginnen mit dir."
     }
-  }
+  },
+  "agent": { "clear_history": "Chatverlauf löschen", "clear_error": "Der Chat konnte nicht gelöscht werden. Bitte erneut versuchen." }
 }

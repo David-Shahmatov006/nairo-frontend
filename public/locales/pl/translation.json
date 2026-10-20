@@ -208,5 +208,6 @@
       "title": "Trochę więcej serca.",
       "tagline": "Wyjątkowe znajomości zaczynają się od ciebie."
     }
-  }
+  },
+  "agent": { "clear_history": "Wyczyść historię czatu", "clear_error": "Nie udało się wyczyścić czatu. Spróbuj ponownie." }
 }

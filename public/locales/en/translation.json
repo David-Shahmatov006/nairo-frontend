@@ -209,6 +209,8 @@
     }
   },
   "agent": {
+    "clear_history": "Clear chat history",
+    "clear_error": "Could not clear the chat. Please try again.",
     "label": "Agent",
     "open": "Open chat with Nairo Agent",
     "minimize": "Minimize chat",

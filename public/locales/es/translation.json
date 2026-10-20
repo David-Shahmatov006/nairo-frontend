@@ -256,5 +256,6 @@
       "title": "Un poquito más de corazón.",
       "tagline": "Las grandes conexiones empiezan contigo."
     }
-  }
+  },
+  "agent": { "clear_history": "Borrar historial del chat", "clear_error": "No se pudo borrar el chat. Inténtalo de nuevo." }
 }

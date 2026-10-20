@@ -208,5 +208,6 @@
       "title": "Biraz daha sevgi.",
       "tagline": "Güzel bağlar seninle başlar."
     }
-  }
+  },
+  "agent": { "clear_history": "Sohbet geçmişini temizle", "clear_error": "Sohbet temizlenemedi. Tekrar deneyin." }
 }

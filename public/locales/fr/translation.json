@@ -256,5 +256,6 @@
       "title": "Un peu plus de cœur.",
       "tagline": "Les belles rencontres commencent avec vous."
     }
-  }
+  },
+  "agent": { "clear_history": "Effacer la conversation", "clear_error": "Impossible d’effacer la conversation. Réessayez." }
 }

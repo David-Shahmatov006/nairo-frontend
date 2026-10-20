@@ -208,5 +208,6 @@
       "title": "Um pouco mais de coração.",
       "tagline": "Grandes conexões começam contigo."
     }
-  }
+  },
+  "agent": { "clear_history": "Limpar histórico do chat", "clear_error": "Não foi possível limpar o chat. Tente novamente." }
 }

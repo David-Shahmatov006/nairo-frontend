@@ -208,5 +208,6 @@
       "title": "Un po’ più di cuore.",
       "tagline": "I legami più belli iniziano da te."
     }
-  }
+  },
+  "agent": { "clear_history": "Cancella cronologia chat", "clear_error": "Impossibile cancellare la chat. Riprova." }
 }
