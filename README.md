@@ -1,6 +1,38 @@
-# 🌐 Nairo Frontend
+# 🌐 Nairo — AI-Powered Social Platform
 
-A modern social networking platform built with **React**, **TypeScript**, and **Vite**, focused on performance, user experience, and scalability.
+Frontend for **Nairo**, an **AI-powered social networking platform** that brings content creation, people discovery, and real-time conversations into one experience. Built with **React 19**, **TypeScript**, and **Vite**, with a **Google Gemini-powered AI agent** provided by the Nairo backend.
+
+## 🤖 AI Experience
+
+- **Nairo AI Agent** — an in-app conversational assistant that finds users and retrieves their posts using real platform data.
+- **Conversation context** — follow-up questions can refer to earlier answers, including choices from a list of users.
+- **Interface actions** — ask the agent to switch between light and dark themes, change to a supported interface language, or open the post editor.
+- **AI-assisted writing** — improve text or generate a post from an idea, optionally with an AI-generated image. Generated content can be reviewed in the editor before publishing.
+- **Persistent conversations** — messages and drafts are saved in localStorage separately for each account. The clear-history button also removes the backend conversation cache.
+- **Rich responses** — Markdown formatting, clickable post/profile links, lists, tables, and code blocks.
+
+AI requests run through the authenticated backend API; Gemini credentials are never needed in the frontend. The browser executes supported structured actions through `src/utils/executeAgentActions.ts`.
+
+### Local development
+
+```bash
+yarn install
+```
+
+Create a local `.env` file:
+
+```dotenv
+VITE_API_URL=http://localhost:5001
+```
+
+```bash
+yarn dev       # Vite development server
+yarn build     # TypeScript checks and production build
+yarn lint
+yarn test
+```
+
+Run the Nairo backend alongside the frontend for authentication, AI features, and messaging. The development frontend normally runs at `http://localhost:5173`.
 
 ## Seasonal themes
 
@@ -83,7 +115,6 @@ Animations respect `prefers-reduced-motion` and never intercept clicks.
   - Ultra-wide screen support
 
 - ⚡ Performance
-  - Lazy loading
   - Optimized images
   - Infinite scrolling
   - Efficient rendering
@@ -135,9 +166,11 @@ Animations respect `prefers-reduced-motion` and never intercept clicks.
 
 - Socket.IO Client
 
-### Notifications
+### AI Response Rendering
 
-- React Hot Toast
+- react-markdown
+- remark-gfm
+- Structured interface actions through the backend AI API
 
 ### Icons
 
@@ -148,7 +181,6 @@ Animations respect `prefers-reduced-motion` and never intercept clicks.
 
 - date-fns
 - react-scroll-to-bottom
-- react-intersection-observer
 - react-infinite-scroll-component
 
 ---
@@ -164,6 +196,9 @@ Animations respect `prefers-reduced-motion` and never intercept clicks.
 
 ## 🎯 Highlights
 
+- ✅ AI-powered social experience with a conversational assistant
+- ✅ AI-assisted text, post, and image generation
+- ✅ Agent-driven theme, language, and editor actions
 - ✅ Fully responsive UI
 - ✅ Dark & Light themes
 - ✅ Multi-language support(10 languages)
