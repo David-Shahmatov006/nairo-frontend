@@ -8,6 +8,31 @@ export default {
         main: "var(--color-main)",
       },
       keyframes: {
+        "seasonal-light-chase": {
+          "0%, 35%, 100%": { opacity: ".08" },
+          "12%, 22%": { opacity: "1" },
+        },
+        "seasonal-light-alternate": {
+          "0%, 100%": { opacity: ".12" },
+          "50%": { opacity: "1" },
+        },
+        "seasonal-light-wave": {
+          "0%, 100%": { opacity: ".08" },
+          "50%": { opacity: "1" },
+        },
+        "seasonal-light-twinkle": {
+          "0%, 100%": { opacity: ".2" },
+          "35%, 65%": { opacity: "1" },
+        },
+        "seasonal-festive-glow": { from: { filter: "brightness(.94)" }, to: { filter: "brightness(1.12)" } },
+        "seasonal-bat-cross-right": {"0%":{"transform":"translate3d(0, 12px, 0)","opacity":"0"},"3%":{"opacity":".55"},"14%":{"transform":"translate3d(50vw, -28px, 0) rotate(-8deg)","opacity":".55"},"28%, 100%":{"transform":"translate3d(calc(100vw + 128px), 12px, 0)","opacity":"0"}},
+        "seasonal-bat-cross-left": {"0%":{"transform":"translate3d(calc(100vw + 128px), 0, 0)","opacity":"0"},"3%":{"opacity":".45"},"14%":{"transform":"translate3d(50vw, -36px, 0) rotate(8deg)","opacity":".45"},"28%, 100%":{"transform":"translate3d(0, 14px, 0)","opacity":"0"}},
+        "seasonal-bat-flap": {"to":{"transform":"scaleY(.62)"}},
+        "seasonal-spider-sway": {"from":{"transform":"rotate(-5deg)"},"to":{"transform":"rotate(5deg)"}},
+        "seasonal-decoration-bob": {"0%, 100%":{"transform":"translateY(0) rotate(-2deg)"},"50%":{"transform":"translateY(-4px) rotate(2deg)"}},
+        "seasonal-light-glow": {"from":{"opacity":".12"},"to":{"opacity":".65"}},
+        "seasonal-tree-glow": {"from":{"opacity":".55"},"to":{"opacity":"1"}},
+        "seasonal-witch-flight": {"0%":{"transform":"translate3d(0, 0, 0) rotate(-4deg)"},"12%":{"transform":"translate3d(40vw, -24px, 0) rotate(3deg)"},"26%, 100%":{"transform":"translate3d(calc(100vw + 300px), 12px, 0) rotate(-4deg)"}},
         shake: {
           "0%, 100%": { transform: "translateX(0)" },
           "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-5px)" },

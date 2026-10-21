@@ -28,12 +28,12 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className="fixed top-0 left-0 flex flex-col [@media(min-width:1024px)_and_(max-width:1339px)]:w-[240px] min-2000px:w-[19vw] w-[285px] dark:bg-black bg-[#F3F4F6] h-screen dark:border-white/20 border-r border-[#E5E7EB] min-2000px:pt-[8vw] pt-[150px] min-2000px:px-[1vw] px-4 min-2000px:gap-[1vw] gap-3 z-[2]">
+    <aside className="fixed top-0 left-0 flex flex-col [@media(min-width:1024px)_and_(max-width:1339px)]:w-[240px] min-2000px:w-[19vw] w-[285px] dark:bg-black bg-[#F3F4F6] h-screen overflow-y-auto scrollbar-hidden dark:border-white/20 border-r border-[#E5E7EB] min-2000px:pt-[8vw] pt-[150px] min-2000px:px-[1vw] px-4 min-2000px:gap-[1vw] gap-3 z-[2]">
       {tabs.map(({ icon: Icon, label, route }, idx) => {
         const active = isActiveRoute(route);
 
         return (
-          <Link to={route} key={idx} aria-current={active ? "page" : undefined}>
+          <Link className="shrink-0" to={route} key={idx} aria-current={active ? "page" : undefined}>
             <button
               className={clsx(
                 "relative w-full dark:text-[#f9f5e8] flex items-center min-2000px:p-[0.6vw] p-3 min-2000px:rounded-[.7vw] rounded-[12px] min-2000px:gap-[1vw] gap-4 mt-2 cursor-pointer",

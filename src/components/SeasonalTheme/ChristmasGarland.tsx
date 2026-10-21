@@ -1,34 +1,73 @@
-/** A small string of lights on the existing welcome banner. */
-export const ChristmasGarland = () => (
-  <svg
-    className="seasonal-garland"
-    viewBox="0 0 360 64"
-    fill="none"
-    aria-hidden="true"
-    focusable="false"
-  >
-    <path
-      d="M-8 3Q85 69 180 15Q270 68 368 3"
-      stroke="#65765f"
-      strokeWidth="1.5"
-    />
-    {[
-      { x: 24, y: 21, color: "#e6b869", tilt: 20 },
-      { x: 66, y: 34, color: "#be5b57", tilt: 8 },
-      { x: 112, y: 36, color: "#78a481", tilt: -8 },
-      { x: 154, y: 27, color: "#e6b869", tilt: -20 },
-      { x: 202, y: 25, color: "#be5b57", tilt: 20 },
-      { x: 248, y: 34, color: "#78a481", tilt: 8 },
-      { x: 294, y: 32, color: "#e6b869", tilt: -8 },
-      { x: 336, y: 19, color: "#be5b57", tilt: -20 },
-    ].map(({ x, y, color, tilt }) => (
-      <g key={x} transform={`translate(${x} ${y}) rotate(${tilt})`}>
-        <path d="M0 0v6" stroke="#65765f" strokeWidth="1.5" />
-        <ellipse className="seasonal-bulb-halo" cx="0" cy="13" rx="10" ry="12" fill={color} opacity=".12" />
-        <rect x="-2.5" y="5" width="5" height="4" rx="1" fill="#65765f" />
-        <ellipse cx="0" cy="13" rx="4" ry="6" fill={color} />
-        <ellipse cx="-1" cy="11" rx="1" ry="2" fill="#fff6df" opacity=".8" />
-      </g>
-    ))}
-  </svg>
-);
+import { useEffect, useId, useState } from "react";
+import christmasLights from "../../assets/images/seasonal-mascots/christmas-lights-3d.png";
+
+const modes = ["chase", "alternate", "wave", "twinkle"] as const;
+const bulbCount = 22;
+
+/** Crop the transparent top margin so the wire ends attach to the header. */
+export const ChristmasGarland = () => {
+  const id = useId().replace(/:/g, "");
+  const [mode, setMode] = useState(0);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const sync = () => {
+      clearInterval(timer);
+      if (!preference.matches) {
+        timer = setInterval(
+          () => setMode((current) => (current + 1) % modes.length),
+          8000,
+        );
+      }
+    };
+    sync();
+    preference.addEventListener("change", sync);
+    return () => {
+      clearInterval(timer);
+      preference.removeEventListener("change", sync);
+    };
+  }, []);
+
+  return (
+    <svg
+      viewBox="0 140 2172 450"
+      className="pointer-events-none block h-auto w-full overflow-hidden"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <defs>
+        {Array.from({ length: bulbCount }, (_, index) => (
+          <clipPath key={index} id={`${id}-bulb-${index}`}>
+            <rect
+              x={(index * 2172) / bulbCount}
+              y={140}
+              width={2172 / bulbCount + 0.5}
+              height={450}
+            />
+          </clipPath>
+        ))}
+      </defs>
+      <image
+        href={christmasLights}
+        width={2172}
+        height={724}
+        className="brightness-[.55] motion-reduce:brightness-100"
+      />
+      {Array.from({ length: bulbCount }, (_, index) => (
+        <g key={index} clipPath={`url(#${id}-bulb-${index})`}>
+          <image
+            href={christmasLights}
+            width={2172}
+            height={724}
+            data-mode={modes[mode]}
+            style={{
+              animationDelay: `${mode === 1 ? -(index % 2) * 0.8 : mode === 3 ? 0 : -index * 0.16}s`,
+            }}
+            className="data-[mode=chase]:animate-[seasonal-light-chase_2.8s_linear_infinite] data-[mode=alternate]:animate-[seasonal-light-alternate_1.6s_ease-in-out_infinite] data-[mode=wave]:animate-[seasonal-light-wave_3.8s_ease-in-out_infinite] data-[mode=twinkle]:animate-[seasonal-light-twinkle_2s_ease-in-out_infinite] motion-reduce:animate-none!"
+          />
+        </g>
+      ))}
+    </svg>
+  );
+};

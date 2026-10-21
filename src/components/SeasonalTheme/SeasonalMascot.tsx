@@ -36,7 +36,7 @@ export const SeasonalMascot = ({
     <svg
       aria-hidden="true"
       focusable="false"
-      className={`seasonal-mascot ${className}`}
+      className={`h-auto shrink-0 overflow-hidden ${className}`}
       data-mascot-pose={pose}
       viewBox={viewBoxes[pose]}
       overflow="hidden"

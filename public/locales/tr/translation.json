@@ -209,5 +209,35 @@
       "tagline": "Güzel bağlar seninle başlar."
     }
   },
-  "agent": { "clear_history": "Sohbet geçmişini temizle", "clear_error": "Sohbet temizlenemedi. Tekrar deneyin." }
+  "agent": {
+    "clear_history": "Sohbet geçmişini temizle",
+    "clear_error": "Sohbet temizlenemedi. Tekrar deneyin.",
+    "label": "Asistan",
+    "open": "Nairo asistanıyla sohbeti aç",
+    "minimize": "Sohbeti küçült",
+    "subtitle": "İhtiyacın olduğunda biraz yardım",
+    "welcome": "Aklında ne var?",
+    "description": "Keşfedilecek bir fikir ya da kelimelere dökülecek bir düşünce. Birlikte çalışalım.",
+    "suggestion_idea": "İlham bul",
+    "suggestion_write": "Fikrime şekil ver",
+    "suggestion_help": "Nairo’yu keşfet",
+    "prompt_idea": "Bir sonraki gönderim için yeni bir fikir bulmama yardım et.",
+    "prompt_write": "Bir gönderi fikrim var. Geliştirmeme yardım eder misin?",
+    "prompt_help": "Nairo’da neler yapabilirim? Başlamama yardım et.",
+    "history": "Nairo asistanıyla konuşma",
+    "you": "Sen",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "thinking": "Nairo düşünüyor",
+    "message": "Asistana mesajın",
+    "placeholder": "Bir soru sor veya fikrini paylaş…",
+    "send": "Mesaj gönder",
+    "hint": "Sohbeti küçülttüğünde konuşman kaydedilir.",
+    "unavailable": "Şu anda mesaj gönderilemiyor. Mesajın daha sonra göndermek üzere saklanır.",
+    "error": "Mesaj gönderilemedi. Yazdığın metin geri yüklendi — tekrar dene.",
+    "sidekick": "Yol arkadaşın",
+    "eyebrow": "Büyük fikirler için bir alan",
+    "start": "Bir başlangıç noktası",
+    "input_label": "Sıra sende"
+  }
 }

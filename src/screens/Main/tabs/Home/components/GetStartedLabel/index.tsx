@@ -4,8 +4,6 @@ import { TfiClose } from "react-icons/tfi";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { SeasonalMascot } from "../../../../../../components/SeasonalTheme/SeasonalMascot";
-import { ChristmasGarland } from "../../../../../../components/SeasonalTheme/ChristmasGarland";
-import { SEASONAL_THEME } from "../../../../../../constants/seasonalTheme";
 
 export const GetStartedLabel = () => {
   const { t } = useTranslation();
@@ -29,11 +27,10 @@ export const GetStartedLabel = () => {
           transition={{ duration: 0.5 }}
           className="relative min-2000px:rounded-[.7vw] rounded-lg shadow-sm dark:bg-black dark:text-[#f9f5e8] bg-white overflow-hidden w-full flex items-center justify-between max-768px:p-4 min-2000px:p-[1.5vw] p-8"
         >
-          {SEASONAL_THEME === "christmas" && <ChristmasGarland />}
-          <SeasonalMascot
-            pose="welcome"
-            className="max-768px:hidden rotate-[-0deg] z-[1] min-2000px:w-[14vw] w-[280px] absolute right-[3%] -bottom-[15%] opacity-95"
-          />
+            <SeasonalMascot
+              pose="welcome"
+              className="max-768px:hidden rotate-[-0deg] z-[1] min-2000px:w-[14vw] w-[280px] absolute right-[3%] -bottom-[15%] opacity-95"
+            />
           <GetStartedEllipse className="min-2000px:w-[20vw] absolute inset-0 h-full" />
           <div className="z-[2]">
             <h1 className="max-768px:text-[16px] min-2000px:text-[1.2vw] text-[20px] font-manrope font-[700] min-2000px:mb-[0.7vw] mb-5">

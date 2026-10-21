@@ -209,5 +209,35 @@
       "tagline": "Wyjątkowe znajomości zaczynają się od ciebie."
     }
   },
-  "agent": { "clear_history": "Wyczyść historię czatu", "clear_error": "Nie udało się wyczyścić czatu. Spróbuj ponownie." }
+  "agent": {
+    "clear_history": "Wyczyść historię czatu",
+    "clear_error": "Nie udało się wyczyścić czatu. Spróbuj ponownie.",
+    "label": "Agent",
+    "open": "Otwórz czat z agentem Nairo",
+    "minimize": "Zminimalizuj czat",
+    "subtitle": "Pomoc, kiedy jej potrzebujesz",
+    "welcome": "Co masz na myśli?",
+    "description": "Pomysł do odkrycia lub myśl do ubrania w słowa. Zróbmy to razem.",
+    "suggestion_idea": "Znaleźć inspirację",
+    "suggestion_write": "Nadać kształt pomysłowi",
+    "suggestion_help": "Poznać Nairo",
+    "prompt_idea": "Pomóż mi wymyślić nowy pomysł na kolejny post.",
+    "prompt_write": "Mam pomysł na post. Pomożesz mi go rozwinąć?",
+    "prompt_help": "Co mogę robić w Nairo? Pomóż mi zacząć.",
+    "history": "Rozmowa z agentem Nairo",
+    "you": "Ty",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "thinking": "Nairo myśli",
+    "message": "Twoja wiadomość do agenta",
+    "placeholder": "Zadaj pytanie lub podziel się pomysłem…",
+    "send": "Wyślij wiadomość",
+    "hint": "Rozmowa pozostaje zapisana po zminimalizowaniu czatu.",
+    "unavailable": "Wysyłanie jest teraz niedostępne. Twoja wiadomość zostanie zachowana na później.",
+    "error": "Nie udało się wysłać wiadomości. Tekst został przywrócony — spróbuj ponownie.",
+    "sidekick": "Twój partner",
+    "eyebrow": "Miejsce na wielkie pomysły",
+    "start": "Punkt wyjścia",
+    "input_label": "Teraz twoja kolej"
+  }
 }

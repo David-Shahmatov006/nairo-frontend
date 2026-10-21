@@ -70,7 +70,9 @@ export const Search = () => {
           <div className="flex flex-col min-2000px:gap-[1vw] gap-4">
             {!debouncedQuery ? (
               <div className="mt-[5%] flex flex-col items-center min-2000px:gap-[1vw] gap-3">
-                <SeasonalMascot pose="search" className="min-2000px:w-[5vw] w-[100px]" />
+                <div className="flex items-end justify-center gap-2">
+                  <SeasonalMascot pose="search" className="min-2000px:w-[5vw] w-[100px]" />
+                </div>
                 <span className="dark:text-[#6f6f6f] max-768px:text-[14px] min-2000px:text-[.8vw] text-[17px] text-center">
                   {t("search.find_desc")}
                 </span>

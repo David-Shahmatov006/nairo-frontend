@@ -209,5 +209,35 @@
       "tagline": "Grandes conexões começam contigo."
     }
   },
-  "agent": { "clear_history": "Limpar histórico do chat", "clear_error": "Não foi possível limpar o chat. Tente novamente." }
+  "agent": {
+    "clear_history": "Limpar histórico do chat",
+    "clear_error": "Não foi possível limpar o chat. Tente novamente.",
+    "label": "Agente",
+    "open": "Abrir chat com o agente Nairo",
+    "minimize": "Minimizar chat",
+    "subtitle": "Uma ajuda quando precisar",
+    "welcome": "O que você tem em mente?",
+    "description": "Uma ideia para explorar ou um pensamento para expressar. Vamos trabalhar juntos.",
+    "suggestion_idea": "Encontrar inspiração",
+    "suggestion_write": "Dar forma à minha ideia",
+    "suggestion_help": "Conhecer o Nairo",
+    "prompt_idea": "Ajude-me a pensar em uma nova ideia para minha próxima publicação.",
+    "prompt_write": "Tenho uma ideia para uma publicação. Pode me ajudar a desenvolvê-la?",
+    "prompt_help": "O que posso fazer no Nairo? Ajude-me a começar.",
+    "history": "Conversa com o agente Nairo",
+    "you": "Você",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "thinking": "O Nairo está pensando",
+    "message": "Sua mensagem ao agente",
+    "placeholder": "Faça uma pergunta ou compartilhe uma ideia…",
+    "send": "Enviar mensagem",
+    "hint": "Sua conversa fica salva ao minimizar o chat.",
+    "unavailable": "O envio não está disponível no momento. Sua mensagem será guardada para depois.",
+    "error": "Não foi possível enviar a mensagem. Seu texto foi recuperado — tente novamente.",
+    "sidekick": "Seu parceiro",
+    "eyebrow": "Um espaço para grandes ideias",
+    "start": "Um ponto de partida",
+    "input_label": "Sua vez"
+  }
 }

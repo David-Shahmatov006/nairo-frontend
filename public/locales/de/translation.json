@@ -257,5 +257,35 @@
       "tagline": "Besondere Begegnungen beginnen mit dir."
     }
   },
-  "agent": { "clear_history": "Chatverlauf löschen", "clear_error": "Der Chat konnte nicht gelöscht werden. Bitte erneut versuchen." }
+  "agent": {
+    "clear_history": "Chatverlauf löschen",
+    "clear_error": "Der Chat konnte nicht gelöscht werden. Bitte erneut versuchen.",
+    "label": "Agent",
+    "open": "Chat mit Nairo Agent öffnen",
+    "minimize": "Chat minimieren",
+    "subtitle": "Hilfe, wann immer du sie brauchst",
+    "welcome": "Was beschäftigt dich?",
+    "description": "Eine Idee entdecken oder die richtigen Worte finden. Lass uns gemeinsam daran arbeiten.",
+    "suggestion_idea": "Neue Inspiration finden",
+    "suggestion_write": "Meiner Idee eine Form geben",
+    "suggestion_help": "Nairo kennenlernen",
+    "prompt_idea": "Hilf mir, eine neue Idee für meinen nächsten Beitrag zu finden.",
+    "prompt_write": "Ich habe eine Idee für einen Beitrag. Hilfst du mir, sie auszuarbeiten?",
+    "prompt_help": "Was kann ich auf Nairo machen? Hilf mir beim Einstieg.",
+    "history": "Unterhaltung mit Nairo Agent",
+    "you": "Du",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "thinking": "Nairo denkt nach",
+    "message": "Deine Nachricht an den Agenten",
+    "placeholder": "Frag etwas oder teile eine Idee …",
+    "send": "Nachricht senden",
+    "hint": "Deine Unterhaltung bleibt beim Minimieren erhalten.",
+    "unavailable": "Das Senden ist derzeit nicht verfügbar. Deine Nachricht bleibt für später gespeichert.",
+    "error": "Die Nachricht konnte nicht gesendet werden. Dein Text wurde wiederhergestellt — versuche es erneut.",
+    "sidekick": "Dein Begleiter",
+    "eyebrow": "Raum für große Ideen",
+    "start": "Ein Anfang",
+    "input_label": "Jetzt bist du dran"
+  }
 }

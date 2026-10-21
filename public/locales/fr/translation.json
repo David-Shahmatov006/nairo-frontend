@@ -257,5 +257,35 @@
       "tagline": "Les belles rencontres commencent avec vous."
     }
   },
-  "agent": { "clear_history": "Effacer la conversation", "clear_error": "Impossible d’effacer la conversation. Réessayez." }
+  "agent": {
+    "clear_history": "Effacer la conversation",
+    "clear_error": "Impossible d’effacer la conversation. Réessayez.",
+    "label": "Agent",
+    "open": "Ouvrir le chat avec l’agent Nairo",
+    "minimize": "Réduire le chat",
+    "subtitle": "Un coup de main quand tu en as besoin",
+    "welcome": "Qu’as-tu en tête ?",
+    "description": "Une idée à explorer ou une pensée à mettre en mots. Avançons ensemble.",
+    "suggestion_idea": "Trouver l’inspiration",
+    "suggestion_write": "Donner forme à mon idée",
+    "suggestion_help": "Découvrir Nairo",
+    "prompt_idea": "Aide-moi à trouver une nouvelle idée pour ma prochaine publication.",
+    "prompt_write": "J’ai une idée de publication. Peux-tu m’aider à la développer ?",
+    "prompt_help": "Que peut-on faire sur Nairo ? Aide-moi à démarrer.",
+    "history": "Conversation avec l’agent Nairo",
+    "you": "Toi",
+    "copy": "Copier",
+    "copied": "Copié",
+    "thinking": "Nairo réfléchit",
+    "message": "Ton message à l’agent",
+    "placeholder": "Pose une question ou partage une idée…",
+    "send": "Envoyer le message",
+    "hint": "La conversation reste enregistrée quand tu réduis le chat.",
+    "unavailable": "L’envoi est indisponible pour le moment. Ton message est conservé pour plus tard.",
+    "error": "Impossible d’envoyer le message. Ton texte a été restauré — réessaie.",
+    "sidekick": "Ton partenaire",
+    "eyebrow": "Un espace pour les grandes idées",
+    "start": "Un point de départ",
+    "input_label": "À toi de jouer"
+  }
 }

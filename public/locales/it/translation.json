@@ -209,5 +209,35 @@
       "tagline": "I legami più belli iniziano da te."
     }
   },
-  "agent": { "clear_history": "Cancella cronologia chat", "clear_error": "Impossibile cancellare la chat. Riprova." }
+  "agent": {
+    "clear_history": "Cancella cronologia chat",
+    "clear_error": "Impossibile cancellare la chat. Riprova.",
+    "label": "Agente",
+    "open": "Apri la chat con l’agente Nairo",
+    "minimize": "Riduci la chat",
+    "subtitle": "Un aiuto quando ne hai bisogno",
+    "welcome": "A cosa stai pensando?",
+    "description": "Un’idea da esplorare o un pensiero da esprimere. Lavoriamoci insieme.",
+    "suggestion_idea": "Trovare l’ispirazione",
+    "suggestion_write": "Dare forma alla mia idea",
+    "suggestion_help": "Scoprire Nairo",
+    "prompt_idea": "Aiutami a trovare una nuova idea per il mio prossimo post.",
+    "prompt_write": "Ho un’idea per un post. Mi aiuti a svilupparla?",
+    "prompt_help": "Cosa posso fare su Nairo? Aiutami a iniziare.",
+    "history": "Conversazione con l’agente Nairo",
+    "you": "Tu",
+    "copy": "Copia",
+    "copied": "Copiato",
+    "thinking": "Nairo sta pensando",
+    "message": "Il tuo messaggio all’agente",
+    "placeholder": "Fai una domanda o condividi un’idea…",
+    "send": "Invia messaggio",
+    "hint": "La conversazione resta salvata quando riduci la chat.",
+    "unavailable": "L’invio non è disponibile al momento. Il tuo messaggio viene conservato per dopo.",
+    "error": "Impossibile inviare il messaggio. Il testo è stato ripristinato — riprova.",
+    "sidekick": "Il tuo compagno",
+    "eyebrow": "Uno spazio per grandi idee",
+    "start": "Un punto di partenza",
+    "input_label": "Tocca a te"
+  }
 }
