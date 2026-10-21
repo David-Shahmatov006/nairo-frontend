@@ -23,12 +23,24 @@ import {
   AGENT_MESSAGE_MAX_LENGTH,
 } from "../../services/agent.service";
 import { SEASONAL_THEME } from "../../constants/seasonalTheme";
+import clsx from "clsx";
 
-const seasonalAgent = SEASONAL_THEME === "halloween" || SEASONAL_THEME === "christmas"
-  ? SEASONAL_THEME
-  : null;
-const launcherAnimation = seasonalAgent ? `agent-launcher-${seasonalAgent}.png` : "agent-launcher.png";
-const launcherStill = seasonalAgent ? `agent-launcher-${seasonalAgent}-still.png` : "agent-launcher-still.png";
+const seasonalAgent =
+  SEASONAL_THEME === "halloween" || SEASONAL_THEME === "christmas"
+    ? SEASONAL_THEME
+    : null;
+const launcherAnimation = seasonalAgent
+  ? `agent-launcher-${seasonalAgent}.png`
+  : "agent-launcher.png";
+const launcherStill = seasonalAgent
+  ? `agent-launcher-${seasonalAgent}-still.png`
+  : "agent-launcher-still.png";
+const thinkingAnimation = seasonalAgent
+  ? `agent-thinking-${seasonalAgent}.png`
+  : "agent-thinking.png";
+const thinkingStill = seasonalAgent
+  ? `agent-thinking-${seasonalAgent}-still.png`
+  : "agent-thinking-still.png";
 const agentMascot = `${import.meta.env.BASE_URL || "/"}images/${seasonalAgent ? launcherStill : "agent-robot-variant-a.png"}`;
 const canAutoFocus = () =>
   window.matchMedia("(min-width: 769px) and (pointer: fine)").matches;
@@ -473,16 +485,22 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                   ))}
                   {pending && (
                     <div
-                      className="flex min-h-17 items-center gap-3.5 py-1 text-xs text-[var(--agent-muted)] [&_img]:block [&_img]:h-[110px] [&_img]:w-15 [&_img]:shrink-0 [&_img]:object-contain"
+                      className={clsx(
+                        "flex min-h-17 items-center gap-3.5 py-1 text-xs text-[var(--agent-muted)] [&_img]:block [&_img]:h-[150px] [&_img]:shrink-0 [&_img]:object-contain",
+                        SEASONAL_THEME === "halloween"
+                          ? "[&_img]:w-23"
+                          : SEASONAL_THEME === "christmas"
+                            ? "[&_img]:w-23"
+                            : "[&_img]:w-18",
+                      )}
                       role="status"
                     >
                       <img
-                        src={`${import.meta.env.BASE_URL || "/"}images/${reducedMotion ? "agent-thinking-still.png" : "agent-thinking.png"}`}
+                        src={`${import.meta.env.BASE_URL || "/"}images/${reducedMotion ? thinkingStill : thinkingAnimation}`}
                         width={80}
                         height={120}
                         alt=""
                       />
-                      {/* <span>{t("agent.thinking")}</span> */}
                     </div>
                   )}
                 </div>

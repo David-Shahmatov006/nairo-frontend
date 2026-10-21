@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { IoCameraReverseOutline } from "react-icons/io5";
+import { IoCameraReverseOutline, IoSparklesOutline } from "react-icons/io5";
 import { BackButton } from "../../../../../../components/BackButton";
 import { AvatarImage } from "../../../../../../components/AvatarImage";
 import { useAuthStore } from "../../../../../../stores/auth";
 import { userService } from "../../../../../../services/user.service";
+import { postService } from "../../../../../../services/post.service";
 import type { User } from "../../../../../../types/user";
 import clsx from "clsx";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -24,6 +25,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
+  const [isImprovingBio, setIsImprovingBio] = useState(false);
 
   const nameRegex = /^\p{L}+$/u;
   const usernameRegex = /^[a-zA-Z0-9_]{3,}$/;
@@ -47,6 +49,7 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
 
   const isSaveDisabled =
     loading ||
+    isImprovingBio ||
     !isValidName(firstName) ||
     !isValidName(lastName) ||
     !isValidUsername(username);
@@ -75,6 +78,31 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
 
     const preview = URL.createObjectURL(file);
     setAvatarUrl(preview);
+  };
+
+  const improveBio = async () => {
+    if (!bio.trim() || loading || isImprovingBio) return;
+    setIsImprovingBio(true);
+    setError("");
+    try {
+      const improved: unknown = await postService.improveTextWithAI(bio);
+      if (typeof improved !== "string" || !improved.trim()) {
+        throw new Error("Empty AI response");
+      }
+      if (improved.trim().length > 200) {
+        setError(t("edit_profile.bio_ai_too_long", {
+          defaultValue: "The improved bio exceeds 200 characters. Shorten your bio and try again.",
+        }));
+        return;
+      }
+      setBio(improved.trim());
+    } catch {
+      setError(t("edit_profile.bio_ai_error", {
+        defaultValue: "Could not improve your bio. Please try again.",
+      }));
+    } finally {
+      setIsImprovingBio(false);
+    }
   };
 
   const saveChanges = async () => {
@@ -213,13 +241,36 @@ export const EditProfile = ({ onClose }: { onClose: () => void }) => {
             {t("edit_profile.bio_label")}
           </label>
           <textarea
+            id="profile-bio"
             value={bio}
+            disabled={loading || isImprovingBio}
+            aria-busy={isImprovingBio}
             maxLength={200}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
             className="font-[500] dark:bg-white/10 dark:text-white/80 bg-gray-100 min-2000px:px-[.5vw] px-4 max-768px:py-2 max-768px:text-[14px] min-2000px:text-[.8vw] min-2000px:py-[.3vw] py-2 min-2000px:rounded-[.3vw] rounded-xl outline-none focus:ring-2 ring-main/70 duration-300 resize-none custom-scrollbar"
           ></textarea>
-          <p className="text-red-500 min-2000px:text-[.7vw] font-[500]">
+          <div className="flex items-center justify-between gap-3 pt-1">
+            <button
+              type="button"
+              onClick={improveBio}
+              disabled={!bio.trim() || loading || isImprovingBio}
+              aria-busy={isImprovingBio}
+              aria-controls="profile-bio"
+              className="inline-flex min-h-10 cursor-pointer items-center justify-center gap-1.5 rounded-full bg-[#eeeafb] px-3 text-xs font-semibold text-main transition-colors hover:bg-[#e3d9fd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-main/70 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#332b45] dark:text-[#c4a6ff] dark:hover:bg-[#3e2f5b] min-2000px:min-h-[2vw] min-2000px:px-[.6vw] min-2000px:text-[.65vw]"
+            >
+              {isImprovingBio ? (
+                <BiLoaderAlt aria-hidden="true" className="size-4 animate-spin min-2000px:size-[.8vw] motion-reduce:animate-none" />
+              ) : (
+                <IoSparklesOutline aria-hidden="true" className="size-4 min-2000px:size-[.8vw]" />
+              )}
+              Improve with AI
+            </button>
+            <span className="text-xs text-gray-500 dark:text-white/40 min-2000px:text-[.65vw]">
+              {bio.length}/200
+            </span>
+          </div>
+          <p role="alert" className="text-red-500 min-2000px:text-[.7vw] font-[500]">
             {error}
           </p>
         </div>
