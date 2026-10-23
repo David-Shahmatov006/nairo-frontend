@@ -2,6 +2,7 @@ import { AgentMarkdown } from "./AgentMarkdown";
 import { useAgentViewport } from "./useAgentViewport";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useMatch } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { loadConversation, saveConversation } from "./storage";
 import { useTranslation } from "react-i18next";
@@ -65,6 +66,7 @@ const sendToAgent = (messages: AgentMessage[]) =>
 
 export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
   const { t } = useTranslation();
+  const inConversation = !!useMatch("/chats/:chatId");
   const reducedMotion = useReducedMotion();
   const [saved] = useState(() => loadConversation(userId));
   const [open, setOpen] = useState(false);
@@ -192,7 +194,12 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
     <div className="font-manrope text-sm text-[var(--agent-ink)] [--agent-surface:#fff] [--agent-muted:#807b8b] [--agent-border:#e9e6ef] [--agent-ink:#292333] [--agent-soft:#f5f3f8] [--agent-accent:#7955bd] [--agent-canvas:#faf9fc] dark:[--agent-surface:#201e26] dark:[--agent-muted:#a6a0b3] dark:[--agent-border:#35303f] dark:[--agent-ink:#f2eef8] dark:[--agent-soft:#2b2734] dark:[--agent-accent:#c6a7ff] dark:[--agent-canvas:#19171e] [&_button]:cursor-pointer [&_button]:[-webkit-tap-highlight-color:transparent] [&_button:disabled]:cursor-default [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-[var(--agent-accent)] [&_button:focus-visible]:outline-offset-3 motion-reduce:[&_*]:transition-none min-2000px:text-[0.7vw] min-2000px:[&_button:focus-visible]:outline-offset-[0.6vw]">
       <button
         ref={launcher}
-        className="fixed right-6 bottom-[calc(24px+env(safe-area-inset-bottom))] z-60 flex h-[68px] items-center gap-3 rounded-3xl border border-[#e0d2f4] bg-[linear-gradient(120deg,#fff,#f0e8fc)] py-1.5 pr-3 pl-1.5 text-[#39264f] shadow-[0_8px_30px_#43256722,inset_0_1px_0_#fff]  duration-300 hover:-translate-y-[3px] hover:shadow-[0_12px_36px_#43256735] active:translate-y-0 active:scale-[.97] [&[hidden]]:hidden dark:border-[#5a4178] dark:bg-[linear-gradient(120deg,#33273f,#241c30)] dark:text-[#f1e7ff] dark:shadow-[0_8px_30px_#0004] max-768px:right-4 max-768px:bottom-[calc(16px+env(safe-area-inset-bottom))] max-768px:h-[60px] max-768px:gap-[9px] max-768px:rounded-[21px] max-768px:py-[5px] max-768px:pr-2.5 max-768px:pl-[5px] min-2000px:right-[1.2vw] min-2000px:bottom-[calc(1.2vw+env(safe-area-inset-bottom))] min-2000px:h-[3.4vw] min-2000px:gap-[0.6vw] min-2000px:rounded-[1.2vw] min-2000px:py-[0.3vw] min-2000px:pr-[0.6vw] min-2000px:pl-[0.3vw] min-2000px:shadow-[0_0.4vw_1.5vw_#43256722,inset_0_0.05vw_0_#fff] min-2000px:hover:-translate-y-[0.15vw] min-2000px:hover:shadow-[0_0.6vw_1.8vw_#43256735] min-2000px:active:translate-y-[0vw] min-2000px:dark:shadow-[0_0.4vw_1.5vw_#0004]"
+        className={clsx(
+          "fixed right-6 z-60 flex h-[68px] items-center gap-3 rounded-3xl border border-[#e0d2f4] bg-[linear-gradient(120deg,#fff,#f0e8fc)] py-1.5 pr-3 pl-1.5 text-[#39264f] shadow-[0_8px_30px_#43256722,inset_0_1px_0_#fff]  duration-300 hover:-translate-y-[3px] hover:shadow-[0_12px_36px_#43256735] active:translate-y-0 active:scale-[.97] [&[hidden]]:hidden dark:border-[#5a4178] dark:bg-[linear-gradient(120deg,#33273f,#241c30)] dark:text-[#f1e7ff] dark:shadow-[0_8px_30px_#0004] max-768px:right-4 max-768px:h-[60px] max-768px:gap-[9px] max-768px:rounded-[21px] max-768px:py-[5px] max-768px:pr-2.5 max-768px:pl-[5px] min-2000px:right-[1.2vw] min-2000px:h-[3.4vw] min-2000px:gap-[0.6vw] min-2000px:rounded-[1.2vw] min-2000px:py-[0.3vw] min-2000px:pr-[0.6vw] min-2000px:pl-[0.3vw] min-2000px:shadow-[0_0.4vw_1.5vw_#43256722,inset_0_0.05vw_0_#fff] min-2000px:hover:-translate-y-[0.15vw] min-2000px:hover:shadow-[0_0.6vw_1.8vw_#43256735] min-2000px:active:translate-y-[0vw] min-2000px:dark:shadow-[0_0.4vw_1.5vw_#0004]",
+          inConversation
+            ? "bottom-[calc(70px+env(safe-area-inset-bottom))] min-2000px:bottom-[calc(4vw+env(safe-area-inset-bottom))]"
+            : "bottom-[calc(24px+env(safe-area-inset-bottom))] max-768px:bottom-[calc(16px+env(safe-area-inset-bottom))] min-2000px:bottom-[calc(1.2vw+env(safe-area-inset-bottom))]",
+        )}
         onClick={() => setOpen(true)}
         aria-label={t("agent.open")}
         title={t("agent.open")}

@@ -121,9 +121,9 @@ export const Message = ({ message, onDelete }: IProps) => {
 
         {/* The voice capsule carries its own clock time, inside the bubble. */}
         {!isVoice && (
-          <div className="w-full flex justify-between gap-1 items-center mt-1">
+          <div className="w-full flex justify-between gap-1 min-2000px:gap-[.2vw] items-center mt-1 min-2000px:mt-[.2vw]">
             {message.editedAt && (
-              <span className="select-none text-[10px] text-gray-400 italic">
+              <span className="select-none text-[10px] min-2000px:text-[.5vw] text-gray-400 italic">
                 {t("chat.edited_label")}
               </span>
             )}

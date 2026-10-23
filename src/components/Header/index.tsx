@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { IoIosMenu } from "react-icons/io";
 import { LuSun, LuMoon } from "react-icons/lu";
 import { IoAddOutline } from "react-icons/io5";
@@ -29,6 +29,22 @@ export const Header = () => {
   const user = useAuthStore((s) => s.user);
   const { chatId: chatIdFromUrl } = useParams();
   const isMobile = useIsMobile();
+  const headerRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    const updateHeight = () => root.style.setProperty(
+      "--app-header-height",
+      String(headerRef.current?.getBoundingClientRect().height ?? 0) + "px",
+    );
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    if (headerRef.current) observer.observe(headerRef.current);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--app-header-height");
+    };
+  }, [isMobile, chatIdFromUrl]);
   const unreadCount = chats?.reduce(
     (sum, chat) => sum + (chat.unreadCount ?? 0),
     0,
@@ -54,7 +70,7 @@ export const Header = () => {
 
   return (
     !(isMobile && chatIdFromUrl) && (
-      <header className="dark:bg-[#191a1a] z-[50] fixed top-0 left-0 w-full flex items-center justify-between bg-white min-2000px:px-[2vw] px-4 min-2000px:py-[0.7vw] py-3 md:px-8 md:py-4 dark:border-white/10 border-b border-[#E5E7EB]">
+      <header ref={headerRef} className="dark:bg-[#191a1a] z-[50] fixed top-0 left-0 w-full flex items-center justify-between bg-white min-2000px:px-[2vw] px-4 min-2000px:py-[0.7vw] py-3 md:px-8 md:py-4 dark:border-white/10 border-b border-[#E5E7EB]">
         <Logo />
 
         <div className="max-1024px:hidden flex items-center gap-4">

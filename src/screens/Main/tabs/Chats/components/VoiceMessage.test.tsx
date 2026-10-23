@@ -101,6 +101,30 @@ describe("VoiceMessage", () => {
     );
   });
 
+  it("resizes the waveform without recreating the player", () => {
+    const { unmount } = renderVoiceMessage();
+    const container = (WaveSurfer.create as jest.Mock).mock.calls.at(-1)[0].container;
+    const media = wave.media;
+    const createCount = (WaveSurfer.create as jest.Mock).mock.calls.length;
+
+    act(() => {
+      container.style.height = "60px";
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(wave.setOptions).toHaveBeenLastCalledWith({
+      height: 60, barWidth: 4, barGap: 6, barRadius: 8,
+    });
+    expect(WaveSurfer.create).toHaveBeenCalledTimes(createCount);
+    expect(wave.media).toBe(media);
+    expect(wave.destroy).not.toHaveBeenCalled();
+
+    unmount();
+    wave.setOptions.mockClear();
+    window.dispatchEvent(new Event("resize"));
+    expect(wave.setOptions).not.toHaveBeenCalled();
+  });
+
   it("warms the media element up before the first real playback", async () => {
     const user = userEvent.setup();
 

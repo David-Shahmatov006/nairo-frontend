@@ -11,14 +11,14 @@ const Bat = () => (
 export const HalloweenEffects = () => (
   <div className="pointer-events-none fixed inset-0 z-40 overflow-hidden select-none" aria-hidden="true">
     <HalloweenDecorations />
-    <svg className="absolute bottom-0 left-0 w-[clamp(72px,9vw,130px)] text-[#6b7280] opacity-[.28] dark:text-[#d5d1de] dark:opacity-20" viewBox="0 0 140 140" fill="none">
+    <svg className="absolute bottom-0 left-0 w-[clamp(72px,9vw,130px)] min-2000px:w-[6.5vw] text-[#6b7280] opacity-[.28] dark:text-[#d5d1de] dark:opacity-20" viewBox="0 0 140 140" fill="none">
       <path
         d="M0 140V0m0 140h140M0 140 99 41M0 140 54 10M0 140 130 86M0 110q12 4 21 9t9 21M0 80q24 8 42 18t18 42M0 50q36 12 64 26t26 64M0 20q48 16 85 35t35 85"
         stroke="currentColor"
         strokeWidth="1"
       />
     </svg>
-    <div className="absolute left-[-64px] top-[24%] w-[38px] text-[#352b42] opacity-0 dark:text-[#a69aad] [&_svg]:w-full [&_svg]:h-auto animate-[seasonal-bat-cross-right_32s_linear_infinite] [animation-delay:3s] max-768px:w-6 motion-reduce:hidden motion-reduce:animate-none"><Bat /></div>
-    <div className="absolute left-[-64px] top-[56%] w-7 text-[#352b42] opacity-0 dark:text-[#a69aad] [&_svg]:w-full [&_svg]:h-auto animate-[seasonal-bat-cross-left_37s_linear_infinite] [animation-delay:14s] max-768px:hidden motion-reduce:hidden motion-reduce:animate-none"><Bat /></div>
+    <div className="absolute left-[-64px] top-[24%] w-[38px] min-2000px:w-[1.9vw] text-[#352b42] opacity-0 dark:text-[#a69aad] [&_svg]:w-full [&_svg]:h-auto animate-[seasonal-bat-cross-right_32s_linear_infinite] [animation-delay:3s] max-768px:w-6 motion-reduce:hidden motion-reduce:animate-none"><Bat /></div>
+    <div className="absolute left-[-64px] top-[56%] w-7 min-2000px:w-[1.4vw] text-[#352b42] opacity-0 dark:text-[#a69aad] [&_svg]:w-full [&_svg]:h-auto animate-[seasonal-bat-cross-left_37s_linear_infinite] [animation-delay:14s] max-768px:hidden motion-reduce:hidden motion-reduce:animate-none"><Bat /></div>
   </div>
 );

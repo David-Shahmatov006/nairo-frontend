@@ -134,9 +134,10 @@ export const MainLayout = ({ children }: DashboardLayoutProps) => {
           </div>
           <main
             className={clsx(
-              "flex-1 h-full flex flex-col scrollbar-hidden max-1024px:pl-0 [@media(min-width:1024px)_and_(max-width:1339px)]:pl-[250px] min-2000px:pl-[20vw] pl-[315px] overflow-auto min-h-dvh min-2000px:pt-[3.5vw]",
-              !location.pathname.includes("/chats") &&
-              "max-1024px:!px-[16px] [@media(min-width:1024px)_and_(max-width:1339px)]:pr-[0px] max-768px:pt-[80px] min-2000px:pt-[6vw] pt-[116px] max-768px:pb-10 pb-[100px] min-2000px:pr-[7vw] pr-[100px]",
+              "flex-1 min-w-0 flex flex-col scrollbar-hidden max-1024px:pl-0 [@media(min-width:1024px)_and_(max-width:1339px)]:pl-[250px] min-2000px:pl-[20vw] pl-[315px]",
+              location.pathname.includes("/chats")
+                ? "fixed inset-x-0 bottom-0 top-[var(--app-header-height,80px)] min-h-0 overflow-hidden"
+                : "h-full overflow-auto min-h-dvh max-1024px:!px-[16px] [@media(min-width:1024px)_and_(max-width:1339px)]:pr-[0px] max-768px:pt-[80px] min-2000px:pt-[6vw] pt-[116px] max-768px:pb-10 pb-[100px] min-2000px:pr-[7vw] pr-[100px]",
             )}
           >
             {children}

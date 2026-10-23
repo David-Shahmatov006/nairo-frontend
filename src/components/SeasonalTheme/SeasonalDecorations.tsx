@@ -39,13 +39,13 @@ const Witch = () => (
 
 export const HalloweenDecorations = () => (
   <>
-    <div className="absolute top-20 left-0 w-[clamp(64px,8vw,112px)] text-[#82718d] opacity-30 dark:text-[#d6c8e1] dark:opacity-[.24] max-768px:top-[60px] max-768px:w-[50px] max-768px:opacity-20">
+    <div className="absolute top-20 left-0 w-[clamp(64px,8vw,112px)] min-2000px:w-[5.6vw] min-2000px:top-[var(--app-header-height,4.4vw)] text-[#82718d] opacity-30 dark:text-[#d6c8e1] dark:opacity-[.24] max-768px:top-[60px] max-768px:w-[50px] max-768px:opacity-20">
       <Web />
     </div>
-    <div className="absolute top-[19%] left-[-220px] w-[84px] animate-[seasonal-witch-flight_28s_linear_infinite] [&_img]:block [&_img]:w-full [&_img]:h-auto max-768px:w-[116px] max-768px:top-[15%] motion-reduce:hidden">
+    <div className="absolute top-[19%] left-[-220px] w-[84px] min-2000px:w-[6vw] animate-[seasonal-witch-flight_28s_linear_infinite] [&_img]:block [&_img]:w-full [&_img]:h-auto max-768px:w-[116px] max-768px:top-[15%] motion-reduce:hidden">
       <Witch />
     </div>
-    <div className="absolute bottom-[max(10px,env(safe-area-inset-bottom))] left-3.5 flex items-end w-[104px] drop-shadow-[0_3px_5px_#51304c20] [&_img]:w-[65px] [&_img]:shrink-0 [&_img]:h-auto [&_img]:object-contain [&_img]:animate-[seasonal-decoration-bob_5s_ease-in-out_infinite] [&_img+svg]:w-[45px] [&_img+svg]:-ml-2 [&_img+svg]:[animation-delay:-2s] max-768px:left-[3px] max-768px:bottom-[calc(84px+env(safe-area-inset-bottom))] max-768px:w-[46px] max-768px:[&_img]:w-10 max-768px:[&_img+svg]:hidden motion-reduce:[&_img]:animate-none">
+    <div className="absolute bottom-[max(10px,env(safe-area-inset-bottom))] left-3.5 flex items-end w-[122px] min-2000px:w-[7.6vw] min-2000px:left-[.7vw] min-2000px:bottom-[max(.5vw,env(safe-area-inset-bottom))] min-2000px:[&_img]:w-[4vw] drop-shadow-[0_3px_5px_#51304c20] [&_img]:w-[65px] [&_img]:shrink-0 [&_img]:h-auto [&_img]:object-contain [&_img]:animate-[seasonal-decoration-bob_5s_ease-in-out_infinite] [&_img+img]:-ml-2 [&_img+img]:[animation-delay:-2s] max-768px:left-[3px] max-768px:bottom-[calc(84px+env(safe-area-inset-bottom))] max-768px:w-[46px] max-768px:[&_img]:w-10 max-768px:[&_img+img]:hidden motion-reduce:[&_img]:animate-none">
       <Pumpkin />
       <Pumpkin />
     </div>

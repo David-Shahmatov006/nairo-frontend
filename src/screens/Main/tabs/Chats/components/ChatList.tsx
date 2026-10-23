@@ -43,7 +43,7 @@ export const ChatList = ({
         });
 
   return (
-    <div className="max-768px:w-full w-[30%] flex flex-col pr-4 max-768px:border-none max-768px:px-3 border-r dark:border-white/10 border-gray-200 min-2000px:pt-[.8vw] pt-5">
+    <div className="max-768px:w-full w-[30%] min-h-0 min-w-0 shrink-0 flex flex-col pr-4 max-768px:border-none max-768px:px-3 border-r dark:border-white/10 border-gray-200 min-2000px:pt-[.8vw] pt-5">
       {chats.length > 1 && (
         <div className="relative min-2000px:mb-[.5vw] mb-4">
           <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 min-2000px:text-[.5vw] text-gray-500" />
@@ -57,7 +57,7 @@ export const ChatList = ({
         </div>
       )}
 
-      <div className="overflow-y-auto flex-1 space-y-2">
+      <div className="overflow-y-auto overscroll-contain min-h-0 flex-1 space-y-2">
         {chats.length === 0 && (
           <p className="flex items-center justify-center h-[90%] text-gray-500 text-center min-2000px:mt-[1vw] mt-4 min-2000px:text-[.8vw]">
             {t("chat.no_chats")}

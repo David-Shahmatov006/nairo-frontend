@@ -12,7 +12,6 @@ import { ChatHeader } from "./components/ChatHeader";
 import { ChatMessageList } from "./components/ChatMesageList";
 import { ChatInput } from "./components/ChatInput";
 import { userService } from "../../../../services/user.service";
-import clsx from "clsx";
 import { mutate } from "swr";
 import { useAppStore } from "../../../../stores/app";
 import { useIsMobile } from "../../../../hooks/useIsMobile";
@@ -78,7 +77,8 @@ export const Chats = () => {
   };
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const viewport = messagesEndRef.current?.closest(".chat-message-viewport");
+    viewport?.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
   };
 
   const fetchUserChats = useCallback(async () => {
@@ -475,12 +475,7 @@ export const Chats = () => {
   };
 
   return (
-    <div
-      className={clsx(
-        "font-manrope h-full w-full flex",
-        !(chatIdFromURL && isMobile) ? "min-2000px:mt-[1vw] mt-[80px]" : "mt-0",
-      )}
-    >
+    <div className="font-manrope h-full min-h-0 w-full min-w-0 flex">
       {showChatList && (
         <ChatList
           chats={userChats}
@@ -493,7 +488,7 @@ export const Chats = () => {
       )}
 
       {showChatWindow && (
-        <div className="flex-1 min-h-0 overflow-hidden flex flex-col h-[calc(100dvh-80px)] max-768px:h-[100dvh]">
+        <div className="flex-1 min-h-0 min-w-0 overflow-hidden flex flex-col h-full">
           {activeChat ? (
             <>
               <ChatHeader activeChat={activeChat} />

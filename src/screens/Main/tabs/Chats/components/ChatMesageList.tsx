@@ -34,7 +34,7 @@ export const ChatMessageList = ({
 
   return (
     <ScrollToBottom
-      scrollViewClassName="scrollbar-hidden"
+      scrollViewClassName="chat-message-viewport scrollbar-hidden overscroll-contain"
       className="chat-scroll-container chat-scroll flex-1 min-h-0 min-2000px:px-[.5vw] px-5 min-2000px:pt-[.4vw] pt-4 pb-2 relative custom-scrollbar"
     >
       <div className="flex flex-col min-h-full min-2000px:gap-[.3vw] gap-3 custom-scrollbar">

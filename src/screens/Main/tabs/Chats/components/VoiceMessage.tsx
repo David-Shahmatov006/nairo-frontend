@@ -132,6 +132,13 @@ export const VoiceMessage = ({
       return;
     }
 
+    // Match the CSS slot, including its vw sizing on wide screens.
+    const dimensions = () => {
+      const height = Number.parseFloat(getComputedStyle(container).height) || 30;
+      const scale = height / 30;
+      return { height, barWidth: 2 * scale, barGap: 3 * scale, barRadius: 4 * scale };
+    };
+    let waveHeight = dimensions().height;
     const wave = WaveSurfer.create({
       container,
       url: audioUrl,
@@ -139,15 +146,25 @@ export const VoiceMessage = ({
       // immediately and nothing is fetched until the message is played.
       peaks: [barsToPeaks(waveformRef.current)],
       duration: durationMsRef.current / 1000,
-      height: 30,
-      barWidth: 2,
-      barGap: 3,
-      barRadius: 4,
+      ...dimensions(),
       cursorWidth: 0,
       normalize: false,
       dragToSeek: true,
       ...waveColors(fromMeRef.current, themeRef.current),
     });
+
+    const resizeWave = () => {
+      const next = dimensions();
+      if (next.height !== waveHeight) {
+        waveHeight = next.height;
+        wave.setOptions(next);
+      }
+    };
+    const observer = typeof ResizeObserver === "undefined"
+      ? null
+      : new ResizeObserver(resizeWave);
+    observer?.observe(container);
+    window.addEventListener("resize", resizeWave);
 
     const media = wave.getMediaElement();
 
@@ -207,6 +224,8 @@ export const VoiceMessage = ({
     ];
 
     return () => {
+      observer?.disconnect();
+      window.removeEventListener("resize", resizeWave);
       subscriptions.forEach((unsubscribe) => unsubscribe());
       detachLogger();
 
