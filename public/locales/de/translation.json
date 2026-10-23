@@ -280,12 +280,17 @@
     "message": "Deine Nachricht an den Agenten",
     "placeholder": "Frag etwas oder teile eine Idee …",
     "send": "Nachricht senden",
-    "hint": "Deine Unterhaltung bleibt beim Minimieren erhalten.",
+    "hint": "Nairon ist ein KI-Agent. Er kann Fehler machen.",
     "unavailable": "Das Senden ist derzeit nicht verfügbar. Deine Nachricht bleibt für später gespeichert.",
     "error": "Die Nachricht konnte nicht gesendet werden. Dein Text wurde wiederhergestellt — versuche es erneut.",
     "sidekick": "Dein Begleiter",
     "eyebrow": "Raum für große Ideen",
     "start": "Ein Anfang",
     "input_label": "Jetzt bist du dran"
+  },
+  "seasonal_music": {
+    "enable": "Weihnachtsmusik einschalten",
+    "disable": "Weihnachtsmusik ausschalten",
+    "error": "Die Musik konnte nicht abgespielt werden. Versuche es erneut."
   }
 }

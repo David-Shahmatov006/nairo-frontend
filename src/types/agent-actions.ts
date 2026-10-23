@@ -1,5 +1,9 @@
 export type AgentAction =
   | {
+      type: "setMusic";
+      value: "on" | "off";
+    }
+  | {
       type: "setLanguage";
       value:
         | "de"

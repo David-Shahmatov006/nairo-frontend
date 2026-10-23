@@ -232,12 +232,17 @@
     "message": "Asistana mesajın",
     "placeholder": "Bir soru sor veya fikrini paylaş…",
     "send": "Mesaj gönder",
-    "hint": "Sohbeti küçülttüğünde konuşman kaydedilir.",
+    "hint": "Nairon bir yapay zekâ ajanıdır. Hata yapabilir.",
     "unavailable": "Şu anda mesaj gönderilemiyor. Mesajın daha sonra göndermek üzere saklanır.",
     "error": "Mesaj gönderilemedi. Yazdığın metin geri yüklendi — tekrar dene.",
     "sidekick": "Yol arkadaşın",
     "eyebrow": "Büyük fikirler için bir alan",
     "start": "Bir başlangıç noktası",
     "input_label": "Sıra sende"
+  },
+  "seasonal_music": {
+    "enable": "Yılbaşı müziğini aç",
+    "disable": "Yılbaşı müziğini kapat",
+    "error": "Müzik çalınamadı. Lütfen tekrar dene."
   }
 }

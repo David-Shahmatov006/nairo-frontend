@@ -6,7 +6,7 @@ import thinking from "../../assets/images/thinkingMuskot.webp";
 import puzzled from "../../assets/images/thinkingMuskot2.webp";
 import search from "../../assets/images/search_muskot.webp";
 import christmas from "../../assets/images/seasonal-mascots/christmas.png";
-import halloween from "../../assets/images/seasonal-mascots/halloween.png";
+import halloween from "../../assets/images/seasonal-mascots/halloween-zombies.png";
 import valentine from "../../assets/images/seasonal-mascots/valentine.png";
 
 const originals = { welcome, surprised, shrug, thinking, puzzled, search };
@@ -20,6 +20,12 @@ const viewBoxes = {
   thinking: "1080 0 456 535",
   puzzled: "60 512 490 512",
   search: "585 512 480 512",
+};
+// Zombie sleeves extend slightly farther in the shared shrugging pose.
+const halloweenViewBoxes = {
+  ...viewBoxes,
+  surprised: "590 0 490 512",
+  shrug: "590 0 490 512",
 };
 export type MascotPose = keyof typeof originals;
 
@@ -38,7 +44,7 @@ export const SeasonalMascot = ({
       focusable="false"
       className={`h-auto shrink-0 overflow-hidden ${className}`}
       data-mascot-pose={pose}
-      viewBox={viewBoxes[pose]}
+      viewBox={(SEASONAL_THEME === "halloween" ? halloweenViewBoxes : viewBoxes)[pose]}
       overflow="hidden"
     >
       <image href={atlases[SEASONAL_THEME]} width="1536" height="1024" />

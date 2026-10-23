@@ -3,6 +3,7 @@ import WaveSurfer from "wavesurfer.js";
 import RecordPlugin from "wavesurfer.js/dist/plugins/record.esm.js";
 import { peaksToBars, WAVEFORM_BARS } from "../utils/audioPeaks";
 import { enterRecordingSession } from "../utils/audioSession";
+import { useChristmasMusicStore } from "../stores/christmasMusic";
 
 export const VOICE_MIN_DURATION_MS = 500;
 export const VOICE_MAX_DURATION_MS = 120_000;
@@ -65,6 +66,11 @@ const exportWaveform = (wave: WaveSurfer) =>
 
 export const useVoiceRecorder = () => {
   const [state, setState] = useState<VoiceRecorderState>("idle");
+  useEffect(() => {
+    if (state !== "requesting" && state !== "recording") return;
+    useChristmasMusicStore.setState({ recording: true });
+    return () => useChristmasMusicStore.setState({ recording: false });
+  }, [state]);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [result, setResult] = useState<VoiceRecording | null>(null);
 

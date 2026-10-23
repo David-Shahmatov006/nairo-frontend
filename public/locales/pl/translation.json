@@ -232,12 +232,17 @@
     "message": "Twoja wiadomość do agenta",
     "placeholder": "Zadaj pytanie lub podziel się pomysłem…",
     "send": "Wyślij wiadomość",
-    "hint": "Rozmowa pozostaje zapisana po zminimalizowaniu czatu.",
+    "hint": "Nairon to agent AI. Może popełniać błędy.",
     "unavailable": "Wysyłanie jest teraz niedostępne. Twoja wiadomość zostanie zachowana na później.",
     "error": "Nie udało się wysłać wiadomości. Tekst został przywrócony — spróbuj ponownie.",
     "sidekick": "Twój partner",
     "eyebrow": "Miejsce na wielkie pomysły",
     "start": "Punkt wyjścia",
     "input_label": "Teraz twoja kolej"
+  },
+  "seasonal_music": {
+    "enable": "Włącz muzykę świąteczną",
+    "disable": "Wyłącz muzykę świąteczną",
+    "error": "Nie udało się odtworzyć muzyki. Spróbuj ponownie."
   }
 }

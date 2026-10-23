@@ -7,6 +7,7 @@ import { useAppStore } from "./stores/app";
 import { ROUTES } from "./routes";
 import { applySeasonalThemeToDocument } from "./constants/seasonalTheme";
 import { SeasonalThemeRoot } from "./components/SeasonalTheme";
+import { ChristmasMusic } from "./components/SeasonalTheme/ChristmasMusic";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { useAuthStore } from "./stores/auth";
 import { useTranslation } from "react-i18next";
@@ -74,6 +75,7 @@ function App() {
       {agentUserId && <AgentChat key={agentUserId} userId={agentUserId} />}
       <AchievementUnlockModal />
       <SeasonalThemeRoot />
+      {agentUserId && <ChristmasMusic />}
     </Router>
   );
 }

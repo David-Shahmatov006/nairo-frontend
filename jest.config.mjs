@@ -7,7 +7,7 @@ export default {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   transform: {
     "^.+\\.[jt]sx?$": "babel-jest",
-    "^.+\\.(webp|avif|png|jpe?g|gif|svg|woff2?|ttf|eot|mp4)$":
+    "^.+\\.(webp|avif|png|jpe?g|gif|svg|woff2?|ttf|eot|mp4|mp3)$":
       "<rootDir>/src/test/assetTransform.cjs",
   },
   moduleNameMapper: {
@@ -15,7 +15,7 @@ export default {
   },
   // These packages ship ESM only, so Babel has to transpile them too.
   transformIgnorePatterns: [
-    "/node_modules/(?!(file-type|strtok3|token-types|uint8array-extras|@tokenizer|peek-readable|usehooks-ts|react-markdown|remark-.*|rehype-.*|unified|bail|devlop|is-plain-obj|trough|vfile.*|unist-.*|mdast-.*|micromark.*|decode-named-character-reference|character-entities.*|property-information|hast-.*|html-url-attributes|space-separated-tokens|comma-separated-tokens|ccount|escape-string-regexp|markdown-table|trim-lines|zwitch|longest-streak|estree-util-.*|style-to-.*|inline-style-parser|parse-entities|stringify-entities|is-alphanumerical|is-alphabetical|is-decimal|is-hexadecimal)/)",
+    "/node_modules/(?!(file-type|strtok3|token-types|uint8array-extras|@tokenizer|peek-readable|usehooks-ts|react-markdown|katex|hastscript|web-namespaces|remark-.*|rehype-.*|unified|bail|devlop|is-plain-obj|trough|vfile.*|unist-.*|mdast-.*|micromark.*|decode-named-character-reference|character-entities.*|property-information|hast-util-to-text|unist-util-visit-parents|unist-util-is|@ungap/structured-clone|hast-.*|html-url-attributes|space-separated-tokens|comma-separated-tokens|ccount|escape-string-regexp|markdown-table|trim-lines|zwitch|longest-streak|estree-util-.*|style-to-.*|inline-style-parser|parse-entities|stringify-entities|is-alphanumerical|is-alphabetical|is-decimal|is-hexadecimal)/)",
   ],
   clearMocks: true,
   restoreMocks: true,

@@ -16,6 +16,7 @@ import { FiLogOut } from "react-icons/fi";
 import { useAuthStore } from "../../stores/auth";
 import { AvatarImage } from "../AvatarImage";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import { ChristmasMusicButton } from "../SeasonalTheme/ChristmasMusic";
 
 export const Header = () => {
   const theme = useAppStore((s) => s.theme);
@@ -57,6 +58,7 @@ export const Header = () => {
         <Logo />
 
         <div className="max-1024px:hidden flex items-center gap-4">
+          <ChristmasMusicButton />
           <button
             onClick={toggleTheme}
             className="
@@ -93,6 +95,7 @@ export const Header = () => {
         </div>
 
         <div className="max-1024px:flex hidden items-center gap-2">
+          <ChristmasMusicButton mobile />
           <button
             onClick={() => openCreatePostModal(postModal.mode)}
             className="

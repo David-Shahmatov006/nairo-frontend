@@ -231,12 +231,17 @@
     "message": "Your message to the agent",
     "placeholder": "Ask anything, or share an idea…",
     "send": "Send message",
-    "hint": "Your conversation stays here when you minimize.",
+    "hint": "Nairon is an AI agent. It can make mistakes.",
     "unavailable": "Sending is not available yet. Your message is kept here so you can come back to it.",
     "error": "Couldn’t send your message. Your text has been restored — please try again.",
     "sidekick": "Your co-pilot",
     "eyebrow": "A little room for big ideas",
     "start": "A place to start",
     "input_label": "Over to you"
+  },
+  "seasonal_music": {
+    "enable": "Play Christmas music",
+    "disable": "Turn off Christmas music",
+    "error": "Could not play music. Please try again."
   }
 }

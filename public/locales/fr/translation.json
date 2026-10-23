@@ -280,12 +280,17 @@
     "message": "Ton message à l’agent",
     "placeholder": "Pose une question ou partage une idée…",
     "send": "Envoyer le message",
-    "hint": "La conversation reste enregistrée quand tu réduis le chat.",
+    "hint": "Nairon est un agent IA. Il peut se tromper.",
     "unavailable": "L’envoi est indisponible pour le moment. Ton message est conservé pour plus tard.",
     "error": "Impossible d’envoyer le message. Ton texte a été restauré — réessaie.",
     "sidekick": "Ton partenaire",
     "eyebrow": "Un espace pour les grandes idées",
     "start": "Un point de départ",
     "input_label": "À toi de jouer"
+  },
+  "seasonal_music": {
+    "enable": "Activer la musique de Noël",
+    "disable": "Désactiver la musique de Noël",
+    "error": "Impossible de lire la musique. Réessaie."
   }
 }

@@ -1,5 +1,7 @@
 import { $api } from "./interceptor";
 import { executeAgentActions } from "../utils/executeAgentActions";
+import { SEASONAL_THEME } from "../constants/seasonalTheme";
+import { useChristmasMusicStore } from "../stores/christmasMusic";
 
 export const AGENT_MESSAGE_MAX_LENGTH = 2000;
 
@@ -19,6 +21,8 @@ class AgentService {
 
     const { data } = await $api.post("/ai/agent/chat", {
       message: trimmed,
+      musicAvailable: SEASONAL_THEME === "christmas",
+      musicEnabled: useChristmasMusicStore.getState().enabled,
       history: history
         .slice(-40)
         .map(({ role, content }) => ({

@@ -5,6 +5,8 @@ import { LANGS } from "../constants/langs";
 import { userService } from "../services/user.service";
 import { pickAchievementKeys } from "../constants/achievements";
 import { mutate } from "swr";
+import { SEASONAL_THEME } from "../constants/seasonalTheme";
+import { useChristmasMusicStore } from "../stores/christmasMusic";
 
 export const executeAgentActions = async (actions: unknown) => {
   if (!Array.isArray(actions)) return;
@@ -13,6 +15,13 @@ export const executeAgentActions = async (actions: unknown) => {
   for (const action of actions) {
     if (!action || typeof action !== "object") continue;
     switch (action.type) {
+      case "setMusic":
+        if (action.value === "off" ||
+          (action.value === "on" && SEASONAL_THEME === "christmas")) {
+          useChristmasMusicStore.getState().setEnabled(action.value === "on");
+        }
+        break;
+
       case "setTheme":
         if (action.value === "dark" || action.value === "light") {
           store.setTheme(action.value);

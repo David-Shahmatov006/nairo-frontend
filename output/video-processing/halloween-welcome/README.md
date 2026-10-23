@@ -1,0 +1,4 @@
+Source: gemini_generated_video_28def6d6.mp4 (10 seconds).
+Pipeline v4: decode at 16 fps / 640×360, segment foreground per frame with @imgly/background-removal-node 1.4.5 (medium IS-Net model), preserve source RGB, normalize segmentation alpha (0 below 8, 255 above 210, linear between). Crop to x104/y0/384×360 and resize to 288×270 with Lanczos, then encode looping RGBA APNG. No color-based removal is applied to the character. Static fallback uses frame 0.
+Processing dependencies were installed in /tmp only; application dependencies are unchanged.
+Frame 119 was identified by an abrupt drop in foreground-mask area and re-segmented with a tighter source crop (x100, width440). The repaired mask was checked against neighboring frames. Final audit checks all 160 frames for sudden foreground-area loss. Preview contact sheets were inspected on light and dark backgrounds.
