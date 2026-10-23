@@ -1,4 +1,5 @@
 import { AgentMarkdown } from "./AgentMarkdown";
+import { useAgentViewport } from "./useAgentViewport";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -76,7 +77,7 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
   const launcher = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
   const input = useRef<HTMLTextAreaElement>(null);
-  const end = useRef<HTMLDivElement>(null);
+  const messageList = useRef<HTMLDivElement>(null);
   const sending = useRef(false);
   const mounted = useRef(true);
 
@@ -104,37 +105,14 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
     if (!open) return;
     if (canAutoFocus()) input.current?.focus({ preventScroll: true });
     else panel.current?.focus({ preventScroll: true });
-    const previousOverflow = document.body.style.overflow;
-    const previousRootOverflow = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    const viewport = window.visualViewport;
-    const updateViewport = () => {
-      panel.current?.style.setProperty(
-        "--agent-viewport-height",
-        `${viewport?.height ?? window.innerHeight}px`,
-      );
-      panel.current?.style.setProperty(
-        "--agent-viewport-top",
-        `${viewport?.offsetTop ?? 0}px`,
-      );
-    };
-    updateViewport();
-    viewport?.addEventListener("resize", updateViewport);
-    viewport?.addEventListener("scroll", updateViewport);
-    window.addEventListener("resize", updateViewport);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.documentElement.style.overflow = previousRootOverflow;
-      viewport?.removeEventListener("resize", updateViewport);
-      viewport?.removeEventListener("scroll", updateViewport);
-      window.removeEventListener("resize", updateViewport);
-    };
   }, [open]);
 
+  useAgentViewport(open, panel);
+
   useEffect(() => {
-    if (open && (messages.length > 0 || pending || error))
-      end.current?.scrollIntoView?.({ block: "end" });
+    const list = messageList.current;
+    if (open && list && (messages.length > 0 || pending || error))
+      list.scrollTop = list.scrollHeight;
   }, [messages, pending, error, open]);
 
   useEffect(() => {
@@ -281,7 +259,7 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
               }}
               ref={panel}
               id="agent-panel"
-              className="fixed right-6 bottom-6 z-[1000] flex h-[min(760px,calc(100dvh-48px))] w-[min(460px,calc(100vw-48px))] flex-col overflow-hidden rounded-[28px] border border-[var(--agent-border)] bg-[var(--agent-canvas)] shadow-[0_28px_100px_#1e103650] outline-none max-768px:top-[var(--agent-viewport-top,0px)] max-768px:right-0 max-768px:bottom-auto max-768px:left-0 max-768px:h-[var(--agent-viewport-height,100dvh)] max-768px:max-h-none max-768px:w-full max-768px:rounded-none max-768px:border-0 max-768px:shadow-none min-2000px:right-[1.2vw] min-2000px:bottom-[1.2vw] min-2000px:h-[min(38vw,calc(100dvh-2.4vw))] min-2000px:w-[min(23vw,calc(100vw-2.4vw))] min-2000px:rounded-[1.4vw] min-2000px:shadow-[0_1.4vw_5vw_#1e103650]"
+              className="fixed right-6 bottom-6 z-[1000] flex h-[min(760px,calc(100dvh-48px))] w-[min(460px,calc(100vw-48px))] flex-col overflow-hidden overscroll-none rounded-[28px] border border-[var(--agent-border)] bg-[var(--agent-canvas)] shadow-[0_28px_100px_#1e103650] outline-none max-768px:top-[var(--agent-viewport-top,0px)] max-768px:right-0 max-768px:bottom-auto max-768px:left-0 max-768px:h-[var(--agent-viewport-height,100dvh)] max-768px:max-h-none max-768px:w-full max-768px:rounded-none max-768px:border-0 max-768px:shadow-none min-2000px:right-[1.2vw] min-2000px:bottom-[1.2vw] min-2000px:h-[min(38vw,calc(100dvh-2.4vw))] min-2000px:w-[min(23vw,calc(100vw-2.4vw))] min-2000px:rounded-[1.4vw] min-2000px:shadow-[0_1.4vw_5vw_#1e103650]"
               role="dialog"
               aria-modal="true"
               aria-labelledby="agent-title"
@@ -342,7 +320,7 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                   <LuMinus aria-hidden="true" />
                 </button>
               </header>
-              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 [scrollbar-width:thin] [scrollbar-color:var(--agent-border)_transparent] scroll-p-5 max-768px:px-4 max-768px:py-5 min-2000px:min-h-[0vw] min-2000px:p-[1.2vw] min-2000px:scroll-p-[1vw]">
+              <div ref={messageList} className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 [scrollbar-width:thin] [scrollbar-color:var(--agent-border)_transparent] scroll-p-5 max-768px:px-4 max-768px:py-5 min-2000px:min-h-[0vw] min-2000px:p-[1.2vw] min-2000px:scroll-p-[1vw]">
                 {messages.length === 0 && (
                   <div className="pt-1 pb-3 min-2000px:pt-[0.2vw] min-2000px:pb-[0.6vw]">
                     <div className="relative flex flex-col items-center px-3 pb-6 text-center max-768px:pb-[22px] min-2000px:px-[0.6vw] min-2000px:pb-[1.2vw]">
@@ -476,7 +454,7 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                     </div>
                   )}
                 </div>
-                <div ref={end} />
+
               </div>
               <footer className="shrink-0 border-t border-[var(--agent-border)] bg-[var(--agent-surface)] px-5 pt-4 pb-3.5 max-768px:px-3 max-768px:pt-3 max-768px:pb-[max(12px,env(safe-area-inset-bottom))] min-2000px:px-[1vw] min-2000px:pt-[0.8vw] min-2000px:pb-[0.7vw]">
                 {error && (
@@ -488,7 +466,7 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                   </p>
                 )}
                 <form
-                  className="flex items-end gap-2.5 rounded-[18px] border border-[var(--agent-border)] bg-[var(--agent-canvas)] p-2 pl-4 duration-300 focus-within:ring-2 ring-main/50 focus-within:shadow-[0_0_0_3px_#a47bce12] [&_textarea]:min-h-11 [&_textarea]:max-h-[120px] [&_textarea]:min-w-0 [&_textarea]:flex-1 [&_textarea]:resize-none [&_textarea]:border-0 [&_textarea]:bg-transparent [&_textarea]:py-[11px] [&_textarea]:text-sm [&_textarea]:leading-[22px] [&_textarea]:text-[var(--agent-ink)] [&_textarea]:outline-none [&_textarea::placeholder]:text-[var(--agent-muted)] max-768px:[&_textarea]:text-base min-2000px:gap-[0.5vw] min-2000px:rounded-[0.9vw] min-2000px:p-[0.4vw] min-2000px:pl-[0.8vw] min-2000px:focus-within:shadow-[0_0_0_0.15vw_#a47bce12] min-2000px:[&_textarea]:min-h-[2.2vw] min-2000px:[&_textarea]:max-h-[6vw] min-2000px:[&_textarea]:min-w-[0vw] min-2000px:[&_textarea]:py-[0.55vw] min-2000px:[&_textarea]:text-[0.7vw] min-2000px:[&_textarea]:leading-[1.1vw]"
+                  className="flex items-end gap-2.5 rounded-[18px] border border-[var(--agent-border)] bg-[var(--agent-canvas)] p-2 pl-4 duration-300 focus-within:ring-2 ring-main/50 focus-within:shadow-[0_0_0_3px_#a47bce12] [&_textarea]:min-h-11 [&_textarea]:max-h-[120px] [&_textarea]:min-w-0 [&_textarea]:flex-1 [&_textarea]:resize-none [&_textarea]:overscroll-contain [&_textarea]:border-0 [&_textarea]:bg-transparent [&_textarea]:py-[11px] [&_textarea]:text-sm [&_textarea]:leading-[22px] [&_textarea]:text-[var(--agent-ink)] [&_textarea]:outline-none [&_textarea::placeholder]:text-[var(--agent-muted)] max-768px:[&_textarea]:text-base min-2000px:gap-[0.5vw] min-2000px:rounded-[0.9vw] min-2000px:p-[0.4vw] min-2000px:pl-[0.8vw] min-2000px:focus-within:shadow-[0_0_0_0.15vw_#a47bce12] min-2000px:[&_textarea]:min-h-[2.2vw] min-2000px:[&_textarea]:max-h-[6vw] min-2000px:[&_textarea]:min-w-[0vw] min-2000px:[&_textarea]:py-[0.55vw] min-2000px:[&_textarea]:text-[0.7vw] min-2000px:[&_textarea]:leading-[1.1vw]"
                   onSubmit={(event) => {
                     event.preventDefault();
                     void send();
