@@ -4,14 +4,17 @@ Frontend for **Nairo**, an **AI-powered social networking platform** that brings
 
 ## 🤖 AI Experience
 
-- **Nairo AI Agent** — an in-app conversational assistant that finds users and retrieves their posts using real platform data.
+- **Nairon AI Agent** — an in-app conversational assistant that finds users by name or username, including Cyrillic and Latin name variants, and retrieves their posts using real platform data.
+- **Web search** — ask about current news, technology updates, external documentation, and websites. The backend searches through Gemini with Google Search; Nairo users and posts use separate platform tools.
 - **Conversation context** — follow-up questions can refer to earlier answers, including choices from a list of users.
 - **Interface actions** — ask the agent to switch between light and dark themes, change to a supported interface language, or open the post editor.
+- **Background music control** — ask Nairon to enable or disable app music. Enabling requires `SEASONAL_THEME = "christmas"`; browser autoplay may still require a tap on the header music button. The command changes the music preference, not the seasonal theme.
+- **Agent chat interface** — floating chat with starter prompts, copyable replies, animated launcher and thinking states, and Halloween/Christmas mascot variants. Reduced-motion preferences use still images.
 - **AI-assisted writing** — improve text or generate a post from an idea, optionally with an AI-generated image. Generated content can be reviewed in the editor before publishing.
 - **Persistent conversations** — messages and drafts are saved in localStorage separately for each account. The clear-history button also removes the backend conversation cache.
 - **Rich responses** — Markdown formatting, clickable post/profile links, lists, tables, and code blocks.
 
-AI requests run through the authenticated backend API; Gemini credentials are never needed in the frontend. The browser executes supported structured actions through `src/utils/executeAgentActions.ts`.
+AI requests run through the authenticated backend API; Gemini credentials are never needed in the frontend. The browser validates and executes supported structured actions through `src/utils/executeAgentActions.ts`. Language changes also update the authenticated user's saved preference. The agent is instructed to open the post editor only for an explicit request to create a new post or open its editor; publishing remains a separate step.
 
 ### Local development
 
@@ -198,7 +201,8 @@ Animations respect `prefers-reduced-motion` and never intercept clicks.
 
 - ✅ AI-powered social experience with a conversational assistant
 - ✅ AI-assisted text, post, and image generation
-- ✅ Agent-driven theme, language, and editor actions
+- ✅ Google Search-backed web search in the agent chat
+- ✅ Agent-driven theme, language, editor, and seasonal music actions
 - ✅ Fully responsive UI
 - ✅ Dark & Light themes
 - ✅ Multi-language support(10 languages)

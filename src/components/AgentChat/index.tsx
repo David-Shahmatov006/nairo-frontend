@@ -241,10 +241,16 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
           >
             <motion.div
               className="fixed inset-0 z-[999] bg-[#1b102a45] [--agent-blur-unit:1px] [backdrop-filter:blur(calc(var(--agent-blur)*var(--agent-blur-unit)))] [-webkit-backdrop-filter:blur(calc(var(--agent-blur)*var(--agent-blur-unit)))] min-2000px:inset-[0vw] min-2000px:[--agent-blur-unit:0.05vw]"
-              initial={{ opacity: reducedMotion ? 1 : 0, "--agent-blur": reducedMotion ? 5 : 0 }}
+              initial={{
+                opacity: reducedMotion ? 1 : 0,
+                "--agent-blur": reducedMotion ? 5 : 0,
+              }}
               animate={{ opacity: 1, "--agent-blur": 5 }}
               exit={{ opacity: 0, "--agent-blur": 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: reducedMotion ? 0 : 0.22,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               onClick={close}
               aria-hidden="true"
             />
@@ -327,7 +333,10 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                   <LuMinus aria-hidden="true" />
                 </button>
               </header>
-              <div ref={messageList} className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 [scrollbar-width:thin] [scrollbar-color:var(--agent-border)_transparent] scroll-p-5 max-768px:px-4 max-768px:py-5 min-2000px:min-h-[0vw] min-2000px:p-[1.2vw] min-2000px:scroll-p-[1vw]">
+              <div
+                ref={messageList}
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 [scrollbar-width:thin] [scrollbar-color:var(--agent-border)_transparent] scroll-p-5 max-768px:px-4 max-768px:py-5 min-2000px:min-h-[0vw] min-2000px:p-[1.2vw] min-2000px:scroll-p-[1vw]"
+              >
                 {messages.length === 0 && (
                   <div className="pt-1 pb-3 min-2000px:pt-[0.2vw] min-2000px:pb-[0.6vw]">
                     <div className="relative flex flex-col items-center px-3 pb-6 text-center max-768px:pb-[22px] min-2000px:px-[0.6vw] min-2000px:pb-[1.2vw]">
@@ -337,11 +346,17 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                       >
                         <img
                           className="h-[150px] w-[137px] object-contain [@media(max-height:650px)]:h-20 [@media(max-height:650px)]:w-16 min-2000px:h-[7.5vw] min-2000px:w-[6.85vw] min-2000px:[@media(max-height:650px)]:h-[4vw] min-2000px:[@media(max-height:650px)]:w-[3.2vw]"
-                          src={SEASONAL_THEME === "halloween"
-                            ? (reducedMotion ? halloweenWelcomeStill : halloweenWelcome)
-                            : SEASONAL_THEME === "christmas"
-                              ? (reducedMotion ? christmasWelcomeStill : christmasWelcome)
-                              : agentMascot}
+                          src={
+                            SEASONAL_THEME === "halloween"
+                              ? reducedMotion
+                                ? halloweenWelcomeStill
+                                : halloweenWelcome
+                              : SEASONAL_THEME === "christmas"
+                                ? reducedMotion
+                                  ? christmasWelcomeStill
+                                  : christmasWelcome
+                                : agentMascot
+                          }
                           alt=""
                         />
                       </div>
@@ -410,7 +425,10 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                         className={`text-sm leading-[1.75] [overflow-wrap:anywhere]  min-2000px:text-[0.7vw] ${message.role === "user" ? "whitespace-pre-wrap rounded-[18px_18px_4px] bg-[#7955bd] px-4 py-3 text-white min-2000px:rounded-[0.9vw_0.9vw_0.2vw] min-2000px:px-[0.8vw] min-2000px:py-[0.6vw]" : "whitespace-normal rounded-[4px_18px_18px] border border-[var(--agent-border)] bg-[var(--agent-surface)] px-[18px] py-4 [&_p]:mt-0 [&_p]:mb-2.5 [&_p]:whitespace-pre-wrap [&>:last-child]:mb-0 [&_a]:text-[var(--agent-accent)] [&_a]:underline [&_a]:underline-offset-[3px] [&_a:hover]:opacity-80 [&_ul]:mt-2 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-[22px] [&_ol]:mt-2 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-[22px] [&_li]:my-1 [&_strong]:font-bold [&_em]:italic [&_:is(h1,h2,h3,h4,h5,h6)]:mt-3.5 [&_:is(h1,h2,h3,h4,h5,h6)]:mb-2 [&_:is(h1,h2,h3,h4,h5,h6)]:font-bold [&_:is(h1,h2,h3,h4,h5,h6)]:leading-[1.4] [&_h1]:text-xl [&_h2]:text-lg [&_h3]:text-base [&_blockquote]:my-2.5 [&_blockquote]:border-l-[3px] [&_blockquote]:border-[var(--agent-accent)] [&_blockquote]:pl-3 [&_blockquote]:text-[var(--agent-muted)] [&_code]:rounded [&_code]:bg-[var(--agent-soft)] [&_code]:px-[5px] [&_code]:py-0.5 [&_code]:font-mono [&_pre]:my-2.5 [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_pre]:rounded-[10px] [&_pre]:bg-[var(--agent-soft)] [&_pre]:p-3 [&_pre]:whitespace-pre [&_pre_code]:p-0 [&_table]:my-2.5 [&_table]:block [&_table]:max-w-full [&_table]:border-collapse [&_table]:overflow-x-auto [&_:is(th,td)]:border [&_:is(th,td)]:border-[var(--agent-border)] [&_:is(th,td)]:px-2.5 [&_:is(th,td)]:py-1.5 [&_th]:font-bold [&_hr]:my-3 [&_hr]:border-[var(--agent-border)] min-2000px:rounded-[0.2vw_0.9vw_0.9vw] min-2000px:px-[0.9vw] min-2000px:py-[0.8vw] min-2000px:[&_p]:mt-[0vw] min-2000px:[&_p]:mb-[0.5vw] min-2000px:[&>:last-child]:mb-[0vw] min-2000px:[&_a]:underline-offset-[0.15vw] min-2000px:[&_ul]:mt-[0.4vw] min-2000px:[&_ul]:mb-[0.6vw] min-2000px:[&_ul]:pl-[1.1vw] min-2000px:[&_ol]:mt-[0.4vw] min-2000px:[&_ol]:mb-[0.6vw] min-2000px:[&_ol]:pl-[1.1vw] min-2000px:[&_li]:my-[0.2vw] min-2000px:[&_:is(h1,h2,h3,h4,h5,h6)]:mt-[0.7vw] min-2000px:[&_:is(h1,h2,h3,h4,h5,h6)]:mb-[0.4vw] min-2000px:[&_h1]:text-[1vw] min-2000px:[&_h2]:text-[0.9vw] min-2000px:[&_h3]:text-[0.8vw] min-2000px:[&_blockquote]:my-[0.5vw] min-2000px:[&_blockquote]:border-l-[0.15vw] min-2000px:[&_blockquote]:pl-[0.6vw] min-2000px:[&_code]:rounded-[0.2vw] min-2000px:[&_code]:px-[0.25vw] min-2000px:[&_code]:py-[0.1vw] min-2000px:[&_pre]:my-[0.5vw] min-2000px:[&_pre]:rounded-[0.5vw] min-2000px:[&_pre]:p-[0.6vw] min-2000px:[&_pre_code]:p-[0vw] min-2000px:[&_table]:my-[0.5vw] min-2000px:[&_:is(th,td)]:px-[0.5vw] min-2000px:[&_:is(th,td)]:py-[0.3vw] min-2000px:[&_hr]:my-[0.6vw]"}`}
                       >
                         {message.role === "assistant" ? (
-                          <AgentMarkdown content={message.content} onNavigate={close} />
+                          <AgentMarkdown
+                            content={message.content}
+                            onNavigate={close}
+                          />
                         ) : (
                           message.content
                         )}
@@ -461,7 +479,6 @@ export const AgentChat = ({ userId, onSend = sendToAgent }: Props) => {
                     </div>
                   )}
                 </div>
-
               </div>
               <footer className="shrink-0 border-t border-[var(--agent-border)] bg-[var(--agent-surface)] px-5 pt-4 pb-3.5 max-768px:px-3 max-768px:pt-3 max-768px:pb-[max(12px,env(safe-area-inset-bottom))] min-2000px:px-[1vw] min-2000px:pt-[0.8vw] min-2000px:pb-[0.7vw]">
                 {error && (
