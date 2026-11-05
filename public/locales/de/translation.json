@@ -217,7 +217,9 @@
     "voice_message": "Sprachnachricht",
     "mic_denied": "Mikrofonzugriff wurde verweigert",
     "mic_unsupported": "Sprachnachrichten werden in diesem Browser nicht unterstützt",
-    "voice_too_long": "Sprachnachrichten dürfen höchstens 2 Minuten lang sein"
+    "voice_too_long": "Sprachnachrichten dürfen höchstens 2 Minuten lang sein",
+    "today": "Heute",
+    "yesterday": "Gestern"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

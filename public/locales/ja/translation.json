@@ -185,7 +185,9 @@
     "voice_message": "ボイスメッセージ",
     "mic_denied": "マイクへのアクセスが拒否されました",
     "mic_unsupported": "このブラウザではボイスメッセージに対応していません",
-    "voice_too_long": "ボイスメッセージは最大2分です"
+    "voice_too_long": "ボイスメッセージは最大2分です",
+    "today": "今日",
+    "yesterday": "昨日"
   },
   "emoji_modal": {
     "default_emojis": "絵文字",

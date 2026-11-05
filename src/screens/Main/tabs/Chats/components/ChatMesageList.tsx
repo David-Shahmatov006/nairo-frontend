@@ -9,6 +9,7 @@ import { Message } from "./Message";
 import { socket } from "../../../../../services/socket.service";
 import { useAuthStore } from "../../../../../stores/auth";
 import { FaMicrophone } from "react-icons/fa";
+import { formatMessageDay, getDayKey } from "../../../../../utils/formatDate";
 
 interface ChatMessageListProps {
   messages: IMessage[];
@@ -19,13 +20,30 @@ interface ChatMessageListProps {
 
 const FAKE_WAVEFORM_BARS = [0, 1, 2, 3, 4];
 
+const groupByDay = (messages: IMessage[]) => {
+  const groups: { day: string; messages: IMessage[] }[] = [];
+
+  for (const message of messages) {
+    const day = getDayKey(message.createdAt);
+    const lastGroup = groups[groups.length - 1];
+
+    if (lastGroup?.day === day) {
+      lastGroup.messages.push(message);
+    } else {
+      groups.push({ day, messages: [message] });
+    }
+  }
+
+  return groups;
+};
+
 export const ChatMessageList = ({
   messages,
   isTyping,
   isRecording,
   messagesEndRef,
 }: ChatMessageListProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const userId = useAuthStore((s) => s.user?.id);
 
   const handleDeleteMessage = (messageId: string) => {
@@ -39,12 +57,30 @@ export const ChatMessageList = ({
     >
       <div className="flex flex-col min-h-full min-2000px:gap-[.3vw] gap-3 custom-scrollbar">
         {messages.length ? (
-          messages.map((msg) => (
-            <Message
-              key={msg.clientId ?? msg.id}
-              onDelete={handleDeleteMessage}
-              message={msg}
-            />
+          groupByDay(messages).map((group) => (
+            <section
+              key={group.day}
+              className="flex flex-col min-2000px:gap-[.3vw] gap-3"
+            >
+              <div className="sticky top-0 z-10 flex items-center min-2000px:gap-[.4vw] gap-3 pointer-events-none">
+                <div className="flex-1 h-px dark:bg-white/10 bg-gray-300" />
+                <span className="select-none rounded-full dark:bg-[#1a1a1a] bg-gray-200 dark:text-white text-gray-700 min-2000px:text-[.7vw] text-[13px] min-2000px:px-[.5vw] px-3 min-2000px:py-[.15vw] py-1">
+                  {formatMessageDay(group.messages[0].createdAt, i18n.language, {
+                    today: t("chat.today"),
+                    yesterday: t("chat.yesterday"),
+                  })}
+                </span>
+                <div className="flex-1 h-px dark:bg-white/10 bg-gray-300" />
+              </div>
+
+              {group.messages.map((msg) => (
+                <Message
+                  key={msg.clientId ?? msg.id}
+                  onDelete={handleDeleteMessage}
+                  message={msg}
+                />
+              ))}
+            </section>
           ))
         ) : (
           <div className="flex-1">

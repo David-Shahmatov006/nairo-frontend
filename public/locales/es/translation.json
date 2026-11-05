@@ -217,7 +217,9 @@
     "voice_message": "Mensaje de voz",
     "mic_denied": "Se denegó el acceso al micrófono",
     "mic_unsupported": "Los mensajes de voz no son compatibles con este navegador",
-    "voice_too_long": "Los mensajes de voz pueden durar como máximo 2 minutos"
+    "voice_too_long": "Los mensajes de voz pueden durar como máximo 2 minutos",
+    "today": "Hoy",
+    "yesterday": "Ayer"
   },
   "emoji_modal": {
     "default_emojis": "Emojis",

@@ -185,7 +185,9 @@
     "voice_message": "Sesli mesaj",
     "mic_denied": "Mikrofon erişimi reddedildi",
     "mic_unsupported": "Sesli mesajlar bu tarayıcıda desteklenmiyor",
-    "voice_too_long": "Sesli mesajlar en fazla 2 dakika olabilir"
+    "voice_too_long": "Sesli mesajlar en fazla 2 dakika olabilir",
+    "today": "Bugün",
+    "yesterday": "Dün"
   },
   "emoji_modal": {
     "default_emojis": "Emojiler",

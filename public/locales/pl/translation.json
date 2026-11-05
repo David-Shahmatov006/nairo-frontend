@@ -185,7 +185,9 @@
     "voice_message": "Wiadomość głosowa",
     "mic_denied": "Odmówiono dostępu do mikrofonu",
     "mic_unsupported": "Wiadomości głosowe nie są obsługiwane w tej przeglądarce",
-    "voice_too_long": "Wiadomość głosowa może trwać maksymalnie 2 minuty"
+    "voice_too_long": "Wiadomość głosowa może trwać maksymalnie 2 minuty",
+    "today": "Dzisiaj",
+    "yesterday": "Wczoraj"
   },
   "emoji_modal": {
     "default_emojis": "Emoji",
