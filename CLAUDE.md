@@ -18,6 +18,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Never batch unrelated changes into one approval — get approval per logical change if the user hasn't approved the whole set upfront.
 - Also before applying of changes, show the actual diff for every touched file (e.g. via `git diff`) alongside the summary — a prose description of the change is not enough on its own.
 
+## Git
+
+Do not add `Co-Authored-By` trailers or any other mention of Claude co-authorship to commit messages.
+
 ## Commands
 
 Package manager is **yarn 1** (`packageManager` field + `yarn.lock`).
