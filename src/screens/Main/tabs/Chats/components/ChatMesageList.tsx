@@ -62,15 +62,13 @@ export const ChatMessageList = ({
               key={group.day}
               className="flex flex-col min-2000px:gap-[.3vw] gap-3"
             >
-              <div className="sticky top-0 z-10 flex items-center min-2000px:gap-[.4vw] gap-3 pointer-events-none">
-                <div className="flex-1 h-px dark:bg-white/10 bg-gray-300" />
+              <div className="sticky top-0 z-10 flex justify-center items-center min-2000px:gap-[.4vw] gap-3 pointer-events-none">
                 <span className="select-none rounded-full dark:bg-[#1a1a1a] bg-gray-200 dark:text-white text-gray-700 min-2000px:text-[.7vw] text-[13px] min-2000px:px-[.5vw] px-3 min-2000px:py-[.15vw] py-1">
                   {formatMessageDay(group.messages[0].createdAt, i18n.language, {
                     today: t("chat.today"),
                     yesterday: t("chat.yesterday"),
                   })}
                 </span>
-                <div className="flex-1 h-px dark:bg-white/10 bg-gray-300" />
               </div>
 
               {group.messages.map((msg) => (
