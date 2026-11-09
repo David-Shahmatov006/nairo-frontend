@@ -8,7 +8,7 @@ export type SeasonalThemeId = "off" | "valentine" | "halloween" | "christmas";
  * "valentine" — Valentine's costumes for the existing mascots
  * Holidays keep the normal light/dark colors and respect reduced motion.
  */
-export const SEASONAL_THEME: SeasonalThemeId = "off";
+export const SEASONAL_THEME: SeasonalThemeId = "christmas";
 
 export const isSeasonalActive = (id: SeasonalThemeId = SEASONAL_THEME) =>
   id !== "off";
